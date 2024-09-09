@@ -1,6 +1,6 @@
 "use client"; // This makes the component a Client Component
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import {
   FaUser,
@@ -12,9 +12,31 @@ import {
   FaVenusMars,
 } from "react-icons/fa"; // Import icons
 import "react-phone-input-2/lib/style.css";
+import Link from "next/link";
 
-// Dynamically load PhoneInput
-const PhoneInput = dynamic(() => import("react-phone-input-2"), { ssr: false });
+// Dynamically load PhoneInput in a custom wrapper
+const PhoneInputWrapper = () => {
+  const [PhoneInput, setPhoneInput] = useState(null);
+
+  useEffect(() => {
+    const loadPhoneInput = async () => {
+      const module = await import("react-phone-input-2");
+      setPhoneInput(() => module.default);
+    };
+    loadPhoneInput();
+  }, []);
+
+  if (!PhoneInput) return null; // Show nothing or a loader until it's loaded
+
+  return (
+    <PhoneInput
+      inputClass="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-green-400 pl-8 py-3 outline-none"
+      country={"eg"}
+      value={""}
+      onChange={(phone) => console.log(phone)}
+    />
+  );
+};
 
 const Page = () => {
   const [showPassword1, setShowPassword1] = useState(false);
@@ -149,12 +171,7 @@ const Page = () => {
                 Phone Number
               </label>
               <div className="relative flex items-center">
-                <PhoneInput
-                  inputClass="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-green-400 pl-8 py-3 outline-none"
-                  country={"eg"}
-                  value={""}
-                  onChange={(phone) => console.log(phone)}
-                />
+                <PhoneInputWrapper />
               </div>
             </div>
 
@@ -229,12 +246,12 @@ const Page = () => {
             </div>
             <p className="text-sm text-maintext mt-8 text-left">
               Already have an account?{" "}
-              <a
-                href="#"
+              <Link
+                href="/signin"
                 className="text-green-400 font-semibold hover:underline ml-1"
               >
                 Login here
-              </a>
+              </Link>
             </p>
           </form>
         </div>
