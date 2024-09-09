@@ -1,21 +1,31 @@
 "use client";
 
 import React, { useState } from "react";
-import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaCalendarAlt, FaVenusMars } from "react-icons/fa";
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaCalendarAlt,
+  FaVenusMars,
+} from "react-icons/fa";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import Link from "next/link";
 
 const LoginPage = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: '',
-    birthdate: '',
-    gender: '',
-    termsAccepted: false
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    birthdate: "",
+    gender: "",
+    termsAccepted: false,
   });
 
   const togglePasswordVisibility1 = () => setShowPassword1(!showPassword1);
@@ -26,7 +36,15 @@ const LoginPage = () => {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  // Handle phone input change
+  const handlePhoneChange = (phone: string) => {
+    setFormData({
+      ...formData,
+      phone,
     });
   };
 
@@ -34,14 +52,15 @@ const LoginPage = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { name, email, password, confirmPassword, phone, birthdate, gender, termsAccepted } = formData;
+    const { name, email, password, confirmPassword, phone, birthdate, gender, termsAccepted } =
+      formData;
 
     // Simple validation (you can add more complex checks as required)
     if (!termsAccepted) {
       alert("Please accept the terms and conditions.");
       return;
     }
-    
+
     if (password !== confirmPassword) {
       alert("Passwords do not match.");
       return;
@@ -56,7 +75,6 @@ const LoginPage = () => {
   return (
     <div className="font-[sans-serif] bg-white md:h-screen">
       <div className="grid md:grid-cols-2 items-center gap-8 h-full">
-
         {/* Left Section (Form Section) */}
         <div className="flex items-center md:p-8 p-6 bg-white h-full lg:w-11/12 lg:ml-auto">
           <form className="max-w-lg w-full mx-auto" onSubmit={handleSubmit}>
@@ -151,17 +169,28 @@ const LoginPage = () => {
               </div>
             </div>
 
-            {/* Phone Number */}
+            {/* Phone Number with Country Flags */}
             <div className="mt-8">
               <label className="text-maintext text-xs block mb-2">Phone Number</label>
               <div className="relative flex items-center">
-                <input
-                  name="phone"
-                  type="tel"
+                <PhoneInput
+                  country={"eg"}
                   value={formData.phone}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
+                  onChange={handlePhoneChange}
+                  inputStyle={{
+                    width: "100%",
+                    backgroundColor: "transparent",
+                    border: "none",
+                    borderBottom: "1px solid #d1d5db",
+                    paddingLeft: "48px",
+                    fontSize: "14px",
+                    color: "#1f2937",
+                  }}
+                  buttonStyle={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    borderBottom: "1px solid #d1d5db",
+                  }}
                   placeholder="Enter phone number"
                 />
               </div>
@@ -195,7 +224,9 @@ const LoginPage = () => {
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                 >
-                  <option value="" disabled>Select gender</option>
+                  <option value="" disabled>
+                    Select gender
+                  </option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="other">Other</option>
@@ -227,7 +258,7 @@ const LoginPage = () => {
             <div className="mt-12 flex justify-end">
               <button
                 type="submit"
-                className="w-max shadow-xl py-3 px-6 text-sm text-white bg-[#20c0ac] font-semibold rounded-md bg-transparent transitions hover:bg-[#1baa97] focus:outline-none"
+                className="w-max shadow-xl py-3 px-6 text-sm text-white bg-[#23c2af] font-semibold rounded-md bg-transparent transitions hover:bg-[#1baa97] focus:outline-none"
               >
                 Register
               </button>
