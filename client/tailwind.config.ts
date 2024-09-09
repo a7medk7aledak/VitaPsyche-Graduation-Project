@@ -11,6 +11,7 @@ const config: Config = {
       colors: {
         main :"#83DDD3",
         white :"#FEFFFF",
+        heading :"#00BFA5",
         maintext :"#1E256C",
         primarytext :"#1A1A1A",
         paragraphtext :"#5F6E78",

@@ -2,3 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+.phone-input-custom input {
+    @apply w-full bg-transparent text-sm text-white border-b border-gray-300 focus:border-yellow-400 px-2 py-3 outline-none;
+  }
+  
+  .phone-input-custom .flag-dropdown {
+    @apply bg-[#0C172C] text-white;
+  }
+  
+  .phone-input-custom .country-list {
+    @apply bg-[#0C172C] text-white;
+  }
+  
