@@ -9,6 +9,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        buttonhov :"#20c0ac",
+
         main :"#83DDD3",
         white :"#FEFFFF",
         heading :"#00BFA5",
@@ -17,7 +19,6 @@ const config: Config = {
         paragraphtext :"#5F6E78",
         backgroundcolor :"#F8FCFD",
         button :"#83DDD3",
-        hoverbutton :"#20c0ac",
         subbutton :"#1E256C",
         hoversubbutton :"#172061",
         
