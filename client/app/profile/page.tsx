@@ -50,10 +50,10 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 flex justify-center items-center px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+      <div className="container justify-center mx-auto flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
         {/* Sidebar */}
         <aside className="lg:w-1/4 w-full bg-white shadow-md p-4 rounded-2xl h-auto lg:h-[350px] flex flex-col items-center">
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center ">
             {/* Profile Image with Icon */}
             <div className="relative w-24 h-24 bg-button rounded-full mb-4 flex items-center justify-center">
               <FaUser className="text-white text-4xl" />
@@ -73,7 +73,7 @@ const ProfilePage = () => {
           {/* Tabs */}
           <div className="flex justify-start space-x-4 border-b pb-4 mb-4">
             <button
-              className={`text-lg font-medium text-maintext ${
+              className={`text-lg font-medium  ${
                 activeTab === "personalInfo" ? "border-b-2 border-heading text-heading" : ""
               }`}
               onClick={() => setActiveTab("personalInfo")}
@@ -81,8 +81,8 @@ const ProfilePage = () => {
               Personal Information
             </button>
             <button
-              className={`text-lg font-medium text-maintext ${
-                activeTab === "paymentInfo" ? "border-b-2 border-heading text-heading" : ""
+              className={`text-lg font-medium  ${
+                activeTab === "paymentInfo" ? "border-b-2 border-heading text-heading " : ""
               }`}
               onClick={() => setActiveTab("paymentInfo")}
             >
