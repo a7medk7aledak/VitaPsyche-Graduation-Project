@@ -32,6 +32,23 @@ const LoginPage = () => {
   const togglePasswordVisibility2 = () => setShowPassword2(!showPassword2);
 
   // Handle input change
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value, type } = e.target;
+
+    // For checkboxes, use the checked property instead of value
+    if (type === "checkbox") {
+      const isChecked = (e.target as HTMLInputElement).checked;
+      setFormData({
+        ...formData,
+        [name]: isChecked,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+  };
 
   // Handle phone input change
   const handlePhoneChange = (phone: string) => {
@@ -45,10 +62,8 @@ const LoginPage = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const {  password, confirmPassword,  termsAccepted } =
-      formData;
+    const { password, confirmPassword, termsAccepted } = formData;
 
-    // Simple validation (you can add more complex checks as required)
     if (!termsAccepted) {
       alert("Please accept the terms and conditions.");
       return;
@@ -59,7 +74,7 @@ const LoginPage = () => {
       return;
     }
 
-    // Process the form data, e.g., send it to an API or save locally
+    // Process the form data (send it to an API, save locally, etc.)
     console.log("Form submitted successfully:", formData);
 
     // You can reset the form or redirect the user after successful submission
@@ -91,6 +106,7 @@ const LoginPage = () => {
                   name="name"
                   type="text"
                   value={formData.name}
+                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                   placeholder="Enter name"
@@ -107,6 +123,7 @@ const LoginPage = () => {
                   name="email"
                   type="email"
                   value={formData.email}
+                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                   placeholder="Enter email"
@@ -123,6 +140,7 @@ const LoginPage = () => {
                   name="password"
                   type={showPassword1 ? "text" : "password"}
                   value={formData.password}
+                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 pr-10 py-3 outline-none"
                   placeholder="Enter password"
@@ -145,6 +163,7 @@ const LoginPage = () => {
                   name="confirmPassword"
                   type={showPassword2 ? "text" : "password"}
                   value={formData.confirmPassword}
+                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 pr-10 py-3 outline-none"
                   placeholder="Confirm password"
@@ -194,6 +213,7 @@ const LoginPage = () => {
                   name="birthdate"
                   type="date"
                   value={formData.birthdate}
+                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                 />
@@ -208,6 +228,7 @@ const LoginPage = () => {
                 <select
                   name="gender"
                   value={formData.gender}
+                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                 >
@@ -227,12 +248,13 @@ const LoginPage = () => {
                 name="termsAccepted"
                 type="checkbox"
                 checked={formData.termsAccepted}
-             className="h-4 w-4 shrink-0 rounded"
+                onChange={handleInputChange}
+                className="h-4 w-4 shrink-0 rounded"
               />
               <label htmlFor="termsAccepted" className="text-maintext ml-3 block text-sm">
                 I accept the{" "}
                 <a
-                  href="javascript:void(0);"
+                  href="#"
                   className="text-buttonhov font-semibold hover:underline ml-1"
                 >
                   Terms and Conditions
