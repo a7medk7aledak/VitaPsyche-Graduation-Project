@@ -45,34 +45,33 @@ const ProfilePage = () => {
   // Handle the sign-out process
   const handleSignOut = () => {
     setShowSignOutModal(false);
-    // Sign out logic goes here, for example:
     console.log("User signed out");
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 flex justify-center items-center">
-      <div className="container mr-auto ml-auto justify-center flex space-x-6">
+    <div className="min-h-screen bg-gray-100 py-10 flex justify-center items-center px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
         {/* Sidebar */}
-        <aside className="w-1/4 bg-white shadow-md p-4 rounded-2xl h-[350px] flex flex-col justify-center items-center">
+        <aside className="lg:w-1/4 w-full bg-white shadow-md p-4 rounded-2xl h-auto lg:h-[350px] flex flex-col items-center">
           <div className="flex flex-col items-center">
             {/* Profile Image with Icon */}
             <div className="relative w-24 h-24 bg-button rounded-full mb-4 flex items-center justify-center">
-              <FaUser className="text-white text-4xl" /> {/* Profile icon */}
+              <FaUser className="text-white text-4xl" />
             </div>
             <h2 className="text-lg font-semibold text-heading">
               {profileData.nickname}
             </h2>
             <div className="flex items-center space-x-2 text-gray-600">
-              <FaWallet className="text-maintext" /> {/* Wallet Icon */}
+              <FaWallet className="text-maintext" />
               <span>Wallet (0)</span>
             </div>
           </div>
         </aside>
 
         {/* Main Content */}
-        <main className="w-3/6 bg-white shadow-md p-6 rounded-2xl ">
+        <main className="lg:w-3/6 w-full bg-white shadow-md p-6 rounded-2xl">
           {/* Tabs */}
-          <div className="flex justify-start space-x-8 border-b pb-4 mb-4">
+          <div className="flex justify-start space-x-4 border-b pb-4 mb-4">
             <button
               className={`text-lg font-medium text-maintext ${
                 activeTab === "personalInfo" ? "border-b-2 border-heading" : ""
@@ -100,13 +99,13 @@ const ProfilePage = () => {
                 onClick={toggleEditMode}
               >
                 {isEditMode ? "Cancel Edit" : "Edit Profile"}
-                <FaEdit className="ml-2  text-maintext transitions hover:text-hoversubbutton" />
+                <FaEdit className="ml-2 text-maintext transitions hover:text-hoversubbutton" />
               </button>
 
               {/* Personal Information */}
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" /> {/* Lock icon */}
+                  <FaLock className="text-maintext" />
                   <span className="text-paragraphtext">Name (or Nickname)</span>
                 </div>
                 {isEditMode ? (
@@ -115,7 +114,7 @@ const ProfilePage = () => {
                     name="nickname"
                     value={profileData.nickname}
                     onChange={handleInputChange}
-                    className="border rounded-md p-2"
+                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
                   />
                 ) : (
                   <span className="font-medium">{profileData.nickname}</span>
@@ -124,7 +123,7 @@ const ProfilePage = () => {
 
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" /> {/* Lock icon */}
+                  <FaLock className="text-maintext" />
                   <span className="text-paragraphtext">
                     Phone Number (Unverified)
                   </span>
@@ -135,7 +134,7 @@ const ProfilePage = () => {
                     name="phone"
                     value={profileData.phone}
                     onChange={handleInputChange}
-                    className="border rounded-md p-2"
+                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
                   />
                 ) : (
                   <div className="space-x-2">
@@ -149,7 +148,7 @@ const ProfilePage = () => {
 
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" /> {/* Lock icon */}
+                  <FaLock className="text-maintext" />
                   <span className="text-paragraphtext">Email (Unverified)</span>
                 </div>
                 {isEditMode ? (
@@ -158,7 +157,7 @@ const ProfilePage = () => {
                     name="email"
                     value={profileData.email}
                     onChange={handleInputChange}
-                    className="border rounded-md p-2"
+                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
                   />
                 ) : (
                   <div className="space-x-2">
@@ -177,7 +176,7 @@ const ProfilePage = () => {
 
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" /> {/* Lock icon */}
+                  <FaLock className="text-maintext" />
                   <span className="text-paragraphtext">Gender</span>
                 </div>
                 {isEditMode ? (
@@ -186,7 +185,7 @@ const ProfilePage = () => {
                     name="gender"
                     value={profileData.gender}
                     onChange={handleInputChange}
-                    className="border rounded-md p-2"
+                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
                   />
                 ) : (
                   <span className="font-medium">{profileData.gender}</span>
@@ -195,7 +194,7 @@ const ProfilePage = () => {
 
               <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" /> {/* Lock icon */}
+                  <FaLock className="text-maintext" />
                   <span className="text-paragraphtext">Year of birth</span>
                 </div>
                 {isEditMode ? (
@@ -204,7 +203,7 @@ const ProfilePage = () => {
                     name="birthYear"
                     value={profileData.birthYear}
                     onChange={handleInputChange}
-                    className="border rounded-md p-2"
+                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
                   />
                 ) : (
                   <span className="font-medium">{profileData.birthYear}</span>
@@ -243,8 +242,7 @@ const ProfilePage = () => {
                 {/* Payment Method */}
                 <div className="flex justify-between items-center text-gray-600">
                   <div className="flex items-center space-x-2">
-                    <FaCreditCard className="text-heading" />{" "}
-                    {/* Credit Card Icon */}
+                    <FaCreditCard className="text-heading" />
                     <span className="font-semibold text-paragraphtext">
                       Payment Method
                     </span>
@@ -255,8 +253,7 @@ const ProfilePage = () => {
                 {/* Card Type */}
                 <div className="flex justify-between items-center text-gray-600">
                   <div className="flex items-center space-x-2">
-                    <FaCcVisa className="text-blue-600 text-xl" />{" "}
-                    {/* Visa Icon */}
+                    <FaCcVisa className="text-blue-600 text-xl" />
                     <span className="font-semibold text-paragraphtext">
                       Card Type
                     </span>
@@ -267,8 +264,7 @@ const ProfilePage = () => {
                 {/* Card Number */}
                 <div className="flex justify-between items-center text-gray-600">
                   <div className="flex items-center space-x-2">
-                    <FaLock className="text-maintext" />{" "}
-                    {/* Lock icon for card security */}
+                    <FaLock className="text-maintext" />
                     <span className="font-semibold text-paragraphtext">
                       Card Number
                     </span>
@@ -279,8 +275,7 @@ const ProfilePage = () => {
                 {/* PayPal */}
                 <div className="flex justify-between items-center text-gray-600">
                   <div className="flex items-center space-x-2">
-                    <FaPaypal className="text-blue-500 text-xl" />{" "}
-                    {/* PayPal Icon */}
+                    <FaPaypal className="text-blue-500 text-xl" />
                     <span className="font-semibold text-paragraphtext">
                       PayPal
                     </span>
@@ -302,7 +297,7 @@ const ProfilePage = () => {
         {/* Sign-out Confirmation Modal */}
         {showSignOutModal && (
           <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center">
-            <div className="bg-white rounded-lg p-6 w-96">
+            <div className="bg-white rounded-lg p-6 w-11/12 sm:w-96">
               <h2 className="text-lg font-semibold text-heading mb-4">
                 Are you sure you want to sign out?
               </h2>
