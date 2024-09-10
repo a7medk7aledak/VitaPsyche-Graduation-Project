@@ -74,7 +74,7 @@ const ProfilePage = () => {
           <div className="flex justify-start space-x-4 border-b pb-4 mb-4">
             <button
               className={`text-lg font-medium text-maintext ${
-                activeTab === "personalInfo" ? "border-b-2 border-heading" : ""
+                activeTab === "personalInfo" ? "border-b-2 border-heading text-heading" : ""
               }`}
               onClick={() => setActiveTab("personalInfo")}
             >
@@ -82,7 +82,7 @@ const ProfilePage = () => {
             </button>
             <button
               className={`text-lg font-medium text-maintext ${
-                activeTab === "paymentInfo" ? "border-b-2 border-heading" : ""
+                activeTab === "paymentInfo" ? "border-b-2 border-heading text-heading" : ""
               }`}
               onClick={() => setActiveTab("paymentInfo")}
             >
