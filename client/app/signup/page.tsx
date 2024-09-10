@@ -45,7 +45,7 @@ const LoginPage = () => {
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { name, email, password, confirmPassword, phone, birthdate, gender, termsAccepted } =
+    const {  password, confirmPassword,  termsAccepted } =
       formData;
 
     // Simple validation (you can add more complex checks as required)
