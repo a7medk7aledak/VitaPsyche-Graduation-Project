@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Head from "next/head";
+import Image from "next/image"; // Import Image from next
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 
@@ -16,7 +17,6 @@ const LoginPage = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  // Form submission handler
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); // Prevent default form submission (page reload)
 
@@ -48,7 +48,12 @@ const LoginPage = () => {
         <div className="max-w-md w-full px-8 py-10">
           {/* Logo and Title */}
           <div className="flex justify-center items-center mb-6">
-            <img src="/images/logo.png" alt="MindMed Logo" className="w-16 h-16" />
+            <Image
+              src="/images/logo.png"
+              alt="MindMed Logo"
+              width={64}
+              height={64} // You must define width and height
+            />
             <h2 className="text-2xl font-semibold text-center text-teal-700 mb-2">MindMed</h2>
           </div>
 
@@ -68,7 +73,12 @@ const LoginPage = () => {
                   role === "Visitor" ? "bg-button" : "bg-gray-100"
                 }`}
               >
-                <img src="/images/user.png" alt="Visitor" className="w-full h-full" />
+                <Image
+                  src="/images/user.png"
+                  alt="Visitor"
+                  width={64}
+                  height={64} // Adjust image sizes
+                />
               </div>
               <span className="mt-2 text-sm">Visitor</span>
             </button>
@@ -83,7 +93,12 @@ const LoginPage = () => {
                   role === "Doctor" ? "bg-button" : "bg-gray-100"
                 }`}
               >
-                <img src="/images/doctor.png" alt="Doctor" className="w-full h-full" />
+                <Image
+                  src="/images/doctor.png"
+                  alt="Doctor"
+                  width={64}
+                  height={64} // Adjust image sizes
+                />
               </div>
               <span className="mt-2 text-sm">Doctor</span>
             </button>
@@ -151,10 +166,12 @@ const LoginPage = () => {
 
       {/* Right Section (Empty or Decorative Section) */}
       <div className="hidden md:block w-1/2 bg-teal-50">
-        <img
+        <Image
           src="https://readymadeui.com/signin-image.webp"
-          className="lg:max-w-[85%] w-full h-full object-contain block mx-auto"
           alt="login-image"
+          width={900}
+          height={900} // Adjust image size as needed
+          className="lg:max-w-[85%] w-full h-full object-contain block mx-auto"
         />
       </div>
     </div>

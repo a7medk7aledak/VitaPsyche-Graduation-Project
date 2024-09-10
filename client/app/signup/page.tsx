@@ -32,13 +32,6 @@ const LoginPage = () => {
   const togglePasswordVisibility2 = () => setShowPassword2(!showPassword2);
 
   // Handle input change
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
 
   // Handle phone input change
   const handlePhoneChange = (phone: string) => {
@@ -98,7 +91,6 @@ const LoginPage = () => {
                   name="name"
                   type="text"
                   value={formData.name}
-                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                   placeholder="Enter name"
@@ -115,7 +107,6 @@ const LoginPage = () => {
                   name="email"
                   type="email"
                   value={formData.email}
-                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                   placeholder="Enter email"
@@ -132,7 +123,6 @@ const LoginPage = () => {
                   name="password"
                   type={showPassword1 ? "text" : "password"}
                   value={formData.password}
-                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 pr-10 py-3 outline-none"
                   placeholder="Enter password"
@@ -155,7 +145,6 @@ const LoginPage = () => {
                   name="confirmPassword"
                   type={showPassword2 ? "text" : "password"}
                   value={formData.confirmPassword}
-                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 pr-10 py-3 outline-none"
                   placeholder="Confirm password"
@@ -205,7 +194,6 @@ const LoginPage = () => {
                   name="birthdate"
                   type="date"
                   value={formData.birthdate}
-                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                 />
@@ -220,7 +208,6 @@ const LoginPage = () => {
                 <select
                   name="gender"
                   value={formData.gender}
-                  onChange={handleInputChange}
                   required
                   className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
                 >
@@ -240,8 +227,7 @@ const LoginPage = () => {
                 name="termsAccepted"
                 type="checkbox"
                 checked={formData.termsAccepted}
-                onChange={handleInputChange}
-                className="h-4 w-4 shrink-0 rounded"
+             className="h-4 w-4 shrink-0 rounded"
               />
               <label htmlFor="termsAccepted" className="text-maintext ml-3 block text-sm">
                 I accept the{" "}
