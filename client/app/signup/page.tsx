@@ -264,13 +264,14 @@ const LoginPage = () => {
 
             {/* Register Button */}
             <div className="mt-12 flex justify-end">
-              <button
-                type="submit"
-                className="w-max shadow-xl py-3 px-6 text-sm text-white bg-[#23c2af] font-semibold rounded-md bg-transparent transitions hover:bg-[#1baa97] focus:outline-none"
-              >
-                Register
-              </button>
-            </div>
+  <button
+    type="submit"
+    className="w-max shadow-xl py-3 px-6 text-sm text-white bg-[#23c2af] font-semibold rounded-md transitions hover:bg-[#1baa97] focus:outline-none"
+  >
+    Register
+  </button>
+</div>
+
 
             <p className="text-sm text-maintext mt-8 text-left">
               Already have an account?{" "}
