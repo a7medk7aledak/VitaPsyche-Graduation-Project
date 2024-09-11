@@ -45,18 +45,18 @@ Environment Variables
 You need to set environment variables for both the front-end and back-end. Create .env files in the respective directories (client and server).
 
 For Next.js (client):
-
+```
 NEXT_PUBLIC_API_URL=<your_backend_api_url>
 NEXT_PUBLIC_RASA_URL=<your_rasa_chatbot_url>
+```
 For Django (or Flask) (server):
-
-
+```
 DATABASE_URL=<your_mongo_db_url>
 SECRET_KEY=<your_django_secret_key>
 DEBUG=True
+```
+
 Installing Dependencies
-
-
 For the Next.js front-end:
 ```bash
 cd client
@@ -64,12 +64,15 @@ npm install
 # or
 yarn install
 ```
-
 For the Django back-end:
 ```bash
 cd server
 pip install -r requirements.txt
-python manage.py runserver
+```
+For the Flutter mobile app:
+```
+cd mobile
+flutter pub get
 ```
 
 
@@ -78,9 +81,19 @@ To run the Next.js front-end:
 ```
 cd client
 npm run dev
+```
 To run the Django back-end:
 ```
+cd server
+python manage.py runserver
 
+```
+To run the Flutter mobile app:
+```
+cd mobile
+flutter run
+
+```
 To run the Rasa Chatbot:
 ```
 cd chatbot
