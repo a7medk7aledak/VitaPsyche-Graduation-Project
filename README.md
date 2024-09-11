@@ -69,6 +69,7 @@ For the Django back-end:
 ```bash
 cd server
 pip install -r requirements.txt
+python manage.py runserver
 ```
 
 
@@ -80,18 +81,16 @@ npm run dev
 To run the Django back-end:
 ```
 
-```
-cd server
-python manage.py runserver
 To run the Rasa Chatbot:
 ```
-
 cd chatbot
+rasa run --enable-api
+or
+rasa run -m models --enable-api --cors "*"
 ```
-rasa run
 API Testing
 Use Postman or Insomnia to test the APIs for the back-end and to ensure the chatbot is responding as expected.
-```
+
 Deployment
 To deploy the application, you can use the following services:
 
