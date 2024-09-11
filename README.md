@@ -40,59 +40,58 @@ Ensure you have the following installed on your machine:
 ```bash
 git clone https://github.com/your-username/mind-med.git
 cd mind-med
+```
 Environment Variables
 You need to set environment variables for both the front-end and back-end. Create .env files in the respective directories (client and server).
 
 For Next.js (client):
 
-bash
-Copy code
 NEXT_PUBLIC_API_URL=<your_backend_api_url>
 NEXT_PUBLIC_RASA_URL=<your_rasa_chatbot_url>
 For Django (or Flask) (server):
 
-bash
-Copy code
+
 DATABASE_URL=<your_mongo_db_url>
 SECRET_KEY=<your_django_secret_key>
 DEBUG=True
 Installing Dependencies
-For the Next.js front-end:
 
-bash
-Copy code
+
+For the Next.js front-end:
+```bash
 cd client
 npm install
 # or
 yarn install
-For the Django back-end:
+```
 
-bash
-Copy code
+For the Django back-end:
+```bash
 cd server
 pip install -r requirements.txt
+```
+
+
 Running the Project
 To run the Next.js front-end:
-
-bash
-Copy code
+```
 cd client
 npm run dev
 To run the Django back-end:
+```
 
-bash
-Copy code
+```
 cd server
 python manage.py runserver
 To run the Rasa Chatbot:
+```
 
-bash
-Copy code
 cd chatbot
+```
 rasa run
 API Testing
 Use Postman or Insomnia to test the APIs for the back-end and to ensure the chatbot is responding as expected.
-
+```
 Deployment
 To deploy the application, you can use the following services:
 
