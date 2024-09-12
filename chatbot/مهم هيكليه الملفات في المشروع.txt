@@ -1,0 +1,17 @@
+myproject/
+├── chatbot/
+│   ├── migrations/
+│   ├── templates/
+│   │   └─ chatbot.html
+│   │   └─ index.html
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── urls.py
+│   └── views.py
+├── myproject/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+└── manage.py
