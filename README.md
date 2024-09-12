@@ -66,6 +66,11 @@ pip install rasa
 python -m venv venv
 .\venv\Scripts\activate
 ```
+For the django to rasa chatbot:
+```
+pip install django
+pip install requests
+```
 For the Next.js front-end:
 ```bash
 cd client
