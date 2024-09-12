@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+.next/
+.env
+
+# Python/Django
+__pycache__/
+*.pyc
+venv/
+db.sqlite3
+.env
+
+# Rasa
+rasa/.venv
+models/
+data/
+rasa/.pyc
+
+# Machine Learning
+*.h5
+*.pkl
+logs/
