@@ -23,9 +23,8 @@
 │   ├── workspace.xml                  # إعدادات مساحة العمل في IntelliJ IDEA
 │   ├── misc.xml                       # إعدادات متفرقة للمشروع
 │   └── modules.xml                    # إعدادات الوحدات (Modules) في المشروع
-├── .vscode/                           # ملفات إعداد Visual Studio Code (إن كنت تستخدمه)
-│   └── settings.json                  # إعدادات المشروع لـ VSCode
-└── README.md                          # ملف نصي يحتوي على معلومات حول المشروع
+
+
 
 شرح إضافي لبعض المجلدات والملفات:
 venv/:
