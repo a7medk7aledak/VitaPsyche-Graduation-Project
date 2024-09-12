@@ -57,6 +57,20 @@ DEBUG=True
 ```
 
 Installing Dependencies
+For the rasa chatbot:
+```
+#note Python versions: 3.7, 3.8, 3.9 and 3.10. Note that Python 3.10 is only supported for versions 3.4.x and upwards 
+cd chatbot
+pip install rasa
+#to make new Environment
+python -m venv venv
+.\venv\Scripts\activate
+```
+For the django to rasa chatbot:
+```
+pip install django
+pip install requests
+```
 For the Next.js front-end:
 ```bash
 cd client

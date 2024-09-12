@@ -20,3 +20,4 @@ rasa/.pyc
 *.h5
 *.pkl
 logs/
+.venv/
