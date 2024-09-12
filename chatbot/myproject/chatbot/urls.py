@@ -1,7 +1,7 @@
 from django.urls import path
-from . import views
+from .views import chatbot
 
 urlpatterns = [
-    path('', views.index, name='index'),  # صفحة الدردشة الرئيسية
-    path('chatbot/', views.chatbot, name='chatbot'),  # نقطة النهاية للتواصل مع Rasa
+    path('chatbot/', chatbot),
 ]
+
