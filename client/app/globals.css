@@ -6,3 +6,45 @@
 
     @apply transition duration-300 ease-in
 }
+
+section {
+    padding: 3rem 0;
+}
+
+@media (min-width: 640px) {
+    section {
+        padding: 4rem 0;
+    }
+}
+
+@media (min-width: 768px) {
+    section {
+        padding: 5rem 0;
+    }
+}
+
+.btn {
+    @apply flex justify-center items-center gap-2 capitalize text-white  transition-all shadow-md whitespace-nowrap
+
+}
+
+.btn-small {
+    @apply  py-2 px-4 ;
+
+}
+.btn-medium {
+    @apply  py-3 px-4 ;
+
+}
+
+.btn-large {
+    @apply   py-4 px-8 
+}
+
+.btn-primary {
+    @apply bg-button hover:bg-hoverbutton
+}
+
+.btn-secondary {
+    @apply bg-subbutton hover:bg-hoversubbutton
+}
