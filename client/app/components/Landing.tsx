@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Button from "./common/Button";
+import Link from "next/link";
 const Landing = () => {
   return (
     <section id="home" className="relative z-30">
@@ -28,15 +29,17 @@ const Landing = () => {
               anywhere!
             </p>
             <div className="mx-auto w-fit mt-5 ">
-              <Button variant="secondary" size={"large"} roundedValue="full">
-                <Image
-                  src={"/images/Home/talkToAi.png"}
-                  width={20}
-                  height={20}
-                  alt="talkToAi"
-                />
-                Talk to AI
-              </Button>
+              <Link href={'/chatbot'}>
+                <Button variant="secondary" size={"large"} roundedValue="full">
+                  <Image
+                    src={"/images/Home/talkToAi.png"}
+                    width={20}
+                    height={20}
+                    alt="talkToAi"
+                  />
+                  Talk to AI
+                </Button>
+              </Link>
             </div>
           </div>
           {/* textContent */}
