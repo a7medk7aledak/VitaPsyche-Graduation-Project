@@ -1,6 +1,6 @@
 import React from "react";
-import Logo from "./common/Logo";
-import Button from "./common/Button";
+import Logo from "./Logo";
+import Button from "./Button";
 import Image from "next/image";
 import { FaUserDoctor } from "react-icons/fa6";
 import { IoPersonSharp, IoLogoFacebook } from "react-icons/io5";

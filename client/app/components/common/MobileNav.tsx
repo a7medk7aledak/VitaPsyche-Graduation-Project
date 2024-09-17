@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SlMenu } from "react-icons/sl";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
-import { navLinks } from "../constants/nav-links";
+import { navLinks } from "@app/constants/nav-links";
 import { BsPersonAdd } from "react-icons/bs";
 
 import { CiLogin } from "react-icons/ci";

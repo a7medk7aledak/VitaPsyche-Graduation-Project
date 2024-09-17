@@ -3,7 +3,7 @@ import { navLinks } from "@/app/constants/nav-links";
 import { BsPersonAdd } from "react-icons/bs";
 import Logo from "./Logo";
 import { CiLogin } from "react-icons/ci";
-import MobileNav from "../MobileNav";
+import MobileNav from "./MobileNav";
 import Button from "./Button";
 import Link from "next/link";
 

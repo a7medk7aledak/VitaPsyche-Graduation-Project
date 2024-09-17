@@ -25,6 +25,7 @@ const config: Config = {
         hoversubbutton: "#172061",
         homepagebackground: "#83ddd3",
         hovernavlink: "#13cbb7",
+        maincolorincontactform: "#1e6a66",
 
         background: "var(--background)",
         foreground: "var(--foreground)",
