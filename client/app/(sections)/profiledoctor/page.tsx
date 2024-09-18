@@ -1,21 +1,64 @@
 "use client";
 import React, { useState } from "react";
-import { CreditCard, Lock } from "lucide-react";
+import { FaLock } from "react-icons/fa"; // Import lock icon
 
 interface DoctorProfileProps {
-  // ... (previous props remain the same)
+  profileImageUrl: string;
+  fullNameEn: string;
+  fullNameAr: string;
+  specialization: string;
+  clinicName: string;
 }
 
 const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
-  const [activeTab, setActiveTab] = useState("personal");
+  const [doctorData, setDoctorData] = useState({
+    profileImageUrl: "/images/unknown-person.jpg", // Default image
+    fullNameEn: "Dr. John Doe", // Real data
+    fullNameAr: "د. جون دو", // Real data
+    email: "johndoe@example.com", // Real data
+    phoneNumber: "+1234567890", // Real data
+    username: "johndoe", // Real data
+    dateOfBirth: "1980-01-01", // Real data
+    gender: "Male", // Real data
+    nationality: "American", // Real data
+    countryOfResidence: "USA", // Real data
+    fluentLanguages: "English, Arabic", // Real data
+    specialization: "Child Psychology", // Real data
+    clinicName: "New York Psychiatry Clinic", // Real data
+    paymentMethod: "Credit Card", // Dummy data (not provided in form)
+    cardType: "Visa", // Dummy data (not provided in form)
+    cardNumber: "**** **** **** 1234", // Dummy data (not provided in form)
+    paypalConnected: false, // Dummy data (not provided in form)
+    // New data for professional timeline
+    careerTimeline: [
+      { year: "2009", event: "Completed Psychiatry Residency" },
+      { year: "2010", event: "Joined New York Psychiatry Clinic" },
+      { year: "2015", event: "Specialized in Child Psychology" },
+      { year: "2020", event: "Became Head of Child Psychiatry Department" },
+    ],
+  });
+
   const [editing, setEditing] = useState(false);
-  const [doctorData, setDoctorData] = useState(props);
+  const [activeTab, setActiveTab] = useState("personal");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDoctorData({
       ...doctorData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setDoctorData({
+          ...doctorData,
+          profileImageUrl: reader.result as string,
+        });
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
   };
 
   const handleSave = () => {
@@ -25,12 +68,10 @@ const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
 
   const handleLogout = () => {
     console.log("Logging out...");
-    // Implement logout logic here
   };
 
   const handleChangePassword = () => {
     console.log("Changing password...");
-    // Implement password change logic here
   };
 
   const renderPersonalInfo = () => (
@@ -38,19 +79,19 @@ const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
       {[
         { label: "Full Name (English)", key: "fullNameEn" },
         { label: "Full Name (Arabic)", key: "fullNameAr" },
-        { label: "Email", key: "email", sensitive: true },
-        { label: "Phone Number", key: "phoneNumber", sensitive: true },
-        { label: "Username", key: "username" },
-        { label: "Date of Birth", key: "dateOfBirth" },
+        { label: "Email", key: "email", locked: true },
+        { label: "Phone Number", key: "phoneNumber", locked: true },
+        { label: "Username", key: "username", locked: true },
+        { label: "Date of Birth", key: "dateOfBirth", locked: true },
         { label: "Gender", key: "gender" },
         { label: "Nationality", key: "nationality" },
         { label: "Country of Residence", key: "countryOfResidence" },
         { label: "Fluent Languages", key: "fluentLanguages" },
       ].map((field) => (
         <div key={field.key}>
-          <p className="text-sm font-bold text-gray-700 flex items-center">
+          <p className="text-sm font-bold text-gray-700">
             {field.label}:{" "}
-            {field.sensitive && <Lock className="ml-1 w-4 h-4" />}
+            {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
           </p>
           {editing ? (
             <input
@@ -72,14 +113,15 @@ const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
   const renderPaymentInfo = () => (
     <div className="grid grid-cols-2 gap-6">
       {[
-        { label: "Payment Method", key: "paymentMethod" },
-        { label: "Card Type", key: "cardType" },
-        { label: "Card Number", key: "cardNumber" },
-        { label: "PayPal Connected", key: "paypalConnected" },
+        { label: "Payment Method", key: "paymentMethod", locked: true },
+        { label: "Card Type", key: "cardType", locked: true },
+        { label: "Card Number", key: "cardNumber", locked: true },
+        { label: "PayPal Connected", key: "paypalConnected", locked: true },
       ].map((field) => (
         <div key={field.key}>
-          <p className="text-sm font-bold text-gray-700 flex items-center">
-            {field.label}: <Lock className="ml-1 w-4 h-4" />
+          <p className="text-sm font-bold text-gray-700">
+            {field.label}:{" "}
+            {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
           </p>
           {editing ? (
             field.key === "paypalConnected" ? (
@@ -119,80 +161,34 @@ const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
     </div>
   );
 
-  const renderProfessionalInfo = () => (
-    <div className="grid grid-cols-2 gap-6">
-      {[
-        { label: "Category", key: "category" },
-        { label: "Specialization", key: "specialization" },
-        { label: "Years of Experience", key: "yearsOfExperience" },
-        { label: "License Number", key: "licenseNumber" },
-        { label: "Licensing Organization", key: "licensingOrganization" },
-        { label: "Clinic Name", key: "clinicName" },
-        { label: "Availability", key: "availability" },
-      ].map((field) => (
-        <div key={field.key}>
-          <p className="text-sm font-bold text-gray-700">{field.label}:</p>
-          <p className="text-lg">
-            {doctorData[field.key as keyof typeof doctorData]}
-          </p>
-        </div>
-      ))}
+  const renderCareerTimeline = () => (
+    <div className="mt-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Career Timeline</h2>
+      <ul className="timeline">
+        {doctorData.careerTimeline.map((item, index) => (
+          <li key={index} className="mb-4">
+            <span className="text-gray-600">{item.year}</span>
+            <p className="text-lg font-semibold">{item.event}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 
-  const renderTimeline = () => {
-    if (
-      !doctorData.professionalTimeline ||
-      doctorData.professionalTimeline.length === 0
-    ) {
-      return <p>No professional timeline data available.</p>;
-    }
-
-    return (
-      <div className="relative border-l-2 border-blue-500 pl-8">
-        {doctorData.professionalTimeline.map((item, index) => (
-          <div key={index} className="mb-8 relative">
-            <div className="absolute -left-10 mt-1.5 w-4 h-4 rounded-full bg-blue-500"></div>
-            <p className="text-sm font-bold text-gray-700">{item.year}</p>
-            <p className="text-lg">{item.event}</p>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
   const renderDocuments = () => (
-    <div className="grid grid-cols-1 gap-4">
-      {doctorData.cvUrl && (
-        <div>
-          <p className="text-sm font-bold text-gray-700">
-            Curriculum Vitae (CV):
-          </p>
-          <a
-            href={doctorData.cvUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline"
-          >
-            View CV
-          </a>
-        </div>
-      )}
-      {doctorData.qualificationsUrl && (
-        <div>
-          <p className="text-sm font-bold text-gray-700">
-            Professional Qualifications:
-          </p>
-          <a
-            href={doctorData.qualificationsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline"
-          >
-            View Qualifications
-          </a>
-        </div>
-      )}
+    <div className="mt-6">
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Documents</h2>
+      <div className="space-y-2">
+        <a href="/path-to-cv" className="text-blue-500 hover:underline">
+          View CV
+        </a>
+        <a
+          href="/path-to-qualifications"
+          className="text-blue-500 hover:underline"
+        >
+          View Qualifications
+        </a>
+      </div>
     </div>
   );
 
@@ -207,9 +203,17 @@ const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
               alt={`Dr. ${doctorData.fullNameEn}`}
               className="w-24 h-24 rounded-full mr-4 object-cover"
             />
+            {editing && (
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="mt-2"
+              />
+            )}
             <div>
               <h1 className="text-4xl font-bold text-gray-900 mb-2">
-                {doctorData.prefix} {doctorData.fullNameEn}
+                {doctorData.fullNameEn}
               </h1>
               <p className="text-2xl text-gray-600">{doctorData.fullNameAr}</p>
               <p className="text-gray-600">
@@ -241,29 +245,26 @@ const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
 
         {/* Tabs */}
         <div className="flex mb-4">
-          {["personal", "payment", "professional", "timeline", "documents"].map(
-            (tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`mr-2 px-4 py-2 rounded-t-lg ${
-                  activeTab === tab
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-              >
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
-              </button>
-            )
-          )}
+          {["personal", "payment", "career", "documents"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`mr-2 px-4 py-2 rounded-t-lg ${
+                activeTab === tab
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-700"
+              }`}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          ))}
         </div>
 
         {/* Tab Content */}
         <div className="bg-white p-6 rounded-lg mb-8">
           {activeTab === "personal" && renderPersonalInfo()}
           {activeTab === "payment" && renderPaymentInfo()}
-          {activeTab === "professional" && renderProfessionalInfo()}
-          {activeTab === "timeline" && renderTimeline()}
+          {activeTab === "career" && renderCareerTimeline()}
           {activeTab === "documents" && renderDocuments()}
         </div>
 
