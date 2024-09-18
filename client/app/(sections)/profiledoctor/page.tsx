@@ -10,7 +10,7 @@ interface DoctorProfileProps {
   clinicName: string;
 }
 
-const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
+const DoctorProfile: React.FC<DoctorProfileProps> = () => {
   const [doctorData, setDoctorData] = useState({
     profileImageUrl: "/images/unknown-person.jpg", // Default image
     fullNameEn: "Dr. John Doe", // Real data
