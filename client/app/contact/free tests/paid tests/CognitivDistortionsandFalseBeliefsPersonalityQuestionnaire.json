@@ -1,0 +1,955 @@
+{
+  "testTitle": "Cognitive Distortions and False Beliefs Personality Questionnaire",
+  "sections": [
+    {
+      "sectionTitle": "Group 1",
+      "questions": [
+        {
+          "questionId": 1,
+          "questionText": "I get angry and react quickly.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 2,
+          "questionText": "Many people think I exaggerate and make a big deal out of small things.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 3,
+          "questionText": "I know things will not go well.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 4,
+          "questionText": "I feel weak and incapable.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 5,
+          "questionText": "I get very upset if someone points out a flaw in my work.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 6,
+          "questionText": "I feel I will never succeed in forming true friendships.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 7,
+          "questionText": "No matter how hard I try, people will never be satisfied with me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 8,
+          "questionText": "Things have become so bad that nothing seems to matter anymore.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 9,
+          "questionText": "I cannot remember anything that brings joy or happiness.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 10,
+          "questionText": "I tend to exaggerate and blow things out of proportion.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Group 2",
+      "questions": [
+        {
+          "questionId": 11,
+          "questionText": "I know exactly who holds grudges against me at work or school.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 12,
+          "questionText": "I can accurately judge what others think of me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 13,
+          "questionText": "It is important to know who is against you and to take steps to prevent them from succeeding.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 14,
+          "questionText": "Your loved ones should know what you are thinking.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 15,
+          "questionText": "I am good at judging others from the first glance.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 16,
+          "questionText": "When hearts are connected, people can easily know what their loved ones are thinking.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 17,
+          "questionText": "If you spend enough time with someone, you can easily read their thoughts.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 18,
+          "questionText": "I can easily tell what others are thinking.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 19,
+          "questionText": "I get very upset if I find out that my assumptions about someone’s thoughts were wrong.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 20,
+          "questionText": "I can tell when someone is attacking me, even without them mentioning my name or giving any specific details.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Group 3",
+      "questions": [
+        {
+          "questionId": 21,
+          "questionText": "I will end up lonely and isolated.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 22,
+          "questionText": "There is nothing that can be done.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 23,
+          "questionText": "There is no hope for the future.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 24,
+          "questionText": "I am afraid to think about what my life will be like in 10 years.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 25,
+          "questionText": "My life is a waste of time.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 26,
+          "questionText": "Things will keep getting worse.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 27,
+          "questionText": "I believe that people think badly of me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 28,
+          "questionText": "I am afraid of the future.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+{
+      "sectionTitle": "Group 4",
+      "questions": [
+        {
+          "questionId": 29,
+          "questionText": "Everything that happens is my fault.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 30,
+          "questionText": "My interactions with others are often foolish.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 31,
+          "questionText": "Bad things always happen to me specifically.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 32,
+          "questionText": "I often fall into trouble because I can't make decisions on important matters.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 33,
+          "questionText": "I am responsible for any disasters, conflicts, or problems.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 34,
+          "questionText": "I believe it's my personal responsibility to make those I love happy.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 35,
+          "questionText": "When things go wrong with someone, I immediately feel I am to blame.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 36,
+          "questionText": "I always feel I am more prone to criticism than others.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 37,
+          "questionText": "I sometimes feel that people blame me unfairly for things I’m not responsible for.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 38,
+          "questionText": "I have discovered that my social troubles stem from my inability to handle difficult situations.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Group 5",
+      "questions": [
+        {
+          "questionId": 39,
+          "questionText": "The world operates on personal interests.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 40,
+          "questionText": "There is no real love in this world.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 41,
+          "questionText": "No one loves me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 42,
+          "questionText": "No one cares about friendship these days.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 43,
+          "questionText": "No one understands me or ever will.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Group 8",
+      "questions": [
+        {
+          "questionId": 44,
+          "questionText": "I get nervous when I enter a new place because everyone’s eyes are on me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 45,
+          "questionText": "I can tell with just one look who likes me and who dislikes me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 46,
+          "questionText": "Last week, nothing made me feel angry or upset.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 47,
+          "questionText": "My performance drops when others are watching me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 48,
+          "questionText": "I’ve been feeling more afraid and anxious these days.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 49,
+          "questionText": "Staying away from people is a relief for me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 50,
+          "questionText": "I had an unhappy childhood.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 51,
+          "questionText": "I believe that the love and care others show me is just out of pity.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 52,
+          "questionText": "I didn’t have anyone strong to depend on during my childhood.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 53,
+          "questionText": "I experienced many painful and strange experiences in the past.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 54,
+          "questionText": "It’s unfortunate not to have someone to protect me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Group 9",
+      "questions": [
+        {
+          "questionId": 55,
+          "questionText": "People have their sneaky ways of annoying me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 56,
+          "questionText": "I am extremely sensitive to criticism, even if it’s subtle.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 57,
+          "questionText": "Any negative comment or criticism directed at me triggers my anger.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 58,
+          "questionText": "After any meeting, I tend to focus on the criticisms and negative comments made about me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 59,
+          "questionText": "I pay more attention to criticism than to compliments or praise.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 60,
+          "questionText": "We must respond forcefully to others' criticisms to make them stop.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Group 10",
+      "questions": [
+        {
+          "questionId": 61,
+          "questionText": "My excessive confidence gets me into many problems.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 62,
+          "questionText": "Others think I am arrogant because of my high confidence in myself.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 63,
+          "questionText": "I believe my past successes guarantee future success in everything I do.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 64,
+          "questionText": "If I succeed, it's because of my efforts, but if I fail, it's due to external factors conspiring against me.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 65,
+          "questionText": "If I succeed at something, I will certainly succeed at everything else.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 66,
+          "questionText": "It's best to ignore problems until they resolve themselves.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 67,
+          "questionText": "If I make a mistake, it might ruin my reputation and respect.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 68,
+          "questionText": "It's not important to know everything, but it's important to appear knowledgeable.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "Disagree": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Group 11",
+      "questions": [
+        {
+          "questionId": 69,
+          "questionText": "I am constantly comparing myself to others.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 70,
+          "questionText": "I get very upset when a colleague or acquaintance achieves professional or social success, no matter how hard I try to manage my feelings.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 71,
+          "questionText": "To achieve similar success, I must always keep an eye on others' achievements.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 72,
+          "questionText": "I feel depressed because I haven't achieved the success that my peers have.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 73,
+          "questionText": "I am not as successful as others who are my age and in my position.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 74,
+          "questionText": "I am not as attractive as others.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 75,
+          "questionText": "I often feel that I am in competition with others, even if it’s not explicit.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    },
+    {
+      "sectionTitle": "Group 12",
+      "questions": [
+        {
+          "questionId": 76,
+          "questionText": "I feel guilty when I take a break or rest.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 77,
+          "questionText": "I cannot relax, even when I’m not supposed to be working.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 78,
+          "questionText": "I feel that I must be doing something productive all the time.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 79,
+          "questionText": "Even when I take a break, my mind is racing with thoughts of things I need to do.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 80,
+          "questionText": "I feel guilty when I think about doing nothing for a while.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        },
+        {
+          "questionId": 81,
+          "questionText": "I cannot afford to rest because I have so many responsibilities to attend to.",
+          "options": [
+            { "optionId": 1, "optionText": "Strongly Disagree" },
+            { "optionId": 2, "optionText": "Disagree" },
+            { "optionId": 3, "optionText": "Neutral" },
+            { "optionId": 4, "optionText": "Agree" },
+            { "optionId": 5, "optionText": "Strongly Agree" }
+          ]
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "instruction": "Rate each item based on the provided scale (1=Strongly Disagree, 5=Strongly Agree). The total score reflects the degree of cognitive distortions and false beliefs.",
+    "scoreRanges": [
+      { "range": "0-30", "description": "Low cognitive distortions and false beliefs." },
+      { "range": "31-60", "description": "Moderate cognitive distortions and false beliefs." },
+      { "range": "61-100", "description": "High cognitive distortions and false beliefs." }
+    ]
+  }
+}
+
