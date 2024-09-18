@@ -656,6 +656,286 @@
         { "option": "Yes", "value": 1 },
         { "option": "No", "value": 0 }
       ]
+    },
+    {
+      "question_id": 83,
+      "question": "I rarely respect authority figures (e.g., bosses).",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 84,
+      "question": "I do my tasks better than others think I can.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 85,
+      "question": "I don't accept suggestions from others to improve my performance.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 86,
+      "question": "I often pretend to forget to avoid doing certain tasks.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 87,
+      "question": "I argue when asked to do something I don't want to do.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 88,
+      "question": "I am constantly resentful and discontented.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 89,
+      "question": "I feel extremely sad and hopeless.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 90,
+      "question": "I feel worthless and insignificant.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 91,
+      "question": "I have a poor appetite.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 92,
+      "question": "I wake up feeling exhausted in the morning.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 93,
+      "question": "I have thoughts of ending my life.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 94,
+      "question": "I feel like something bad is going to happen to me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 95,
+      "question": "I have lost interest in others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 96,
+      "question": "Most of the people I care about have abandoned me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 97,
+      "question": "I often put myself in situations where I get taken advantage of.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 98,
+      "question": "I refuse help from others to avoid bothering them.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 99,
+      "question": "I don't feel happy even when I achieve success.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 100,
+      "question": "I often say or do things that make others angry at me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 101,
+      "question": "I get bored with people who are nice to me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 102,
+      "question": "I sacrifice myself for others even if they don't ask for it.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 103,
+      "question": "I often fail to achieve personal goals I set for myself.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 104,
+      "question": "I enjoy watching others suffer physically or emotionally.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 105,
+      "question": "I enjoy watching violent sports (e.g., boxing, wrestling).",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 106,
+      "question": "I tend to hurt others just to control them.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 107,
+      "question": "I punish people in front of others when they do something wrong.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 108,
+      "question": "I often force others to obey my orders, even with violence.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 109,
+      "question": "I often belittle others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 110,
+      "question": "I don't care about the feelings of others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 111,
+      "question": "I am harsh in punishing anyone I am responsible for (e.g., child, spouse, student).",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 112,
+      "question": "I don't mind when others direct their aggression towards me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 113,
+      "question": "I don't care if others mock me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 114,
+      "question": "I don't object when others delay my interests.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 115,
+      "question": "I endure the mistreatment and neglect of someone I love.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 116,
+      "question": "I don't get upset when others order me to fulfill their demands.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 117,
+      "question": "I don't mind being a victim, as the saying goes 'better to be oppressed than to be an oppressor.'",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
     }
   ]
 }
