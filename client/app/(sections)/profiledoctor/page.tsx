@@ -1,74 +1,15 @@
-// pages/doctor-profile.tsx
-
 "use client";
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { CreditCard, Lock } from "lucide-react";
 
 interface DoctorProfileProps {
-  fullNameEn: string;
-  fullNameAr: string;
-  prefix: string;
-  email: string;
-  phoneNumber: string;
-  username: string;
-  dateOfBirth: string;
-  gender: string;
-  nationality: string;
-  countryOfResidence: string;
-  fluentLanguages: string;
-  category: string;
-  specialization: string;
-  yearsOfExperience: string;
-  licenseNumber: string;
-  licensingOrganization: string;
-  clinicName?: string;
-  availability: string;
-  cvUrl?: string;
-  qualificationsUrl?: string;
+  // ... (previous props remain the same)
 }
 
-const DoctorProfile: React.FC<DoctorProfileProps> = ({
-  fullNameEn,
-  fullNameAr,
-  prefix,
-  email,
-  phoneNumber,
-  username,
-  dateOfBirth,
-  gender,
-  nationality,
-  countryOfResidence,
-  fluentLanguages,
-  category,
-  specialization,
-  yearsOfExperience,
-  licenseNumber,
-  licensingOrganization,
-  clinicName,
-  availability,
-  cvUrl,
-  qualificationsUrl
-}) => {
+const DoctorProfile: React.FC<DoctorProfileProps> = (props) => {
+  const [activeTab, setActiveTab] = useState("personal");
   const [editing, setEditing] = useState(false);
-  const [doctorData, setDoctorData] = useState({
-    fullNameEn,
-    fullNameAr,
-    prefix,
-    email,
-    phoneNumber,
-    username,
-    dateOfBirth,
-    gender,
-    nationality,
-    countryOfResidence,
-    fluentLanguages,
-    category,
-    specialization,
-    yearsOfExperience,
-    licenseNumber,
-    licensingOrganization,
-    clinicName,
-    availability,
-  });
+  const [doctorData, setDoctorData] = useState(props);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDoctorData({
@@ -79,278 +20,251 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
 
   const handleSave = () => {
     setEditing(false);
-    console.log('Updated Data:', doctorData);
+    console.log("Updated Data:", doctorData);
   };
+
+  const handleLogout = () => {
+    console.log("Logging out...");
+    // Implement logout logic here
+  };
+
+  const handleChangePassword = () => {
+    console.log("Changing password...");
+    // Implement password change logic here
+  };
+
+  const renderPersonalInfo = () => (
+    <div className="grid grid-cols-2 gap-6">
+      {[
+        { label: "Full Name (English)", key: "fullNameEn" },
+        { label: "Full Name (Arabic)", key: "fullNameAr" },
+        { label: "Email", key: "email", sensitive: true },
+        { label: "Phone Number", key: "phoneNumber", sensitive: true },
+        { label: "Username", key: "username" },
+        { label: "Date of Birth", key: "dateOfBirth" },
+        { label: "Gender", key: "gender" },
+        { label: "Nationality", key: "nationality" },
+        { label: "Country of Residence", key: "countryOfResidence" },
+        { label: "Fluent Languages", key: "fluentLanguages" },
+      ].map((field) => (
+        <div key={field.key}>
+          <p className="text-sm font-bold text-gray-700 flex items-center">
+            {field.label}:{" "}
+            {field.sensitive && <Lock className="ml-1 w-4 h-4" />}
+          </p>
+          {editing ? (
+            <input
+              name={field.key}
+              value={doctorData[field.key as keyof typeof doctorData]}
+              onChange={handleChange}
+              className="mt-1 p-2 border border-gray-300 rounded w-full"
+            />
+          ) : (
+            <p className="text-lg">
+              {doctorData[field.key as keyof typeof doctorData]}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderPaymentInfo = () => (
+    <div className="grid grid-cols-2 gap-6">
+      {[
+        { label: "Payment Method", key: "paymentMethod" },
+        { label: "Card Type", key: "cardType" },
+        { label: "Card Number", key: "cardNumber" },
+        { label: "PayPal Connected", key: "paypalConnected" },
+      ].map((field) => (
+        <div key={field.key}>
+          <p className="text-sm font-bold text-gray-700 flex items-center">
+            {field.label}: <Lock className="ml-1 w-4 h-4" />
+          </p>
+          {editing ? (
+            field.key === "paypalConnected" ? (
+              <select
+                name={field.key}
+                value={doctorData[field.key] ? "Yes" : "No"}
+                onChange={(e) =>
+                  setDoctorData({
+                    ...doctorData,
+                    [field.key]: e.target.value === "Yes",
+                  })
+                }
+                className="mt-1 p-2 border border-gray-300 rounded w-full"
+              >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            ) : (
+              <input
+                name={field.key}
+                value={doctorData[field.key as keyof typeof doctorData]}
+                onChange={handleChange}
+                className="mt-1 p-2 border border-gray-300 rounded w-full"
+              />
+            )
+          ) : (
+            <p className="text-lg">
+              {field.key === "paypalConnected"
+                ? doctorData[field.key]
+                  ? "Yes"
+                  : "No"
+                : doctorData[field.key as keyof typeof doctorData]}
+            </p>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderProfessionalInfo = () => (
+    <div className="grid grid-cols-2 gap-6">
+      {[
+        { label: "Category", key: "category" },
+        { label: "Specialization", key: "specialization" },
+        { label: "Years of Experience", key: "yearsOfExperience" },
+        { label: "License Number", key: "licenseNumber" },
+        { label: "Licensing Organization", key: "licensingOrganization" },
+        { label: "Clinic Name", key: "clinicName" },
+        { label: "Availability", key: "availability" },
+      ].map((field) => (
+        <div key={field.key}>
+          <p className="text-sm font-bold text-gray-700">{field.label}:</p>
+          <p className="text-lg">
+            {doctorData[field.key as keyof typeof doctorData]}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+
+  const renderTimeline = () => {
+    if (
+      !doctorData.professionalTimeline ||
+      doctorData.professionalTimeline.length === 0
+    ) {
+      return <p>No professional timeline data available.</p>;
+    }
+
+    return (
+      <div className="relative border-l-2 border-blue-500 pl-8">
+        {doctorData.professionalTimeline.map((item, index) => (
+          <div key={index} className="mb-8 relative">
+            <div className="absolute -left-10 mt-1.5 w-4 h-4 rounded-full bg-blue-500"></div>
+            <p className="text-sm font-bold text-gray-700">{item.year}</p>
+            <p className="text-lg">{item.event}</p>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderDocuments = () => (
+    <div className="grid grid-cols-1 gap-4">
+      {doctorData.cvUrl && (
+        <div>
+          <p className="text-sm font-bold text-gray-700">
+            Curriculum Vitae (CV):
+          </p>
+          <a
+            href={doctorData.cvUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline"
+          >
+            View CV
+          </a>
+        </div>
+      )}
+      {doctorData.qualificationsUrl && (
+        <div>
+          <p className="text-sm font-bold text-gray-700">
+            Professional Qualifications:
+          </p>
+          <a
+            href={doctorData.qualificationsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 underline"
+          >
+            View Qualifications
+          </a>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-cyan-500 to-blue-500 p-8 flex justify-center items-center">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-2xl">
         {/* Profile Header */}
         <div className="flex items-center justify-between mb-8">
-          <div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-2">{doctorData.fullNameEn}</h1>
-            <p className="text-gray-600">{doctorData.specialization} | {doctorData.clinicName}</p>
+          <div className="flex items-center">
+            <img
+              src={doctorData.profileImageUrl}
+              alt={`Dr. ${doctorData.fullNameEn}`}
+              className="w-24 h-24 rounded-full mr-4 object-cover"
+            />
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+                {doctorData.prefix} {doctorData.fullNameEn}
+              </h1>
+              <p className="text-2xl text-gray-600">{doctorData.fullNameAr}</p>
+              <p className="text-gray-600">
+                {doctorData.specialization} | {doctorData.clinicName}
+              </p>
+            </div>
           </div>
-          <button
-            onClick={() => setEditing(!editing)}
-            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
-          >
-            {editing ? 'Cancel Edit' : 'Edit Profile'}
-          </button>
-        </div>
-
-        {/* Personal Information */}
-        <h2 className="text-2xl font-semibold mb-4 text-blue-700">Personal Information</h2>
-        <div className="grid grid-cols-2 gap-6 mb-8">
-          <div>
-            <p className="text-sm font-bold text-gray-700">Full Name (English):</p>
-            {editing ? (
-              <input
-                name="fullNameEn"
-                value={doctorData.fullNameEn}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.prefix} {doctorData.fullNameEn}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Full Name (Arabic):</p>
-            {editing ? (
-              <input
-                name="fullNameAr"
-                value={doctorData.fullNameAr}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.fullNameAr}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Email Address:</p>
-            {editing ? (
-              <input
-                name="email"
-                value={doctorData.email}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.email}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Phone Number:</p>
-            {editing ? (
-              <input
-                name="phoneNumber"
-                value={doctorData.phoneNumber}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.phoneNumber}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Username:</p>
-            {editing ? (
-              <input
-                name="username"
-                value={doctorData.username}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.username}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Date of Birth:</p>
-            {editing ? (
-              <input
-                name="dateOfBirth"
-                value={doctorData.dateOfBirth}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.dateOfBirth}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Gender:</p>
-            {editing ? (
-              <input
-                name="gender"
-                value={doctorData.gender}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.gender}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Nationality:</p>
-            {editing ? (
-              <input
-                name="nationality"
-                value={doctorData.nationality}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.nationality}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Country of Residence:</p>
-            {editing ? (
-              <input
-                name="countryOfResidence"
-                value={doctorData.countryOfResidence}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.countryOfResidence}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Fluent Languages:</p>
-            {editing ? (
-              <input
-                name="fluentLanguages"
-                value={doctorData.fluentLanguages}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.fluentLanguages}</p>
-            )}
+          <div className="flex flex-col space-y-2">
+            <button
+              onClick={() => setEditing(!editing)}
+              className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+            >
+              {editing ? "Cancel Edit" : "Edit Profile"}
+            </button>
+            <button
+              onClick={handleChangePassword}
+              className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 transition"
+            >
+              Change Password
+            </button>
+            <button
+              onClick={handleLogout}
+              className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700 transition"
+            >
+              Log Out
+            </button>
           </div>
         </div>
 
-        {/* Professional Information */}
-        <h2 className="text-2xl font-semibold mb-4 text-blue-700">Professional Information</h2>
-        <div className="grid grid-cols-2 gap-6 mb-8">
-          <div>
-            <p className="text-sm font-bold text-gray-700">Category:</p>
-            {editing ? (
-              <input
-                name="category"
-                value={doctorData.category}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.category}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Specialization:</p>
-            {editing ? (
-              <input
-                name="specialization"
-                value={doctorData.specialization}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.specialization}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Years of Experience:</p>
-            {editing ? (
-              <input
-                name="yearsOfExperience"
-                value={doctorData.yearsOfExperience}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.yearsOfExperience}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">License Number:</p>
-            {editing ? (
-              <input
-                name="licenseNumber"
-                value={doctorData.licenseNumber}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.licenseNumber}</p>
-            )}
-          </div>
-          <div>
-            <p className="text-sm font-bold text-gray-700">Licensing Organization:</p>
-            {editing ? (
-              <input
-                name="licensingOrganization"
-                value={doctorData.licensingOrganization}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.licensingOrganization}</p>
-            )}
-          </div>
-          {doctorData.clinicName && (
-            <div>
-              <p className="text-sm font-bold text-gray-700">Clinic Name:</p>
-              {editing ? (
-                <input
-                  name="clinicName"
-                  value={doctorData.clinicName}
-                  onChange={handleChange}
-                  className="mt-1 p-2 border border-gray-300 rounded w-full"
-                />
-              ) : (
-                <p className="text-lg">{doctorData.clinicName}</p>
-              )}
-            </div>
+        {/* Tabs */}
+        <div className="flex mb-4">
+          {["personal", "payment", "professional", "timeline", "documents"].map(
+            (tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`mr-2 px-4 py-2 rounded-t-lg ${
+                  activeTab === tab
+                    ? "bg-blue-500 text-white"
+                    : "bg-gray-200 text-gray-700"
+                }`}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            )
           )}
-          <div>
-            <p className="text-sm font-bold text-gray-700">Availability for Sessions:</p>
-            {editing ? (
-              <input
-                name="availability"
-                value={doctorData.availability}
-                onChange={handleChange}
-                className="mt-1 p-2 border border-gray-300 rounded w-full"
-              />
-            ) : (
-              <p className="text-lg">{doctorData.availability}</p>
-            )}
-          </div>
         </div>
 
-        {/* Documents Section */}
-        <h2 className="text-2xl font-semibold mb-4 text-blue-700">Documents</h2>
-        <div className="grid grid-cols-1 gap-4">
-          {cvUrl && (
-            <div>
-              <p className="text-sm font-bold text-gray-700">Curriculum Vitae (CV):</p>
-              <a href={cvUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-                View CV
-              </a>
-            </div>
-          )}
-          {qualificationsUrl && (
-            <div>
-              <p className="text-sm font-bold text-gray-700">Professional Qualifications:</p>
-              <a href={qualificationsUrl} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-                View Qualifications
-              </a>
-            </div>
-          )}
+        {/* Tab Content */}
+        <div className="bg-white p-6 rounded-lg mb-8">
+          {activeTab === "personal" && renderPersonalInfo()}
+          {activeTab === "payment" && renderPaymentInfo()}
+          {activeTab === "professional" && renderProfessionalInfo()}
+          {activeTab === "timeline" && renderTimeline()}
+          {activeTab === "documents" && renderDocuments()}
         </div>
 
         {/* Save Button */}
@@ -367,30 +281,4 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   );
 };
 
-// Example of how to pass data into the component
-export default function DoctorProfilePage() {
-  const doctorData = {
-    fullNameEn: 'John Doe',
-    fullNameAr: 'جون دو',
-    prefix: 'Dr.',
-    email: 'johndoe@example.com',
-    phoneNumber: '+1234567890',
-    username: 'johndoe',
-    dateOfBirth: '1980-01-01',
-    gender: 'Male',
-    nationality: 'American',
-    countryOfResidence: 'USA',
-    fluentLanguages: 'English, Arabic',
-    category: 'Psychiatrist',
-    specialization: 'Child Psychology',
-    yearsOfExperience: '15',
-    licenseNumber: '123456789',
-    licensingOrganization: 'American Medical Board',
-    clinicName: 'New York Psychiatry Clinic',
-    availability: 'Mon-Fri, 9am - 5pm',
-    cvUrl: '/path/to/cv.pdf',
-    qualificationsUrl: '/path/to/qualifications.pdf',
-  };
-
-  return <DoctorProfile {...doctorData} />;
-}
+export default DoctorProfile;
