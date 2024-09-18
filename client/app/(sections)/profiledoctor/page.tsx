@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 interface DoctorProfileProps {
   profileImageUrl?: string;
@@ -24,6 +24,7 @@ interface DoctorData {
   email: string;
   phoneNumber: string;
   username: string;
+  password: string;
   dateOfBirth: string;
   gender: string;
   nationality: string;
@@ -44,7 +45,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   clinicName,
 }) => {
   const [doctorData, setDoctorData] = useState<DoctorData>({
-    profileImageUrl: profileImageUrl || "/images/unknown-person.jpg",
+    profileImageUrl: profileImageUrl || "/images/default-avatar.png",
     fullNameEn: fullNameEn || "Dr. John Doe",
     fullNameAr: fullNameAr || "د. جون دو",
     specialization: specialization || "Psychiatry",
@@ -52,6 +53,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
     email: "johndoe@example.com",
     phoneNumber: "+1234567890",
     username: "johndoe",
+    password: "********",
     dateOfBirth: "1980-01-01",
     gender: "Male",
     nationality: "American",
@@ -71,6 +73,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
 
   const [editing, setEditing] = useState(false);
   const [activeTab, setActiveTab] = useState("personal");
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -80,21 +83,21 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
     }));
   };
 
-const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  if (e.target.files && e.target.files[0]) {
-    const reader = new FileReader();
-    reader.onload = (event: ProgressEvent<FileReader>) => {
-      const result = event.target?.result;
-      if (result && typeof result === "string") {
-        setDoctorData((prevData) => ({
-          ...prevData,
-          profileImageUrl: result,
-        }));
-      }
-    };
-    reader.readAsDataURL(e.target.files[0]);
-  }
-};
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (event: ProgressEvent<FileReader>) => {
+        const result = event.target?.result;
+        if (result && typeof result === "string") {
+          setDoctorData((prevData) => ({
+            ...prevData,
+            profileImageUrl: result,
+          }));
+        }
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
 
   const renderPersonalInfo = () => (
     <div className="grid grid-cols-2 gap-6">
@@ -104,6 +107,7 @@ const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         { label: "Email", key: "email", locked: true },
         { label: "Phone Number", key: "phoneNumber", locked: true },
         { label: "Username", key: "username", locked: true },
+        { label: "Password", key: "password", type: "password" },
         { label: "Date of Birth", key: "dateOfBirth", locked: true },
         { label: "Gender", key: "gender" },
         { label: "Nationality", key: "nationality" },
@@ -116,15 +120,36 @@ const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
             {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
           </p>
           {editing && !field.locked ? (
-            <input
-              name={field.key}
-              value={doctorData[field.key as keyof DoctorData] as string}
-              onChange={handleChange}
-              className="mt-1 p-2 border border-gray-300 rounded w-full"
-            />
+            field.key === "password" ? (
+              <div className="relative">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name={field.key}
+                  value={doctorData[field.key as keyof DoctorData] as string}
+                  onChange={handleChange}
+                  className="mt-1 p-2 border border-gray-300 rounded w-full pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+            ) : (
+              <input
+                name={field.key}
+                value={doctorData[field.key as keyof DoctorData] as string}
+                onChange={handleChange}
+                className="mt-1 p-2 border border-gray-300 rounded w-full"
+              />
+            )
           ) : (
             <p className="text-lg">
-              {String(doctorData[field.key as keyof DoctorData])}
+              {field.key === "password"
+                ? "********"
+                : String(doctorData[field.key as keyof DoctorData])}
             </p>
           )}
         </div>
@@ -219,19 +244,28 @@ const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-2xl">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
-            <img
-              src={doctorData.profileImageUrl}
-              alt={`Dr. ${doctorData.fullNameEn}`}
-              className="w-24 h-24 rounded-full mr-4 object-cover"
-            />
-            {editing && (
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="mt-2"
+            <div className="relative w-24 h-24 rounded-full overflow-hidden mr-4">
+              <img
+                src={doctorData.profileImageUrl}
+                alt={`Dr. ${doctorData.fullNameEn}`}
+                className="w-full h-full object-cover"
               />
-            )}
+              {editing && (
+                <label
+                  htmlFor="profile-image"
+                  className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white cursor-pointer"
+                >
+                  <span>Change</span>
+                  <input
+                    id="profile-image"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                  />
+                </label>
+              )}
+            </div>
             <div>
               <h1 className="text-4xl font-bold text-gray-900 mb-2">
                 {doctorData.fullNameEn}
@@ -250,19 +284,23 @@ const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           </button>
         </div>
 
-        <div className="tabs flex justify-between">
+        <div className="tabs flex justify-between mb-6">
           {["personal", "payment", "career", "documents"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`tab ${activeTab === tab ? "active" : ""}`}
+              className={`tab ${
+                activeTab === tab
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-700"
+              } py-2 px-4 rounded-t-lg transition`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)} Info
             </button>
           ))}
         </div>
 
-        <div className="tab-content mt-8">
+        <div className="tab-content mt-8 bg-gray-100 p-6 rounded-lg">
           {activeTab === "personal" && renderPersonalInfo()}
           {activeTab === "payment" && renderPaymentInfo()}
           {activeTab === "career" && renderCareerTimeline()}
@@ -273,4 +311,14 @@ const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   );
 };
 
-export default DoctorProfile;
+export default function DoctorProfilePage() {
+  return (
+    <DoctorProfile
+      profileImageUrl="/images/doctor-profile.jpg"
+      fullNameEn="Dr. Ahmed Mohamed"
+      fullNameAr="د. أحمد محمد"
+      specialization="Cardiology"
+      clinicName="Heart Care Clinic"
+    />
+  );
+}
