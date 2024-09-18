@@ -4,7 +4,7 @@ import Landing from "./components/Landing";
 import Heading from "./components/common/Heading";
 import Services from "./components/Services";
 import AboutMindmed from "./components/AboutMindmed";
-import Footer from "./components/Footer";
+import Footer from "@components/common/Footer";
 
 export default function Home() {
   return (

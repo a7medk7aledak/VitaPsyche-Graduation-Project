@@ -8,7 +8,7 @@
 }
 
 section {
-    padding: 3rem 0;
+    padding: 4rem 0;
 }
 
 @media (min-width: 640px) {
@@ -19,7 +19,7 @@ section {
 
 @media (min-width: 768px) {
     section {
-        padding: 5rem 0;
+        padding: 6rem 0;
     }
 }
 
