@@ -6,7 +6,14 @@ import {
   FaMicrophoneSlash,
   FaPaperPlane,
   FaBars,
-} from "react-icons/fa"; // Importing React Icons
+} from "react-icons/fa";
+
+// Declare the global SpeechRecognition for TypeScript
+declare global {
+  interface Window {
+    webkitSpeechRecognition: new () => SpeechRecognition;
+  }
+}
 
 const ChatBotPage: React.FC = () => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
@@ -15,15 +22,13 @@ const ChatBotPage: React.FC = () => {
   const [input, setInput] = useState<string>("");
   const [isListening, setIsListening] = useState<boolean>(false);
   const [language, setLanguage] = useState<string>("en-US"); // Default to English
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(
-    null
-  );
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState<boolean>(false); // Mobile Chat History visibility
 
   // Initialize speech recognition when component mounts
   useEffect(() => {
     if ("webkitSpeechRecognition" in window) {
-      const newRecognition = new (window as any).webkitSpeechRecognition();
+      const newRecognition = new (window as typeof window & { webkitSpeechRecognition: new () => SpeechRecognition }).webkitSpeechRecognition();
       newRecognition.continuous = false;
       newRecognition.interimResults = false;
 
@@ -33,8 +38,8 @@ const ChatBotPage: React.FC = () => {
         setIsListening(false); // Stop listening after speech is recognized
       };
 
-      newRecognition.onerror = (event: any) => {
-        console.error("Speech recognition error:", event.error);
+      newRecognition.onerror = (event: Event) => {
+        console.error("Speech recognition error:", (event as ErrorEvent).error);
         setIsListening(false);
       };
 
@@ -107,8 +112,8 @@ const ChatBotPage: React.FC = () => {
 
   return (
     <>
-        <Navbar />
-      <div className="flex h-screen flex-col lg:flex-row   bg-gray-100">
+      <Navbar />
+      <div className="flex h-screen flex-col lg:flex-row bg-gray-100">
         {/* Mobile Menu Toggle */}
         <div className="lg:hidden bg-gray-900 p-4 flex justify-between  items-center shadow-md">
           <h2 className="text-white text-xl">History</h2>
