@@ -1,12 +1,8 @@
 "use client";
 import Navbar from "@components/common/Navbar";
 import { useState, useEffect } from "react";
-import {
-  FaMicrophone,
-  FaMicrophoneSlash,
-  FaPaperPlane,
-  FaBars,
-} from "react-icons/fa";
+import { FaMicrophone, FaMicrophoneSlash, FaPaperPlane, FaBars, FaGlobe } from "react-icons/fa";
+import { MdLanguage } from "react-icons/md"; // Import language icon
 
 // Declare the global SpeechRecognition for TypeScript
 declare global {
@@ -32,14 +28,12 @@ type SpeechRecognitionEvent = {
 };
 
 const ChatBotPage: React.FC = () => {
-  const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
-    []
-  );
+  const [messages, setMessages] = useState<{ sender: string; text: string; lang: string }[]>([]);
   const [input, setInput] = useState<string>("");
   const [isListening, setIsListening] = useState<boolean>(false);
-  const [language, setLanguage] = useState<string>("en-US"); // Default to English
+  const [language, setLanguage] = useState<string>("en-US");
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
-  const [isHistoryVisible, setIsHistoryVisible] = useState<boolean>(false); // Mobile Chat History visibility
+  const [isHistoryVisible, setIsHistoryVisible] = useState<boolean>(false);
 
   // Initialize speech recognition when component mounts
   useEffect(() => {
@@ -80,7 +74,7 @@ const ChatBotPage: React.FC = () => {
   // Handle sending messages
   const handleSendMessage = async () => {
     if (input.trim() !== "") {
-      const userMessage = { sender: "user", text: input };
+      const userMessage = { sender: "user", text: input, lang: language };
       setMessages((prevMessages) => [...prevMessages, userMessage]);
 
       try {
@@ -95,7 +89,7 @@ const ChatBotPage: React.FC = () => {
         const data = await response.json();
         setMessages((prevMessages) => [
           ...prevMessages,
-          { sender: "bot", text: data.response },
+          { sender: "bot", text: data.response, lang: language },
         ]);
       } catch (error) {
         console.error("Error communicating with the chatbot:", error);
@@ -127,123 +121,89 @@ const ChatBotPage: React.FC = () => {
   };
 
   return (
-    <><div className="h-28">      <Navbar />
-</div>
-      <div className="flex h-[830px] flex-col lg:flex-row bg-gray-100">
-        {/* Mobile Menu Toggle */}
-        <div className="lg:hidden bg-gray-900 p-4 flex justify-between  items-center shadow-md">
-          <h2 className="text-white text-xl">History</h2>
-          <button
-            onClick={() => setIsHistoryVisible(!isHistoryVisible)}
-            className="text-white text-2xl"
-          >
-            <FaBars />
-          </button>
-        </div>
+    <div className="flex flex-col h-screen bg-[#dce9e6]"> {/* Use light green as the background */}
+      <Navbar />
+      {/* Mobile History Toggle Button */}
+      <div className="lg:hidden p-4 bg-hoverbutton text-white flex justify-between items-center">
+        <span>Chat History</span>
+        <button onClick={() => setIsHistoryVisible(!isHistoryVisible)} className="text-white text-xl">
+          <FaBars />
+        </button>
+      </div>
 
-        {/* Chat History - always visible on desktop */}
+      {/* Main Chat Section */}
+      <div className="flex flex-1">
+        {/* Chat History Sidebar */}
         <div
-          className={`fixed lg:relative z-50 top-0 left-0 h-full mt-4 bg-gray-900 p-4 lg:w-1/4 lg:block lg:flex-shrink-0 transition-transform duration-300 transform ${
-            isHistoryVisible
-              ? "translate-x-0"
-              : "-translate-x-full lg:translate-x-0"
+          className={`fixed lg:relative z-40 top-0 left-0 h-full lg:w-1/6 bg-slate-800 rounded-md transition-transform transform ${
+            isHistoryVisible ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           }`}
         >
-          <div className="space-y-2 mt-4">
-            <button className="w-full text-left text-gray-200 bg-gray-600 p-2 rounded-md shadow-sm transition-colors duration-300 hover:bg-gray-500">
-              Chat 1
-            </button>
-            <button className="w-full text-left text-gray-200 bg-gray-600 p-2 rounded-md shadow-sm transition-colors duration-300 hover:bg-gray-500">
-              Chat 2
-            </button>
-            <button className="w-full text-left text-gray-200 bg-gray-600 p-2 rounded-md shadow-sm transition-colors duration-300 hover:bg-gray-500">
-              Chat 3
-            </button>
+          <div className="p-6 text-white">
+            <h2 className="text-xl mb-4">History</h2>
+            <div className="space-y-4">
+              <button className="w-full text-left bg-heading  p-2 rounded-md">Chat 1</button>
+              <button className="w-full text-left bg-heading p-2 rounded-md">Chat 2</button>
+              <button className="w-full text-left bg-heading p-2 rounded-md">Chat 3</button>
+            </div>
           </div>
         </div>
 
         {/* Chat Window */}
-        <div
-          className={`flex-grow flex flex-col lg:mt-4 bg-white rounded-lg shadow-lg mx-auto md:w-2/3 lg:w-2/3 lg:max-w-4xl transition-transform duration-300 ${
-            isHistoryVisible ? "lg:ml-64" : ""
-          }`}
-        >
-          <h1 className="text-2xl font-semibold text-center text-heading mb-4 mt-4">
-            Chatbot
-          </h1>
-
-          {/* Language Selection */}
-          <div className="flex justify-end px-4">
-            <label htmlFor="language" className="mr-2 text-gray-700">
-              Language:
-            </label>
+        <div className="flex-1 flex flex-col lg:w-3/4 bg-white rounded-md shadow-md">
+          {/* Language Selector */}
+          <div className="flex items-center p-4">
+            <FaGlobe className="text-green-700 mr-2" /> {/* Green globe icon */}
             <select
-              id="language"
               value={language}
               onChange={handleLanguageChange}
-              className="p-2 border border-gray-300 rounded-md"
+              className="p-2 border border-green-500 rounded-md focus:ring-2 focus:ring-green-500 focus:outline-none"
             >
-              <option value="en-US">English</option>
+              <option value="en-US">English (US)</option>
               <option value="ar-SA">Arabic</option>
+              {/* Add more languages as needed */}
             </select>
           </div>
 
           {/* Chat Messages */}
-          <div className="flex-grow overflow-y-auto mb-4 p-6 space-y-4">
+          <div className="flex-1 overflow-y-auto p-6">
             {messages.map((msg, index) => (
-              <div
-                key={index}
-                className={`flex ${
-                  msg.sender === "user" ? "justify-end" : "justify-start"
-                }`}
-              >
+              <div key={index} className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-xs p-4 rounded-3xl shadow-md transition-transform duration-300 transform ${
-                    msg.sender === "user"
-                      ? "bg-green-500 text-white scale-105"
-                      : "bg-gray-200 text-gray-700"
-                  }`}
+                  className={`max-w-md p-4 rounded-lg shadow-md ${
+                    msg.sender === "user" ? "bg-green-500 text-white" : "bg-green-200 text-gray-900"
+                  } ${msg.lang === "ar-SA" ? "text-right" : "text-left"}`}
                 >
-                  <strong>{msg.sender === "user" ? "You" : "MindMed"}:</strong>{" "}
                   {msg.text}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Message Input and Buttons */}
-          <div className="flex items-center space-x-2 px-6 py-4 bg-gray-100 border-t border-gray-300 rounded-b-lg">
+          {/* Input Section */}
+          <div className="flex items-center p-4 border-t border-heading bg-green-100">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Type your message here..."
-              className="flex-grow p-3 border border-gray-300 rounded-full focus:outline-none shadow-sm"
+              placeholder={language === "ar-SA" ? "اكتب رسالتك..." : "Type your message..."}
+              className={`flex-grow p-3 rounded-full border border-heading focus:outline-none ${
+                language === "ar-SA" ? "text-right" : "text-left"
+              }`}
             />
-            <button
-              onClick={handleSendMessage}
-              className="bg-green-500 text-white p-3 rounded-full hover:bg-green-400 transition-colors duration-300 shadow-md"
-            >
-              <FaPaperPlane className="text-xl" />
+            <button onClick={handleSendMessage} className="p-3 ml-2 bg-heading text-white rounded-full">
+              <FaPaperPlane />
             </button>
             <button
               onClick={handleSpeechToText}
-              className={`p-3 rounded-full text-white shadow-md ${
-                isListening
-                  ? "bg-red-500 hover:bg-red-400"
-                  : "bg-blue-500 hover:bg-blue-400"
-              } transition-colors duration-300`}
+              className={`p-3 ml-2 rounded-full text-white ${isListening ? "bg-red-500" : "bg-blue-400"}`}
             >
-              {isListening ? (
-                <FaMicrophoneSlash className="text-xl" />
-              ) : (
-                <FaMicrophone className="text-xl" />
-              )}
+              {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
             </button>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
