@@ -191,7 +191,7 @@ const LoginPage = () => {
 
       {/* Right Section (Empty or Decorative Section) */}
       <div className="hidden md:block w-1/2 bg-teal-50">
-        <img
+        <Image
           src="https://readymadeui.com/signin-image.webp"
           alt="login-image"
           width={900}

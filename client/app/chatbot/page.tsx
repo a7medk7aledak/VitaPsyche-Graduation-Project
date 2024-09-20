@@ -15,6 +15,22 @@ declare global {
   }
 }
 
+// Type definition for SpeechRecognition
+type SpeechRecognition = {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start: () => void;
+  stop: () => void;
+  onresult: (event: SpeechRecognitionEvent) => void;
+  onerror: (event: Event) => void;
+};
+
+// Type definition for SpeechRecognitionEvent
+type SpeechRecognitionEvent = {
+  results: { [key: number]: { [key: number]: { transcript: string } } };
+};
+
 const ChatBotPage: React.FC = () => {
   const [messages, setMessages] = useState<{ sender: string; text: string }[]>(
     []
