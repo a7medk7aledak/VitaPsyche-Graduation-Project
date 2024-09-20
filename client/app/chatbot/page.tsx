@@ -127,9 +127,9 @@ const ChatBotPage: React.FC = () => {
   };
 
   return (
-    <>
-      <Navbar />
-      <div className="flex h-screen flex-col lg:flex-row bg-gray-100">
+    <><div className="h-28">      <Navbar />
+</div>
+      <div className="flex h-[830px] flex-col lg:flex-row bg-gray-100">
         {/* Mobile Menu Toggle */}
         <div className="lg:hidden bg-gray-900 p-4 flex justify-between  items-center shadow-md">
           <h2 className="text-white text-xl">History</h2>
@@ -143,13 +143,13 @@ const ChatBotPage: React.FC = () => {
 
         {/* Chat History - always visible on desktop */}
         <div
-          className={`fixed lg:relative top-0 left-0 h-full mt-10 bg-gray-900 p-4 lg:w-1/4 lg:block lg:flex-shrink-0 transition-transform duration-300 transform ${
+          className={`fixed lg:relative z-50 top-0 left-0 h-full mt-4 bg-gray-900 p-4 lg:w-1/4 lg:block lg:flex-shrink-0 transition-transform duration-300 transform ${
             isHistoryVisible
               ? "translate-x-0"
               : "-translate-x-full lg:translate-x-0"
           }`}
         >
-          <div className="space-y-2">
+          <div className="space-y-2 mt-4">
             <button className="w-full text-left text-gray-200 bg-gray-600 p-2 rounded-md shadow-sm transition-colors duration-300 hover:bg-gray-500">
               Chat 1
             </button>
@@ -164,7 +164,7 @@ const ChatBotPage: React.FC = () => {
 
         {/* Chat Window */}
         <div
-          className={`flex-grow flex flex-col lg:mt-10 bg-white rounded-lg shadow-lg mx-auto md:w-2/3 lg:w-2/3 lg:max-w-4xl transition-transform duration-300 ${
+          className={`flex-grow flex flex-col lg:mt-4 bg-white rounded-lg shadow-lg mx-auto md:w-2/3 lg:w-2/3 lg:max-w-4xl transition-transform duration-300 ${
             isHistoryVisible ? "lg:ml-64" : ""
           }`}
         >
