@@ -2,7 +2,6 @@
 import Navbar from "@components/common/Navbar";
 import { useState, useEffect } from "react";
 import { FaMicrophone, FaMicrophoneSlash, FaPaperPlane, FaBars, FaGlobe } from "react-icons/fa";
-import { MdLanguage } from "react-icons/md"; // Import language icon
 
 // Declare the global SpeechRecognition for TypeScript
 declare global {
