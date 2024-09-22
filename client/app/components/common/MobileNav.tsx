@@ -16,7 +16,7 @@ const MobileNav = () => {
   };
   return (
     <>
-      <div className="flex md:hidden cursor-pointer " onClick={toggleMenu}>
+      <div className="flex lg:hidden cursor-pointer " onClick={toggleMenu}>
         {isOpen ? (
           <IoMdClose className="text-3xl" />
         ) : (
@@ -24,7 +24,7 @@ const MobileNav = () => {
         )}
       </div>
       {isOpen && (
-        <div className="absolute flex md:hidden flex-col w-full bg-slate-400 left-0 top-[87px] z-50 text-center p-3 rounded-md shadow-lg">
+        <div className="absolute flex lg:hidden flex-col w-full bg-slate-400 left-0 top-[70px] z-50 text-center p-3 rounded-md shadow-lg">
           {/* nav links */}
           <nav className="flex flex-col ">
             {navLinks.map((link, index) => (
@@ -41,7 +41,7 @@ const MobileNav = () => {
           {/* nav links */}
 
           {/* language and accound */}
-          <div className="flex md:hidden items-center  flex-col-reverse">
+          <div className="flex lg:hidden items-center  flex-col-reverse">
             <select
               className="p-2 outline-none bg-main rounded-md mr-2 w-13 h-8 hover:cursor-pointer
            "

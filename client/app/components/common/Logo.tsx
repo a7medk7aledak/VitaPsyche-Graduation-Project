@@ -8,8 +8,8 @@ const Logo = () => {
       <Image
         src="/images/logo.png"
         alt="MindMed Logo"
-        width={100}
-        height={100}
+        width={65}
+        height={65}
       />
       <h2 className="text-2xl font-semibold  text-teal-700">MindMed</h2>
     </Link>

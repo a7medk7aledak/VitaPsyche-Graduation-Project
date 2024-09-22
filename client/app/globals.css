@@ -29,16 +29,16 @@ section {
 }
 
 .btn-small {
-    @apply  py-2 px-4 ;
+    @apply  py-1 px-2 ;
 
 }
 .btn-medium {
-    @apply  py-3 px-4 ;
+    @apply  py-2 px-4 ;
 
 }
 
 .btn-large {
-    @apply   py-4 px-8 
+    @apply   py-3 px-6 
 }
 
 .btn-primary {

@@ -32,12 +32,12 @@ const FindPsychiatrists = () => {
               <label className="p-2 text-lg text-paragraphtext">
                 Specialization
               </label>
-              <div className="flex space-x-2 ">
+              <div className="flex space-x-2">
                 <CiStethoscope className="text-3xl" />
                 <select
                   name=""
                   id=""
-                  className="outline-none px-3 py-2 text-maintext -none max-w-32"
+                  className="outline-none px-3 py-2 text-maintext  lg:max-w-32"
                 >
                   <option value="">--Select Specialization--</option>
                   <option value="relationShips">Relationships</option>

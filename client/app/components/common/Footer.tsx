@@ -10,7 +10,7 @@ import { FaYoutube } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <section id="footer" className="relative bg-[#dce9e6]">
+    <footer id="footer" className="relative pt-5  bg-[#dce9e6]">
       <div className="container px-3 mx-auto ">
         <div className="flex flex-wrap justify-center md:justify-between items-center">
           {/* logo and join us  */}
@@ -21,7 +21,7 @@ const Footer = () => {
               <h4 className="text-center mb-4 text-maintext text-2xl font-medium">
                 join us
               </h4>
-              <div className="flex space-x-4   ">
+              <div className="flex space-x-4 justify-center  ">
                 <div>
                   <Button variant="secondary" size="medium" roundedValue="md">
                     join as a doctor
@@ -38,18 +38,18 @@ const Footer = () => {
             </div>
             {/* join as */}
             {/* stores */}
-            <div className="flex flex-wrap space-x-4 mb-10 lg:mb-6">
+            <div className="flex flex-wrap justify-center space-x-4 mb-10 lg:mb-6">
               <Image
                 src={"/images/Home/googlePlay.png"}
                 alt="googlePlay"
-                width={200}
-                height={200}
+                width={150}
+                height={150}
               />
               <Image
                 src={"/images/Home/appStore.png"}
                 alt="appStore"
-                width={200}
-                height={200}
+                width={150}
+                height={150}
               />
             </div>
             {/* stores */}
@@ -57,7 +57,7 @@ const Footer = () => {
           {/* logo and join us  */}
 
           {/* other services */}
-          <div className="flex flex-wrap gap-4 mt-10 p-2  md:p-0 md:mt-0  ">
+          <div className="flex flex-wrap gap-4 mt-10 p-2 justify-center md:p-0 md:mt-0  ">
             {/* products */}
             <div className="flex flex-col text-2xl mb-12 md:mb-0">
               <h4 className="mb-12 font-medium">Products</h4>
@@ -118,7 +118,7 @@ const Footer = () => {
       <h6 className="text-center text-xl -mb-12 mt-4 ">
         Copyright © 2024 All Rights Reserved{" "}
       </h6>
-    </section>
+    </footer>
   );
 };
 

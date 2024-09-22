@@ -7,17 +7,19 @@ import MobileNav from "./MobileNav";
 import Button from "./Button";
 import Link from "next/link";
 
+
+
 const Navbar = () => {
   return (
-    <header className="p-2 relative">
+    <header className="px-2 relative">
       <div className="container mx-auto">
-        <div className=" flex flex-wrap justify-between items-center relative">
+        <div className=" flex justify-between items-center relative">
           {/* logo */}
           <Logo />
           {/* logo */}
 
           {/* nav links */}
-          <nav className="hidden md:flex ">
+          <nav className="hidden lg:flex ">
             {navLinks.map((link, index) => (
               <Link
                 key={index}
@@ -31,7 +33,7 @@ const Navbar = () => {
           {/* nav links */}
 
           {/* language and accound */}
-          <div className="hidden md:flex items-center space-x-6 ">
+          <div className="hidden lg:flex items-center space-x-6 ">
             <select
               className="p-2 outline-none bg-main rounded-md mr-2 w-13 h-8 hover:cursor-pointer
            "

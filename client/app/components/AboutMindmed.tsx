@@ -10,10 +10,10 @@ const AboutMindmed = () => {
         <Heading variant="secondary" position="left">
           Information about <span className="text-heading">MindMed</span>
         </Heading>
-        <div className="flex flex-col-reverse md:flex-row justify-center items-center -mt-16">
+        <div className="flex flex-col-reverse lg:flex-row justify-center items-center -mt-16">
           {/* textContent */}
-          <div className="flex flex-col md:w-1/2 space-y-5 ">
-            <p className="md:text-left text-xl p-3 md:pr-10 ">
+          <div className="flex flex-col lg:w-1/2 space-y-5 ">
+            <p className="lg:text-left text-xl p-3 lg:pr-10 ">
               <span className="text-maintext font-medium">
                 Psychological assessment:{" "}
               </span>
@@ -21,7 +21,7 @@ const AboutMindmed = () => {
               the platform will be able to determine the user’s psychological
               state and provide recommendations based on the results.
             </p>{" "}
-            <p className=" md:text-left text-xl  p-3  md:pr-10 ">
+            <p className=" lg:text-left text-xl  p-3  lg:pr-10 ">
               {" "}
               <span className="text-maintext font-medium">
                 Communication with doctors:
@@ -30,14 +30,14 @@ const AboutMindmed = () => {
               psychologists through an integrated chat system and book
               appointments for consultations.
             </p>{" "}
-            <p className="md:text-left text-xl p-3  md:pr-10 ">
+            <p className="lg:text-left text-xl p-3  lg:pr-10 ">
               <span className="text-maintext font-medium">
                 Doctor recommendations:{" "}
               </span>
               Provide personalized recommendations to users based on their
               psychological assessments and preferences.{" "}
             </p>
-            <p className="md:text-left text-xl  p-3  md:pr-10 ">
+            <p className="lg:text-left text-xl  p-3  lg:pr-10 ">
               <span className="text-maintext font-medium">
                 Sale of products and medicines:{" "}
               </span>
@@ -55,7 +55,7 @@ const AboutMindmed = () => {
           {/* textContent */}
 
           {/* image content */}
-          <div className="mb-7 md:mb-0 flex-shrink">
+          <div className="mb-7 lg:pb-10 lg:w-1/2 lg:ml-28  lg:mb-0 flex-shrink">
             <Image
               src={"/images/Home/aboutMindmed.png"}
               width={600}

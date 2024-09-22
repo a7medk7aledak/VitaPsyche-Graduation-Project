@@ -5,7 +5,7 @@ import { FiPhoneCall } from "react-icons/fi";
 import { MdEmail } from "react-icons/md";
 import { TbWorld } from "react-icons/tb";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
-import emailjs from "@emailjs/browser";
+import emailjs, { EmailJSResponseStatus } from "@emailjs/browser";
 
 interface FormData {
   firstName: string;
@@ -52,14 +52,14 @@ const ContactForm = () => {
           "AjAO6BZV9xIBR9BQC"
         )
         .then(
-          (result) => {
+          (result: EmailJSResponseStatus) => {
             console.log("Email sent successfully:", result);
             setSubmitted(true);
             setTimeout(() => {
               setSubmitted(false);
             }, 3000);
           },
-          (error) => {
+          (error: EmailJSResponseStatus) => {
             console.log("Error in sending email:", error.text);
             setSubmitted(false);
           }
@@ -78,10 +78,10 @@ const ContactForm = () => {
             "AjAO6BZV9xIBR9BQC"
           )
           .then(
-            (result) => {
+            (result: EmailJSResponseStatus) => {
               console.log("Confirmation email sent:", result);
             },
-            (error) => {
+            (error: EmailJSResponseStatus) => {
               console.log("Error in sending confirmation email:", error);
             }
           );
@@ -107,9 +107,9 @@ const ContactForm = () => {
           </h6>
         </div>
         {/* box of contact us */}
-        <div className="gap-4 flex flex-col md:flex-row rounded-lg bg-white max-w-[1100px] mx-auto min-h-[500px]">
+        <div className=" flex flex-col md:flex-row rounded-lg bg-white max-w-[1100px] mx-auto min-h-[500px]">
           {/* right part  */}
-          <div className="bg-maincolorincontactform text-white p-5 flex flex-col justify-between rounded-lg w-full space-y-8 md:w-1/4">
+          <div className="bg-maincolorincontactform text-white p-5 flex flex-col items-center md:items-start justify-between rounded-lg w-full space-y-8  md:w-1/4">
             <div>
               <h4 className="text-2xl font-medium">Contact Information</h4>
               <p className="text-[#c8cdcd]">
@@ -139,7 +139,7 @@ const ContactForm = () => {
                 </div>
               </div>
             </div>
-            <div className="flex space-x-3">
+            <div className="flex justify-between w-[100px] -ml-7 md:ml-0 ">
               <FaTwitter className="w-6 h-6 p-1 bg-white text-black rounded-full cursor-pointer" />
               <FaInstagram className="w-6 h-6 p-1 bg-white text-black rounded-full cursor-pointer" />
               <FaFacebook className="w-6 h-6 p-1 bg-white text-black rounded-full cursor-pointer" />
