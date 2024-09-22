@@ -70,6 +70,8 @@ For the django to rasa chatbot:
 ```
 pip install django
 pip install requests
+pip install django-cors-headers
+
 ```
 For the Next.js front-end:
 ```bash
