@@ -1,14 +1,46 @@
+"use client";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "./common/Button";
 import Heading from "./common/Heading";
 import { services } from "../constants/services";
+import { motion } from "framer-motion";
 
 const Services = () => {
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  const handleScroll = () => {
+    if (sectionRef.current) {
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      if (rect.top < windowHeight && rect.bottom > 0) {
+        setIsVisible(true);
+      } 
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <section id="services" className="relative">
+    <section id="services" className="relative" ref={sectionRef}>
       <div className="container mx-auto relative z-30 px-3 md:px-0">
-        <Heading variant="secondary">Services to improve mental health</Heading>
+        {/* Animate the heading */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 40 }}
+          transition={{ duration: 0.7 }}
+        >
+          <Heading variant="secondary">
+            Services to improve mental health
+          </Heading>
+        </motion.div>
         <div className=" flex gap-4 flex-wrap justify-center items-center">
           <Image
             src={"/images/Home/pluses.png"}
@@ -26,9 +58,15 @@ const Services = () => {
           />
           {/* box */}
           {services.map((service, index) => (
-            <div
+            <motion.div
               key={index}
               className="w-[300px] h-[300px] flex flex-col space-y-8 border-2 p-5 text-center rounded-2xl shadow-sm hover:shadow-md transition duration-150 bg-backgroundcolor"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{
+                opacity: isVisible ? 1 : 0,
+                scale: isVisible ? 1 : 0.8,
+              }}
+              transition={{ duration: 0.5, delay: index * 0.2 }} 
             >
               <Image
                 src={service.img}
@@ -45,7 +83,7 @@ const Services = () => {
                   {service.buttonTitle}
                 </Button>
               </div>
-            </div>
+            </motion.div>
           ))}
           {/* box */}
         </div>

@@ -1,14 +1,22 @@
+"use client";
 import React from "react";
 import Image from "next/image";
 import Button from "./common/Button";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
 const Landing = () => {
   return (
     <section id="home" className="relative z-30">
       <div className="container mx-auto">
         <div className="flex flex-col-reverse md:flex-row space-x-6 items-center justify-between">
           {/* textContent */}
-          <div className=" flex flex-col flex-grow justify-center text-center md:text-left md:w-1/2 p-4 relative lg:ml-28 lg:-mt-10">
+          <motion.div
+            className="flex flex-col flex-grow justify-center text-center md:text-left md:w-1/2 p-4 relative lg:ml-28 lg:-mt-10"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <Image
               src={"/images/Home/pluses.png"}
               alt="pluses"
@@ -21,15 +29,15 @@ const Landing = () => {
               alt="pluses"
               width={400}
               height={400}
-              className="absolute md:-top-24 md:right-12  -top-48 right-20 -z-10 transform rotate-90"
+              className="absolute md:-top-24 md:right-12 -top-48 right-20 -z-10 transform rotate-90"
             />
             <p className="text-xl md:text-3xl font-medium text-paragraphtext mb-3 text-center md:text-left leading-8 tracking-wide md:px-4">
               We are here to help you, make your life easier and support you in
               your therapeutic journey. Talk to your psychiatrist anytime,
               anywhere!
             </p>
-            <div className="mx-auto w-fit mt-5 ">
-              <Link href={'/chatbot'}>
+            <div className="mx-auto w-fit mt-5">
+              <Link href={"/chatbot"}>
                 <Button variant="secondary" size={"large"} roundedValue="full">
                   <Image
                     src={"/images/Home/talkToAi.png"}
@@ -41,11 +49,16 @@ const Landing = () => {
                 </Button>
               </Link>
             </div>
-          </div>
+          </motion.div>
           {/* textContent */}
 
           {/* imageContent */}
-          <div className=" md:w-1/2 mx-auto p-4 flex justify-center">
+          <motion.div
+            className="md:w-1/2 mx-auto p-4 flex justify-center"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             <Image
               src={"/images/Home/landing.png"}
               width={600}
@@ -53,7 +66,7 @@ const Landing = () => {
               alt="landing page"
               className="max-w-full"
             />
-          </div>
+          </motion.div>
           {/* imageContent */}
         </div>
       </div>

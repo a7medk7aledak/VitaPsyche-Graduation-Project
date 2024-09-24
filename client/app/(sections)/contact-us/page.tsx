@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
+import { motion } from "framer-motion"; // Import motion
 import Heading from "@components/common/Heading";
 import { FiPhoneCall } from "react-icons/fi";
 import { MdEmail } from "react-icons/md";
@@ -16,7 +17,7 @@ interface FormData {
 }
 
 const ContactForm = () => {
-  console.log("renduring");
+  console.log("rendering");
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -98,18 +99,39 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact-us" className="relative">
+    <motion.section
+      id="contact-us"
+      className="relative"
+      initial={{ opacity: 0, y: 20 }} 
+      animate={{ opacity: 1, y: 0 }} 
+      transition={{ duration: 0.5 }} 
+    >
       <div className="container mx-auto">
-        <div className="-mt-10 mb-8">
+        <motion.div
+          className="-mt-10 mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }} 
+        >
           <Heading variant="secondary">You are our priority</Heading>
           <h6 className="w-fit mx-auto -mt-24 p-5 text-lg text-paragraphtext font-medium text-center">
             We appreciate your comments and inquiries! Feel free to contact us.
           </h6>
-        </div>
-        {/* box of contact us */}
-        <div className=" flex flex-col md:flex-row rounded-lg bg-white max-w-[1100px] mx-auto min-h-[500px]">
-          {/* right part  */}
-          <div className="bg-maincolorincontactform text-white p-5 flex flex-col items-center md:items-start justify-between rounded-lg w-full space-y-8  md:w-1/4">
+        </motion.div>
+
+        <motion.div
+          className="flex flex-col md:flex-row rounded-lg bg-white max-w-[1100px] mx-auto min-h-[500px]"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* Right section with contact info */}
+          <motion.div
+            className="bg-maincolorincontactform text-white p-5 flex flex-col items-center md:items-start justify-between rounded-lg w-full space-y-8 md:w-1/4"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.7, delay: 0.3 }}
+          >
             <div>
               <h4 className="text-2xl font-medium">Contact Information</h4>
               <p className="text-[#c8cdcd]">
@@ -144,16 +166,18 @@ const ContactForm = () => {
               <FaInstagram className="w-6 h-6 p-1 bg-white text-black rounded-full cursor-pointer" />
               <FaFacebook className="w-6 h-6 p-1 bg-white text-black rounded-full cursor-pointer" />
             </div>
-          </div>
-          {/* right part  */}
-          {/* left part  */}
-          <div className="w-3/4 p-5">
-            <form
-              action=""
+          </motion.div>
+
+          {/* Left section with contact form */}
+          <div className="w-3/4 p-5 pl-8">
+            <motion.form
               className="flex flex-wrap pt-8"
               onSubmit={sendEmail}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <div className="flex flex-col group mb-7 mr-16 ">
+              <div className="flex flex-col group mb-7 mr-16">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
                   First Name
                 </label>
@@ -166,7 +190,7 @@ const ContactForm = () => {
                 />
               </div>
 
-              <div className="flex flex-col group mb-7 ">
+              <div className="flex flex-col group mb-7">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
                   Last Name
                 </label>
@@ -218,26 +242,32 @@ const ContactForm = () => {
                 />
               </div>
 
-              {/* Display the success message in front of the button */}
+              {/*  success message */}
               {submitted && (
-                <p className="text-green-600 font-medium mb-4">
+                <motion.p
+                  className="text-green-600 font-medium mb-4"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
                   Thank you for contacting us! Your message has been submitted
                   successfully.
-                </p>
+                </motion.p>
               )}
 
-              <button
+              <motion.button
                 type="submit"
                 className="bg-maincolorincontactform hover:shadow-lg ml-auto text-white font-medium py-3 px-6 rounded-md transition-shadow duration-200"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
                 Send Message
-              </button>
-            </form>
+              </motion.button>
+            </motion.form>
           </div>
-          {/* left part  */}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
