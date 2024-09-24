@@ -46,7 +46,7 @@ const page = () => {
 
         {/* Box of about us */}
         <motion.div
-          className="flex flex-wrap justify-center items-center gap-2 w-5/6 mx-auto pt-36 pb-10 mt-24 relative border border-teal-700 bg-slate-300 shadow-lg"
+          className="flex flex-wrap justify-center items-center gap-2 lg:w-3/4 mx-auto pt-36 pb-10 mt-24 relative border border-teal-700 bg-slate-300 shadow-lg"
           variants={container}
           initial="hidden"
           animate="visible"
@@ -55,7 +55,7 @@ const page = () => {
           {doctorsData.map((member, indx) => (
             <motion.div
               key={indx}
-              className="p-5 flex flex-col absolute -top-[100px] space-y-2 justify-center items-center"
+              className="p-5 flex flex-col absolute -top-[100px] space-y- 1 justify-center items-center"
               variants={fadeInUp}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
@@ -64,7 +64,7 @@ const page = () => {
                 width={150}
                 height={150}
                 alt={member.alt}
-                className="border border-teal-700 rounded-full shadow-md"
+                className="border border-teal-700 rounded-full shadow-md mb-2"
               />
               <h4 className="text-teal-700 text-xl font-medium capitalize">
                 {member.title}
@@ -82,7 +82,7 @@ const page = () => {
           {aboutUsData.map((member, indx) => (
             <motion.div
               key={indx}
-              className="p-5 flex flex-col space-y-2 justify-center items-center"
+              className="p-5 flex flex-col space-y-1 justify-center items-center"
               variants={fadeInUp}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
@@ -91,7 +91,7 @@ const page = () => {
                 width={150}
                 height={150}
                 alt={member.alt}
-                className="border border-teal-700 rounded-full shadow-md"
+                className="border border-teal-700 rounded-full shadow-md mb-2"
               />
               <h4 className="text-teal-700 text-xl font-medium capitalize">
                 {member.title}
