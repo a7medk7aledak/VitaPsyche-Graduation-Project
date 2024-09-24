@@ -1,0 +1,92 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - bot_introduction
+  - ask_for_breathing_exercise
+  - ask_for_mental_health_advice
+  - ask_for_anxiety_help
+  - ask_for_relaxation_tips
+  - ask_for_sleep_tips
+  - ask_for_stress_relief
+  - express_suicidal_thoughts
+  - ask_for_self_care_tips
+  - ask_for_medication_reminder
+  - ask_about_therapy_options
+  - ask_about_depression
+  - ask_for_mindfulness_tips
+  - express_social_anxiety
+  - out_of_scope
+  - track_mood
+  - set_mental_health_goal
+  - check_goal_progress
+  - request_personalized_plan
+  - ask_for_coping_strategies
+  - request_resource_recommendation
+  - ask_about_developer
+  - ask_for_therapy_options  
+
+entities:
+  - mood
+  - goal
+  - symptom
+  - coping_strategy
+
+slots:
+  mood:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: mood
+  current_goal:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: goal
+  primary_symptom:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: symptom
+
+responses:
+  utter_mental_health_advice:
+    - text: "Here are some general mental health tips: 1. Practice mindfulness, 2. Stay active, 3. Connect with loved ones, 4. Seek professional help if needed. Would you like more advice on any specific area?"
+
+  utter_greet:
+    - text: "Hello! I'm Lina, your advanced mental health support assistant. How are you feeling today?"
+  utter_ask_for_therapy_options:
+  - text: "Would you like to explore different therapy options available?"
+  
+  # Add other utter actions here
+
+actions:
+  - utter_greet
+  - utter_goodbye
+  - utter_iamabot
+  - utter_breathing_exercise
+  - utter_anxiety_help
+  - utter_relaxation_tips
+  - utter_sleep_tips
+  - utter_stress_relief
+  - utter_crisis_support
+  - utter_self_care_tips
+  - utter_medication_reminder
+  - utter_therapy_options
+  - utter_depression_info
+  - utter_mindfulness_guidance
+  - utter_social_anxiety_support
+  - utter_out_of_scope
+  - utter_track_mood
+  - utter_set_mental_health_goal
+  - utter_check_goal_progress
+  - utter_personalized_plan
+  - utter_coping_strategies
+  - utter_resource_recommendation
+  - utter_about_developer
+  - utter_mental_health_advice  
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

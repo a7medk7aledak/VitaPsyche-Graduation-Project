@@ -15,7 +15,7 @@ rasa/.venv
 models/
 data/
 rasa/.pyc
-.rasa
+
 # Machine Learning
 *.h5
 *.pkl
