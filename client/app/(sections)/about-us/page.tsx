@@ -7,7 +7,7 @@ import Image from "next/image";
 import { FaLinkedin } from "react-icons/fa";
 import { aboutUsData, doctorsData } from "@app/constants/aboutUsData";
 
-// Define animation variants
+// Define animation values
 const fadeInUp = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0 },
@@ -55,7 +55,7 @@ const page = () => {
           {doctorsData.map((member, indx) => (
             <motion.div
               key={indx}
-              className="p-5 flex flex-col absolute -top-[100px] space-y- 1 justify-center items-center"
+              className="p-5 flex flex-col absolute -top-[100px] space-y- 1 justify-center items-center group"
               variants={fadeInUp}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
@@ -64,15 +64,15 @@ const page = () => {
                 width={150}
                 height={150}
                 alt={member.alt}
-                className="border border-teal-700 rounded-full shadow-md mb-2"
+                className="border border-teal-700 group-hover:border-teal-800 rounded-full shadow-md mb-2"
               />
-              <h4 className="text-teal-700 text-xl font-medium capitalize">
+              <h4 className="text-teal-700 group-hover:text-teal-800 text-xl font-medium capitalize">
                 {member.title}
               </h4>
-              <p className="text-paragraphtext flex items-center gap-x-2">
+              <p className="text-paragraphtext group-hover:text-gray-600 flex items-center gap-x-2">
                 {member.role}
                 <a href={member.linkedinUrl}>
-                  <FaLinkedin className="text-xl text-[#55587a] hover:text-[#1e256c] transition-colors duration-150" />
+                  <FaLinkedin className="text-xl text-[#55587a] group-hover:text-[#1e256c] transition-colors duration-150" />
                 </a>
               </p>
             </motion.div>
@@ -82,7 +82,7 @@ const page = () => {
           {aboutUsData.map((member, indx) => (
             <motion.div
               key={indx}
-              className="p-5 flex flex-col space-y-1 justify-center items-center"
+              className="p-5 flex flex-col space-y-1 justify-center items-center group"
               variants={fadeInUp}
               transition={{ duration: 0.5, ease: "easeInOut" }}
             >
@@ -91,15 +91,15 @@ const page = () => {
                 width={150}
                 height={150}
                 alt={member.alt}
-                className="border border-teal-700 rounded-full shadow-md mb-2"
+                className="border border-teal-700 group-hover:border-teal-800  rounded-full shadow-md mb-2"
               />
-              <h4 className="text-teal-700 text-xl font-medium capitalize">
+              <h4 className="text-teal-700 text-xl group-hover:text-teal-800  font-medium capitalize">
                 {member.title}
               </h4>
-              <p className="text-paragraphtext flex items-center gap-x-2">
+              <p className="text-paragraphtext flex group-hover:text-gray-600 items-center gap-x-2">
                 {member.role}
                 <a href={member.linkedinUrl}>
-                  <FaLinkedin className="text-xl text-[#55587a] hover:text-[#1e256c] transition-colors duration-200" />
+                  <FaLinkedin className="text-xl text-[#55587a] group-hover:text-[#1e256c] transition-colors duration-200" />
                 </a>
               </p>
             </motion.div>

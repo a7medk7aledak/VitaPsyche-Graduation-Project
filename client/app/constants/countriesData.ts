@@ -1,5 +1,5 @@
 type TCountriesData = {
-  [key: string]: string[]; // A key-value pair where the key is a country name and the value is an array of governments (states/provinces/cities)
+  [key: string]: string[]; 
 };
 
 export const countriesData: TCountriesData = {

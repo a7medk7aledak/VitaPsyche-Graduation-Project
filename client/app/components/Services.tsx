@@ -5,6 +5,7 @@ import Button from "./common/Button";
 import Heading from "./common/Heading";
 import { services } from "../constants/services";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Services = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -17,7 +18,7 @@ const Services = () => {
 
       if (rect.top < windowHeight && rect.bottom > 0) {
         setIsVisible(true);
-      } 
+      }
     }
   };
 
@@ -66,7 +67,7 @@ const Services = () => {
                 opacity: isVisible ? 1 : 0,
                 scale: isVisible ? 1 : 0.8,
               }}
-              transition={{ duration: 0.5, delay: index * 0.2 }} 
+              transition={{ duration: 0.5, delay: index * 0.2 }}
             >
               <Image
                 src={service.img}
@@ -78,11 +79,11 @@ const Services = () => {
               <p className="text-paragraphtext text-lg capitalize">
                 {service.title}
               </p>
-              <div className="mx-auto">
+              <Link href={service.buttonLink} className="mx-auto">
                 <Button variant="secondary" size="small" roundedValue="full">
                   {service.buttonTitle}
                 </Button>
-              </div>
+              </Link>
             </motion.div>
           ))}
           {/* box */}

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { motion } from "framer-motion"; // Import motion
+import { motion } from "framer-motion"; 
 import Heading from "@components/common/Heading";
 import { FiPhoneCall } from "react-icons/fi";
 import { MdEmail } from "react-icons/md";

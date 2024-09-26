@@ -96,8 +96,8 @@ const AboutMindmed = () => {
           {/* image content */}
           <motion.div
             className="mb-7 lg:pb-10 lg:w-1/2 lg:ml-28 lg:mb-0 flex-shrink"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : 50 }}
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : 10 }}
             transition={{ duration: 0.7, delay: 0.5 }} 
           >
             <Image

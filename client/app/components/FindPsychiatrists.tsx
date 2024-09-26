@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Heading from "./common/Heading";
 import { countriesData } from "../constants/countriesData";
 import { CiLocationOn, CiStethoscope, CiSearch } from "react-icons/ci";
@@ -10,8 +10,6 @@ import { motion } from "framer-motion";
 const FindPsychiatrists = () => {
   const [selectedCountry, setSelectedCountry] = useState<string>("Egypt");
   const [selectedGovernorate, setSelectedGovernorate] = useState<string>("");
-  const [isVisible, setIsVisible] = useState<boolean>(false);
-  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedCountry(e.target.value);
@@ -22,50 +20,48 @@ const FindPsychiatrists = () => {
     setSelectedGovernorate(e.target.value);
   };
 
-  const handleScroll = () => {
-    if (sectionRef.current) {
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        setIsVisible(true);
-      } 
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
-    <section id="FindPsychiatrists" className="relative" ref={sectionRef}>
-      <div className="container mx-auto">
-        {/* Heading Animation */}
+    <section id="FindPsychiatrists" className="relative">
+      <div className="container mx-auto relative">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : -20 }}
-          transition={{ duration: 0.5, delay: 0.1 }}  
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
         >
           <Heading variant="primary">Find Psychiatrists</Heading>
         </motion.div>
 
+        {/* Move images outside of the animated container */}
+        <Image
+          src={"/images/Home/pluses.png"}
+          alt="pluses"
+          width={400}
+          height={400}
+          className="absolute md:left-0 md:top-10 top-[27rem] -left-1 -z-10"
+        />
+        <Image
+          src={"/images/Home/pluses.png"}
+          alt="pluses"
+          width={400}
+          height={400}
+          className="absolute right-12 md:top-0 top-6 -z-10"
+        />
+
         {/* search box */}
         <motion.div
-          className="border-2 border-[#babfc3] rounded-md w-5/6 lg:w-fit mx-auto"
+          className="border-2 border-[#babfc3] rounded-md w-5/6 lg:w-fit mx-auto z-10 bg-white"
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-          transition={{ duration: 0.5, delay: 0.3 }}  
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
         >
           <div className="flex flex-col lg:flex-row justify-center items-center text-center lg:text-left lg:border-b-2 px-2 py-4">
             {/* specialization field */}
             <motion.div
               className="flex flex-col lg:border-r-2 py-2 px-10"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-              transition={{ duration: 0.5, delay: 0.5 }}  
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.7 }}
             >
               <label className="p-2 text-lg text-paragraphtext">
                 Specialization
@@ -88,8 +84,8 @@ const FindPsychiatrists = () => {
             <motion.div
               className="flex flex-col lg:border-r-2 p-2 px-10"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-              transition={{ duration: 0.5, delay: 0.7 }}  
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.9 }}
             >
               <label className="p-2 text-lg text-paragraphtext">
                 In the area
@@ -116,8 +112,8 @@ const FindPsychiatrists = () => {
             <motion.div
               className="flex flex-col lg:border-r-2 p-2 px-10"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-              transition={{ duration: 0.5, delay: 0.9 }}  
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.1 }}
             >
               <label className="p-2 text-lg text-paragraphtext">
                 In the governorate
@@ -144,8 +140,8 @@ const FindPsychiatrists = () => {
             <motion.div
               className="flex flex-col p-2 px-10"
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-              transition={{ duration: 0.5, delay: 1.1 }}  
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 1.3 }}
             >
               <label className="p-2 text-lg text-paragraphtext">
                 Search by name
@@ -166,17 +162,17 @@ const FindPsychiatrists = () => {
             {/* doctor field */}
           </div>
 
-          {/* search field */}
+          {/* search button */}
           <motion.div
             className="flex px-4 py-2 w-fit rounded-lg my-4 hover:bg-heading bg-[#20C0AC] cursor-pointer mx-auto shadow-md hover:shadow-lg transition-all duration-200"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: isVisible ? 1 : 0, scale: isVisible ? 1 : 0.8 }}
-            transition={{ duration: 0.5, delay: 1.3 }}  
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 1.5 }}
           >
             <CiSearch className="text-4xl text-white mx-auto" />
             <h4 className="text-white text-3xl">Search</h4>
           </motion.div>
-          {/* search field */}
+          {/* search button */}
         </motion.div>
         {/* search box */}
       </div>
