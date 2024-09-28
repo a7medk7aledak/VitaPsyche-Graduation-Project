@@ -5,10 +5,12 @@ import Heading from "./components/common/Heading";
 import Services from "./components/Services";
 import AboutMindmed from "./components/AboutMindmed";
 import Footer from "@components/common/Footer";
+import ScrollToTopButton from "@components/scrollButton";
 
 export default function Home() {
   return (
     <>
+      <ScrollToTopButton/>
       <div className=" bg-[#dce9e6] -z-20">
         <Navbar />
 
