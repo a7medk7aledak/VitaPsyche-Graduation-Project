@@ -25,10 +25,10 @@ const TestCard: React.FC<TestCardProps> = ({ title, description,  }) => {
       </div>
 
       {/* Button to navigate to the test page */}
-      <Link href={`/test/${title.toLowerCase().replace(/ /g, '-')}`}>
-        <button className="w-full bg-teal-400 text-white text-sm font-semibold rounded-lg px-4 py-2 hover:bg-teal-500">
-          Take the test
-        </button>
+      <Link href={`/tests/${title.toLowerCase().replace(/ /g, '-')}`}>
+          <button className="w-full bg-teal-400 text-white text-sm font-semibold rounded-lg px-4 py-2 hover:bg-teal-500">
+            Take the test
+          </button>
       </Link>
     </div>
   );

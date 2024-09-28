@@ -5,27 +5,33 @@ const TestsPage: React.FC = () => {
     const tests = [
       { 
         title: 'Depression scale', 
-        description: 'Answer the following questions based on your recent state and feelings.'
+        description: 'Answer the following questions based on your recent state and feelings.',
+        icon: '/path-to-depression-icon.png'
       },
       { 
         title: 'Anxiety scale', 
-        description: 'Answer the following questions based on your recent state and feelings.'
+        description: 'Answer the following questions based on your recent state and feelings.',
+        icon: '/path-to-anxiety-icon.png'
       },
       { 
         title: 'OCD scale', 
-        description: 'Answer the following questions based on your recent state and feelings.'
+        description: 'Answer the following questions based on your recent state and feelings.',
+        icon: '/path-to-ocd-icon.png'
       },
       { 
         title: 'PTSD scale', 
-        description: 'Answer the following questions based on your recent state and feelings.'
+        description: 'Answer the following questions based on your recent state and feelings.',
+        icon: '/path-to-ptsd-icon.png'
       },
       { 
         title: 'ADHD Self-Report Scale', 
-        description: 'Answer the following questions based on your recent state and feelings.'
+        description: 'Answer the following questions based on your recent state and feelings.',
+        icon: '/path-to-adhd-icon.png'
       },
       { 
         title: 'Stress scale', 
-        description: 'Answer the following questions based on your recent state and feelings.'
+        description: 'Answer the following questions based on your recent state and feelings.',
+        icon: '/path-to-stress-icon.png'
       }
     ];
   
