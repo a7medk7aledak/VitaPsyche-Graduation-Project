@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { tests } from '@app/content/free tests/data'; 
+import { tests } from '@app/content/free tests/data';
 
 interface Option {
   optionId: number;
@@ -17,7 +17,7 @@ interface Question {
 }
 
 interface TestScoring {
-  instruction?: string; // Now optional
+  instruction?: string;
   scoreRanges?: { range: string; description: string }[];
   veryMildOCD?: { min: number; max: number };
   mildOCD?: { min: number; max: number };
@@ -33,7 +33,7 @@ interface Test {
   scoring: TestScoring;
 }
 
-const TestResultPage = () => {
+const ClientSideResult: React.FC = () => {
   const [test, setTest] = useState<Test | null>(null);
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
@@ -59,7 +59,7 @@ const TestResultPage = () => {
 
       test.questions.forEach((question, index) => {
         const userAnswer = userAnswers[index];
-        const option = question.options?.find((opt) => opt.optionId === userAnswer);
+        const option = question.options.find((opt) => opt.optionId === userAnswer);
 
         if (option && option.score !== undefined) {
           totalScore += option.score;
@@ -76,7 +76,7 @@ const TestResultPage = () => {
     }
   }, [test, userAnswers]);
 
-  const getADHDFeedback = (score: number, scoreRanges?: { range: string; description: string }[]) => {
+  const getADHDFeedback = (score: number, scoreRanges?: { range: string; description: string }[]): string => {
     if (!scoreRanges) return 'No feedback available.';
     for (const range of scoreRanges) {
       const [min, max] = range.range.split('-').map(Number);
@@ -87,7 +87,7 @@ const TestResultPage = () => {
     return 'Score out of range.';
   };
 
-  const getYBOCSFeedback = (score: number, scoring: TestScoring) => {
+  const getYBOCSFeedback = (score: number, scoring: TestScoring): string => {
     if (scoring.veryMildOCD && score >= scoring.veryMildOCD.min && score <= scoring.veryMildOCD.max) {
       return 'Very mild OCD symptoms.';
     } else if (scoring.mildOCD && score >= scoring.mildOCD.min && score <= scoring.mildOCD.max) {
@@ -107,11 +107,21 @@ const TestResultPage = () => {
   }
 
   return (
-    <div>
-      <h1>{test.testTitle} Results</h1>
-      <p>Your Total Score: {score}</p>
-      <p>{feedback}</p>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 max-w-md w-full">
+        <h1 className="text-2xl font-bold mb-4 text-center text-blue-600">{test.testTitle} Results</h1>
+        <p className="text-xl mb-4 text-center">Your Total Score: <span className="font-bold">{score}</span></p>
+        <p className="text-lg text-center text-gray-700">{feedback}</p>
+      </div>
     </div>
+  );
+};
+
+const TestResultPage: React.FC = () => {
+  return (
+    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+      <ClientSideResult />
+    </Suspense>
   );
 };
 
