@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { tests } from "@app/content/free tests/data";
+import Navbar from "@components/common/Navbar";
 
 // Define a type for the question structure
 type Question = {
@@ -62,7 +63,8 @@ const TestPage: React.FC = () => {
   const currentQuestion = test.questions[currentPage - 1] as Question;
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 max-w-lg mx-auto font-sans">
+    <><Navbar/>
+    <div className="flex flex-col items-center justify-center p-6 max-w-3xl mx-auto font-sans mt-24">
       {/* Title with Image */}
       <div className="flex items-center mb-6">
         <img
@@ -70,7 +72,7 @@ const TestPage: React.FC = () => {
           alt="test icon"
           className="w-10 h-10 mr-4"
         />
-        <h1 className="text-2xl font-bold text-blue-600">{test.testTitle}</h1>
+        <h1 className="text-2xl font-bold text-hoversubbutton">{test.testTitle}</h1>
       </div>
 
       {/* Instructions */}
@@ -81,16 +83,16 @@ const TestPage: React.FC = () => {
 
       {/* Question Section */}
       <div className="w-full mb-4">
-        <h2 className="text-lg font-semibold text-center mb-4">
+        <h2 className="text-lg font-semibold text-maintext text-center mb-4">
           {currentQuestion.questionText}
         </h2>
         <div className="space-y-3">
           {currentQuestion.options.map((option) => (
             <label
               key={option.optionId}
-              className={`block bg-white rounded-lg border px-4 py-3 text-center cursor-pointer hover:bg-gray-200 transition ${
+              className={`block rounded-xl border border-button px-4 py-3 text-center cursor-pointer hover:bg-gray-200 transition ${
                 answers[currentPage - 1] === option.optionId
-                  ? " bg-green-300 text-black"
+                  ? "bg-gray-300 text-black" // Gray background for selected option
                   : "bg-white text-black"
               }`}
             >
@@ -109,13 +111,13 @@ const TestPage: React.FC = () => {
       </div>
 
       {/* Pagination */}
-      <div className="flex justify-center space-x-3 mt-4 mb-6">
+      <div className="flex justify-center mt-4 mb-6 flex-wrap">
         {test.questions.map((_, index) => (
           <span
             key={index}
-            className={`px-3 py-1 border-b-2 cursor-pointer transition ${
+            className={`px-2 py-1 m-1 text-base cursor-pointer transition ${
               index + 1 === currentPage
-                ? "text-blue-600 border-blue-600"
+                ? "text-heading border-b-2 border-heading"
                 : "text-black border-transparent"
             }`}
             onClick={() => setCurrentPage(index + 1)}
@@ -129,19 +131,19 @@ const TestPage: React.FC = () => {
       <div className="flex space-x-4 mt-6">
         <button
           onClick={handlePrevious}
-          className="bg-gray-300 text-white font-semibold rounded-full px-6 py-2 hover:bg-gray-400 transition"
+          className="bg-button text-white font-semibold rounded-lg px-6 py-2 hover:bg-heading transitions"
           disabled={currentPage === 1}
         >
           Previous
         </button>
         <button
           onClick={handleNext}
-          className="bg-teal-500 text-white font-semibold rounded-full px-6 py-2 hover:bg-teal-600 transition"
+          className="bg-button text-white font-semibold rounded-lg px-6 py-2 hover:bg-heading transitions"
         >
           {currentPage === test.questions.length ? "Finish" : "Next"}
         </button>
       </div>
-    </div>
+    </div></>
   );
 };
 
