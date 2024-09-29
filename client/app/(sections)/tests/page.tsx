@@ -1,3 +1,4 @@
+import Navbar from '@components/common/Navbar';
 import TestCard from '@components/TestCard';  // تأكد من مسار الاستيراد الصحيح
 import React from 'react';
 
@@ -35,7 +36,8 @@ const TestsPage: React.FC = () => {
       }
     ];
   
-    return (
+    return (<>
+    <Navbar/>
       <div className="min-h-screen bg-gray-100 py-10">
         <div className="container mx-auto px-4">
           {/* Title with Icon */}
@@ -61,7 +63,7 @@ const TestsPage: React.FC = () => {
             ))}
           </div>
         </div>
-      </div>
+      </div></>
     );
   };
   
