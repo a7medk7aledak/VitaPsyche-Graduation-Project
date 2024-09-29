@@ -201,7 +201,7 @@ const ClientSideResult: React.FC = () => {
 
             {/* رسالة الدعم */}
             <div className="text-center text-blue-600 font-semibold text-lg mb-6">
-              You shouldn't try to cope with what you're going through alone. We're here to help!
+              You shouldn&apos;t try to cope with what you&apos;re going through alone. We&apos;re here to help!
             </div>
 
             {/* زر الدعوة للعمل */}
