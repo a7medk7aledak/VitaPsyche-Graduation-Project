@@ -1,8 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter, useParams } from "next/navigation"; // Correct import for useRouter and useParams
-import { tests } from "@app/content/free tests/data"; 
+import { useRouter, useParams } from "next/navigation";
+import { tests } from "@app/content/free tests/data";
+
+// Define a type for the question structure
+type Question = {
+  questionText: string;
+  options: { optionId: number; optionText: string; score: number; }[];
+  questionId?: number; // Make questionId optional
+};
+
 const TestPage: React.FC = () => {
   const params = useParams();
   const testName = params?.testName as string;
@@ -23,7 +31,7 @@ const TestPage: React.FC = () => {
       const answersStr = JSON.stringify(answers);
       const url = `/result?score=${score}&answers=${encodeURIComponent(
         answersStr
-      )}&testSlug=${encodeURIComponent(testName)}`; // Pass testSlug as well
+      )}&testSlug=${encodeURIComponent(testName)}`;
 
       router.push(url);
     }
@@ -43,15 +51,15 @@ const TestPage: React.FC = () => {
 
   const calculateScore = () => {
     return answers.reduce((total, answer, index) => {
-      const question = test.questions[index];
+      const question = test.questions[index] as Question;
       const selectedOption = question.options.find(
         (option) => option.optionId === answer
       );
-      return total + (selectedOption?.score || 0); // Use score or 0 if undefined
+      return total + (selectedOption?.score || 0);
     }, 0);
   };
 
-  const currentQuestion = test.questions[currentPage - 1];
+  const currentQuestion = test.questions[currentPage - 1] as Question;
 
   return (
     <div className="flex flex-col items-center justify-center p-6 max-w-lg mx-auto font-sans">
@@ -68,7 +76,7 @@ const TestPage: React.FC = () => {
       {/* Instructions */}
       <p className="text-sm text-gray-500 text-center mb-6">
         Please read the test items carefully and answer based on the past two
-        weeks. There's no right or wrong answer.
+        weeks. There&apos;s no right or wrong answer.
       </p>
 
       {/* Question Section */}
@@ -82,13 +90,13 @@ const TestPage: React.FC = () => {
               key={option.optionId}
               className={`block bg-white rounded-lg border px-4 py-3 text-center cursor-pointer hover:bg-gray-200 transition ${
                 answers[currentPage - 1] === option.optionId
-                  ? " bg-slate-200" // Change background and text color when selected
+                  ? " bg-green-300 text-black"
                   : "bg-white text-black"
               }`}
             >
               <input
                 type="radio"
-                name={`question-${currentQuestion.questionId}`}
+                name={`question-${currentQuestion.questionId || currentPage}`}
                 value={option.optionId}
                 checked={answers[currentPage - 1] === option.optionId}
                 className="hidden"
