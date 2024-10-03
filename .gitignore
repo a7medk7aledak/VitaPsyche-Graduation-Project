@@ -13,7 +13,6 @@ db.sqlite3
 # Rasa
 rasa/.venv
 models/
-data/
 rasa/.pyc
 .rasa
 # Machine Learning
