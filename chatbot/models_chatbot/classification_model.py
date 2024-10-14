@@ -57,3 +57,37 @@ if __name__ == "__main__":
             break
         user_result = classify_english(user_text, english_pipe)
         print(f"Classification: {user_result}\n")
+
+
+
+
+
+
+
+
+#anther model very light but Its results are inaccurate!!!!
+
+# # استيراد المكتبات اللازمة
+# from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
+
+# # تحميل النموذج مباشرة باستخدام pipeline
+# pipe = pipeline("text-classification", model="edmundhui/mental_health_trainer")
+
+# # تحميل النموذج والمحول يدوياً
+# tokenizer = AutoTokenizer.from_pretrained("edmundhui/mental_health_trainer")
+# model = AutoModelForSequenceClassification.from_pretrained("edmundhui/mental_health_trainer")
+
+# # نصوص تجريبية لتحليل الصحة النفسية
+# texts = [
+#     "I feel really sad and hopeless.",
+#     "I'm feeling great and full of energy today!",
+#     "I've been feeling anxious and worried about everything lately.",
+#     "I am so excited about the future!"
+# ]
+
+# # استخدام النموذج عبر pipeline لتحليل النصوص
+# for text in texts:
+#     result = pipe(text)
+#     print(f"Text: {text}")
+#     print(f"Prediction: {result[0]['label']}, Confidence: {result[0]['score']:.4f}")
+#     print("-" * 50)
