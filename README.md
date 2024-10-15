@@ -1,4 +1,4 @@
-# Mind Med Project
+# VitaPsyche Grauation
 
 ## Overview
 
