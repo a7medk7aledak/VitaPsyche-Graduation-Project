@@ -6,7 +6,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     try {
       // Send the message to Django backend
-      const response = await fetch('http://127.0.0.1:8000/chatbot/', {
+      const response = await fetch('http://127.0.0.1:8000/lina/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -62,7 +62,7 @@ const VirtualSupportAgent: React.FC = () => {
       setIsTyping(true);
 
       try {
-        const response = await fetch("/api/chatbot", {
+        const response = await fetch("/api/lina", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
