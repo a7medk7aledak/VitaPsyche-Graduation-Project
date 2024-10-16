@@ -29,7 +29,7 @@
 Ensure you have the following installed on your machine:
 
 - **Node.js** (v20.15.0 or higher)
-- **Python** (v3.12.5 or higher)
+- **Python** (v3.8 to v3.10)
 - **MongoDB**
 - **Django** (or Flask for the backend)
 - **Rasa Framework**
@@ -57,19 +57,20 @@ DEBUG=True
 ```
 
 Installing Dependencies and run
-For the Next.js front-end:
+To run all project in your device follow that steps: 
+1-Next.js front-end:
 ```bash
 cd client
 #install node_modules
 npm install
 npm run dev
 ```
-For the Flutter mobile app:
+2-Flutter mobile app:
 ```
 cd mobile
 flutter pub get
 ```
-For the Django back-end:
+3-Django back-end:
 ```bash
 cd server
 pip install django
@@ -79,7 +80,7 @@ pip install -r requirements.txt
 #to run the server
 python manage.py runserver
 ```
-For the rasa chatbot:
+4-rasa chatbot:
 ```
 #note Python versions: 3.7, 3.8, 3.9, and 3.10. Note that Python 3.10 is only supported for versions 3.4.x and upwards
 #to make a new Environment =>  that step make it once
@@ -90,7 +91,7 @@ pip install rasa
 rasa train
 rasa run -m models --enable-api --cors "*"
 ```
-For the rasa lina:
+5-rasa lina:
 ```
 cd lina model
 pip install rasa
