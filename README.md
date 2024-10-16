@@ -1,4 +1,4 @@
-# Mind Med Project
+# VitaPsyche Grauation
 
 ## Overview
 
@@ -29,7 +29,7 @@
 Ensure you have the following installed on your machine:
 
 - **Node.js** (v20.15.0 or higher)
-- **Python** (v3.12.5 or higher)
+- **Python** (v3.8 to v3.10)
 - **MongoDB**
 - **Django** (or Flask for the backend)
 - **Rasa Framework**
@@ -56,66 +56,56 @@ SECRET_KEY=<your_django_secret_key>
 DEBUG=True
 ```
 
-Installing Dependencies
-For the rasa chatbot:
-```
-#note Python versions: 3.7, 3.8, 3.9 and 3.10. Note that Python 3.10 is only supported for versions 3.4.x and upwards 
-cd chatbot
-pip install rasa
-#to make new Environment
-python -m venv venv
-.\venv\Scripts\activate
-```
-For the django to rasa chatbot:
-```
-pip install django
-pip install requests
-pip install django-cors-headers
-
-```
-For the Next.js front-end:
+Installing Dependencies and run
+To run all project in your device follow that steps: 
+1-Next.js front-end:
 ```bash
 cd client
+#install node_modules
 npm install
-# or
-yarn install
+npm run dev
 ```
-For the Django back-end:
-```bash
-cd server
-pip install -r requirements.txt
-```
-For the Flutter mobile app:
+2-Flutter mobile app:
 ```
 cd mobile
 flutter pub get
 ```
-
-
-Running the Project
-To run the Next.js front-end:
-```
-cd client
-npm run dev
-```
-To run the Django back-end:
-```
+3-Django back-end:
+```bash
 cd server
+pip install django
+pip install requests
+pip install django-cors-headers
+pip install -r requirements.txt
+#to run the server
 python manage.py runserver
-
 ```
-To run the Flutter mobile app:
+4-rasa chatbot:
 ```
-cd mobile
-flutter run
-
-```
-To run the Rasa Chatbot:
-```
+#note Python versions: 3.7, 3.8, 3.9, and 3.10. Note that Python 3.10 is only supported for versions 3.4.x and upwards
+#to make a new Environment =>  that step make it once
+python -m venv venv
+.\venv\Scripts\activate
 cd chatbot
-rasa run --enable-api
-or
+pip install rasa
+rasa train
 rasa run -m models --enable-api --cors "*"
+```
+5-rasa lina:
+```
+cd lina model
+pip install rasa
+rasa train
+rasa run --port 5006
+```
+
+
+
+note:
+To test the Rasa Chatbot and Lina by terminal:
+```
+rasa train
+rasa shell
 ```
 API Testing
 Use Postman or Insomnia to test the APIs for the back-end and to ensure the chatbot is responding as expected.
