@@ -110,6 +110,12 @@ rasa shell
 API Testing
 Use Postman or Insomnia to test the APIs for the back-end and to ensure the chatbot is responding as expected.
 
+figma
+moblie
+https://www.figma.com/design/QZWLyKjYRs6WmyCyAiuZII/Untitled?node-id=0-1&t=G417WzsZIOwOOTCJ-1
+web
+https://www.figma.com/design/o7kyURJwQIFXXfRQnH2K7D/mindMED?node-id=0-1&t=MTEzKBMnCCIYmVUO-1
+
 Deployment
 To deploy the application, you can use the following services:
 
