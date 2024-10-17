@@ -16,48 +16,48 @@ def init_arabic_model(num_labels=2):
     model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=num_labels)
     return model, tokenizer
 
-def train_arabic_model(model, tokenizer, train_file='arabic_tweets_depression.csv'):
-    # Load the dataset
-    df = pd.read_csv(train_file)
+# def train_arabic_model(model, tokenizer, train_file='arabic_tweets_depression.csv'):
+#     # Load the dataset
+#     df = pd.read_csv(train_file)
 
-    # Prepare the data
-    texts = df['tweet'].tolist()
-    labels = df['label'].map({'depressed': 1, 'non-depressed': 0}).tolist()
+#     # Prepare the data
+#     texts = df['tweet'].tolist()
+#     labels = df['label'].map({'depressed': 1, 'non-depressed': 0}).tolist()
 
-    # Split the data into train and test sets
-    train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, test_size=0.2, random_state=42)
+#     # Split the data into train and test sets
+#     train_texts, test_texts, train_labels, test_labels = train_test_split(texts, labels, test_size=0.2, random_state=42)
 
-    # Tokenize the texts
-    train_encodings = tokenizer(train_texts, truncation=True, padding=True)
-    test_encodings = tokenizer(test_texts, truncation=True, padding=True)
+#     # Tokenize the texts
+#     train_encodings = tokenizer(train_texts, truncation=True, padding=True)
+#     test_encodings = tokenizer(test_texts, truncation=True, padding=True)
 
-    # Create datasets
-    train_dataset = Dataset.from_dict(train_encodings).add_column('labels', train_labels)
-    test_dataset = Dataset.from_dict(test_encodings).add_column('labels', test_labels)
+#     # Create datasets
+#     train_dataset = Dataset.from_dict(train_encodings).add_column('labels', train_labels)
+#     test_dataset = Dataset.from_dict(test_encodings).add_column('labels', test_labels)
 
-    # Define training arguments
-    training_args = TrainingArguments(
-        output_dir="./results",
-        num_train_epochs=3,
-        per_device_train_batch_size=8,
-        per_device_eval_batch_size=8,
-        warmup_steps=500,
-        weight_decay=0.01,
-        logging_dir="./logs",
-    )
+#     # Define training arguments
+#     training_args = TrainingArguments(
+#         output_dir="./results",
+#         num_train_epochs=3,
+#         per_device_train_batch_size=8,
+#         per_device_eval_batch_size=8,
+#         warmup_steps=500,
+#         weight_decay=0.01,
+#         logging_dir="./logs",
+#     )
 
-    # Create trainer
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=train_dataset,
-        eval_dataset=test_dataset
-    )
+#     # Create trainer
+#     trainer = Trainer(
+#         model=model,
+#         args=training_args,
+#         train_dataset=train_dataset,
+#         eval_dataset=test_dataset
+#     )
 
-    # Train the model
-    trainer.train()
+#     # Train the model
+#     trainer.train()
 
-    return model
+    # return model
 
 def classify_arabic(text, model, tokenizer):
     inputs = tokenizer(text, return_tensors="pt", truncation=True, padding=True)
