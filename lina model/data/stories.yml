@@ -1,0 +1,61 @@
+version: "3.1"
+stories:
+
+- story: mood tracking and goal setting
+  steps:
+    - intent: track_mood
+    - action: utter_track_mood
+    - intent: set_mental_health_goal
+    - action: utter_set_mental_health_goal
+    - intent: check_goal_progress
+    - action: utter_check_goal_progress
+
+- story: personalized plan and coping strategies
+  steps:
+    - intent: request_personalized_plan
+    - action: utter_personalized_plan
+    - intent: ask_for_coping_strategies
+    - action: utter_coping_strategies
+
+- story: resource recommendation and developer info
+  steps:
+    - intent: request_resource_recommendation
+    - action: utter_resource_recommendation
+    - intent: ask_about_developer
+    - action: utter_about_developer
+
+- story: complex mental health support
+  steps:
+    - intent: greet
+    - action: utter_greet
+    - intent: ask_for_anxiety_help
+    - action: utter_anxiety_help
+    - intent: ask_for_breathing_exercise
+    - action: utter_breathing_exercise
+    - intent: track_mood
+    - action: utter_track_mood
+    - intent: set_mental_health_goal
+    - action: utter_set_mental_health_goal
+    - intent: request_personalized_plan
+    - action: utter_personalized_plan
+    - intent: ask_for_coping_strategies
+    - action: utter_coping_strategies
+    - intent: request_resource_recommendation
+    - action: utter_resource_recommendation
+    - intent: goodbye
+    - action: utter_goodbye
+
+- story: crisis support with follow-up
+  steps:
+    - intent: express_suicidal_thoughts
+    - action: utter_crisis_support
+    - intent: ask_for_therapy_options
+    - action: utter_therapy_options
+    - intent: ask_for_coping_strategies
+    - action: utter_coping_strategies
+    - intent: request_resource_recommendation
+    - action: utter_resource_recommendation
+- story: respond to love
+  steps:
+  - intent: express_love
+  - action: utter_love_response
