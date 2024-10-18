@@ -1,124 +1,230 @@
-version: "2.0"
-## create responses for intents in nlu
+version: '3.1'
 intents:
+  - seek_support
+  - ask_for_advice_anxiety
+  - ask_for_advice_depression
+  - ask_for_advice_self_confidence
+  - ask_for_advice_stress
+  - ask_for_advice_emotional_management
+  - ask_for_advice_sleep
+  - ask_for_advice_social_relationships
+  - ask_for_advice_motivation
+  - ask_for_advice_nutrition_exercise
+  - ask_for_advice_life_changes
+  - ask_for_advice_goal_setting
+  - ask_for_advice_fear
+  - ask_for_advice_self_awareness
+  - ask_for_advice_concentration
+  - ask_for_advice_anger_management
+  - ask_for_advice_positive_thinking
+  - ask_for_advice_social_skills
+  - ask_for_advice_time_management
+  - ask_for_advice_self_acceptance
+  - ask_for_advice_loneliness
+  - ask_for_advice_frustration
+  - ask_for_advice_social_pressure
+  - ask_for_advice_work_stress
+  - ask_for_advice_healthy_habits
+  - express_anxiety
+  - express_depression
+  - seek_motivation
+  - express_gratitude_for_support
+  - ask_about_coping_strategies
+  - express_confusion_about_emotions
+  - seek_resources
   - greet
-  - name_entry
-  - thanks
   - goodbye
   - affirm
   - deny
   - mood_great
-  - mood_unhappy
   - bot_challenge
-  - wellbeing
-  - gender
-  - self_employment
-  - history_mental_illness
-  - work_interference
-  - company_no_employees
-  - tech_company
-  - health_benefits
-  - health_resources
-  - treatment_anonymity
-  - medical_leave
-  - discussing_mental_health
-  - willing_to_discuss_collegaue
-  - willing_to_discuss_supervisor
-  - willing_to_discuss_employer
-  - willing_to_discuss_physical_employer
-  - serious_mental_health
-  - negative_consequences_mental_coworker
-
-actions:
-  - action_hello_world
-
-entities:
-  - name
-
-slots:
-  name:
-    type: text
-    mappings:
-      - type: from_entity
-        entity: name
-
+#entities:
+#- gender
+#- age
+#- name
+#slots:
+#  name:
+#    type: text
+#    influence_conversation: false
+#    mappings:
+#    - type: from_entity
+#      entity: name
+#  age:
+#    type: float
+#    influence_conversation: false
+#    mappings:
+#    - type: from_entity
+#      entity: age
+#  gender:
+#    type: text
+#    influence_conversation: false
+#    mappings:
+#    - type: from_entity
+#      entity: gender
 responses:
-  utter_greet:
-    - text: "Hey!"
-
-  utter_survey:
-    - text: "Would you like to go on a quick mental health situation analysis survey with me? Dont worry, all your responses will be safe between just us!"
-
-  utter_mood:
-    - text: "Hey, tell me about yourself. How are you today?"
-
-  utter_gender:
-    - text: "What is your gender identity?"
-
-  utter_employment:
-    - text: "Are you self-employed?"
-
-  utter_history_mental_illness:
-    - text: "Do you have a family history of mental illness?"
-
-  utter_work_interference:
-    - text: "Do you feel anyone interferes with your work?"
-
-  utter_company_no_employees:
-    - text: "How many employees does your company or organization have?"
-
-  utter_tech_company:
-    - text: "Is your employer primarily a tech company/organization?"
-
-  utter_health_benefits:
-    - text: "Does your employer provide mental health benefits?"
-
-  utter_health_resources:
-    - text: "Do you know the options for mental health care your employer provides?"
-
-  utter_treatment_anonymity:
-    - text: "Is your anonymity protected if you choose to take advantage of mental health treatment resources?"
-
-  utter_medical_leave:
-    - text: "How easy is it for you to take medical leave for a mental health condition?"
-
-  utter_discussing_mental_health:
-    - text: "Do you think that discussing a mental health issue with your employer would have negative consequences?"
-
-  utter_willing_to_discuss_collegaue:
-    - text: "Would you be willing to discuss a mental health issue with your coworkers?"
-
-  utter_willing_to_discuss_employer:
-    - text: "Would you bring up a mental health issue with a potential employer in an interview?"
-
-  utter_serious_mental_health:
-    - text: "Do you feel that your employer takes mental health as seriously as physical health?"
-
-  utter_negative_consequences_mental_coworker:
-    - text: "Have you heard of or observed negative consequences for coworkers with mental health conditions in your workplace?"
-
-  utter_cheer_up:
-    - text: "Here is something to cheer you up:"
-      image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_cheer_up_two:
-    - text: "Maybe you should try watching Tom and Jerry, it always helps!"
-
-  utter_did_that_help:
-    - text: "Did that help you?"
-
-  utter_happy:
-    - text: "Great, carry on!"
-
   utter_goodbye:
-    - text: "GoodBye, take care! Hope To See You Soon!\nJust Type 'hey' or 'hi' anytime again to redirect to the main phase of bot!"
+    - text: "Bye!"
+    - text: "Take care, see you next time!"
+    - text: "Goodbye! Stay safe!"
+    - text: "See you later!"
+    - text: "Farewell! Have a great day!"
 
   utter_iamabot:
-    - text: "I am a friendly MindMed chatbot, your closest ally."
+    - text: "I am a bot, powered by Vitapsyche AI Hub."
+    - text: "I'm a virtual assistant, here to help you, and powered by Vitapsyche AI Hub."
+    - text: "I'm an AI bot, running on Vitapsyche AI Hub."
+    - text: "I’m an automated assistant, designed by Vitapsyche AI Hub."
+    - text: "I'm a chatbot supported by Vitapsyche AI Hub."
 
-  utter_welcome:
-    - text: "Great! \nJust type 'hey' or 'hi' again to redirect to the main phase of bot!"
+  utter_happy:
+    - text: "I'm really glad to hear that! I hope you have a wonderful day! Can you tell me what’s making you feel so positive?"
+    - text: "That's amazing! I wish you a joyful day! Would you like to share why you're feeling so happy?"
+    - text: "Great to hear! I hope your day is as wonderful as your mood! What’s making you feel this way?"
+    - text: "Lovely! Enjoy your day! Can you tell me what’s bringing you this happiness?"
+    - text: "I'm thrilled to hear that! Wishing you all the happiness! What’s making you feel so happy?"
 
+  utter_greet:
+    - text: "Hello! How can I assist you today?"
+    - text: "Hi there! What would you like to talk about?"
+    - text: "Hey! I'm here to help. What’s on your mind?"
+    - text: "Good to see you! How can I support you today?"
+    - text: "Hi! Let me know how I can assist you."
+
+  utter_understanding_anxiety:
+    - text: "It's completely normal to feel anxious sometimes. Let's talk about what's on your mind."
+    - text: "Anxiety can be overwhelming. Have you considered talking to someone about your feelings?"
+
+  utter_understanding_depression:
+    - text: "I’m here for you. Depression can feel isolating, but you’re not alone."
+    - text: "It's important to acknowledge your feelings. Would you like to discuss what's bothering you?"
+
+  utter_motivation_available:
+    - text: "Remember, progress takes time. I'm here to support you on your journey!"
+    - text: "You have the strength to achieve your goals. What are you working towards right now?"
+
+  utter_gratitude_response:
+    - text: "You're very welcome! I'm glad to be here for you."
+    - text: "I appreciate your kind words! It’s important to have a support system."
+
+  utter_coping_strategies:
+    - text: "Some effective coping strategies include deep breathing, talking to someone, and practicing mindfulness."
+    - text: "Have you tried journaling your thoughts? It can be a great way to process your emotions."
+
+  utter_confusion_response:
+    - text: "It's okay to feel confused about your emotions. Would you like to explore them together?"
+    - text: "Many people experience confusion about their feelings. Let's break it down together."
+
+  utter_resources_available:
+    - text: "There are many resources available, including hotlines and support groups. Would you like some recommendations?"
+    - text: "I can help you find resources that suit your needs. What specific support are you looking for?"
+
+  utter_advice_stress:
+    - text: "It's important to take breaks and practice relaxation techniques. Have you tried meditation or deep breathing exercises?"
+    - text: "Remember to prioritize your tasks and don't hesitate to ask for help when you need it."
+
+  utter_advice_emotional_management:
+    - text: "Identifying your emotions is the first step. Try journaling to express how you feel."
+    - text: "It's okay to seek professional help. Talking to a therapist can provide valuable support."
+
+  utter_advice_sleep:
+    - text: "Establish a bedtime routine and limit screen time before sleeping. Have you tried reading a book instead?"
+    - text: "Create a comfortable sleep environment and try to go to bed and wake up at the same time every day."
+
+  utter_advice_social_relationships:
+    - text: "Quality over quantity! Focus on nurturing your closest relationships."
+    - text: "Join clubs or groups that align with your interests. It's a great way to meet new people."
+
+  utter_advice_motivation:
+    - text: "Set small, achievable goals to build momentum. Celebrate your successes, no matter how small!"
+    - text: "Surround yourself with positive influences and remind yourself of your 'why.' What motivates you?"
+
+  utter_advice_nutrition_exercise:
+    - text: "A balanced diet can boost your mood. Consider incorporating more fruits and vegetables into your meals."
+    - text: "Regular exercise can help reduce stress. Even a short walk can make a difference!"
+
+  utter_advice_life_changes:
+    - text: "Embrace change as an opportunity for growth. What's the most significant change you're facing right now?"
+    - text: "Take it one step at a time. Break down your challenges into manageable tasks."
+
+  utter_advice_goal_setting:
+    - text: "Set SMART goals: Specific, Measurable, Achievable, Relevant, and Time-bound."
+    - text: "Visualizing your goals can help. Have you considered creating a vision board?"
+
+  utter_advice_fear:
+    - text: "Facing your fears gradually can help. What small step can you take today?"
+    - text: "Remember that it's normal to feel fear. Acknowledge it, but don't let it control you."
+
+  utter_advice_self_awareness:
+    - text: "Take time to reflect on your thoughts and feelings. Mindfulness practices can be very helpful."
+    - text: "Consider seeking feedback from trusted friends to gain a different perspective on yourself."
+
+  utter_advice_concentration:
+    - text: "Try breaking your tasks into smaller chunks and use timers to focus better."
+    - text: "Minimize distractions in your environment. What helps you concentrate the best?"
+
+  utter_advice_anger_management:
+    - text: "Practice deep breathing or count to ten before responding when you feel angry."
+    - text: "Identify your triggers and think about how you can respond differently next time."
+
+  utter_advice_positive_thinking:
+    - text: "Challenge negative thoughts by focusing on positive affirmations."
+    - text: "Surround yourself with positivity, whether through people, books, or music."
+
+  utter_advice_social_skills:
+    - text: "Practice active listening and show genuine interest in others' conversations."
+    - text: "Join workshops or groups that focus on developing social skills. Practice makes perfect!"
+
+  utter_advice_time_management:
+    - text: "Use tools like calendars or to-do lists to organize your tasks effectively."
+    - text: "Prioritize tasks based on urgency and importance. What needs your attention first?"
+
+  utter_advice_self_acceptance:
+    - text: "Embrace your imperfections; they make you unique. Focus on your strengths."
+    - text: "Practice self-compassion. How would you comfort a friend in your situation?"
+
+  utter_advice_loneliness:
+    - text: "Try reaching out to friends or family. Connection can reduce feelings of loneliness."
+    - text: "Consider volunteering or joining a community group. Helping others can create meaningful connections."
+
+  utter_advice_frustration:
+    - text: "Take a break to cool off. Sometimes stepping away can provide clarity."
+    - text: "Talk about your feelings with someone you trust. Sharing can lighten the burden."
+
+  utter_advice_social_pressure:
+    - text: "Remember that it's okay to say no. You have the right to prioritize your own needs."
+    - text: "Focus on your values and beliefs. Surround yourself with supportive people."
+
+  utter_advice_work_stress:
+    - text: "Establish boundaries to separate work from personal life. What's one change you can make?"
+    - text: "Consider discussing your workload with your supervisor. Communication is key."
+
+  utter_advice_healthy_habits:
+    - text: "Start with small changes, like drinking more water or taking short walks."
+    - text: "Incorporate habits you enjoy into your routine, making it easier to stick to them."
+
+  utter_advice_self_confidence:
+    - text: "Building self-confidence takes time. Try to focus on your strengths and celebrate your achievements, no matter how small."
+    - text: "Practice positive self-talk. Remind yourself of what you are good at and set achievable goals to boost your confidence."
+
+  utter_advice_depression:
+    - text: "It's important to talk about how you're feeling. Have you considered reaching out to a friend or a professional?"
+    - text: "Try to engage in activities that you enjoy, even if it feels hard. Small steps can lead to better days."
+
+  utter_support_available:
+    - text: "I'm here to support you. How can I help you today?"
+    - text: "If you need assistance, don't hesitate to let me know. I'm here for you!"
+
+
+
+#actions:
+#- action_save_gender
+#- action_save_name
+#- action_save_age
+#- utter_ask_name
+#- utter_ask_gender
+#- utter_thank_you
+#- utter_greet
+#- utter_ask_age
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
