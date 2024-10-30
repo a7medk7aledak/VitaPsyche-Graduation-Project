@@ -110,12 +110,12 @@ rasa shell
 API Testing
 Use Postman or Insomnia to test the APIs for the back-end and to ensure the chatbot is responding as expected.
 
-# Project Design Links
+# Project Design Links figam
 
-### Mobile Design
+### Mobile Design figma
 [moblie](https://www.figma.com/design/QZWLyKjYRs6WmyCyAiuZII/Untitled?node-id=0-1&t=G417WzsZIOwOOTCJ-1)
 
-### Web Design
+### Web Design figma
 [web](https://www.figma.com/design/o7kyURJwQIFXXfRQnH2K7D/mindMED?node-id=0-1&t=MTEzKBMnCCIYmVUO-1)
 
 
