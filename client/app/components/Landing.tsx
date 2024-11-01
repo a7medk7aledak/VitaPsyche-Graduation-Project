@@ -31,12 +31,15 @@ const Landing = () => {
               height={400}
               className="absolute md:-top-24 md:right-12 -top-48 right-20 -z-10 transform rotate-90"
             />
-            <p className="text-xl md:text-3xl font-medium text-paragraphtext mb-3 text-center md:text-left leading-8 tracking-wide md:px-4">
-              We are here to help you, make your life easier and support you in
-              your therapeutic journey. Talk to your psychiatrist anytime,
-              anywhere!
-            </p>
-            <div className="mx-auto w-fit mt-5">
+            <div className="text-xl md:text-2xl font-medium text-paragraphtext mb-5 text-center  tracking-wide md:px-3">
+              <p className="text-subheading mb-5 text-3xl">
+                what <span className="text-heading">Vitapsyche</span> produce
+              </p>
+              Our platform offers personalized psychological assessments, direct
+              access to doctors, a mental health product store, and educational
+              content to promote awareness and self-understanding.
+            </div>
+            <div className="mx-auto w-fit">
               <Link href={"/chatbot"}>
                 <Button variant="secondary" size={"large"} roundedValue="full">
                   <Image

@@ -30,14 +30,14 @@ const LoginPage = () => {
     console.log("Role:", role);
     console.log("Email:", email);
     console.log("Password:", password);
-    
+
     setError(""); // Clear any previous errors
   };
 
   return (
     <div className="min-h-screen flex">
       <Head>
-        <title>Login | MindMed</title>
+        <title>Login | Vitapsyche</title>
       </Head>
 
       {/* Left Section (Form Section) */}
@@ -52,11 +52,13 @@ const LoginPage = () => {
           >
             <Image
               src="/images/logo.png"
-              alt="MindMed Logo"
+              alt="Vitapsyche Logo"
               width={64}
               height={64}
             />
-            <h2 className="text-2xl font-semibold text-center text-teal-700 mb-2">MindMed</h2>
+            <h2 className="text-2xl font-semibold text-center text-teal-700 mb-2">
+              Vitapsyche
+            </h2>
           </motion.div>
 
           {/* Sign in as Title */}
@@ -73,13 +75,17 @@ const LoginPage = () => {
           <div className="flex justify-center mb-8">
             <motion.button
               onClick={() => setRole("Visitor")}
-              className={`flex flex-col items-center mx-4 ${role === "Visitor" ? "text-maintext" : "text-gray-500"}`}
+              className={`flex flex-col items-center mx-4 ${
+                role === "Visitor" ? "text-maintext" : "text-gray-500"
+              }`}
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
               <div
-                className={`w-16 h-16 rounded-full p-2 ${role === "Visitor" ? "bg-button" : "bg-gray-100"}`}
+                className={`w-16 h-16 rounded-full p-2 ${
+                  role === "Visitor" ? "bg-button" : "bg-gray-100"
+                }`}
               >
                 <Image
                   src="/images/user.png"
@@ -93,13 +99,17 @@ const LoginPage = () => {
 
             <motion.button
               onClick={() => setRole("Doctor")}
-              className={`flex flex-col items-center mx-4 ${role === "Doctor" ? "text-maintext" : "text-gray-500"}`}
+              className={`flex flex-col items-center mx-4 ${
+                role === "Doctor" ? "text-maintext" : "text-gray-500"
+              }`}
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
               <div
-                className={`w-16 h-16 rounded-full p-2 ${role === "Doctor" ? "bg-button" : "bg-gray-100"}`}
+                className={`w-16 h-16 rounded-full p-2 ${
+                  role === "Doctor" ? "bg-button" : "bg-gray-100"
+                }`}
               >
                 <Image
                   src="/images/doctor.png"
@@ -149,7 +159,11 @@ const LoginPage = () => {
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
                 onClick={togglePasswordVisibility}
               >
-                {showPassword ? <FaEyeSlash className="text-button" /> : <FaEye className="text-button" />}
+                {showPassword ? (
+                  <FaEyeSlash className="text-button" />
+                ) : (
+                  <FaEye className="text-button" />
+                )}
               </div>
             </motion.div>
 

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { motion } from "framer-motion"; 
+import { motion } from "framer-motion";
 import Heading from "@components/common/Heading";
 import { FiPhoneCall } from "react-icons/fi";
 import { MdEmail } from "react-icons/md";
@@ -102,16 +102,16 @@ const ContactForm = () => {
     <motion.section
       id="contact-us"
       className="relative"
-      initial={{ opacity: 0, y: 20 }} 
-      animate={{ opacity: 1, y: 0 }} 
-      transition={{ duration: 0.5 }} 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
     >
       <div className="container mx-auto">
         <motion.div
           className="-mt-10 mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.2 }} 
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           <Heading variant="secondary">You are our priority</Heading>
           <h6 className="w-fit mx-auto -mt-24 p-5 text-lg text-paragraphtext font-medium text-center">
@@ -157,7 +157,7 @@ const ContactForm = () => {
                 <TbWorld className="text-xl" />
                 <div>
                   <h4 className="font-medium">Website</h4>
-                  <p>MindMed.com</p>
+                  <p>Vitapsyche.com</p>
                 </div>
               </div>
             </div>
@@ -169,7 +169,7 @@ const ContactForm = () => {
           </motion.div>
 
           {/* Left section with contact form */}
-          <div className="w-3/4 p-5 pl-8">
+          <div className="md:w-3/4 w-full  p-5 pl-8">
             <motion.form
               className="flex flex-wrap pt-8"
               onSubmit={sendEmail}
@@ -177,7 +177,7 @@ const ContactForm = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <div className="flex flex-col group mb-7 mr-16">
+              <div className="flex flex-col group mb-7 w-full md:w-1/2">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
                   First Name
                 </label>
@@ -186,11 +186,11 @@ const ContactForm = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className="w-fit border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
+                  className="w-10/12 md:w-3/4  border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
                 />
               </div>
 
-              <div className="flex flex-col group mb-7">
+              <div className="flex flex-col group mb-7 w-full md:w-1/2">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
                   Last Name
                 </label>
@@ -199,11 +199,11 @@ const ContactForm = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  className="w-fit border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
+                  className="w-10/12 md:w-3/4 border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
                 />
               </div>
 
-              <div className="flex flex-col group mb-7 mr-16">
+              <div className="flex flex-col group mb-7 w-full  md:w-1/2">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
                   Email
                 </label>
@@ -212,11 +212,11 @@ const ContactForm = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-fit border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
+                  className="w-10/12 md:w-3/4  border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
                 />
               </div>
 
-              <div className="flex flex-col group mb-7">
+              <div className="flex flex-col group mb-7 w-full md:w-1/2">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
                   Phone Number
                 </label>
@@ -225,7 +225,7 @@ const ContactForm = () => {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  className="w-fit border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
+                  className="w-10/12  md:w-3/4 border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
                 />
               </div>
 
