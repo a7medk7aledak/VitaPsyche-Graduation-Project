@@ -32,12 +32,12 @@ const ChatBotPage: React.FC = () => {
   const [language, setLanguage] = useState<string>("en-US");
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState<boolean>(false);
+  const [activeChat, setActiveChat] = useState<string>("Chat 1");
 
   const sidebarRef = useRef<HTMLDivElement>(null);
 
-  // Initialize speech recognition when component mounts
   useEffect(() => {
-    if (typeof window !== 'undefined' && "webkitSpeechRecognition" in window) {
+    if (typeof window !== "undefined" && "webkitSpeechRecognition" in window) {
       const newRecognition = new window.webkitSpeechRecognition();
       newRecognition.continuous = false;
       newRecognition.interimResults = false;
@@ -57,14 +57,13 @@ const ChatBotPage: React.FC = () => {
     }
   }, []);
 
-  // Close the sidebar when clicking outside
+  // Close sidebar on outside click
   useEffect(() => {
     const handleOutsideClick = (e: MouseEvent) => {
       if (isHistoryVisible && sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
         setIsHistoryVisible(false);
       }
     };
-
     document.addEventListener("mousedown", handleOutsideClick);
     return () => document.removeEventListener("mousedown", handleOutsideClick);
   }, [isHistoryVisible]);
@@ -114,9 +113,15 @@ const ChatBotPage: React.FC = () => {
     setLanguage(e.target.value);
   };
 
+  const openChat = (chatName: string) => {
+    setActiveChat(chatName);
+    setMessages([]);
+    setIsHistoryVisible(false);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-[#dce9e6]">
-      <Navbar />
+      <Navbar  />
 
       <div className="flex flex-1">
         {/* Chat History Sidebar */}
@@ -129,9 +134,17 @@ const ChatBotPage: React.FC = () => {
           <div className="p-6 text-white">
             <h2 className="text-xl mb-4">History</h2>
             <div className="space-y-4">
-              <button className="w-full text-left bg-heading p-2 rounded-md">Chat 1</button>
-              <button className="w-full text-left bg-heading p-2 rounded-md">Chat 2</button>
-              <button className="w-full text-left bg-heading p-2 rounded-md">Chat 3</button>
+              {["Chat 1", "Chat 2", "Chat 3"].map((chat, index) => (
+                <button
+                  key={index}
+                  onClick={() => openChat(chat)}
+                  className={`w-full text-left p-2 rounded-md ${
+                    activeChat === chat ? "bg-green-600" : "bg-heading"
+                  }`}
+                >
+                  {chat}
+                </button>
+              ))}
             </div>
           </div>
         </div>
@@ -166,28 +179,28 @@ const ChatBotPage: React.FC = () => {
           </div>
 
           {/* Input Section */}
-          <div className="flex items-center p-4 border-t border-heading bg-green-100">
+          <div className="flex items-center p-2 mb- border-t w-full border-heading bg-green-100">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder={language === "ar-SA" ? "اكتب رسالتك..." : "Type your message..."}
-              className={`flex-grow p-3 rounded-full border border-heading focus:outline-none ${
+              className={`flex-grow p-2 rounded-full border border-heading focus:outline-none ${
                 language === "ar-SA" ? "text-right" : "text-left"
               }`}
             />
-            <button onClick={handleSendMessage} className="p-3 ml-2 bg-heading text-white rounded-full">
+            <button onClick={handleSendMessage} className="p-2 ml-2 bg-heading text-white rounded-full">
               <FaPaperPlane />
             </button>
             <button
               onClick={handleSpeechToText}
-              className={`p-3 ml-2 rounded-full text-white ${isListening ? "bg-red-500" : "bg-blue-400"}`}
+              className={`p-2 ml-2 rounded-full text-white ${isListening ? "bg-red-500" : "bg-blue-400"}`}
             >
               {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
             </button>
             <button
               onClick={() => setIsHistoryVisible(!isHistoryVisible)}
-              className="p-3 ml-2 lg:hidden rounded-full bg-hoverbutton text-white text-xl"
+              className="p-2 ml-2 lg:hidden rounded-full bg-hoverbutton text-white text-xl"
             >
               <FaBars />
             </button>
