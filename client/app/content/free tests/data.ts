@@ -613,5 +613,463 @@ export const tests = [
             ]
   }
 }
+,
+  {
+    testTitle: "PTSD Scale according to DSM-IV",
+    testSlug: "ptsd-scale", // URL-friendly slug
 
-];
+    questions: [
+      {
+        questionId: 1,
+        questionText: "Have you experienced recurring images, thoughts, or memories of the trauma?",
+        options: [
+          { optionId: 1, optionText: "Never", score: 0  },
+          { optionId: 2, optionText: "Rarely", score: 0  },
+          { optionId: 3, optionText: "Sometimes", score: 0  },
+          { optionId: 4, optionText: "Often", score: 75  },
+          { optionId: 5, optionText: "Always", score: 75  }
+        ]
+      },
+      {
+        questionId: 2,
+        questionText: "Do you dream about the trauma or experience nightmares?",
+        options: [
+          { optionId: 1, optionText: "Never" , score: 0 },
+          { optionId: 2, optionText: "Rarely" , score: 0 },
+          { optionId: 3, optionText: "Sometimes" , score: 0 },
+          { optionId: 4, optionText: "Often" , score: 75},
+          { optionId: 5, optionText: "Always" , score: 75 }
+        ]
+      },
+      {
+        questionId: 3,
+        questionText: "Do you feel or act as if the traumatic event is happening again?",
+        options: [
+          { optionId: 1, optionText: "Never", score: 0  },
+          { optionId: 2, optionText: "Rarely", score: 0  },
+          { optionId: 3, optionText: "Sometimes" , score: 0 },
+          { optionId: 4, optionText: "Often", score: 75  },
+          { optionId: 5, optionText: "Always", score: 75  }
+        ]
+      },
+      {
+        questionId: 4,
+        questionText: "Do you feel upset when reminded of the traumatic event?",
+        options: [
+          { optionId: 1, optionText: "Never" , score: 0 },
+          { optionId: 2, optionText: "Rarely" , score: 0 },
+          { optionId: 3, optionText: "Sometimes", score: 0  },
+          { optionId: 4, optionText: "Often" , score: 75 },
+          { optionId: 5, optionText: "Always", score: 75 }
+        ]
+      },
+      {
+        questionId: 5,
+        questionText: "Do you avoid thoughts, feelings, or conversations about the trauma?",
+        options: [
+          { optionId: 1, optionText: "Never"  , score: 0 },
+          { optionId: 2, optionText: "Rarely"  , score: 0 },
+          { optionId: 3, optionText: "Sometimes"  , score: 0 },
+          { optionId: 4, optionText: "Often"  , score: 25 },
+          { optionId: 5, optionText: "Always"  , score: 25 }
+        ]
+      },
+     
+     
+      {
+        questionId: 6,
+        questionText: "Do you avoid activities, places, or people that remind you of the trauma?",
+        options: [
+          { optionId: 1, optionText: "Never" , score: 0  },
+          { optionId: 2, optionText: "Rarely"  , score: 0 },
+          { optionId: 3, optionText: "Sometimes"  , score: 0 },
+          { optionId: 4, optionText: "Often"  , score: 25 },
+          { optionId: 5, optionText: "Always"  , score: 25 }
+        ]
+      },
+      {
+        questionId: 7,
+        questionText: "Do you have trouble remembering parts of the trauma?",
+        options: [
+          { optionId: 1, optionText: "Never"  , score: 0 },
+          { optionId: 2, optionText: "Rarely"  , score: 0 },
+          { optionId: 3, optionText: "Sometimes" , score: 0  },
+          { optionId: 4, optionText: "Often" , score: 25  },
+          { optionId: 5, optionText: "Always" , score: 25  }
+        ]
+      },
+      {
+        questionId: 8,
+        questionText: "Do you lose interest in activities you used to enjoy?",
+        options: [
+          { optionId: 1, optionText: "Never" , score: 0  },
+          { optionId: 2, optionText: "Rarely"  , score: 0 },
+          { optionId: 3, optionText: "Sometimes"  , score: 0 },
+          { optionId: 4, optionText: "Often"  , score: 25 },
+          { optionId: 5, optionText: "Always" , score: 25  }
+        ]
+      },
+      {
+        questionId: 9,
+        questionText: "Do you feel detached or isolated from others?",
+        options: [
+          { optionId: 1, optionText: "Never"  , score: 0 },
+          { optionId: 2, optionText: "Rarely"  , score: 0 },
+          { optionId: 3, optionText: "Sometimes" , score: 0  },
+          { optionId: 4, optionText: "Often"  , score: 25 },
+          { optionId: 5, optionText: "Always"  , score: 25 }
+        ]
+      },
+      {
+        questionId: 10,
+        questionText: "Do you find it difficult to experience positive feelings?",
+        options: [
+          { optionId: 1, optionText: "Never"  , score: 0 },
+          { optionId: 2, optionText: "Rarely" , score: 0  },
+          { optionId: 3, optionText: "Sometimes" , score: 0  },
+          { optionId: 4, optionText: "Often"  , score: 25 },
+          { optionId: 5, optionText: "Always" , score: 25  }
+        ]
+      },
+      {
+        questionId: 11,
+        questionText: "Do you feel as if your future goals or plans will not be achieved?",
+        options: [
+          { optionId: 1, optionText: "Never"  , score: 0 },
+          { optionId: 2, optionText: "Rarely"  , score: 0 },
+          { optionId: 3, optionText: "Sometimes" , score: 0  },
+          { optionId: 4, optionText: "Often" , score: 25 },
+          { optionId: 5, optionText: "Always"  , score: 25 }
+        ]
+      },
+      {
+        questionId: 12,
+        questionText: "Do you find it difficult to fall asleep or stay asleep?",
+        options: [
+          { optionId: 1, optionText: "Never"  , score: 0 },
+          { optionId: 2, optionText: "Rarely" , score: 0  },
+          { optionId: 3, optionText: "Sometimes" , score: 0  },
+          { optionId: 4, optionText: "Often"  , score: 75 },
+          { optionId: 5, optionText: "Always" , score: 75  }
+        ]
+      },
+      {
+        questionId: 13,
+        questionText: "Are you irritable or have angry outbursts?",
+        options: [
+          { optionId: 1, optionText: "Never"  , score: 0 },
+          { optionId: 2, optionText: "Rarely"  , score: 0 },
+          { optionId: 3, optionText: "Sometimes" , score: 0  },
+          { optionId: 4, optionText: "Often"  , score: 75 },
+          { optionId: 5, optionText: "Always"  , score: 75 }
+        ]
+      },
+      {
+        questionId: 14,
+        questionText: "Do you find it difficult to concentrate?",
+        options: [
+          { optionId: 1, optionText: "Never" , score: 0  },
+          { optionId: 2, optionText: "Rarely" , score: 0  },
+          { optionId: 3, optionText: "Sometimes"  , score: 0 },
+          { optionId: 4, optionText: "Often" , score: 75  },
+          { optionId: 5, optionText: "Always"  , score: 75 }
+        ]
+      },
+      {
+        questionId: 15,
+        questionText: "Are you overly alert or watchful, feeling on guard?",
+        options: [
+          { optionId: 1, optionText: "Never"  , score: 0 },
+          { optionId: 2, optionText: "Rarely" , score: 0  },
+          { optionId: 3, optionText: "Sometimes"  , score: 0 },
+          { optionId: 4, optionText: "Often" , score: 75  },
+          { optionId: 5, optionText: "Always"  , score: 75 }
+        ]
+      },
+      {
+        questionId: 16,
+        questionText: "Do you startle easily when surprised?",
+        options: [
+          { optionId: 1, optionText: "Never" , score: 0  },
+          { optionId: 2, optionText: "Rarely" , score: 0  },
+          { optionId: 3, optionText: "Sometimes" , score: 0  },
+          { optionId: 4, optionText: "Often" , score: 75  },
+          { optionId: 5, optionText: "Always" , score: 75  }
+        ]
+      },
+      {
+        questionId: 17,
+        questionText: "Do bad things and people remind you of past experiences that make you suffer from shortness of breath, tremors, and rapid heartbeat?",
+        options: [
+          { optionId: 1, optionText: "Never" , score: 0 },
+          { optionId: 2, optionText: "Rarely" , score: 0 },
+          { optionId: 3, optionText: "Sometimes", score: 0  },
+          { optionId: 4, optionText: "Often" , score: 75 },
+          { optionId: 5, optionText: "Always" , score: 75 }
+        ]
+      }
+    ]
+      , scoring: {
+      scoreRanges: [
+        { range: "0-75", description: "You dont have ptsd", color: "bg-green-400" },
+        { range: "75-925", description: "You have ptsd.", color: "bg-red-600" },
+      ]
+    }
+
+  },
+  {
+    testTitle: "Internet Addiction Scale",
+    testSlug: "internet-addiction-scale", // URL-friendly slug
+  
+  questions: [
+    {
+      questionId: 1,
+      questionText: "How often do you find that you stay online longer than you intended?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 2,
+      questionText: "How often do you neglect household chores to spend more time online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 3,
+      questionText: "How often do you prefer the excitement of the Internet to intimacy with your partner?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 4,
+      questionText: "How often do you form new relationships with fellow online users?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 5,
+      questionText: "How often do others in your life complain to you about the amount of time you spend online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 6,
+      questionText: "How often does your academic performance suffer because of the time you spend online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 7,
+      questionText: "How often do you check your email before doing something else you need to do?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 8,
+      questionText: "How often does your job performance or productivity suffer because of the Internet?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 9,
+      questionText: "How often do you avoid others to spend more time online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 10,
+      questionText: "How often do you block disturbing thoughts about your life with soothing thoughts of the Internet?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 11,
+      questionText: "How often do you find yourself anticipating the next time you will go online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 12,
+      questionText: "How often do you fear that life without the Internet would be boring, empty, and joyless?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 13,
+      questionText: "How often do you become irritated if someone interrupts you while you are online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 14,
+      questionText: "How often do you lose sleep due to late-night log-ins?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 15,
+      questionText: "How often do you feel preoccupied with the Internet when offline, or fantasize about being online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 16,
+      questionText: "How often do you find yourself saying “just a few more minutes” when online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 17,
+      questionText: "How often do you try to cut down the amount of time you spend online and fail?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 18,
+      questionText: "How often do you try to hide how long you’ve been online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 19,
+      questionText: "How often do you choose to spend more time online over going out with others?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    },
+    {
+      questionId: 20,
+      questionText: "How often do you feel depressed, moody, or nervous when you are offline, which goes away once you are back online?",
+      options: [
+        { optionId: 1, optionText: "Rarely", score: 1 },
+        { optionId: 2, optionText: "Sometimes", score: 2 },
+        { optionId: 3, optionText: "Frequently", score: 3 },
+        { optionId: 4, optionText: "Usually", score: 4 },
+        { optionId: 5, optionText: "Always", score: 5 },
+        { optionId: 0, optionText: "Ignore the question", score: 0 }
+      ]
+    }
+  ],  scoring: {
+    instruction: "Add up your score for all the questions. The higher the score, the more severe your level of Internet addiction.",
+    scoreRanges: [
+    { range: "20-49", description: " normal range." ,color: "bg-green-300"},
+    { range: "50-79", description: "You are experiencing occasional problems due to Internet overuse.",color: "bg-green-300" },
+    { range: "80-100", description: "Your Internet usage is causing significant problems in your life." ,color: "bg-green-300"}
+    ]}
+  }
+    
+  ]
+
