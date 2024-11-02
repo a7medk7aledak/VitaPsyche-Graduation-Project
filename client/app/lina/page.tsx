@@ -219,13 +219,12 @@ useEffect(() => {
 
       <div className="flex-grow flex flex-col items-center justify-center relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-          <Image
-            src="/images/Capture.jpeg"
-            alt="Virtual Agent"
-            className="h-64 w-auto object-contain"
-            width={550}
-            height={550}
-          />
+        <img
+  src="/images/Capture.jpeg"
+  alt="Virtual Agent"
+  className="w-full h-full object-cover"
+/>
+
         </div>
         <div className="w-full max-w-4xl px-4 overflow-y-auto flex flex-col-reverse">
           {messages.map((msg, index) => (
