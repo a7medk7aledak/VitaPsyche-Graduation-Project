@@ -8,7 +8,6 @@ import {
   FaGlobe,
   FaHome,
 } from "react-icons/fa";
-import Image from "next/image";
 
 // Define Speech Recognition related events
 interface SpeechRecognitionErrorEvent extends Event {
