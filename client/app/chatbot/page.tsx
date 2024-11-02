@@ -1,6 +1,6 @@
 "use client";
 import Navbar from "@components/common/Navbar";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaMicrophone, FaMicrophoneSlash, FaPaperPlane, FaBars, FaGlobe } from "react-icons/fa";
 
 // Declare the global SpeechRecognition for TypeScript
@@ -21,7 +21,6 @@ type SpeechRecognition = {
   onerror: (event: Event) => void;
 };
 
-// Type definition for SpeechRecognitionEvent
 type SpeechRecognitionEvent = {
   results: { [key: number]: { [key: number]: { transcript: string } } };
 };
@@ -34,6 +33,8 @@ const ChatBotPage: React.FC = () => {
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState<boolean>(false);
 
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
   // Initialize speech recognition when component mounts
   useEffect(() => {
     if (typeof window !== 'undefined' && "webkitSpeechRecognition" in window) {
@@ -44,7 +45,7 @@ const ChatBotPage: React.FC = () => {
       newRecognition.onresult = (event: SpeechRecognitionEvent) => {
         const transcript = event.results[0][0].transcript;
         setInput(transcript);
-        setIsListening(false); // Stop listening after speech is recognized
+        setIsListening(false);
       };
 
       newRecognition.onerror = (event: Event) => {
@@ -56,21 +57,18 @@ const ChatBotPage: React.FC = () => {
     }
   }, []);
 
-  // Function to request microphone permission
-  const requestMicrophonePermission = async () => {
-    try {
-      const result = await navigator.permissions.query({
-        name: "microphone" as PermissionName,
-      });
-      if (result.state === "denied") {
-        alert("Microphone access is required for speech recognition.");
+  // Close the sidebar when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (isHistoryVisible && sidebarRef.current && !sidebarRef.current.contains(e.target as Node)) {
+        setIsHistoryVisible(false);
       }
-    } catch (error) {
-      console.error("Permission error: ", error);
-    }
-  };
+    };
 
-  // Handle sending messages
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => document.removeEventListener("mousedown", handleOutsideClick);
+  }, [isHistoryVisible]);
+
   const handleSendMessage = async () => {
     if (input.trim() !== "") {
       const userMessage = { sender: "user", text: input, lang: language };
@@ -98,7 +96,6 @@ const ChatBotPage: React.FC = () => {
     }
   };
 
-  // Handle speech-to-text
   const handleSpeechToText = () => {
     if (recognition) {
       recognition.lang = language;
@@ -107,33 +104,24 @@ const ChatBotPage: React.FC = () => {
         recognition.stop();
         setIsListening(false);
       } else {
-        requestMicrophonePermission();
         recognition.start();
         setIsListening(true);
       }
     }
   };
 
-  // Handle language switch
   const handleLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setLanguage(e.target.value);
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#dce9e6]"> {/* Use light green as the background */}
+    <div className="flex flex-col h-screen bg-[#dce9e6]">
       <Navbar />
-      {/* Mobile History Toggle Button */}
-      <div className="lg:hidden p-4 bg-hoverbutton text-white flex justify-between items-center">
-        <span>Chat History</span>
-        <button onClick={() => setIsHistoryVisible(!isHistoryVisible)} className="text-white text-xl">
-          <FaBars />
-        </button>
-      </div>
 
-      {/* Main Chat Section */}
       <div className="flex flex-1">
         {/* Chat History Sidebar */}
         <div
+          ref={sidebarRef}
           className={`fixed lg:relative z-40 top-0 left-0 h-full lg:w-1/6 bg-slate-800 rounded-md transition-transform transform ${
             isHistoryVisible ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
           }`}
@@ -141,7 +129,7 @@ const ChatBotPage: React.FC = () => {
           <div className="p-6 text-white">
             <h2 className="text-xl mb-4">History</h2>
             <div className="space-y-4">
-              <button className="w-full text-left bg-heading  p-2 rounded-md">Chat 1</button>
+              <button className="w-full text-left bg-heading p-2 rounded-md">Chat 1</button>
               <button className="w-full text-left bg-heading p-2 rounded-md">Chat 2</button>
               <button className="w-full text-left bg-heading p-2 rounded-md">Chat 3</button>
             </div>
@@ -150,9 +138,8 @@ const ChatBotPage: React.FC = () => {
 
         {/* Chat Window */}
         <div className="flex-1 flex flex-col lg:w-3/4 bg-white rounded-md shadow-md">
-          {/* Language Selector */}
           <div className="flex items-center p-4">
-            <FaGlobe className="text-green-700 mr-2" /> {/* Green globe icon */}
+            <FaGlobe className="text-green-700 mr-2" />
             <select
               value={language}
               onChange={handleLanguageChange}
@@ -160,7 +147,6 @@ const ChatBotPage: React.FC = () => {
             >
               <option value="en-US">English (US)</option>
               <option value="ar-SA">Arabic</option>
-              {/* Add more languages as needed */}
             </select>
           </div>
 
@@ -198,6 +184,12 @@ const ChatBotPage: React.FC = () => {
               className={`p-3 ml-2 rounded-full text-white ${isListening ? "bg-red-500" : "bg-blue-400"}`}
             >
               {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+            </button>
+            <button
+              onClick={() => setIsHistoryVisible(!isHistoryVisible)}
+              className="p-3 ml-2 lg:hidden rounded-full bg-hoverbutton text-white text-xl"
+            >
+              <FaBars />
             </button>
           </div>
         </div>
