@@ -220,7 +220,7 @@ useEffect(() => {
       <div className="flex-grow flex flex-col items-center justify-center relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
           <Image
-            src="/images/Capture.PNG"
+            src="/images/Capture.jpeg"
             alt="Virtual Agent"
             className="h-64 w-auto object-contain"
             width={550}
