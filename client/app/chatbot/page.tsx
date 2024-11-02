@@ -184,7 +184,7 @@ const ChatBotPage: React.FC = () => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={language === "ar-SA" ? "اكتب رسالتك..." : "Type your message..."}
+              placeholder={language === "ar-SA" ? "...اكتب رسالتك": "Type your message..."}
               className={`flex-grow p-2 rounded-full border border-heading focus:outline-none ${
                 language === "ar-SA" ? "text-right" : "text-left"
               }`}
