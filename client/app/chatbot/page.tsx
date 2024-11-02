@@ -120,8 +120,13 @@ const ChatBotPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#dce9e6]">
+    <div className="flex flex-col h-screen bg-[#dce9e6] relative">
       <Navbar  />
+
+      {/* Blur Overlay for Mobile when History is Visible */}
+      {isHistoryVisible && (
+        <div className="blur-overlay fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-30 lg:hidden" onClick={() => setIsHistoryVisible(false)}></div>
+      )}
 
       <div className="flex flex-1">
         {/* Chat History Sidebar */}
@@ -179,12 +184,12 @@ const ChatBotPage: React.FC = () => {
           </div>
 
           {/* Input Section */}
-          <div className="flex items-center p-2 mb- border-t w-full border-heading bg-green-100">
+          <div className="flex items-center p-2 border-t border-heading bg-green-100">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={language === "ar-SA" ? "...اكتب رسالتك": "Type your message..."}
+              placeholder={language === "ar-SA" ? "اكتب رسالتك..." : "Type your message..."}
               className={`flex-grow p-2 rounded-full border border-heading focus:outline-none ${
                 language === "ar-SA" ? "text-right" : "text-left"
               }`}
