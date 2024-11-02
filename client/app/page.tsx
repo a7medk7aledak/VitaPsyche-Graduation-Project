@@ -3,14 +3,14 @@ import FindPsychiatrists from "./components/FindPsychiatrists";
 import Landing from "./components/Landing";
 import Heading from "./components/common/Heading";
 import Services from "./components/Services";
-import AboutMindmed from "./components/AboutMindmed";
+import AboutVitapsyche from "./components/AboutVitapsyche";
 import Footer from "@components/common/Footer";
 import ScrollToTopButton from "@components/scrollButton";
 
 export default function Home() {
   return (
     <>
-      <ScrollToTopButton/>
+      <ScrollToTopButton />
       <div className=" bg-[#dce9e6] -z-20">
         <Navbar />
 
@@ -54,9 +54,9 @@ export default function Home() {
       <Services />
       {/* services */}
 
-      {/* about mindMed */}
-      <AboutMindmed />
-      {/* about mindMed */}
+      {/* about vitapsyche */}
+      <AboutVitapsyche />
+      {/* about vitapsyche */}
 
       {/* footer */}
       <Footer />

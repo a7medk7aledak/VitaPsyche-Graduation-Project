@@ -65,7 +65,7 @@ if __name__ == "__main__":
 
 
 
-#anther model very light but Its results are inaccurate!!!!
+# anther model very light but Its results are inaccurate!!!!
 
 # # استيراد المكتبات اللازمة
 # from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification

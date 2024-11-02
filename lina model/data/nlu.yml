@@ -1,0 +1,120 @@
+version: "3.1"
+nlu:
+  - intent: ask_for_therapy_options
+    examples: |
+      - What therapy options do you recommend?
+      - Can you tell me about different therapy methods?
+      - I want to know more about therapy options.
+  - intent: greet
+    examples: |
+      - Hello
+      - Hi there
+      - Hey
+      - Good morning
+      - Good evening
+  - intent: goodbye
+    examples: |
+      - Goodbye
+      - See you later
+      - Bye
+      - Talk to you soon
+  - intent: ask_about_depression
+    examples: |
+      - Can you tell me about depression?
+      - I want to know about depression.
+      - What are the symptoms of depression?
+  - intent: express_love
+    examples: |
+      - I love you Lina
+      - love you Lina
+      - I love Lina
+
+intents:
+  - greet
+  - goodbye
+  - bot_introduction
+  - ask_for_breathing_exercise
+  - ask_for_mental_health_advice
+  - ask_for_anxiety_help
+  - ask_for_relaxation_tips
+  - ask_for_sleep_tips
+  - ask_for_stress_relief
+  - express_suicidal_thoughts
+  - ask_for_self_care_tips
+  - ask_for_medication_reminder
+  - ask_about_therapy_options
+  - ask_about_depression
+  - ask_for_mindfulness_tips
+  - express_social_anxiety
+  - out_of_scope
+  - track_mood
+  - set_mental_health_goal
+  - check_goal_progress
+  - request_personalized_plan
+  - ask_for_coping_strategies
+  - request_resource_recommendation
+  - ask_about_developer
+
+entities:
+  - mood
+  - goal
+  - symptom
+  - coping_strategy
+
+slots:
+  mood:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: mood
+  current_goal:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: goal
+  primary_symptom:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: symptom
+
+responses:
+  utter_greet:
+    - text: "Hello! I'm Lina, your advanced mental health support assistant developed by Ahmed Khaled. How are you feeling today?"
+  utter_goodbye:
+    - text: "Goodbye! Take care of yourself, and remember, I'm always here if you need support."
+  utter_iamabot:
+    - text: "I am a mental health support bot created to help you. How can I assist you today?"
+  utter_breathing_exercise:
+    - text: "Let me guide you through a simple breathing exercise. Inhale slowly through your nose, hold it for a moment, and then exhale slowly. Repeat this several times to feel more relaxed."
+  utter_track_mood:
+    - text: "How have you been feeling lately? Let's track your mood together."
+  utter_set_mental_health_goal:
+    - text: "What's a goal you'd like to set for your mental health?"
+  utter_check_goal_progress:
+    - text: "Let's review your progress. How have you been doing with your goals?"
+  utter_personalized_plan:
+    - text: "Here's a personalized plan based on your needs."
+  utter_coping_strategies:
+    - text: "These are some effective coping strategies that might help."
+  utter_resource_recommendation:
+    - text: "Here are some recommended resources for you."
+  utter_about_developer:
+    - text: "I was developed by Ahmed Khaled, an engineer passionate about mental health technology."
+
+actions:
+  - utter_greet
+  - utter_goodbye
+  - utter_iamabot
+  - utter_breathing_exercise
+  - utter_track_mood
+  - utter_set_mental_health_goal
+  - utter_check_goal_progress
+  - utter_personalized_plan
+  - utter_coping_strategies
+  - utter_resource_recommendation
+  - utter_about_developer
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

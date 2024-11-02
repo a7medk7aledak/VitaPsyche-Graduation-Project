@@ -1,83 +1,167 @@
-version: "2.0"
-## map intents in nlu to actions in domain
+version: "3.1"
+
 stories:
 
-- story: survey yes
-  steps:
-  - intent: greet
-  - action: utter_mood
-  - intent: mood_great
-  - action: utter_survey
-  - intent: affirm 
-  - action: utter_gender 
-  - intent: gender
-  - action: utter_employment
-  - intent: self_employment
-  - action: utter_history_mental_illness
-  - intent: history_mental_illness
-  - action: utter_work_interference
-  - intent: work_interference
-  - action: utter_company_no_employees
-  - intent: company_no_employees
-  - action: utter_tech_company
-  - intent: tech_company
-  - action: utter_health_benefits
-  - intent: health_benefits
-  - action: utter_health_resources
-  - intent: health_resources
-  - action: utter_treatment_anonymity
-  - intent: treatment_anonymity
-  - action: utter_medical_leave
-  - intent: medical_leave
-  - action: utter_discussing_mental_health
-  - intent: discussing_mental_health
-  - action: utter_willing_to_discuss_collegaue
-  - intent: willing_to_discuss_collegaue
-  - action: utter_willing_to_discuss_employer
-  - intent: willing_to_discuss_employer
-  - action: utter_serious_mental_health
-  - intent: serious_mental_health
-  - action: utter_negative_consequences_mental_coworker
-  - intent: negative_consequences_mental_coworker
-  - action: utter_welcome
-  
-- story: survey no
-  steps:
-  - intent: greet
-  - action: utter_mood
-  - intent: mood_great
-  - action: utter_survey
-  - intent: deny
-  - action: utter_iamabot
-  - action: utter_goodbye
-  
-- story: sad path 1
-  steps:
-  - intent: greet
-  - action: utter_mood
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_happy
-  - action: utter_welcome
+  - story: Seek support
+    steps:
+      - intent: seek_support
+      - action: utter_support_available
 
-- story: sad path 2
-  steps:
-  - intent: greet
-  - action: utter_mood
-  - intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - intent: deny
-  - action: utter_cheer_up_two
-  - action: utter_did_that_help
-  - intent: affirm
-  - action: utter_welcome
-  - action: utter_goodbye
+  - story: Ask for advice on depression
+    steps:
+      - intent: ask_for_advice_depression
+      - action: utter_advice_depression
+
+  - story: Ask for advice on self-confidence
+    steps:
+      - intent: ask_for_advice_self_confidence
+      - action: utter_advice_self_confidence
+
+  - story: Ask for advice on stress
+    steps:
+      - intent: ask_for_advice_stress
+      - action: utter_advice_stress
+
+  - story: Ask for advice on emotional management
+    steps:
+      - intent: ask_for_advice_emotional_management
+      - action: utter_advice_emotional_management
+
+  - story: Ask for advice on sleep
+    steps:
+      - intent: ask_for_advice_sleep
+      - action: utter_advice_sleep
+
+  - story: Ask for advice on social relationships
+    steps:
+      - intent: ask_for_advice_social_relationships
+      - action: utter_advice_social_relationships
+
+  - story: Ask for advice on motivation
+    steps:
+      - intent: ask_for_advice_motivation
+      - action: utter_advice_motivation
+
+  - story: Ask for advice on nutrition and exercise
+    steps:
+      - intent: ask_for_advice_nutrition_exercise
+      - action: utter_advice_nutrition_exercise
+
+  - story: Ask for advice on life changes
+    steps:
+      - intent: ask_for_advice_life_changes
+      - action: utter_advice_life_changes
+
+  - story: Ask for advice on goal setting
+    steps:
+      - intent: ask_for_advice_goal_setting
+      - action: utter_advice_goal_setting
+
+  - story: Ask for advice on fear
+    steps:
+      - intent: ask_for_advice_fear
+      - action: utter_advice_fear
+
+  - story: Ask for advice on self-awareness
+    steps:
+      - intent: ask_for_advice_self_awareness
+      - action: utter_advice_self_awareness
+
+  - story: Ask for advice on concentration
+    steps:
+      - intent: ask_for_advice_concentration
+      - action: utter_advice_concentration
+
+  - story: Ask for advice on anger management
+    steps:
+      - intent: ask_for_advice_anger_management
+      - action: utter_advice_anger_management
+
+  - story: Ask for advice on positive thinking
+    steps:
+      - intent: ask_for_advice_positive_thinking
+      - action: utter_advice_positive_thinking
+
+  - story: Ask for advice on social skills
+    steps:
+      - intent: ask_for_advice_social_skills
+      - action: utter_advice_social_skills
+
+  - story: Ask for advice on time management
+    steps:
+      - intent: ask_for_advice_time_management
+      - action: utter_advice_time_management
+
+  - story: Ask for advice on self-acceptance
+    steps:
+      - intent: ask_for_advice_self_acceptance
+      - action: utter_advice_self_acceptance
+
+  - story: Ask for advice on loneliness
+    steps:
+      - intent: ask_for_advice_loneliness
+      - action: utter_advice_loneliness
+
+  - story: Ask for advice on frustration
+    steps:
+      - intent: ask_for_advice_frustration
+      - action: utter_advice_frustration
+
+  - story: Ask for advice on social pressure
+    steps:
+      - intent: ask_for_advice_social_pressure
+      - action: utter_advice_social_pressure
+
+  - story: Ask for advice on work stress
+    steps:
+      - intent: ask_for_advice_work_stress
+      - action: utter_advice_work_stress
+
+  - story: Ask for advice on healthy habits
+    steps:
+      - intent: ask_for_advice_healthy_habits
+      - action: utter_advice_healthy_habits
+
+  - story: Express anxiety
+    steps:
+      - intent: express_anxiety
+      - action: utter_understanding_anxiety
+
+  - story: Express depression
+    steps:
+      - intent: express_depression
+      - action: utter_understanding_depression
+
+  - story: Seek motivation
+    steps:
+      - intent: seek_motivation
+      - action: utter_motivation_available
+
+  - story: Express gratitude for support
+    steps:
+      - intent: express_gratitude_for_support
+      - action: utter_gratitude_response
+
+  - story: Ask about coping strategies
+    steps:
+      - intent: ask_about_coping_strategies
+      - action: utter_coping_strategies
+
+  - story: Express confusion about emotions
+    steps:
+      - intent: express_confusion_about_emotions
+      - action: utter_confusion_response
+
+  - story: Seek resources
+    steps:
+      - intent: seek_resources
+      - action: utter_resources_available
 
 
-- story: Greet the user
-  steps:
-  - intent: greet
-  - action: utter_greet
+  - story: happy path
+    steps:
+     - intent: greet
+     - action: utter_greet
+     - intent: mood_great
+     - action: utter_happy
+

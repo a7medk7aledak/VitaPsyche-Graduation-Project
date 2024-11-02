@@ -50,7 +50,7 @@ const Navbar = () => {
 
           {/* language and account */}
           <div className="hidden lg:flex items-center space-x-6">
-            <select className="p-2 outline-none bg-main rounded-md mr-2 w-13 h-8 hover:cursor-pointer">
+            <select className="px-1 outline-none bg-main  rounded-md mr-2 w-13 h-8 hover:cursor-pointer">
               <option className="bg-white" value="en">
                 en
               </option>

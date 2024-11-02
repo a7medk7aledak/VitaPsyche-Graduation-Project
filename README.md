@@ -2,7 +2,7 @@
 
 ## Overview
 
-**Mind Med** is a comprehensive mental health platform designed to help users assess and manage their psychological well-being. The platform uses AI and machine learning models to analyze psychological disorders, offers personalized doctor recommendations, and facilitates communication between patients and doctors. It also includes an intelligent chatbot powered by **Rasa Framework**, which provides psychological assessments and general mental health advice. Additionally, the platform enables direct communication between patients and doctors for consultations and continuous support.
+**VitaPsyche** is a comprehensive mental health platform designed to help users assess and manage their psychological well-being. The platform uses AI and machine learning models to analyze psychological disorders, offers personalized doctor recommendations, and facilitates communication between patients and doctors. It also includes an intelligent chatbot powered by **Rasa Framework**, which provides psychological assessments and general mental health advice. Additionally, the platform enables direct communication between patients and doctors for consultations and continuous support.
 
 ## Key Features
 
@@ -109,6 +109,15 @@ rasa shell
 ```
 API Testing
 Use Postman or Insomnia to test the APIs for the back-end and to ensure the chatbot is responding as expected.
+
+# Project Design Links figam
+
+### Mobile Design figma
+[moblie](https://www.figma.com/design/QZWLyKjYRs6WmyCyAiuZII/Untitled?node-id=0-1&t=G417WzsZIOwOOTCJ-1)
+
+### Web Design figma
+[web](https://www.figma.com/design/o7kyURJwQIFXXfRQnH2K7D/mindMED?node-id=0-1&t=MTEzKBMnCCIYmVUO-1)
+
 
 Deployment
 To deploy the application, you can use the following services:

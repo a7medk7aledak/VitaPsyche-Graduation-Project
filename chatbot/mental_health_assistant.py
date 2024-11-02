@@ -7,7 +7,7 @@ from models_chatbot.classification_model import DiseaseClassifier
 from models_chatbot.classification_model_ar import DiseaseClassifierAR
 from models_chatbot.response_generator import ResponseGenerator
 from models_chatbot.response_generator_ar import ResponseGeneratorAR
-from models_chatbot.translation_model import Translator
+from models_chatbot.Translator import Translator
 
 class MentalHealthAssistant:
     def __init__(self):

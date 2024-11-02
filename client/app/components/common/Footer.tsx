@@ -47,7 +47,7 @@ const Footer = () => {
           >
             <Logo />
             {/* Join Us */}
-            <div className="mb-20">
+            <div className="mb-20 ">
               <h4 className="text-center mb-4 text-maintext text-2xl font-medium">
                 Join Us
               </h4>
@@ -78,7 +78,7 @@ const Footer = () => {
           </motion.div>
 
           {/* Other Services Section */}
-          <div className="flex flex-wrap gap-4 mt-10 p-2 justify-center md:p-0 md:mt-0">
+          <div className="flex flex-wrap gap-4 mt-10 p-2 justify-center md:p-0 ">
             {/* Products */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
