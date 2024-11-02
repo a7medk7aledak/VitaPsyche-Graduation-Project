@@ -19,12 +19,7 @@ interface Question {
 
 interface TestScoring {
   instruction?: string;
-  scoreRanges?: { range: string; description: string; color: string }[]; // إضافة اللون
-  veryMildOCD?: { min: number; max: number };
-  mildOCD?: { min: number; max: number };
-  moderateOCD?: { min: number; max: number };
-  severeOCD?: { min: number; max: number };
-  extremeOCD?: { min: number; max: number };
+  scoreRanges?: { range: string; description: string; color: string }[];
 }
 
 interface Test {
@@ -34,19 +29,11 @@ interface Test {
   scoring: TestScoring;
 }
 
-// دالة لحساب أعلى درجة ممكنة لكل اختبار بناءً على الأسئلة والخيارات
 function calculateMaxScore(questions: Question[]): number {
   return questions.reduce((max, question) => {
-    // إيجاد أعلى درجة لكل سؤال وجمعها مع بقية الأسئلة
-    const maxOptionScore = Math.max(...question.options.map(opt => opt.score));
+    const maxOptionScore = Math.max(...question.options.map((opt) => opt.score));
     return max + maxOptionScore;
   }, 0);
-}
-
-// دالة لحساب مكان المؤشر بناءً على الدرجة والحد الأقصى
-function calculatePointerPosition(score: number, maxScore: number): string {
-  const percentage = (score / maxScore) * 100;
-  return `calc(${percentage}% - 20px)`; // "-20px" لتوسيط المؤشر بشكل صحيح
 }
 
 const ClientSideResult: React.FC = () => {
@@ -54,7 +41,7 @@ const ClientSideResult: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState("");
-  const [maxScore, setMaxScore] = useState(0); // إضافة حالة لحساب maxScore
+  const [maxScore, setMaxScore] = useState(0);
 
   const searchParams = useSearchParams();
   const testSlug = searchParams?.get("testSlug");
@@ -84,48 +71,15 @@ const ClientSideResult: React.FC = () => {
       });
 
       setScore(totalScore);
-
-      // حساب maxScore ديناميكيًا بناءً على الأسئلة
       const calculatedMaxScore = calculateMaxScore(test.questions);
       setMaxScore(calculatedMaxScore);
 
-      // تعيين feedback بناءً على نوع الاختبار
-      if (test.testTitle === "ADHD and Impulsivity Diagnosis Scale") {
-        setFeedback(getADHDFeedback(totalScore, test.scoring.scoreRanges));
-      } else if (test.testTitle === "Yale-Brown Obsessive Compulsive Scale (Y-BOCS)") {
-        setFeedback(getYBOCSFeedback(totalScore, test.scoring.scoreRanges));
-      }
-       else if (test.testTitle === "Beck Depression Inventory") {
-        setFeedback(getDEORETIONeedback(totalScore, test.scoring.scoreRanges));
-      }
+      setFeedback(getFeedback(totalScore, test.scoring.scoreRanges));
     }
   }, [test, userAnswers]);
 
-  const getADHDFeedback = (score: number, scoreRanges?: { range: string; description: string }[]): string => {
+  const getFeedback = (score: number, scoreRanges?: { range: string; description: string }[]): string => {
     if (!scoreRanges) return "No feedback available.";
-    for (const range of scoreRanges) {
-      const [min, max] = range.range.split("-").map(Number);
-      if (score >= min && score <= max) {
-        return range.description;
-      }
-    }
-    return "Score out of range.";
-  };
-
-  const getYBOCSFeedback = (score: number, scoreRanges?: { range: string; description: string }[]): string => {
-    if (!Array.isArray(scoreRanges)) return "No feedback available."; // Check if scoreRanges is an array
-    for (const range of scoreRanges) {
-      const [min, max] = range.range.split("-").map(Number);
-      if (score >= min && score <= max) {
-        return range.description;
-      }
-    }
-    return "Score out of range.";
-  };
-
-
-  const getDEORETIONeedback = (score: number, scoreRanges?: { range: string; description: string }[]): string => {
-    if (!Array.isArray(scoreRanges)) return "No feedback available."; // Check if scoreRanges is an array
     for (const range of scoreRanges) {
       const [min, max] = range.range.split("-").map(Number);
       if (score >= min && score <= max) {
@@ -144,49 +98,33 @@ const ClientSideResult: React.FC = () => {
       <Navbar />
       <div className="flex mt-20 flex-col items-center min-h-screen p-4">
         <div className="min-h-screen w-full flex flex-col bg-gray-100">
-          {/* العنوان بخلفية خضراء */}
-          <header className="w-full bg-green-700 py-6 mb">
+          <header className="w-full bg-green-700 py-6">
             <h1 className="text-3xl font-bold text-center text-white">{test.testTitle}</h1>
           </header>
 
-          {/* محتوى الصفحة */}
-          <main className="flex-grow flex flex-col w-full -mt-32 items-center justify-center p-6">
-            {/* النتيجة */}
+          <main className="flex-grow flex flex-col w-full items-center justify-center p-6">
             <div className="text-center mb-8">
               <span className="text-2xl font-semibold">Your result is</span>
               <div className="flex justify-center items-center gap-2 mt-2">
                 <span className="text-5xl font-bold text-blue-600">{score}</span>
                 <h3 className="text-2xl font-semibold text-gray-700 ml-2">{feedback}</h3>
+                <span className="text-xl font-semibold text-gray-500">/ {maxScore}</span>
               </div>
             </div>
 
-            {/* مقياس التقييم */}
-            <div className="relative w-full p-10 items-center">
-              <div className="grid grid-cols-5 text-center mb-8 w-full">
+            <div className="relative w-full mx-auto text-center p-10">
+              <div className="flex justify-center text-center items-center mb-8 w-full">
                 {test.scoring.scoreRanges?.map((range, index) => (
                   <div
                     key={index}
-                    className={`py-2 px-2 text-white ${range.color} shadow-lg transition-transform transform`}
+                    className={`py-2 px-2 text-white ${range.color} shadow-lg transition-transform`}
                   >
                     <span className="font-semibold block">{range.description}</span>
                   </div>
                 ))}
               </div>
-
-              {/* مؤشر النتيجة */}
-              <div
-                className="absolute -top-12 sm:-top-8 flex items-center justify-center"
-                style={{ left: calculatePointerPosition(score, maxScore) }} // تمرير maxScore ديناميكيًا
-              >
-                {/* عرض النتيجة في المؤشر */}
-                <div className="relative flex items-center justify-center bg-gray-200 text-blue-600 text-sm sm:text-lg font-semibold rounded-lg px-3 py-2">
-                  {score}
-                  <div className="absolute bottom-[-8px] left-[50%] transform -translate-x-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-gray-200"></div>
-                </div>
-              </div>
             </div>
 
-            {/* تفسير النتيجة */}
             <div className="text-center mb-8 max-w-2xl">
               <h2 className="text-lg font-semibold mb-2">What does that mean?</h2>
               <p className="text-gray-700 mb-4">
@@ -199,12 +137,10 @@ const ClientSideResult: React.FC = () => {
               </p>
             </div>
 
-            {/* رسالة الدعم */}
             <div className="text-center text-blue-600 font-semibold text-lg mb-6">
               You shouldn&apos;t try to cope with what you&apos;re going through alone. We&apos;re here to help!
             </div>
 
-            {/* زر الدعوة للعمل */}
             <div className="text-center">
               <button className="bg-button hover:bg-heading transitions text-white py-3 px-6 rounded-lg">
                 Choose your specialist doctor

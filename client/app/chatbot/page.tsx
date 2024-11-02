@@ -36,8 +36,8 @@ const ChatBotPage: React.FC = () => {
 
   // Initialize speech recognition when component mounts
   useEffect(() => {
-    if ("webkitSpeechRecognition" in window) {
-      const newRecognition = new (window as typeof window & { webkitSpeechRecognition: new () => SpeechRecognition }).webkitSpeechRecognition();
+    if (typeof window !== 'undefined' && "webkitSpeechRecognition" in window) {
+      const newRecognition = new window.webkitSpeechRecognition();
       newRecognition.continuous = false;
       newRecognition.interimResults = false;
 
