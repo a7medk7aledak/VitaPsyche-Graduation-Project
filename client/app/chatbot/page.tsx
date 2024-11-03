@@ -5,7 +5,6 @@ import {
   FaMicrophone,
   FaMicrophoneSlash,
   FaPaperPlane,
-  FaBars,
   FaPlus,
   FaHistory,
 } from "react-icons/fa";
