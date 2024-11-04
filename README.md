@@ -77,6 +77,7 @@ py -3.9 -m venv .venv
 .\venv\Scripts\activate
 cd server
 pip install django
+py -m pip install --upgrade pip
 pip install requests
 pip install django-cors-headers
 pip install -r requirements.txt
