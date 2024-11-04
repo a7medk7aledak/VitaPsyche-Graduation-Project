@@ -100,6 +100,7 @@ rasa run -m models --enable-api --cors "*"
 ```
 cd lina model
 pip install rasa
+pip install cryptography==38.0.4
 rasa train
 rasa run --port 5006
 ```
