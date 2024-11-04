@@ -72,6 +72,9 @@ flutter pub get
 ```
 3-Django back-end:
 ```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
+py -3.9 -m venv .venv
+.\venv\Scripts\activate
 cd server
 pip install django
 pip install requests
@@ -84,8 +87,6 @@ python manage.py runserver
 ```
 #note Python versions: 3.7, 3.8, 3.9, and 3.10. Note that Python 3.10 is only supported for versions 3.4.x and upwards
 #to make a new Environment =>  that step make it once
-py -3.9 -m venv .venv
-.\venv\Scripts\activate
 cd chatbot
 pip install rasa
 rasa train
