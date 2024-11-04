@@ -90,6 +90,9 @@ python manage.py runserver
 #to make a new Environment =>  that step make it once
 cd chatbot
 pip install rasa
+pip install --upgrade cryptography
+or
+pip install cryptography==3.4.8
 rasa train
 rasa run -m models --enable-api --cors "*"
 ```
