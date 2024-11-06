@@ -28,9 +28,10 @@ class More extends StatelessWidget {
               Image.asset(
                 animation,
                 height: 40.h,
+                width: 50.w,
               ),
               SizedBox(
-                width: 21.w,
+                width: 26.w,
               ),
               Text(
                 title,
@@ -57,23 +58,23 @@ class More extends StatelessWidget {
   static final List _itemMore = [
     {
       'title': 'products',
-      'animation': AnimationGif.askDoctor,
+      'animation': AnimationGif.products,
       'go': Products.id
     },
     {
-      'title': 'language',
-      'animation': AnimationGif.askDoctor,
+      'title': 'languages',
+      'animation': AnimationGif.languages,
       'go': Language.id
     },
     {
       'title': 'join as doctor',
-      'animation': AnimationGif.askDoctor,
+      'animation': AnimationGif.joinAsDoctor,
       'go': About.id
-    }, //change next time//!
-    {'title': 'about us', 'animation': AnimationGif.askDoctor, 'go': About.id},
+    },
+    {'title': 'about us', 'animation': AnimationGif.aboutUs, 'go': About.id},
     {
       'title': 'contant us',
-      'animation': AnimationGif.askDoctor,
+      'animation': AnimationGif.contactUs,
       'go': ContactUs.id
     },
   ];
@@ -97,8 +98,11 @@ class More extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 Image.asset(
-                  AnimationGif.chatBot,
-                  height: 40.h,
+                  AnimationGif.more,
+                  height: 50.h,
+                  width: 50.w,
+                  filterQuality: FilterQuality.high,
+                  fit: BoxFit.cover,
                 ),
                 ...List.generate(
                   _itemMore.length,

@@ -36,34 +36,124 @@ class DetailsBlog extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8).w,
-            child:
-
-                Column(
+            child: Column(
               children: [
-                Text(
-                  '$symptoms',
-                  style: TextStyle(
-                    color: textSecoundColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Symptoms',
+                    style: TextStyle(
+                        color: textMainColor,
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Divider(),
-                Text(
-                  '$causes',
-                  style: TextStyle(
-                    color: textSecoundColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: symptoms
+                      .map((symptom) => Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 15.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10.w,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  symptom,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 21.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ))
+                      .toList(),
+                ),
+                Divider(
+                  color: Colors.grey,
+                  height: 25.h,
+                  thickness: 2,
+                  endIndent: 20,
+                  indent: 20,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Causes',
+                    style: TextStyle(
+                        color: textMainColor,
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Divider(),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: causes
+                      .map((cause) => Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Padding(
+                                padding: EdgeInsets.only(top: 10),
+                                child: Icon(
+                                  Icons.circle,
+                                  size: 15.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  cause,
+                                  softWrap: true,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 21.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ))
+                      .toList(),
+                ),
+                Divider(
+                  color: Colors.grey,
+                  height: 25.h,
+                  thickness: 2,
+                  endIndent: 20,
+                  indent: 20,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'treatment',
+                    style: TextStyle(
+                        color: textMainColor,
+                        fontSize: 24.sp,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
                 Text(
                   treatment,
                   style: TextStyle(
-                    color: textSecoundColor,
+                    color: Colors.black,
                     fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               ],
@@ -108,15 +198,13 @@ class DetailsBlog extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: ClipRRect(
-            borderRadius: BorderRadius.only(topRight: Radius.circular(150.r)),
             child: _detailsBlog(
-              //? problem in [] from json
-              imagesBlog: blog.images,
-              causes: blog.causes,
-              title: blog.title,
-              symptoms: blog.symptoms,
-              treatment: blog.treatment,
-            )),
+          imagesBlog: blog.images,
+          causes: blog.causes,
+          title: blog.title,
+          symptoms: blog.symptoms,
+          treatment: blog.treatment,
+        )),
       ),
     );
   }

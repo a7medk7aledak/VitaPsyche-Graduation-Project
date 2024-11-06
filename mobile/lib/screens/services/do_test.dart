@@ -437,6 +437,6 @@ class _DoTestState extends State<DoTest> {
             ],
           ),
         ),
-        body: _resultScreen());
+        body: _doTest());
   }
 }

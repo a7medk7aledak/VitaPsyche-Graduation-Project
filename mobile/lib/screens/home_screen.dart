@@ -103,7 +103,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget LinaChatBot(onTap) {
+  Widget linaChatBot(onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -111,52 +111,54 @@ class _HomeScreenState extends State<HomeScreen>
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         elevation: 10,
         color: secoundryColor,
-        child: Container(
-          height: 140,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(12.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'ChatBot Service',
-                      style: TextStyle(
-                        fontSize: 18,
-                        color: textMainColor,
-                        fontWeight: FontWeight.bold,
-                      ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'LineaBot Service',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: textMainColor,
+                      fontWeight: FontWeight.bold,
                     ),
-                    Text(
-                      'Click to Treat',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: textSecoundColor,
-                        fontWeight: FontWeight.w300,
-                      ),
+                  ),
+                  Text(
+                    'Click to Treat',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: textSecoundColor,
+                      fontWeight: FontWeight.w300,
                     ),
-                    Text(
-                      'yourself',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: textSecoundColor,
-                        fontWeight: FontWeight.w300,
-                      ),
+                  ),
+                  Text(
+                    'yourself',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: textSecoundColor,
+                      fontWeight: FontWeight.w300,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-              const SizedBox(width: 40),
-              Image.asset(
-                AnimationGif.LinachatBot,
-                height: 100,
+            ),
+            const SizedBox(width: 40),
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  bottomRight: Radius.circular(50),
+                  topRight: Radius.circular(50)),
+              child: Image.asset(
+                AnimationGif.linachatBot,
+                height: 150,
                 filterQuality: FilterQuality.high,
                 fit: BoxFit.cover,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -353,7 +355,7 @@ class _HomeScreenState extends State<HomeScreen>
                       //import
                       //Navigator.of(context).pushNamed(Chatbot.id)
                       () {}),
-                  LinaChatBot(
+                  linaChatBot(
 
                       //!done but scaffold to solu →
                       //*here problem
@@ -387,9 +389,9 @@ class _HomeScreenState extends State<HomeScreen>
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 6.0),
-                    child: const Row(
+                  const Padding(
+                    padding: EdgeInsets.only(top: 6.0),
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(

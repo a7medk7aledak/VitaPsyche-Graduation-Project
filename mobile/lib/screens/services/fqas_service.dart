@@ -150,12 +150,12 @@ class _FqasServiceState extends State<FqasService> {
           children: [
             Image.asset(
               logoApp,
-              height: 40.h,
-              width: 50.w,
+              height: 60.h,
+              width: 60.w,
               fit: BoxFit.cover,
             ),
             Text(
-              'MindMed',
+              'Vitapsyche',
               style: TextStyle(
                 color: textMainColor,
                 fontSize: 21.sp,

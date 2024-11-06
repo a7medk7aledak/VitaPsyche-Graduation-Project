@@ -21,11 +21,11 @@ class _CustemButtonBarState extends State<CustemButtonBar>
     with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
   final List<Widget> _custemButonBar = [
-    HomeScreen(),
-    Doctor(),
+    const HomeScreen(),
+    const Doctor(),
     ChatScreen(),
-    Profile(),
-    More(),
+    const Profile(),
+    const More(),
   ];
 
   late AnimationController _controller;
@@ -97,22 +97,13 @@ class _CustemButtonBarState extends State<CustemButtonBar>
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  'MaindMed',
-                  style: TextStyle(fontSize: 32, color: secoundryColor),
-                ),
-                Text(
-                  'you name.. we help',
-                  style: TextStyle(fontSize: 14, color: secoundryColor),
-                ),
-              ],
+            const Text(
+              'Vitapsyche',
+              style: TextStyle(fontSize: 32, color: secoundryColor),
             ),
             const Spacer(),
             Padding(
-              padding: EdgeInsets.only(right: 60, bottom: 10),
+              padding: const EdgeInsets.only(right: 60, bottom: 10),
               child: Image.asset(
                 logoApp,
                 cacheHeight: 90,
@@ -155,7 +146,7 @@ class _CustemButtonBarState extends State<CustemButtonBar>
                     child: ListView(
                       padding: EdgeInsets.zero,
                       children: [
-                        DrawerHeader(
+                        const DrawerHeader(
                           decoration: BoxDecoration(color: primaryColor),
                           child: Column(
                             children: [

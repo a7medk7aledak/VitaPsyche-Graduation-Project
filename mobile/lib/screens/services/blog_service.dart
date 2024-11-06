@@ -5,7 +5,6 @@ import 'package:flutter_mindmed_project/screens/services/details_blog.dart';
 import 'package:flutter_mindmed_project/const/colors.dart';
 import 'package:flutter_mindmed_project/const/const_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../widgets/custem_button_back.dart';
 
 class BlogService extends StatelessWidget {
@@ -61,10 +60,14 @@ class BlogService extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              blog.images,
-              fit: BoxFit.cover,
-              width: double.infinity,
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(22), topRight: Radius.circular(22)),
+              child: Image.network(
+                blog.images,
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
             ),
             Text(
               blog.title,
