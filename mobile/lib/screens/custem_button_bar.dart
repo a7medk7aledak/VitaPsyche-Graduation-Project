@@ -19,11 +19,11 @@ class CustemButtonBar extends StatefulWidget {
 
 class _CustemButtonBarState extends State<CustemButtonBar>
     with SingleTickerProviderStateMixin {
-  int _currentIndex = 0;
+  int _currentIndex = 2;
   final List<Widget> _custemButonBar = [
-    const HomeScreen(),
-    const Doctor(),
     ChatScreen(),
+    const Doctor(),
+    const HomeScreen(),
     const Profile(),
     const More(),
   ];
@@ -50,26 +50,13 @@ class _CustemButtonBarState extends State<CustemButtonBar>
 
   List<BottomNavigationBarItem> _bottonBar() {
     return const [
+      BottomNavigationBarItem(label: 'ChatBot', icon: Icon(Icons.chat)),
       BottomNavigationBarItem(
-        label: 'Home',
-        icon: Icon(Icons.home),
-      ),
+          label: 'Doctor', icon: Icon(Icons.person_4_outlined)),
+      BottomNavigationBarItem(label: 'Home', icon: Icon(Icons.home)),
       BottomNavigationBarItem(
-        label: 'Doctor',
-        icon: Icon(Icons.person_4_outlined),
-      ),
-      BottomNavigationBarItem(
-        label: 'ChatBot',
-        icon: Icon(Icons.chat),
-      ),
-      BottomNavigationBarItem(
-        label: 'Profile',
-        icon: Icon(Icons.account_box_outlined),
-      ),
-      BottomNavigationBarItem(
-        label: 'More',
-        icon: Icon(Icons.more_horiz_sharp),
-      )
+          label: 'Profile', icon: Icon(Icons.account_box_outlined)),
+      BottomNavigationBarItem(label: 'More', icon: Icon(Icons.more_horiz_sharp))
     ];
   }
 
@@ -121,9 +108,9 @@ class _CustemButtonBarState extends State<CustemButtonBar>
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: secoundryColor,
-        selectedItemColor: fourthColor,
-        backgroundColor: primaryColor,
+        unselectedItemColor: textMainColor,
+        selectedItemColor: primaryColor,
+        backgroundColor: secoundryColor,
         items: _bottonBar(),
         currentIndex: _currentIndex,
         onTap: (int newValue) {

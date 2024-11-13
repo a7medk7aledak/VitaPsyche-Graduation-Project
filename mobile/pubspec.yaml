@@ -39,6 +39,7 @@ dependencies:
   lottie: ^3.1.2
   provider: ^6.1.2
   shared_preferences: ^2.3.2
+  dots_indicator: ^3.0.0
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -59,6 +60,7 @@ flutter:
     - assets/animation/
     - assets/images/
     - assets/json/
+    - assets/json/json_text/
     - assets/human/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

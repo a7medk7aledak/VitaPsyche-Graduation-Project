@@ -3,8 +3,8 @@ import 'package:flutter_mindmed_project/const/colors.dart';
 import 'package:flutter_mindmed_project/models/model_blog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../const/const_image.dart';
-import '../../widgets/custem_button_back.dart';
+import '../../../const/const_image.dart';
+import '../../../widgets/custem_button_back.dart';
 
 class DetailsBlog extends StatelessWidget {
   const DetailsBlog({super.key});

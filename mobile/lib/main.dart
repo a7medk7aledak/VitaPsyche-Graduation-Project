@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'provider/chat_provider.dart';
 import 'screens/chatbot.dart'; 
+import 'screens/services/test_services/result_text.dart';
 import 'screens/splash_screen.dart';
 import 'screens/signin_screen.dart';
 import 'screens/signup_screen.dart';
@@ -11,11 +12,11 @@ import 'screens/home_screen.dart';
 import 'screens/more.dart';
 import 'screens/profile.dart';
 import 'screens/doctor.dart';
-import 'screens/services/fqas_service.dart';
-import 'screens/services/blog_service.dart';
-import 'screens/services/details_blog.dart';
-import 'screens/services/test_service.dart';
-import 'screens/services/do_test.dart';
+import 'screens/services/fqas/fqas_service.dart';
+import 'screens/services/blog/blog_service.dart';
+import 'screens/services/blog/details_blog.dart';
+import 'screens/services/test_services/test_service.dart';
+import 'screens/services/test_services/do_test.dart';
 import 'screens/morescreen/about.dart';
 import 'screens/morescreen/contact_us.dart';
 import 'screens/morescreen/send_to_gmail.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
             SendToGmail.id: (context) => const SendToGmail(),
             Language.id: (context) => const Language(),
             Products.id: (context) => const Products(),
+            ResultText.id: (context) => const ResultText(),
           },
         );
       },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/screens/services/blog_service.dart';
-import 'package:flutter_mindmed_project/screens/services/fqas_service.dart';
-import 'package:flutter_mindmed_project/screens/services/test_service.dart';
+import 'package:flutter_mindmed_project/screens/services/blog/blog_service.dart';
+import 'package:flutter_mindmed_project/screens/services/fqas/fqas_service.dart';
+import 'package:flutter_mindmed_project/screens/services/test_services/test_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/animation_gif.dart';
 import '../widgets/colors.dart';
@@ -51,22 +51,23 @@ class _HomeScreenState extends State<HomeScreen>
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: const EdgeInsets.only(right: 20, bottom: 15, top: 10),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        margin: const EdgeInsets.only(right: 20, bottom: 15, top: 10).w,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50).r),
         elevation: 10,
         color: secoundryColor,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(12.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0).w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'ChatBot Service',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       color: textMainColor,
                       fontWeight: FontWeight.bold,
                     ),
@@ -74,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen>
                   Text(
                     'Click to Treat',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       color: textSecoundColor,
                       fontWeight: FontWeight.w300,
                     ),
@@ -82,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen>
                   Text(
                     'yourself',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       color: textSecoundColor,
                       fontWeight: FontWeight.w300,
                     ),
@@ -90,10 +91,10 @@ class _HomeScreenState extends State<HomeScreen>
                 ],
               ),
             ),
-            const SizedBox(width: 40),
+            SizedBox(width: 20.w),
             Image.asset(
               AnimationGif.chatBot,
-              height: 150,
+              height: 140.h,
               filterQuality: FilterQuality.high,
               fit: BoxFit.cover,
             ),
@@ -107,22 +108,23 @@ class _HomeScreenState extends State<HomeScreen>
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: const EdgeInsets.only(right: 20, bottom: 15, top: 10),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+        margin: const EdgeInsets.only(right: 20, bottom: 15, top: 10).w,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50).r),
         elevation: 10,
         color: secoundryColor,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(12.0),
+            Padding(
+              padding: const EdgeInsets.all(10.0).w,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'LineaBot Service',
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 18.sp,
                       color: textMainColor,
                       fontWeight: FontWeight.bold,
                     ),
@@ -130,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen>
                   Text(
                     'Click to Treat',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       color: textSecoundColor,
                       fontWeight: FontWeight.w300,
                     ),
@@ -138,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen>
                   Text(
                     'yourself',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontSize: 14.sp,
                       color: textSecoundColor,
                       fontWeight: FontWeight.w300,
                     ),
@@ -146,14 +148,15 @@ class _HomeScreenState extends State<HomeScreen>
                 ],
               ),
             ),
-            const SizedBox(width: 40),
+            SizedBox(width: 20.w),
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  bottomRight: Radius.circular(50),
-                  topRight: Radius.circular(50)),
+              borderRadius: BorderRadius.only(
+                bottomRight: const Radius.circular(50).r,
+                topRight: const Radius.circular(50).r,
+              ),
               child: Image.asset(
                 AnimationGif.linachatBot,
-                height: 150,
+                height: 135.h,
                 filterQuality: FilterQuality.high,
                 fit: BoxFit.cover,
               ),
@@ -169,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen>
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: const EdgeInsets.only(right: 10, bottom: 10, top: 8),
+        margin: const EdgeInsets.only(right: 10, bottom: 10, top: 8).w,
         elevation: 10,
         color: secoundryColor,
         shape:
@@ -240,35 +243,35 @@ class _HomeScreenState extends State<HomeScreen>
       child: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               color: primaryColor,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25),
-                topRight: Radius.circular(25),
+                topLeft: const Radius.circular(25).r,
+                topRight: const Radius.circular(25).r,
               ),
             ),
-            height: 100,
-            width: 100,
+            height: 100.h,
+            width: 100.w,
             child: Image.asset(
               titel,
               fit: BoxFit.cover,
             ),
           ),
-          const SizedBox(height: 10),
-          const Text(
+          SizedBox(height: 10.h),
+          Text(
             'Sport \n Psychology',
             style: TextStyle(
               color: textMainColor,
-              fontSize: 14,
+              fontSize: 14.sp,
               fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 10),
-          const Text(
+          SizedBox(height: 10.h),
+          Text(
             '30 doctors',
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -277,36 +280,36 @@ class _HomeScreenState extends State<HomeScreen>
 
   Widget getHelp(IconData getIcon, String title) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(8.0).w,
       child: Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         elevation: 8,
         child: SizedBox(
-          height: 60,
+          height: 60.h,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16).w,
             child: Row(
               children: [
                 Icon(
                   getIcon,
                   color: primaryColor,
-                  size: 35,
+                  size: 35.sp,
                 ),
-                const SizedBox(
-                  width: 20,
+                SizedBox(
+                  width: 20.w,
                 ),
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: textMainColor,
-                    fontSize: 16,
+                    fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const Spacer(),
-                const Icon(
+                Icon(
                   Icons.arrow_forward_ios_rounded,
-                  size: 25,
+                  size: 25.sp,
                   color: primaryColor,
                 ),
               ],
@@ -325,23 +328,24 @@ class _HomeScreenState extends State<HomeScreen>
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.only(left: 13),
+              padding: const EdgeInsets.only(left: 13).w,
               width: double.infinity,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 color: thirdColor,
-                borderRadius: BorderRadius.only(topRight: Radius.circular(150)),
+                borderRadius:
+                    BorderRadius.only(topRight: const Radius.circular(150).r),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 20),
-                  const Row(
+                  SizedBox(height: 20.h),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         'Your Service',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 24.sp,
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
@@ -363,14 +367,14 @@ class _HomeScreenState extends State<HomeScreen>
                       //Navigator.of(context).pushNamed(Chatbot.id)
                       () {}),
                   _allCompunetService(context),
-                  const SizedBox(height: 20),
-                  const Row(
+                  SizedBox(height: 20.h),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Text(
                         'Doctors Specialists',
                         style: TextStyle(
-                          fontSize: 24,
+                          fontSize: 24.sp,
                           color: primaryColor,
                           fontWeight: FontWeight.bold,
                         ),
@@ -378,26 +382,26 @@ class _HomeScreenState extends State<HomeScreen>
                     ],
                   ),
                   SizedBox(
-                    height: 200,
+                    height: 200.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: imagesOfDoctorsSpecialists.length,
                       itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        padding: const EdgeInsets.symmetric(horizontal: 4).w,
                         child: doctorsSpecialists(
                             imagesOfDoctorsSpecialists[index]),
                       ),
                     ),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 6.0),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 6.0).w,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           'Get Help',
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 24.sp,
                             color: primaryColor,
                             fontWeight: FontWeight.bold,
                           ),
