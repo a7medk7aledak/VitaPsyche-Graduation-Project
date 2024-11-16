@@ -83,7 +83,7 @@ flutter pub get
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
 py -3.9 -m venv .venv
-.\venv\Scripts\activate
+.\.venv\Scripts\activate
 cd server
 pip install django
 py -m pip install --upgrade pip
