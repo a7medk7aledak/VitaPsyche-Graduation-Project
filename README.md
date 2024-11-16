@@ -24,7 +24,7 @@
 
 ## Setup Instructions
 ## What we use (tools and technics) in the project 
-[c4 model](https://lucid.app/lucidchart/d27bb7b0-a6a4-4dc4-b331-cb1cb5a0fe75/edit?viewport_loc=-3309%2C-2888%2C14183%2C6936%2CuP1BopAARZY8&invitationId=inv_62660a21-c50a-42fa-bc2f-c8654397950b)
+**[c4 model](https://lucid.app/lucidchart/d27bb7b0-a6a4-4dc4-b331-cb1cb5a0fe75/edit?viewport_loc=-3309%2C-2888%2C14183%2C6936%2CuP1BopAARZY8&invitationId=inv_62660a21-c50a-42fa-bc2f-c8654397950b)**
 [Graduation project document (have all details like requirements, sprints, scopes)]
 [=>Arabic:]([Link](https://docs.google.com/document/d/1X66JluUduaJcJb6x4oN44hjG9j4wGpks/edit?usp=sharing&ouid=106983660667056562566&rtpof=true&sd=true))
 [=>English:]([Link](https://docs.google.com/document/d/1R4gVHviel13bhA-YSg4s5ha7TkhZY2zE/edit?usp=sharing&ouid=106983660667056562566&rtpof=true&sd=true))
