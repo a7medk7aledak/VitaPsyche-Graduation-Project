@@ -24,15 +24,15 @@
 
 ## Setup Instructions
 ## What we use (tools and technics) in the project 
-**[c4 model](https://lucid.app/lucidchart/d27bb7b0-a6a4-4dc4-b331-cb1cb5a0fe75/edit?viewport_loc=-3309%2C-2888%2C14183%2C6936%2CuP1BopAARZY8&invitationId=inv_62660a21-c50a-42fa-bc2f-c8654397950b)**
-[Graduation project document (have all details like requirements, sprints, scopes)]
-[=>Arabic:]([Link](https://docs.google.com/document/d/1X66JluUduaJcJb6x4oN44hjG9j4wGpks/edit?usp=sharing&ouid=106983660667056562566&rtpof=true&sd=true))
-[=>English:]([Link](https://docs.google.com/document/d/1R4gVHviel13bhA-YSg4s5ha7TkhZY2zE/edit?usp=sharing&ouid=106983660667056562566&rtpof=true&sd=true))
-[Chatbot architecture ](https://lucid.app/lucidchart/0871c322-b0d0-439d-bfc4-b12ea432d21a/edit?viewport_loc=-1229%2C-57%2C2129%2C1041%2C0_0&invitationId=inv_d8c182c1-062d-4ef7-9f43-e9f8667c823c)
-[structure of files](https://app.eraser.io/workspace/T243vGvCy29e7hE33kBA)
-[Methodology SDLC =>Agile software Methodology](https://lucid.app/lucidspark/3b379e59-68f0-4db8-b93b-860cb50fa00a/edit?viewport_loc=-2422%2C-111%2C8894%2C4257%2C0_0&invitationId=inv_359fa0d4-c954-40f2-ae18-a486852a7bbf)
-[hierarchy of the team](https://lucid.app/lucidchart/e68155fa-4cd0-45bc-98c4-c37fab8f13a0/edit?invitationId=inv_4fe57076-e824-4d25-ac5d-38e442c1d9dd&page=0_0)
-[ALM (Application Lifecycle Management) (jira)](https://aiet-team.atlassian.net/jira/software/projects/DP/boards/1/backlog?epics=visible)
+- **[c4 model](https://lucid.app/lucidchart/d27bb7b0-a6a4-4dc4-b331-cb1cb5a0fe75/edit?viewport_loc=-3309%2C-2888%2C14183%2C6936%2CuP1BopAARZY8&invitationId=inv_62660a21-c50a-42fa-bc2f-c8654397950b)**
+- **[Graduation project document (have all details like requirements, sprints, scopes)]
+- **[=>Arabic:]([Link](https://docs.google.com/document/d/1X66JluUduaJcJb6x4oN44hjG9j4wGpks/edit?usp=sharing&ouid=106983660667056562566&rtpof=true&sd=true))**
+- **[=>English:]([Link](https://docs.google.com/document/d/1R4gVHviel13bhA-YSg4s5ha7TkhZY2zE/edit?usp=sharing&ouid=106983660667056562566&rtpof=true&sd=true))**
+- **[Chatbot architecture ](https://lucid.app/lucidchart/0871c322-b0d0-439d-bfc4-b12ea432d21a/edit?viewport_loc=-1229%2C-57%2C2129%2C1041%2C0_0&invitationId=inv_d8c182c1-062d-4ef7-9f43-e9f8667c823c)**
+- **[structure of files](https://app.eraser.io/workspace/T243vGvCy29e7hE33kBA)**
+- **[Methodology SDLC =>Agile software Methodology](https://lucid.app/lucidspark/3b379e59-68f0-4db8-b93b-860cb50fa00a/edit?viewport_loc=-2422%2C-111%2C8894%2C4257%2C0_0&invitationId=inv_359fa0d4-c954-40f2-ae18-a486852a7bbf)**
+- **[hierarchy of the team](https://lucid.app/lucidchart/e68155fa-4cd0-45bc-98c4-c37fab8f13a0/edit?invitationId=inv_4fe57076-e824-4d25-ac5d-38e442c1d9dd&page=0_0)**
+- **[ALM (Application Lifecycle Management) (jira)](https://aiet-team.atlassian.net/jira/software/projects/DP/boards/1/backlog?epics=visible)**
 ### Prerequisites
 
 Ensure you have the following installed on your machine:
