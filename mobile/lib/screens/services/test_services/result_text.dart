@@ -18,13 +18,17 @@ class ResultText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    final testTitle = args['testTitle'];
-    final int totalScore = args['totalScore'];
-    final int maxScore = args['maxScore'];
-    
-    final scoring = args['scoring']; 
+    final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+  if (args == null) {
+    return Scaffold(
+      body: Center(child: Text('Error: Missing arguments!')),
+    );
+  }
+   
+  final String testTitle = args['testTitle'] as String;
+  final int totalScore = args['totalScore'] as int;
+  final int maxScore = args['maxScore'] as int;
+  final scoring = args['scoring']; 
     final String scoreCategory = scoring.getCategory(totalScore);
     
     

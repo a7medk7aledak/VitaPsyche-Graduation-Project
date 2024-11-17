@@ -19,17 +19,19 @@ class DoTest extends StatefulWidget {
 class _DoTestState extends State<DoTest> {
   late String testTitle;
   late dynamic model;
-  final String _des =
+
+  final String _description =
       "Please read the test items carefully and make sure that the choices apply to you in the last two weeks. There is no right or wrong answer, and you do not need to spend a long time answering them.";
 
   final TextController _textController = TextController();
-  int? _character;
+  int? _character; // Selected answer for the current question
   int totalScore = 0;
   List<int> answers = [];
 
   @override
   void initState() {
     super.initState();
+    // Reset selection on position change
     _textController.positionStream.listen((_) {
       setState(() {
         _character = null;
@@ -50,19 +52,71 @@ class _DoTestState extends State<DoTest> {
 
   void goToResult() {
     calculateScore();
-    Navigator.pushNamed(context, ResultText.id, arguments: {
-      'testTitle': testTitle,
-      'totalScore': totalScore,
-      'maxScore':
-          model.questions.length * 3, // assuming 3 is max score per question
-      'scoring': model.scoring
+    Navigator.pushNamed(
+      context,
+      ResultText.id,
+      arguments: {
+        'testTitle': testTitle,
+        'totalScore': totalScore,
+        'maxScore':
+            model.questions.length * 3, // Assuming max score per question
+        'scoring': model.scoring, // Ensure scoring implements `getCategory`
+      },
+    );
+  }
+
+  void handleAnswerSelection() {
+    if (_character != null) answers.add(_character!);
+    setState(() {
+      _character = null;
+      _textController.isNextOrPrev = true;
     });
+  }
+
+  void onNextTap() {
+    // Prevent proceeding if no choice is selected
+    if (_character == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please select an answer before proceeding."),
+        ),
+      );
+      return;
+    }
+
+    handleAnswerSelection();
+
+    if (answers.length == model.questions.length) {
+      goToResult();
+    } else {
+      _textController.onTapNext(
+        context,
+        model.questions.length,
+        testTitle: testTitle,
+        totalScore: totalScore,
+        maxScore: model.questions.length * 3,
+        scoring: model.scoring,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Extract arguments
     final arguments =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    if (arguments == null) {
+      return Scaffold(
+        body: Center(
+          child: Text(
+            "Missing required arguments",
+            style: TextStyle(fontSize: 18.sp, color: Colors.red),
+          ),
+        ),
+      );
+    }
+
     testTitle = arguments['testTitle'];
     model = arguments['model'];
 
@@ -76,38 +130,34 @@ class _DoTestState extends State<DoTest> {
             Image.asset(logoApp, height: 50.h, fit: BoxFit.cover),
             Padding(
               padding: const EdgeInsets.only(left: 4).w,
-              child: Text('Tests',
-                  style: TextStyle(color: secoundryColor, fontSize: 26.sp)),
+              child: Text(
+                'Tests',
+                style: TextStyle(color: secoundryColor, fontSize: 26.sp),
+              ),
             ),
           ],
         ),
       ),
-      body: _doingTest(),
-      bottomNavigationBar: CustemBottonBarOnboardingscreen(
-        dotsCount: model.questions.length,
-        onTapDotIndecator: _textController.onTapDotIndicator,
-        outPutDotIndecator: _textController.outPutDataDotIndicator,
-        onTapNext: () {
-          if (_character != null) answers.add(_character!);
-          setState(() {
-            _character = null;
-            _textController.isNextOrPrev = true;
-          });
-          if (answers.length == model.questions.length) {
-            goToResult();
-          } else {
-            _textController.onTapNext(context, model.questions.length);
-          }
-        },
-        onTapSkip: () {
-          if (_character != null) answers.add(_character!);
-          setState(() {
-            _character = null;
-            _textController.isNextOrPrev = true;
-          });
-          _textController.onTapPrev(context);
-        },
-        outPutDotTextStart: _textController.outPutDataStartText,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _doingTest(),
+            SizedBox(
+              height: 20.h,
+            ),
+            CustemBottonBarOnboardingscreen(
+              dotsCount: model.questions.length,
+              onTapDotIndecator: _textController.onTapDotIndicator,
+              outPutDotIndecator: _textController.outPutDataDotIndicator,
+              onTapNext: onNextTap, // Use the updated method
+              onTapSkip: () {
+                handleAnswerSelection();
+                _textController.onTapPrev(context);
+              },
+              outPutDotTextStart: _textController.outPutDataStartText,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -126,8 +176,10 @@ class _DoTestState extends State<DoTest> {
                 int index = snapshot.data ?? 0;
                 return IndexedStack(
                   index: index,
-                  children: List.generate(model.questions.length,
-                      (i) => Expanded(child: _itemAnswer(i))),
+                  children: List.generate(
+                    model.questions.length,
+                    (i) => _itemAnswer(i),
+                  ),
                 );
               },
             ),
@@ -158,7 +210,7 @@ class _DoTestState extends State<DoTest> {
           ],
         ),
         Text(
-          _des,
+          _description,
           style: const TextStyle(
               color: textThirdColor, fontSize: 14, fontWeight: FontWeight.bold),
         ),
@@ -166,14 +218,14 @@ class _DoTestState extends State<DoTest> {
     );
   }
 
-  Widget _itemAnswer(int indexvalue) {
-    List<Choice> choices = model.questions[indexvalue].choices;
+  Widget _itemAnswer(int indexValue) {
+    List<Choice> choices = model.questions[indexValue].choices;
 
     return Column(
       children: [
         FittedBox(
           child: Text(
-            '${indexvalue + 1} - ${model.questions[indexvalue].questionText} ',
+            '${indexValue + 1} - ${model.questions[indexValue].questionText}',
             style: TextStyle(
                 color: textMainColor,
                 fontSize: 21.sp,
@@ -194,10 +246,11 @@ class _DoTestState extends State<DoTest> {
                   value: choice.score,
                   title: Text(
                     choice.text,
-                    style: const TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18),
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18.sp,
+                    ),
                   ),
                   onChanged: (value) {
                     setState(() {
