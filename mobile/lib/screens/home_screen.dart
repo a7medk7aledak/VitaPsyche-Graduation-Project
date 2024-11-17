@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmed_project/screens/lina/lina_screen.dart';
 import 'package:flutter_mindmed_project/screens/services/blog/blog_service.dart';
 import 'package:flutter_mindmed_project/screens/services/fqas/fqas_service.dart';
 import 'package:flutter_mindmed_project/screens/services/test_services/test_service.dart';
@@ -354,18 +355,22 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   cardChatBot(
 
-                      //!done but scaffold to solu →
-                      //*here problem
-                      //import
-                      //Navigator.of(context).pushNamed(Chatbot.id)
-                      () {}),
+                      // !done but scaffold to solu →
+                      // *here problem
+                      // import
+
+                      () {
+                    // Navigator.of(context).pushNamed(Chatbot.id);
+                  }),
                   linaChatBot(
 
                       //!done but scaffold to solu →
                       //*here problem
                       //import
-                      //Navigator.of(context).pushNamed(Chatbot.id)
-                      () {}),
+
+                      () {
+                    Navigator.of(context).pushNamed(LinaScreen.id);
+                  }),
                   _allCompunetService(context),
                   SizedBox(height: 20.h),
                   Row(

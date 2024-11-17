@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmed_project/screens/lina/lina_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'provider/chat_provider.dart';
@@ -66,6 +67,7 @@ class MyApp extends StatelessWidget {
             Language.id: (context) => const Language(),
             Products.id: (context) => const Products(),
             ResultText.id: (context) => const ResultText(),
+            LinaScreen.id:(context)=>const LinaScreen(),
           },
         );
       },
