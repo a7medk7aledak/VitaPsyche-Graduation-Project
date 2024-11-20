@@ -10,7 +10,6 @@ const config: Config = {
     extend: {
       colors: {
         buttonhov: "#20c0ac",
-
         main: "#83DDD3",
         white: "#FEFFFF",
         heading: "#00BFA5",
