@@ -408,12 +408,21 @@ const DoctorForm1 = () => {
               <label className="text-xl font-medium text-[#1e256c]">
                 Nationality
               </label>
-              <input
+              <select
                 name="nationality"
                 value={formData.nationality}
                 onChange={handleChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-              />
+              >
+                <option disabled value="">
+                  Select nationality
+                </option>
+                {countries.map((country, index) => (
+                  <option key={index} value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
               {errors.nationality && (
                 <span className="text-red-600 text-sm">
                   {errors.nationality}
