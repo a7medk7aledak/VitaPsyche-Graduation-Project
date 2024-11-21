@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, DragEvent } from "react";
 import { FiX } from "react-icons/fi";
+import { motion } from "framer-motion";
 
 interface FileUploadProps {
   label: string;
@@ -32,16 +33,53 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   };
 
   return (
-    <div className="flex flex-col space-y-2 w-full mb-10">
-      <label className="text-xl font-medium text-[#1e256c]">{label}</label>
-      <div
+    <motion.div
+      className="flex flex-col space-y-2 w-full mb-10"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+    >
+      <motion.label
+        className="text-xl font-medium text-[#1e256c]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+      >
+        {label}
+      </motion.label>
+
+      <motion.div
         className="border-2 border-dashed border-gray-300 rounded-lg p-6 flex flex-col items-center justify-center text-center space-y-4 bg-gray-50 hover:bg-gray-100 transition duration-200"
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDrop}
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.4 }}
       >
-        <p className="text-gray-600">Drag and drop your file here</p>
-        <p className="text-sm text-gray-500">or</p>
-        <label className="cursor-pointer px-4 py-2 bg-[#0f766e] text-white font-semibold rounded shadow">
+        <motion.p
+          className="text-gray-600"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          Drag and drop your file here
+        </motion.p>
+
+        <motion.p
+          className="text-sm text-gray-500"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          or
+        </motion.p>
+
+        <motion.label
+          className="cursor-pointer px-4 py-2 bg-[#0f766e] text-white font-semibold rounded shadow"
+          initial={{ scale: 0.95 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
           Browse File
           <input
             type="file"
@@ -49,25 +87,34 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             accept={acceptedFileTypes}
             onChange={handleFileChange}
           />
-        </label>
-      </div>
+        </motion.label>
+      </motion.div>
 
       {file && (
-        <div className="mt-4">
+        <motion.div
+          className="mt-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
           <h4 className="text-md font-semibold">Selected File:</h4>
-          <p className="flex items-center gap-x-2">
+          <motion.p
+            className="flex items-center gap-x-2"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.5 }}
+          >
             {file.name}
             <span
               onClick={() => {
                 setFile(null);
               }}
             >
-              <FiX className="h-5 w-5 text-red-700 cursor-pointer" />{" "}
-              {/* React Icons 'FiX' icon */}
+              <FiX className="h-5 w-5 text-red-700 cursor-pointer" />
             </span>
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 };

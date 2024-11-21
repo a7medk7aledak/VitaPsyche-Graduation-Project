@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 
 import { useState } from "react";
 import Button from "@components/common/Button";
@@ -20,7 +21,7 @@ const DoctorForm3 = () => {
   const [workingInClinic, setWorkingInClinic] = useState("");
 
   const [multipleQualifications, setMultipleQualifications] = useState("");
-  // State to store all files
+  // State to store all files for testing
   // const [files, setFiles] = useState<{ [key: string]: File | null }>({});
 
   const [errors, setErrors] = useState<TFormErrors>({});
@@ -78,8 +79,8 @@ const DoctorForm3 = () => {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      setShowModal(true);
       console.log("Form data ready for submission:", formData);
+      setShowModal(true);
     } else {
       setErrors(formErrors);
     }
@@ -90,29 +91,80 @@ const DoctorForm3 = () => {
     router.push("/");
   };
 
+  const formVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { x: -100, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
+  };
+
+  const pageVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  };
+
   return (
     <>
       {/* personal information section */}
-      <div className="relative py-10 px-8 md:px-0">
+      <motion.div
+        className="relative py-10 px-8 md:px-0"
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={pageVariants}
+      >
+        {" "}
         <div className="container mx-auto">
-          <h5 className="text-maintext text-3xl font-medium mb-7 text-center">
+          <motion.h5
+            className="text-maintext text-3xl font-medium mb-7 text-center"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            {" "}
             Professional Information
-          </h5>
+          </motion.h5>
 
           {/* formData */}
-          <form className="bg-white relative p-6 md:w-3/4 mx-auto rounded-lg shadow-lg space-y-6 mb-4 ">
-            {/* Back Button */}
-            <Link
-              href="/signup-doctor/doctor-form2"
-              className="flex items-center justify-center absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 bg-[#8fd3d1] text-white rounded-full py-2 pr-2 md:pr-4 shadow-md hover:bg-[#6ab7a9] transition duration-200 text-md md:text-2xl"
+          <motion.form
+            className="bg-white relative p-6 md:w-3/4 mx-auto rounded-lg shadow-lg space-y-6 mb-4"
+            initial="hidden"
+            animate="visible"
+            variants={formVariants}
+          >
+            <motion.div
+              className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2"
+              variants={buttonVariants}
+              initial="hidden"
+              animate="visible"
             >
-              <IoIosArrowBack className="text-lg md:text-3xl" />
-              <span>Back</span>
-            </Link>
+              {/* Back Button */}
+              <Link
+                href="/signup-doctor/doctor-form2"
+                className="flex items-center justify-center absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 bg-[#8fd3d1] text-white rounded-full py-2 pr-2 md:pr-4 shadow-md hover:bg-[#6ab7a9] transition duration-200 text-md md:text-2xl"
+              >
+                <IoIosArrowBack className="text-lg md:text-3xl" />
+                <span>Back</span>
+              </Link>
+            </motion.div>
 
             {/* category Field */}
 
-            <div className="flex flex-col space-y-2 w-full">
+            <motion.div
+              className="flex flex-col space-y-2 w-full"
+              variants={formVariants}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Category
               </label>
@@ -131,10 +183,13 @@ const DoctorForm3 = () => {
               {errors.category && (
                 <p className="text-red-500 text-sm">{errors.category}</p>
               )}
-            </div>
+            </motion.div>
 
             {/* Specialization Field */}
-            <div className="flex flex-col space-y-2 w-full">
+            <motion.div
+              className="flex flex-col space-y-2 w-full"
+              variants={formVariants}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Specialization
               </label>
@@ -157,10 +212,13 @@ const DoctorForm3 = () => {
               {errors.specialization && (
                 <p className="text-red-500 text-sm">{errors.specialization}</p>
               )}
-            </div>
+            </motion.div>
 
             {/* Total Years Of Professional Experience Field */}
-            <div className="flex flex-col space-y-2 w-full">
+            <motion.div
+              className="flex flex-col space-y-2 w-full"
+              variants={formVariants}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Total Years Of Professional Experience{" "}
               </label>
@@ -182,10 +240,13 @@ const DoctorForm3 = () => {
                   {errors.yearsOfExperience}
                 </p>
               )}
-            </div>
+            </motion.div>
 
             {/* License Number (If applicable) Field */}
-            <div className="flex flex-col space-y-2 w-full">
+            <motion.div
+              className="flex flex-col space-y-2 w-full"
+              variants={formVariants}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 License Number (If applicable)
               </label>
@@ -199,10 +260,13 @@ const DoctorForm3 = () => {
                   })
                 }
               />
-            </div>
+            </motion.div>
 
             {/* licensing Organization Field */}
-            <div className="flex flex-col space-y-2 w-full">
+            <motion.div
+              className="flex flex-col space-y-2 w-full"
+              variants={formVariants}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 licensing Organization{" "}
               </label>
@@ -215,10 +279,13 @@ const DoctorForm3 = () => {
                   })
                 }
               />
-            </div>
+            </motion.div>
 
             {/* Working in a Clinic Field */}
-            <div className="flex flex-col space-y-2 w-full mb-10">
+            <motion.div
+              className="flex flex-col space-y-2 w-full"
+              variants={formVariants}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Working in a clinic
               </label>
@@ -237,20 +304,27 @@ const DoctorForm3 = () => {
               {errors.workingInClinic && (
                 <p className="text-red-500 text-sm">{errors.workingInClinic}</p>
               )}
-            </div>
+            </motion.div>
 
             {/* Clinic Name Field */}
             {workingInClinic === "yes" && (
-              <div className="flex flex-col space-y-2 w-full mb-10">
+              <motion.div
+                className="flex flex-col space-y-2 w-full mb-10"
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.4 }}
+              >
                 <label className="text-xl font-medium text-[#1e256c]">
                   Clinic Name
                 </label>
                 <input
-                  className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 transition duration-200 "
+                  className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 transition duration-200"
                   placeholder="if you are working in a clinic"
                   value={formData.clinicName || ""}
                   onChange={(e) =>
                     setFormData({
+                      ...formData,
                       clinicName: e.target.value,
                     })
                   }
@@ -258,11 +332,14 @@ const DoctorForm3 = () => {
                 {errors.clinicName && (
                   <p className="text-red-500 text-sm">{errors.clinicName}</p>
                 )}
-              </div>
+              </motion.div>
             )}
 
             {/* Availability for Sessions Field */}
-            <div className="flex flex-col space-y-2 w-full mb-10">
+            <motion.div
+              className="flex flex-col space-y-2 w-full mb-10"
+              variants={formVariants}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Availability for Sessions
               </label>
@@ -287,7 +364,7 @@ const DoctorForm3 = () => {
                   {errors.availabilityForSessions}
                 </p>
               )}
-            </div>
+            </motion.div>
 
             {/* Upload CV Field */}
             <div>
@@ -316,7 +393,10 @@ const DoctorForm3 = () => {
 
             {/* Do You Have More than One professional qualifications Field */}
 
-            <div className="flex flex-col space-y-2 w-full mb-10">
+            <motion.div
+              className="flex flex-col space-y-2 w-full mb-10"
+              variants={formVariants}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Do You Have More than One professional qualifications
                 certifications
@@ -337,7 +417,7 @@ const DoctorForm3 = () => {
                   {errors.multipleQualifications}
                 </p>
               )}
-            </div>
+            </motion.div>
 
             {/* If you possess multiple professional qualifications Field */}
             {multipleQualifications === "yes" && (
@@ -372,7 +452,7 @@ const DoctorForm3 = () => {
                 </Button>
               </div>
             </div>
-          </form>
+          </motion.form>
         </div>
         {/* Modal Component */}
         <SignUpDoctorModal
@@ -380,7 +460,7 @@ const DoctorForm3 = () => {
           onClose={closeModalHandler}
           message="Thanks For Completing This Form !"
         />
-      </div>
+      </motion.div>
     </>
   );
 };

@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 import { countries } from "@app/constants/countries";
 import Button from "@components/common/Button";
 import Heading from "@components/common/Heading";
@@ -104,7 +106,14 @@ const DoctorForm1 = () => {
 
   return (
     <>
-      <div className="relative py-12">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        transition={{ duration: 0.5 }}
+        className="relative py-12"
+      >
+        {" "}
         <div className="container mx-auto">
           <div className="-mb-10">
             <Heading variant="secondary">
@@ -115,7 +124,12 @@ const DoctorForm1 = () => {
           {/* content */}
           <div className="flex flex-col lg:flex-row-reverse justify-between ">
             {/* Image content */}
-            <div className="mx-auto lg:mx-0 mb-7 lg:mb-0">
+            <motion.div
+              initial={{ opacity: 0, x: 100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="mx-auto lg:mx-0 mb-7 lg:mb-0"
+            >
               <Image
                 src={"/images/signup-doctor/doctorForm1.png"}
                 width={600}
@@ -123,10 +137,16 @@ const DoctorForm1 = () => {
                 alt="doctorForm1.png"
                 className="max-w-full"
               />
-            </div>
+            </motion.div>
             {/* Image content */}
             {/* text content */}
-            <div className="lg:w-1/2 px-2 lg:px-0">
+            <motion.div
+              initial={{ opacity: 0, x: -100 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="lg:w-1/2 px-2 lg:px-0"
+            >
+              {" "}
               <h5 className="text-maintext text-3xl font-medium mb-3">
                 Required Criteria For Each Category:
               </h5>
@@ -169,16 +189,23 @@ const DoctorForm1 = () => {
                   </ul>
                 </div>
               </div>
-            </div>
+            </motion.div>
             {/* text content */}
           </div>
           {/* content */}
           <hr className="w-full absolute left-0 border-1 border-slate-500 mt-7" />
         </div>
-      </div>
+      </motion.div>
 
       {/* personal information section */}
-      <div className="relative pt-3 pb-10 px-5 md:px-0">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="relative pt-3 pb-10 px-5 md:px-0"
+      >
+        {" "}
         <div className="container mx-auto">
           <h5 className="text-maintext text-3xl font-medium mb-7 ">
             Personal Information
@@ -492,7 +519,7 @@ const DoctorForm1 = () => {
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };

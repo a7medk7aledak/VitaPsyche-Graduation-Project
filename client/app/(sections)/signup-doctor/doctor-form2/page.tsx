@@ -6,6 +6,7 @@ import Button from "@components/common/Button";
 import { TFormErrors } from "@app/types/FormDoctor";
 import { useDoctorFormStore } from "@store/useDoctorFormStore";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 const DoctorForm2 = () => {
   const router = useRouter();
@@ -42,28 +43,66 @@ const DoctorForm2 = () => {
       setErrors(formErrors);
     }
   };
+
+  const buttonVariants = {
+    hidden: { x: -100, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
+  };
   return (
     <>
-      {/* Educational Information Section */}
-      <div className="relative py-10 px-8 md:px-0">
+      {/* Educational Information Section with improved animation */}
+      <motion.div
+        className="relative py-10 px-8 md:px-0"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 50 }}
+        transition={{
+          type: "spring",
+          stiffness: 150,
+          damping: 25,
+          duration: 0.8,
+        }}
+      >
         <div className="container mx-auto">
           <h5 className="text-maintext text-3xl font-medium mb-7 text-center">
             Educational Information
           </h5>
 
-          {/* Form Section */}
-          <form className="bg-white relative p-6 md:w-3/4 mx-auto rounded-lg shadow-lg space-y-6 mb-4 ">
-            {/* Back Button */}
-            <Link
-              href="/signup-doctor/doctor-form1"
-              className="flex items-center justify-center absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 bg-[#8fd3d1] text-white rounded-full py-2 pr-2 md:pr-4 shadow-md hover:bg-[#6ab7a9] transition duration-200 text-md md:text-2xl"
+          {/* Form Section with smooth animation */}
+          <motion.form
+            className="bg-white relative p-6 md:w-3/4 mx-auto rounded-lg shadow-lg space-y-6 mb-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            {/* Back Button with smooth fade-in */}
+            <motion.div
+              className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2"
+              variants={buttonVariants}
+              initial="hidden"
+              animate="visible"
             >
-              <IoIosArrowBack className="text-lg md:text-3xl" />
-              <span>Back</span>
-            </Link>
+              {/* Back Button */}
+              <Link
+                href="/signup-doctor/doctor-form1"
+                className="flex items-center justify-center absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 bg-[#8fd3d1] text-white rounded-full py-2 pr-2 md:pr-4 shadow-md hover:bg-[#6ab7a9] transition duration-200 text-md md:text-2xl"
+              >
+                <IoIosArrowBack className="text-lg md:text-3xl" />
+                <span>Back</span>
+              </Link>
+            </motion.div>
 
-            {/* Highest Degree Earned Field */}
-            <div className="flex flex-col space-y-2 w-full">
+            {/* Highest Degree Earned Field with staggered animation */}
+            <motion.div
+              className="flex flex-col space-y-2 w-full"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Highest Degree Earned
               </label>
@@ -82,10 +121,15 @@ const DoctorForm2 = () => {
               {errors.highestDegree && (
                 <p className="text-red-500">{errors.highestDegree}</p>
               )}
-            </div>
+            </motion.div>
 
-            {/* Name of Institution Field */}
-            <div className="flex flex-col space-y-2 w-full">
+            {/* Name of Institution Field with a subtle scaling animation */}
+            <motion.div
+              className="flex flex-col space-y-2 w-full"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Name of Institution
               </label>
@@ -100,10 +144,19 @@ const DoctorForm2 = () => {
               {errors.institutionName && (
                 <p className="text-red-500">{errors.institutionName}</p>
               )}
-            </div>
+            </motion.div>
 
-            {/* Year of Graduation Field */}
-            <div className="flex flex-col space-y-2 w-full mb-10">
+            {/* Year of Graduation Field with a slight scale and fade-in */}
+            <motion.div
+              className="flex flex-col space-y-2 w-full mb-10"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.4,
+                ease: "easeOut",
+                delay: 0.3,
+              }}
+            >
               <label className="text-xl font-medium text-[#1e256c]">
                 Year of Graduation
               </label>
@@ -125,20 +178,29 @@ const DoctorForm2 = () => {
               {errors.graduationYear && (
                 <p className="text-red-500">{errors.graduationYear}</p>
               )}
-            </div>
+            </motion.div>
 
-            {/* Next Button */}
-            <div className="flex justify-end  items-center gap-x-2 text-2xl pt-5">
+            {/* Next Button with smooth transition and scaling effect */}
+            <motion.div
+              className="flex justify-end items-center gap-x-2 text-2xl pt-5"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{
+                duration: 0.4,
+                ease: "easeOut",
+                delay: 0.4,
+              }}
+            >
               <span className="text-[#686b72]">2/3</span>
               <div onClick={handleNextClick}>
                 <Button variant="secondary" size="large" roundedValue="full">
                   Next
                 </Button>
               </div>
-            </div>
-          </form>
+            </motion.div>
+          </motion.form>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
