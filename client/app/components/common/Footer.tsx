@@ -9,6 +9,7 @@ import { RiInstagramFill } from "react-icons/ri";
 import { BsLinkedin } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Footer = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -52,9 +53,11 @@ const Footer = () => {
                 Join Us
               </h4>
               <div className="flex space-x-4 justify-center">
-                <Button variant="secondary" size="medium" roundedValue="md">
-                  Join as a Doctor <FaUserDoctor />
-                </Button>
+                <Link href={"/signup-doctor"}>
+                  <Button variant="secondary" size="medium" roundedValue="md">
+                    Join as a Doctor <FaUserDoctor />
+                  </Button>
+                </Link>
                 <Button variant="secondary" size="medium" roundedValue="md">
                   Join as a Client <IoPersonSharp />
                 </Button>

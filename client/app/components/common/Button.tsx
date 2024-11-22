@@ -3,8 +3,9 @@ import { FC, ReactNode } from "react";
 interface ButtonProps {
   variant?: "primary" | "secondary";
   children: ReactNode;
-  size: "small" | "medium" | "large";
+  size: "small" | "medium" | "large" | "extraLarge";
   roundedValue: "md" | "full";
+  disabled?: boolean;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -12,9 +13,11 @@ const Button: FC<ButtonProps> = ({
   roundedValue,
   size,
   children,
+  disabled,
 }) => {
   return (
     <button
+      disabled={disabled}
       className={` btn shadow-md hover:shadow-lg ${
         variant === "primary" ? "btn-primary" : "btn-secondary"
       }
@@ -24,7 +27,9 @@ const Button: FC<ButtonProps> = ({
             ? "btn-small"
             : size === "medium"
             ? "btn-medium"
-            : "btn-large"
+            : size === "large"
+            ? "btn-large"
+            : " btn-extraLarge"
         }
       `}
     >
