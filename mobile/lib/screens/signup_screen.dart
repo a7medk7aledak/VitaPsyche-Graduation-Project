@@ -22,12 +22,18 @@ class _SignupScreenState extends State<SignupScreen> {
   Color _containerColor = primaryColor;
 
   final FocusNode _nameFocusNode = FocusNode();
+  final FocusNode _firstNameFocusNode = FocusNode();
+  final FocusNode _lastNameFocusNode = FocusNode();
+
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
   final FocusNode _confirmPasswordFocusNode = FocusNode();
   final FocusNode _phoneFocusNode = FocusNode();
   final FocusNode _genderFocusNode = FocusNode();
   final FocusNode _dateFocusNode = FocusNode();
+  final FocusNode _nationalityFocusNode = FocusNode();
+  final FocusNode _fluentLanguageFocusNode = FocusNode();
+  final FocusNode _currentResidenceFocusNode = FocusNode();
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -36,6 +42,15 @@ class _SignupScreenState extends State<SignupScreen> {
       TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _nationalityController = TextEditingController();
+
+  final TextEditingController _fluentLanguageController =
+      TextEditingController();
+
+  final TextEditingController _currentResidenceController =
+      TextEditingController();
 
   int currentStep = 0;
 
@@ -54,7 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void _onNextStep() {
-    if (currentStep < 2) {
+    if (currentStep < 3) {
       setState(() {
         currentStep++;
       });
@@ -389,7 +404,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 shadowColor: Colors.black,
                               ),
                               child: Text(
-                                currentStep == 2 ? 'Submit' : 'Next',
+                                currentStep == 3 ? 'Submit' : 'Next',
                                 style: TextStyle(
                                   fontSize: getWidth(18),
                                   color: Colors.white,
@@ -407,10 +422,12 @@ class _SignupScreenState extends State<SignupScreen> {
                       padding: const EdgeInsets.only(right: 60, top: 5),
                       child: Text(
                         currentStep == 0
-                            ? 'Step 1 of 3'
+                            ? 'Step 1 of 4'
                             : currentStep == 1
-                                ? 'Step 2 of 3'
-                                : 'Step 3 of 3',
+                                ? 'Step 2 of 4'
+                                : currentStep == 2
+                                    ? 'Step 3 of 4'
+                                    : 'Step 4 of 4',
                         style: TextStyle(
                           color: primaryColor,
                           fontSize: 14,
@@ -504,27 +521,50 @@ class _SignupScreenState extends State<SignupScreen> {
 
   Widget _buildFormFields() {
     if (currentStep == 0) {
-      // Step 1: Name and Email
+      // Step 1: First Name, Last Name, and UserName
       return Column(
         children: [
           _buildTextField(
-              _nameController, _nameFocusNode, 'Name', Icons.person),
+            _nameController,
+            _nameFocusNode,
+            'UserName',
+            Icons.person,
+          ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-          _buildTextField(
-              _emailController, _emailFocusNode, 'Email', Icons.email),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _customTextField(
+                controller: _firstNameController,
+                focusNode: _firstNameFocusNode,
+                labelText: 'First Name',
+                icon: Icons.person_outline,
+              ),
+              SizedBox(width: MediaQuery.of(context).size.width * 0.01),
+              _customTextField(
+                controller: _lastNameController,
+                focusNode: _lastNameFocusNode,
+                labelText: 'Last Name',
+                icon: Icons.person_outline,
+              ),
+            ],
+          ),
         ],
       );
     } else if (currentStep == 1) {
       // Step 2: Password, Confirm Password, and Phone
       return Column(
         children: [
+          _buildTextField(
+              _emailController, _emailFocusNode, 'Email', Icons.email),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           _buildPasswordField(),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           _buildTextField(_confirmPasswordController, _confirmPasswordFocusNode,
               'Confirm Password', Icons.lock),
         ],
       );
-    } else {
+    } else if (currentStep == 2) {
       // Step 3: Gender and Birth Date
       return Column(
         children: [
@@ -534,6 +574,31 @@ class _SignupScreenState extends State<SignupScreen> {
           _buildGenderSelection(),
           SizedBox(height: MediaQuery.of(context).size.height * 0.03),
           _buildBirthDateSelection(),
+        ],
+      );
+    } else {
+      return Column(
+        children: [
+          _newCustomTextField(
+            controller: _nationalityController,
+            focusNode: _nationalityFocusNode,
+            labelText: 'Nationality',
+            icon: Icons.flag,
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+          _newCustomTextField(
+            controller: _fluentLanguageController,
+            focusNode: _fluentLanguageFocusNode,
+            labelText: 'Fluent Language',
+            icon: Icons.language,
+          ),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+          _newCustomTextField(
+            controller: _currentResidenceController,
+            focusNode: _currentResidenceFocusNode,
+            labelText: 'Current Residence',
+            icon: Icons.home,
+          )
         ],
       );
     }
@@ -570,6 +635,39 @@ class _SignupScreenState extends State<SignupScreen> {
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _customTextField({
+    required TextEditingController controller,
+    required FocusNode focusNode,
+    required String labelText,
+    required IconData icon,
+  }) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.4,
+      child: TextField(
+        controller: controller,
+        focusNode: focusNode,
+        cursorColor: primaryColor,
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: TextStyle(
+            color: focusNode.hasFocus ? primaryColor : Colors.black,
+          ),
+          prefixIcon: Icon(
+            icon,
+            color: focusNode.hasFocus ? primaryColor : Colors.black,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(color: primaryColor, width: 2.0),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
       ),
@@ -733,6 +831,45 @@ class _SignupScreenState extends State<SignupScreen> {
             });
           }
         },
+      ),
+    );
+  }
+
+  Widget _newCustomTextField({
+    required TextEditingController controller,
+    required FocusNode focusNode,
+    required String labelText,
+    required IconData icon,
+  }) {
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      child: TextField(
+        controller: controller,
+        focusNode: focusNode,
+        cursorColor: primaryColor,
+        decoration: InputDecoration(
+          labelText: labelText,
+          labelStyle: TextStyle(
+            color: focusNode.hasFocus ? primaryColor : Colors.black,
+          ),
+          prefixIcon: Icon(
+            icon,
+            color: focusNode.hasFocus ? primaryColor : Colors.black,
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: primaryColor,
+              width: 2.0,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: Colors.grey,
+            ),
+          ),
+        ),
       ),
     );
   }

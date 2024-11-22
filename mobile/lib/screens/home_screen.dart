@@ -95,7 +95,7 @@ class _HomeScreenState extends State<HomeScreen>
             SizedBox(width: 20.w),
             Image.asset(
               AnimationGif.chatBot,
-              height: 140.h,
+              height: 120.h,
               filterQuality: FilterQuality.high,
               fit: BoxFit.cover,
             ),
@@ -157,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen>
               ),
               child: Image.asset(
                 AnimationGif.linachatBot,
-                height: 135.h,
+                height: 115.h,
                 filterQuality: FilterQuality.high,
                 fit: BoxFit.cover,
               ),
@@ -209,7 +209,7 @@ class _HomeScreenState extends State<HomeScreen>
           children: [
             _compunetService('Test', AnimationGif.test,
                 onTap: () => Navigator.of(constext).pushNamed(TestService.id)),
-            SizedBox(width: 20.w),
+            SizedBox(width: 15.w),
             _compunetService(
               'Blog',
               AnimationGif.blog,
@@ -217,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ],
         ),
-        SizedBox(height: 15.h),
+        SizedBox(height: 10.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -226,7 +226,7 @@ class _HomeScreenState extends State<HomeScreen>
               AnimationGif.fqas,
               onTap: () => Navigator.of(constext).pushNamed(FqasService.id),
             ),
-            SizedBox(width: 20.w),
+            SizedBox(width: 15.w),
             _compunetService(
               'Ask Doctor',
               AnimationGif.askDoctor,
@@ -251,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen>
                 topRight: const Radius.circular(25).r,
               ),
             ),
-            height: 100.h,
+            height: 80.h,
             width: 100.w,
             child: Image.asset(
               titel,
@@ -355,13 +355,11 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                   cardChatBot(
 
-                      // !done but scaffold to solu →
-                      // *here problem
-                      // import
-
-                      () {
-                    // Navigator.of(context).pushNamed(Chatbot.id);
-                  }),
+                      //!done but scaffold to solu →
+                      //*here problem
+                      //import
+                      //Navigator.of(context).pushNamed(Chatbot.id)
+                      () {}),
                   linaChatBot(
 
                       //!done but scaffold to solu →
@@ -387,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen>
                     ],
                   ),
                   SizedBox(
-                    height: 200.h,
+                    height: 170.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: imagesOfDoctorsSpecialists.length,

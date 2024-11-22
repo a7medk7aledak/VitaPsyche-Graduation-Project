@@ -9,7 +9,7 @@ import '../../../widgets/custem_button_back.dart';
 
 class BlogService extends StatelessWidget {
   const BlogService({super.key});
-  static String id = 'BLog';
+  static String id = 'Blog';
 
   Future<List<ModelBlog>> fetchBlog() async {
     List<dynamic> jsonData =
@@ -19,210 +19,206 @@ class BlogService extends StatelessWidget {
 
   _textFieldBorder() {
     return OutlineInputBorder(
-      gapPadding: 0,
       borderRadius: BorderRadius.circular(22),
-      borderSide: const BorderSide(width: 0, color: textFiledColor),
+      borderSide: BorderSide.none,
     );
   }
 
-  //!   take value when search here!!
   Widget _search() {
-    return TextField(
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 5,
+            offset: Offset(0, 3),
+          ),
+        ],
+      ),
+      child: TextField(
         decoration: InputDecoration(
-      suffixIcon: const Icon(Icons.search_sharp),
-      filled: true,
-      fillColor: Colors.grey.shade300,
-      labelText: 'Search',
-      labelStyle: TextStyle(
-          color: Colors.grey.shade500,
-          fontSize: 24,
-          fontWeight: FontWeight.bold),
-      border: _textFieldBorder(),
-      enabledBorder: _textFieldBorder(),
-      focusedBorder: _textFieldBorder(),
-    ));
+          suffixIcon: Icon(Icons.search, color: Colors.grey.shade600),
+          filled: true,
+          fillColor: Colors.white,
+          hintText: 'Search articles',
+          hintStyle: TextStyle(color: Colors.grey.shade600, fontSize: 16),
+          border: _textFieldBorder(),
+          enabledBorder: _textFieldBorder(),
+          focusedBorder: _textFieldBorder(),
+        ),
+      ),
+    );
   }
 
   Widget _blogItem(BuildContext _, ModelBlog blog) {
     return Card(
-      elevation: 4,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(
-          Radius.circular(22),
-        ),
-        side: BorderSide(
-          color: primaryColor,
-          width: 2,
-        ),
+      elevation: 5,
+      margin: EdgeInsets.symmetric(horizontal: 10.w, vertical: 8.h),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(22), topRight: Radius.circular(22)),
-              child: Image.network(
-                blog.images,
-                fit: BoxFit.cover,
-                width: double.infinity,
-              ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            child: Image.network(
+              blog.images,
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 180.h,
             ),
-            Text(
-              blog.title,
-              softWrap: true,
-              style: const TextStyle(color: Colors.black, fontSize: 16),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Text(
-              blog.description,
-              softWrap: true,
-              style: const TextStyle(color: textSecoundColor, fontSize: 15),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+          ),
+          Padding(
+            padding: EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Icon(Icons.timelapse_outlined),
-                //*DataTime no in json
-                const Text(
-                  '6 sep 2020',
-                  style: TextStyle(color: textSecoundColor, fontSize: 15),
+                Text(
+                  blog.title,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                ElevatedButton(
-                    onPressed: () => Navigator.of(_)
-                        .pushNamed(DetailsBlog.id, arguments: blog),
-                    style:
-                        ElevatedButton.styleFrom(backgroundColor: primaryColor),
-                    child: const Row(
+                SizedBox(height: 5.h),
+                Text(
+                  blog.description,
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(color: textSecoundColor, fontSize: 15.sp),
+                ),
+                SizedBox(height: 10.h),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
                       children: [
-                        Icon(Icons.my_library_books_outlined),
+                        Icon(Icons.timelapse_outlined, size: 18),
+                        SizedBox(width: 5),
                         Text(
-                          'read more',
-                          style: TextStyle(color: secoundryColor, fontSize: 15),
-                        )
+                          '6 Sep 2020',
+                          style:
+                              TextStyle(color: textSecoundColor, fontSize: 14),
+                        ),
                       ],
-                    ))
+                    ),
+                    ElevatedButton(
+                      onPressed: () => Navigator.of(_)
+                          .pushNamed(DetailsBlog.id, arguments: blog),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.my_library_books_outlined, size: 18),
+                          SizedBox(width: 5),
+                          Text(
+                            'Read More',
+                            style:
+                                TextStyle(color: secoundryColor, fontSize: 14),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    //!here
-
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: Colors.grey.shade200,
       appBar: AppBar(
         leading: custemButtonBack(context),
         titleSpacing: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: primaryColor,
+        elevation: 5,
         title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               logoApp,
-              height: 60.h,
-              width: 50.w,
+              height: 40.h,
+              width: 40.w,
               fit: BoxFit.cover,
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 4).w,
-              child: Text(
-                'Articals',
-                style: TextStyle(
-                  color: secoundryColor,
-                  fontSize: 26.sp,
-                ),
+            SizedBox(width: 8.w),
+            Text(
+              'Articles',
+              style: TextStyle(
+                color: secoundryColor,
+                fontSize: 26.sp,
+                fontWeight: FontWeight.bold,
               ),
-            )
+            ),
           ],
         ),
+        centerTitle: true,
       ),
       body: FutureBuilder<List<ModelBlog>>(
-          future: fetchBlog(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snapshot.hasError) {
-              return const Center(
-                child: Text('Error Loading...'),
-              );
-            } else if (snapshot.hasData && snapshot.data != null) {
-              List<ModelBlog> blogs = snapshot.data!;
-              return CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: ClipRRect(
-                      borderRadius:
-                          BorderRadius.only(topRight: Radius.circular(150.r)),
-                      child: Container(
-                        padding: const EdgeInsets.all(12).w,
-                        color: secoundryColor,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(
-                                  right: 35.w, top: 30.h, bottom: 10.h),
-                              child: _search(),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Most read',
-                                  style: TextStyle(
-                                      color: textMainColor,
-                                      fontSize: 24.sp,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'other articals',
-                                  style: TextStyle(
-                                      color: textSecoundColor,
-                                      fontSize: 24.sp,
-                                      fontWeight: FontWeight.w700),
-                                )
-                              ],
-                            ),
-                          ],
+        future: fetchBlog(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error loading articles'),
+            );
+          } else if (snapshot.hasData && snapshot.data != null) {
+            List<ModelBlog> blogs = snapshot.data!;
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.w),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _search(),
+                        SizedBox(height: 20.h),
+                        Text(
+                          'Most Read',
+                          style: TextStyle(
+                            color: textMainColor,
+                            fontSize: 24.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
+                        SizedBox(height: 10.h),
+                      ],
                     ),
                   ),
-                  SliverToBoxAdapter(
-                    child: Expanded(
-                      child: Container(
-                        color: secoundryColor,
-                        child: ListView.separated(
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) =>
-                                _blogItem(context, blogs[index]),
-                            separatorBuilder: (context, index) => SizedBox(
-                                  height: 5.h,
-                                ),
-                            itemCount: blogs.length),
-                      ),
-                    ),
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) => _blogItem(context, blogs[index]),
+                    childCount: blogs.length,
                   ),
-                ],
-              );
-            } else {
-              return const Center(
-                child: Text('No Blogs found'),
-              );
-            }
-          }),
+                ),
+              ],
+            );
+          } else {
+            return Center(
+              child: Text('No Blogs found'),
+            );
+          }
+        },
+      ),
     );
   }
 }
