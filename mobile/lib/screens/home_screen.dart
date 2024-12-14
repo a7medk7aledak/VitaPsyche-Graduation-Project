@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmed_project/screens/chatbot.dart';
 import 'package:flutter_mindmed_project/screens/lina/lina_screen.dart';
 import 'package:flutter_mindmed_project/screens/services/blog/blog_service.dart';
-import 'package:flutter_mindmed_project/screens/services/fqas/fqas_service.dart';
 import 'package:flutter_mindmed_project/screens/services/test_services/test_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../widgets/animation_gif.dart';
@@ -19,7 +19,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _animation;
 
   @override
   void initState() {
@@ -27,10 +26,6 @@ class _HomeScreenState extends State<HomeScreen>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 300),
-    );
-    _animation = CurvedAnimation(
-      parent: _controller,
-      curve: Curves.easeInOut,
     );
   }
 
@@ -53,8 +48,10 @@ class _HomeScreenState extends State<HomeScreen>
       onTap: onTap,
       child: Card(
         margin: const EdgeInsets.only(right: 20, bottom: 15, top: 10).w,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50).r),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15).r,
+          side: const BorderSide(color: primaryColor),
+        ),
         elevation: 10,
         color: secoundryColor,
         child: Row(
@@ -82,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                   ),
                   Text(
-                    'yourself',
+                    'Yourself',
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: textSecoundColor,
@@ -110,8 +107,10 @@ class _HomeScreenState extends State<HomeScreen>
       onTap: onTap,
       child: Card(
         margin: const EdgeInsets.only(right: 20, bottom: 15, top: 10).w,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50).r),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15).r,
+          side: const BorderSide(color: primaryColor),
+        ),
         elevation: 10,
         color: secoundryColor,
         child: Row(
@@ -123,7 +122,7 @@ class _HomeScreenState extends State<HomeScreen>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'LineaBot Service',
+                    'Lina Service',
                     style: TextStyle(
                       fontSize: 18.sp,
                       color: textMainColor,
@@ -139,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                   ),
                   Text(
-                    'yourself',
+                    'Yourself',
                     style: TextStyle(
                       fontSize: 14.sp,
                       color: textSecoundColor,
@@ -177,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen>
         elevation: 10,
         color: secoundryColor,
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.r)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.r)),
         child: Column(
           children: [
             SizedBox(height: 10.h),
@@ -201,42 +200,6 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  Widget _allCompunetService(BuildContext constext) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _compunetService('Test', AnimationGif.test,
-                onTap: () => Navigator.of(constext).pushNamed(TestService.id)),
-            SizedBox(width: 15.w),
-            _compunetService(
-              'Blog',
-              AnimationGif.blog,
-              onTap: () => Navigator.of(constext).pushNamed(BlogService.id),
-            ),
-          ],
-        ),
-        SizedBox(height: 10.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _compunetService(
-              'FQAs',
-              AnimationGif.fqas,
-              onTap: () => Navigator.of(constext).pushNamed(FqasService.id),
-            ),
-            SizedBox(width: 15.w),
-            _compunetService(
-              'Ask Doctor',
-              AnimationGif.askDoctor,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
   Widget doctorsSpecialists(String titel) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
@@ -251,8 +214,8 @@ class _HomeScreenState extends State<HomeScreen>
                 topRight: const Radius.circular(25).r,
               ),
             ),
-            height: 80.h,
-            width: 100.w,
+            height: 100.h,
+            width: 302.w,
             child: Image.asset(
               titel,
               fit: BoxFit.cover,
@@ -283,7 +246,9 @@ class _HomeScreenState extends State<HomeScreen>
     return Padding(
       padding: const EdgeInsets.all(8.0).w,
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+            side: const BorderSide(color: primaryColor)),
         elevation: 8,
         child: SizedBox(
           height: 60.h,
@@ -307,12 +272,6 @@ class _HomeScreenState extends State<HomeScreen>
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                const Spacer(),
-                Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 25.sp,
-                  color: primaryColor,
-                ),
               ],
             ),
           ),
@@ -324,115 +283,134 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(left: 13).w,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: thirdColor,
-                borderRadius:
-                    BorderRadius.only(topRight: const Radius.circular(150).r),
+      backgroundColor: thirdColor,
+      body: CustomScrollView(
+        slivers: [
+          // Header Section
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Your Service',
+                style: TextStyle(
+                  fontSize: 24.sp,
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+            ),
+          ),
+
+          // ChatBot and Lina Service Section
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 180.h,
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                scrollDirection: Axis.horizontal,
                 children: [
-                  SizedBox(height: 20.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Your Service',
-                        style: TextStyle(
-                          fontSize: 24.sp,
-                          color: primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  cardChatBot(
-
-                      //!done but scaffold to solu →
-                      //*here problem
-                      //import
-                      //Navigator.of(context).pushNamed(Chatbot.id)
-                      () {}),
-                  linaChatBot(
-
-                      //!done but scaffold to solu →
-                      //*here problem
-                      //import
-
-                      () {
+                  cardChatBot(() {
+                    Navigator.of(context).pushNamed(ChatScreen.id);
+                  }),
+                  linaChatBot(() {
                     Navigator.of(context).pushNamed(LinaScreen.id);
                   }),
-                  _allCompunetService(context),
-                  SizedBox(height: 20.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Doctors Specialists',
-                        style: TextStyle(
-                          fontSize: 24.sp,
-                          color: primaryColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 170.h,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: imagesOfDoctorsSpecialists.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4).w,
-                        child: doctorsSpecialists(
-                            imagesOfDoctorsSpecialists[index]),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 6.0).w,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Get Help',
-                          style: TextStyle(
-                            fontSize: 24.sp,
-                            color: primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      getHelp(
-                        Icons.support_agent_sharp,
-                        'Talk to Support',
-                      ),
-                      getHelp(
-                        Icons.help_outline_rounded,
-                        'Get Matched to a Terapist',
-                      ),
-                      getHelp(
-                        Icons.wechat_sharp,
-                        'Talk to a matching advisor',
-                      ),
-                    ],
-                  )
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+
+          // Compunet Services Section
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 200.h,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 16.0).w,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    _compunetService('Test', AnimationGif.test,
+                        onTap: () =>
+                            Navigator.of(context).pushNamed(TestService.id)),
+                    SizedBox(width: 15.w),
+                    _compunetService(
+                      'Blog',
+                      AnimationGif.blog,
+                      onTap: () =>
+                          Navigator.of(context).pushNamed(BlogService.id),
+                    ),
+                    _compunetService(
+                      'Products',
+                      AnimationGif.blog, // Change animation to products
+                      onTap: () => Navigator.of(context).pushNamed(
+                          BlogService.id), // Change location to navigator
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // Doctors Specialists Section
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Doctors Specialists',
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 200.h, // Constrained height
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: imagesOfDoctorsSpecialists.length,
+                    itemBuilder: (context, index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0).w,
+                      child:
+                          doctorsSpecialists(imagesOfDoctorsSpecialists[index]),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // Get Help Section
+          SliverToBoxAdapter(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Text(
+                    'Get Help',
+                    style: TextStyle(
+                      fontSize: 24.sp,
+                      color: primaryColor,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Column(
+                  children: [
+                    getHelp(Icons.support_agent_sharp, 'Talk to Support'),
+                    getHelp(Icons.help_outline_rounded,
+                        'Get Matched to a Therapist'),
+                    getHelp(Icons.wechat_sharp, 'Talk to a matching advisor'),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

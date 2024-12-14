@@ -1,0 +1,124 @@
+{
+  "testTitle": "Davidson Trauma Scale - DSM-IV",
+  "questions": [
+    {
+      "questionId": 1,
+      "questionText": "Have you experienced recurring thoughts or memories of the event?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 2,
+      "questionText": "Do you feel as though the event is happening again?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 3,
+      "questionText": "Do you avoid activities or situations that remind you of the event?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 4,
+      "questionText": "Do you feel emotionally numb?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 5,
+      "questionText": "Do you feel detached or isolated from others?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 6,
+      "questionText": "Do you feel unable to experience positive emotions?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 7,
+      "questionText": "Have you experienced difficulty sleeping?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 8,
+      "questionText": "Have you had difficulty concentrating?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 9,
+      "questionText": "Are you easily startled?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    },
+    {
+      "questionId": 10,
+      "questionText": "Have you experienced irritability or angry outbursts?",
+      "options": [
+        { "optionId": 1, "optionText": "Not at all" },
+        { "optionId": 2, "optionText": "A little bit" },
+        { "optionId": 3, "optionText": "Moderately" },
+        { "optionId": 4, "optionText": "Quite a bit" },
+        { "optionId": 5, "optionText": "Extremely" }
+      ]
+    }
+  ],
+  "scoring": {
+    "instruction": "Each response is rated on a scale from 1 (Not at all) to 5 (Extremely). The total score is the sum of the values for all questions.",
+    "scoreRanges": [
+      { "range": "0-20", "description": "No significant trauma symptoms" },
+      { "range": "21-40", "description": "Mild trauma symptoms" },
+      { "range": "41-60", "description": "Moderate trauma symptoms" },
+      { "range": "61-85", "description": "Severe trauma symptoms" }
+    ]
+  }
+}

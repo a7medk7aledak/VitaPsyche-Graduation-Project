@@ -41,6 +41,7 @@ dependencies:
   shared_preferences: ^2.3.2
   dots_indicator: ^3.0.0
   speech_to_text: ^7.0.0
+  babylonjs_viewer: ^1.0.1
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -58,10 +59,11 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/3D_lina/
     - assets/animation/
     - assets/images/
     - assets/json/
-    - assets/json/json_text/
+    - assets/json/json_test/
     - assets/human/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

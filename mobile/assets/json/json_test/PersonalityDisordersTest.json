@@ -1,0 +1,661 @@
+{
+  "test_name": "Personality Disorders Test",
+  "questions": [
+    {
+      "question_id": 1,
+      "question": "I need to be alert to avoid being harmed by others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 2,
+      "question": "I doubt the loyalty of my friends.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 3,
+      "question": "I often understand hidden meanings in what people say or do.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 4,
+      "question": "It's not easy for me to forgive those who wrong me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 5,
+      "question": "I don't confide in others to avoid being exploited.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 6,
+      "question": "It's better that others don't know too much about me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 7,
+      "question": "If someone insults me, I quickly get angry and retaliate.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 8,
+      "question": "I need to stay alert to avoid being taken advantage of by others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 9,
+      "question": "I often suspect that others are talking about me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 10,
+      "question": "I arrange things in a way that has a special meaning for me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 11,
+      "question": "Things happen just because I think about them.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 12,
+      "question": "I often see my face change in the mirror.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 13,
+      "question": "I feel uncomfortable in situations where there are people I don't know.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 14,
+      "question": "I rarely show my emotions to others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 15,
+      "question": "Others understand my feelings without me expressing them.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 16,
+      "question": "I can connect with others through thoughts or a sixth sense.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 17,
+      "question": "I don't like forming close relationships with others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 18,
+      "question": "I don't feel a sense of belonging to anything.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 19,
+      "question": "I don't enjoy any social relationships with others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 20,
+      "question": "I don't feel pleasure from engaging in any activities.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 21,
+      "question": "I have no close friends.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 22,
+      "question": "I don't care if others praise me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 23,
+      "question": "I appear emotionally cold to others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 24,
+      "question": "I don't care if others criticize me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 25,
+      "question": "I rarely plan for the future.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 26,
+      "question": "I fail to meet my financial obligations.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 27,
+      "question": "I always find excuses for my aggressive behavior towards others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 28,
+      "question": "I don't mind lying to achieve personal gain.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 29,
+      "question": "I often get into fights with others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 30,
+      "question": "I find it difficult to follow rules.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 31,
+      "question": "I rarely feel regret.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 32,
+      "question": "I consistently face failure at work.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 33,
+      "question": "I am moody.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 34,
+      "question": "When I get angry, I lose control of myself.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 35,
+      "question": "I feel bored and empty.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 36,
+      "question": "I panic just thinking about someone I care about leaving me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 37,
+      "question": "I often act impulsively.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 38,
+      "question": "My relationships with others are unstable.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 39,
+      "question": "I often threaten to hurt myself.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 40,
+      "question": "My personality changes from situation to situation.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 41,
+      "question": "I don't feel comfortable unless I am the center of attention.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 42,
+      "question": "My emotions are shallow and change quickly.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 43,
+      "question": "I enjoy talking about generalities rather than details.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 44,
+      "question": "I often exaggerate when talking about myself.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 45,
+      "question": "I always make sure my appearance attracts attention.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 46,
+      "question": "I am often influenced by the opinions and ideas of others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 47,
+      "question": "I tend to overreact emotionally.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 48,
+      "question": "I can't wait to get what I want.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 49,
+      "question": "I am very sensitive to the opinions of others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 50,
+      "question": "I sometimes flatter others to get what I want.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 51,
+      "question": "I believe others are envious of me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 52,
+      "question": "I only associate with important or well-known people.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 53,
+      "question": "I often envy others for their talents.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 54,
+      "question": "I tend to exaggerate my accomplishments and talents.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 55,
+      "question": "I always expect to be treated in a special way by others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 56,
+      "question": "I am always preoccupied with dreams of unlimited success.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 57,
+      "question": "I focus a lot on small details during discussions.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 58,
+      "question": "I strive for perfection in all of my work.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 59,
+      "question": "I am not interested in social activities or hobbies.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 60,
+      "question": "I don't compromise when it comes to moral principles.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 61,
+      "question": "I find it difficult to get rid of clutter or items with little value.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 62,
+      "question": "I find it difficult to delegate tasks to others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 63,
+      "question": "It is important to save money for future uncertainties.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 64,
+      "question": "I am preoccupied only with perfecting my work.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 65,
+      "question": "Any criticism or disapproval hurts my feelings deeply.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 66,
+      "question": "I don't have close people I can trust with my secrets.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 67,
+      "question": "If I am sure that others will like me, I form relationships with them.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 68,
+      "question": "I avoid social activities that require interacting with others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 69,
+      "question": "I don't take on tasks that involve dealing with the public.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 70,
+      "question": "I fear that others will notice my emotions.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 71,
+      "question": "I may exaggerate future dangers in my work.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 72,
+      "question": "I am reserved in my relationships with others.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 73,
+      "question": "I find it difficult to make decisions.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 74,
+      "question": "I rely on others for advice and guidance.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 75,
+      "question": "I often depend on others to handle my personal affairs.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 76,
+      "question": "I don't openly disagree with others to avoid upsetting them.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 77,
+      "question": "I feel helpless when I am alone.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 78,
+      "question": "I always seek a close relationship with someone to support me.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 79,
+      "question": "I find it difficult to start something new on my own.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 80,
+      "question": "I constantly worry about being abandoned by those I trust.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 81,
+      "question": "I often procrastinate in completing tasks others ask me to do.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    },
+    {
+      "question_id": 82,
+      "question": "I intentionally work slowly if I don't want to do a task.",
+      "options": [
+        { "option": "Yes", "value": 1 },
+        { "option": "No", "value": 0 }
+      ]
+    }
+  ]
+}
