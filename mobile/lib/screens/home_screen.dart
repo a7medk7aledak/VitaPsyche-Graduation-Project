@@ -4,8 +4,8 @@ import 'package:flutter_mindmed_project/screens/lina/lina_screen.dart';
 import 'package:flutter_mindmed_project/screens/services/blog/blog_service.dart';
 import 'package:flutter_mindmed_project/screens/services/test_services/test_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../const/colors.dart';
 import '../widgets/animation_gif.dart';
-import '../widgets/colors.dart';
 import '../widgets/const_image.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen>
           borderRadius: BorderRadius.circular(15).r,
           side: const BorderSide(color: primaryColor),
         ),
-        elevation: 10,
+        elevation: 5,
         color: secoundryColor,
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen>
                     'ChatBot Service',
                     style: TextStyle(
                       fontSize: 18.sp,
-                      color: textMainColor,
+                      color: mainBlueColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -74,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen>
                     'Click to Treat',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: textSecoundColor,
+                      color: grayColor,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -82,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen>
                     'Yourself',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: textSecoundColor,
+                      color: grayColor,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen>
             SizedBox(width: 20.w),
             Image.asset(
               AnimationGif.chatBot,
-              height: 120.h,
+              // height: 120.h,
               filterQuality: FilterQuality.high,
               fit: BoxFit.cover,
             ),
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen>
           borderRadius: BorderRadius.circular(15).r,
           side: const BorderSide(color: primaryColor),
         ),
-        elevation: 10,
+        elevation: 5,
         color: secoundryColor,
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen>
                     'Lina Service',
                     style: TextStyle(
                       fontSize: 18.sp,
-                      color: textMainColor,
+                      color: mainBlueColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -133,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen>
                     'Click to Treat',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: textSecoundColor,
+                      color: grayColor,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -141,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen>
                     'Yourself',
                     style: TextStyle(
                       fontSize: 14.sp,
-                      color: textSecoundColor,
+                      color: grayColor,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -151,12 +151,12 @@ class _HomeScreenState extends State<HomeScreen>
             SizedBox(width: 20.w),
             ClipRRect(
               borderRadius: BorderRadius.only(
-                bottomRight: const Radius.circular(50).r,
-                topRight: const Radius.circular(50).r,
+                bottomRight: const Radius.circular(15).r,
+                topRight: const Radius.circular(15).r,
               ),
               child: Image.asset(
                 AnimationGif.linachatBot,
-                height: 115.h,
+                // height: 115.h,
                 filterQuality: FilterQuality.high,
                 fit: BoxFit.cover,
               ),
@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen>
       onTap: onTap,
       child: Card(
         margin: const EdgeInsets.only(right: 10, bottom: 10, top: 8).w,
-        elevation: 10,
+        elevation: 5,
         color: secoundryColor,
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.r)),
@@ -183,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen>
             Text(
               text,
               style: TextStyle(
-                color: textMainColor,
+                color: mainBlueColor,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
               ),
@@ -203,15 +203,15 @@ class _HomeScreenState extends State<HomeScreen>
   Widget doctorsSpecialists(String titel) {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-      elevation: 8,
+      elevation: 2,
       child: Column(
         children: [
           Container(
             decoration: BoxDecoration(
               color: primaryColor,
               borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(25).r,
-                topRight: const Radius.circular(25).r,
+                topLeft: const Radius.circular(15).r,
+                topRight: const Radius.circular(15).r,
               ),
             ),
             height: 100.h,
@@ -225,7 +225,7 @@ class _HomeScreenState extends State<HomeScreen>
           Text(
             'Sport \n Psychology',
             style: TextStyle(
-              color: textMainColor,
+              color: mainBlueColor,
               fontSize: 14.sp,
               fontWeight: FontWeight.bold,
             ),
@@ -249,7 +249,7 @@ class _HomeScreenState extends State<HomeScreen>
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(25),
             side: const BorderSide(color: primaryColor)),
-        elevation: 8,
+        elevation: 2,
         child: SizedBox(
           height: 60.h,
           child: Padding(
@@ -267,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen>
                 Text(
                   title,
                   style: TextStyle(
-                    color: textMainColor,
+                    color: mainBlueColor,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.bold,
                   ),
@@ -283,7 +283,7 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: thirdColor,
+      backgroundColor: whiteColor,
       body: CustomScrollView(
         slivers: [
           // Header Section
@@ -305,17 +305,20 @@ class _HomeScreenState extends State<HomeScreen>
           SliverToBoxAdapter(
             child: SizedBox(
               height: 180.h,
-              child: ListView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  cardChatBot(() {
-                    Navigator.of(context).pushNamed(ChatScreen.id);
-                  }),
-                  linaChatBot(() {
-                    Navigator.of(context).pushNamed(LinaScreen.id);
-                  }),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12).w,
+                child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    cardChatBot(() {
+                      Navigator.of(context).pushNamed(ChatScreen.id);
+                    }),
+                    linaChatBot(() {
+                      Navigator.of(context).pushNamed(LinaScreen.id);
+                    }),
+                  ],
+                ),
               ),
             ),
           ),
@@ -325,14 +328,14 @@ class _HomeScreenState extends State<HomeScreen>
             child: SizedBox(
               height: 200.h,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0).w,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8).w,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
                     _compunetService('Test', AnimationGif.test,
                         onTap: () =>
                             Navigator.of(context).pushNamed(TestService.id)),
-                    SizedBox(width: 15.w),
                     _compunetService(
                       'Blog',
                       AnimationGif.blog,

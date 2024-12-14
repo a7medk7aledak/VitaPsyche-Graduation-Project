@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/screens/chatbot.dart';
-
 import 'package:flutter_mindmed_project/screens/doctor.dart';
 import 'package:flutter_mindmed_project/screens/home_screen.dart';
 import 'package:flutter_mindmed_project/screens/more.dart';
 import 'package:flutter_mindmed_project/screens/profile.dart';
-
-import '../widgets/colors.dart';
+import 'package:flutter_mindmed_project/screens/signin_screen.dart';
+import 'package:flutter_mindmed_project/screens/signup_screen.dart';
+import '../const/colors.dart';
 import '../widgets/const_image.dart';
+import 'auth_service.dart';
 
 class CustemButtonBar extends StatefulWidget {
   const CustemButtonBar({super.key});
@@ -17,9 +18,9 @@ class CustemButtonBar extends StatefulWidget {
   State<CustemButtonBar> createState() => _CustemButtonBarState();
 }
 
-class _CustemButtonBarState extends State<CustemButtonBar>
-    with SingleTickerProviderStateMixin {
+class _CustemButtonBarState extends State<CustemButtonBar> {
   int _currentIndex = 2;
+
   final List<Widget> _custemButonBar = [
     ChatScreen(),
     const Doctor(),
@@ -27,26 +28,6 @@ class _CustemButtonBarState extends State<CustemButtonBar>
     const Profile(),
     const More(),
   ];
-
-  late AnimationController _controller;
-  late Animation<double> _drawerAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 300),
-    );
-    _drawerAnimation =
-        Tween<double>(begin: -1.0, end: 0.0).animate(_controller);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   List<BottomNavigationBarItem> _bottonBar() {
     return const [
@@ -60,55 +41,71 @@ class _CustemButtonBarState extends State<CustemButtonBar>
     ];
   }
 
-  void toggleDrawer() {
-    if (_controller.isDismissed) {
-      _controller.forward();
-    } else {
-      _controller.reverse();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: primaryColor,
+      backgroundColor: secoundryColor,
       appBar: AppBar(
+        scrolledUnderElevation: 0,
+        elevation: 0,
         toolbarHeight: 70,
-        automaticallyImplyLeading: false,
-        backgroundColor: Colors.transparent,
-        leading: IconButton(
-          icon: const Icon(Icons.menu,
-              size: 40, color: Colors.white), // White menu icon at the top left
-          onPressed: toggleDrawer,
+        leading: Image.asset(
+          logoApp,
+          cacheHeight: 90,
+          cacheWidth: 80,
         ),
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+        titleSpacing: 0,
+        title: const Column(
           children: [
-            const Text(
+            Text(
               'Vitapsyche',
-              style: TextStyle(fontSize: 32, color: secoundryColor),
+              style: TextStyle(
+                  fontSize: 25,
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold),
             ),
-            const Spacer(),
-            Padding(
-              padding: const EdgeInsets.only(right: 60, bottom: 10),
-              child: Image.asset(
-                logoApp,
-                cacheHeight: 90,
-                cacheWidth: 80,
-              ),
+            Text(
+              'clear your mind, calm your heart',
+              style: TextStyle(
+                  fontSize: 8,
+                  color: mainBlueColor,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
-        // actions: [
-        //   IconButton(
-        //     icon: const Icon(Icons.menu),
-        //     onPressed: toggleDrawer,
-        //   ),
-        // ],
+        actions: [
+          // StreamBuilder for dynamic AppBar actions
+          StreamBuilder<bool>(
+            stream: AuthService.authState,
+            initialData: false, // Assume not logged in by default
+            builder: (context, snapshot) {
+              final isLoggedIn = snapshot.data ?? false;
+
+              if (isLoggedIn) {
+                // No actions for logged-in users
+                return const SizedBox.shrink();
+              }
+
+              // Actions for guests
+              return Row(
+                children: [
+                  custemButtonAutocation(context,
+                      onpressed: () =>
+                          Navigator.of(context).pushNamed(SigninScreen.id),
+                      title: 'sign in'),
+                  custemButtonAutocation(context,
+                      onpressed: () =>
+                          Navigator.of(context).pushNamed(SignupScreen.id),
+                      title: 'sign up'),
+                ],
+              );
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        unselectedItemColor: textMainColor,
+        unselectedItemColor: mainBlueColor,
         selectedItemColor: primaryColor,
         backgroundColor: secoundryColor,
         items: _bottonBar(),
@@ -119,77 +116,28 @@ class _CustemButtonBarState extends State<CustemButtonBar>
           });
         },
       ),
-      body: Stack(
-        children: [
-          _custemButonBar[_currentIndex],
-          AnimatedBuilder(
-            animation: _drawerAnimation,
-            builder: (context, child) {
-              return Transform.translate(
-                offset: Offset(300 * _drawerAnimation.value, 0),
-                child: Opacity(
-                  opacity: _controller.value, // Adds smooth opacity transition
-                  child: Drawer(
-                    child: ListView(
-                      padding: EdgeInsets.zero,
-                      children: [
-                        const DrawerHeader(
-                          decoration: BoxDecoration(color: primaryColor),
-                          child: Column(
-                            children: [
-                              Text(
-                                'Drawer Header',
-                                style: TextStyle(
-                                    color: secoundryColor, fontSize: 24),
-                              ),
-                            ],
-                          ),
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.home),
-                          title: const Text('Home'),
-                          onTap: () {
-                            Navigator.pop(context); // Close the drawer
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.person_4_outlined),
-                          title: const Text('Doctor'),
-                          onTap: () {
-                            Navigator.pop(context); // Close the drawer
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.person),
-                          title: const Text("Profile"),
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        ListTile(
-                          leading: const Icon(Icons.settings),
-                          title: const Text("Settings"),
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                        const Spacer(),
-                        ListTile(
-                          leading: const Icon(Icons.logout),
-                          title: const Text("Logout"),
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
+      body: _custemButonBar[_currentIndex],
     );
   }
+}
+
+Widget custemButtonAutocation(BuildContext context,
+    {required void Function() onpressed, required String title}) {
+  return MaterialButton(
+    onPressed: onpressed,
+    child: Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: primaryColor,
+        ),
+        borderRadius: BorderRadius.circular(7),
+      ),
+      child: Text(
+        title,
+        style: const TextStyle(
+            color: primaryColor, fontSize: 14, fontWeight: FontWeight.bold),
+      ),
+    ),
+  );
 }

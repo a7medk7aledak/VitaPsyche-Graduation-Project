@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/widgets/colors.dart';
+import '../const/colors.dart';
 
 class Doctor extends StatelessWidget {
   const Doctor({super.key});

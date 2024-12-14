@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import '../const/colors.dart';
 
-import '../widgets/colors.dart'; // Assuming primaryColor is defined here
 
 class Profile extends StatefulWidget {
   const Profile({super.key});

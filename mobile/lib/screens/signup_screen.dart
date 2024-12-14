@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/screens/signin_screen.dart';
 import 'package:flutter_mindmed_project/screens/splash_screen.dart';
-import 'package:flutter_mindmed_project/widgets/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../const/colors.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/screens/custem_button_bar.dart';
 import 'package:flutter_mindmed_project/screens/signin_screen.dart';
 import 'package:flutter_mindmed_project/screens/signup_screen.dart';
-import 'package:flutter_mindmed_project/widgets/colors.dart';
+
+import '../const/colors.dart';
+import 'auth_service.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -140,9 +142,8 @@ class SplashScreen extends StatelessWidget {
 
                     ElevatedButton(
                       onPressed: () {
-                        // Navigate as Guest
-
-                        //!here
+                        // Set as guest (not logged in)
+                        AuthService.logout();
                         Navigator.of(context).pushNamed(CustemButtonBar.id);
                       },
                       child: Text(
