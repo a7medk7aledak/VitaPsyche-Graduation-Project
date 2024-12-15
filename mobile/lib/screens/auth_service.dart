@@ -1,16 +1,27 @@
 import 'dart:async';
 
 class AuthService {
-  static final _authController = StreamController<bool>.broadcast();
+  // StreamController for authentication state
+  static final _authController = StreamController<bool>();
 
-  // Expose the stream
+  // Expose the auth state as a stream
   static Stream<bool> get authState => _authController.stream;
 
-  // Emit login state
-  static void login() => _authController.add(true);
-  static void logout() => _authController.add(false);
+  // Log in and emit the state
+  static void login() {
+    _authController.add(true);
+    // print("User logged in.");
+  }
 
+  // Log out and emit the state
+  static void logout() {
+    _authController.add(false);
+    // print("User logged out.");
+  }
+
+  // Dispose of the controller
   static void dispose() {
     _authController.close();
+    // print("AuthService disposed.");
   }
 }

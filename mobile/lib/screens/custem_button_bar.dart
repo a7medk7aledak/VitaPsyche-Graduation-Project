@@ -77,8 +77,9 @@ class _CustemButtonBarState extends State<CustemButtonBar> {
           // StreamBuilder for dynamic AppBar actions
           StreamBuilder<bool>(
             stream: AuthService.authState,
-            initialData: false, // Assume not logged in by default
+            // initialData: false, // Assume not logged in by default
             builder: (context, snapshot) {
+              print('snapshoot is ::${snapshot.data}');
               final isLoggedIn = snapshot.data ?? false;
 
               if (isLoggedIn) {
