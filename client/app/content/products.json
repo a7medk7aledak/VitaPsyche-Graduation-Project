@@ -3,6 +3,7 @@
     {
       "id": "1",
       "title": "Herbal Mood Sleep Collection",
+      "category": "herbal",
       "subTitle": "Top 4 Aromatherapy Oils | Gift Box | Incl. Lavender, Peppermint, Geranium, Lemon |Sweet Dreams, Relax, & Stress Relief Oils",
       "price": "EGP899.00",
       "about": [
@@ -16,13 +17,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/herbalMoodSleep/mainHerbal.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/herbalMoodSleep/herbal1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/herbalMoodSleep/herbal2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/herbalMoodSleep/herbal3.png",
           "type": "secondary"
         }
       ]
@@ -30,6 +41,8 @@
     {
       "id": "2",
       "title": "Stress And Anxiety Relief Cube Fidget Toys for Kids",
+      "category": "general",
+
       "subTitle": "",
       "price": "EGP 60.00",
 
@@ -42,13 +55,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/reliefCube/mainRelief.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/reliefCube/relief1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/reliefCube/relief2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/reliefCube/relief3.png",
           "type": "secondary"
         }
       ]
@@ -56,6 +79,8 @@
     {
       "id": "3",
       "title": "1Pcs Colored Soft Grape Mesh Pressure Balls Squeeze",
+      "category": "general",
+
       "subTitle": " Change Color Balls Stress Relieve Sensory Squishy Balls Hand Exercise Bouncy Balls. (Blue)",
       "price": "EGP 65.00",
 
@@ -67,13 +92,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/pressureBall/mainPressure.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/pressureBall/pressure1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/pressureBall/pressure2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/pressureBall/pressure3.png",
           "type": "secondary"
         }
       ]
@@ -81,6 +116,8 @@
     {
       "id": "4",
       "title": "Stress Relief Gift Basket",
+      "category": "general",
+
       "subTitle": "Mental Health Self Care Package for Her - Stress Relief Gift - Care Package for Her - Friendship Gift - Self Care Box For Women- send a gift.",
       "price": "EGP 3,151.20",
 
@@ -94,13 +131,19 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/giftBasket/mainBasket.png",
           "type": "main"
         },
+
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-2",
+          "url": "/images/products/giftBasket/basket2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/giftBasket/basket3.png",
           "type": "secondary"
         }
       ]
@@ -109,6 +152,8 @@
     {
       "id": "5",
       "title": "LIGHTBULB IDEAS",
+      "category": "general",
+
       "subTitle": "Yogi Stress Balls - Stress Ball with Finger Grip Strap, Stress Balls for Adults and Kids, Grip Strength Trainer Squeeze Balls, Anxiety Stress Relief, Fidget Handball, Squish Ball - 3 Pack",
       "price": "EGP 675.00",
 
@@ -120,18 +165,23 @@
       ],
       "images": [
         {
-          "id": "img-1",
-          "url": "path/to/main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/lightBulb/mainLight.png",
           "type": "main"
         },
         {
+          "id": "img-1",
+          "url": "/images/products/lightBulb/light1.png",
+          "type": "secondary"
+        },
+        {
           "id": "img-2",
-          "url": "path/to/image_2.jpg",
+          "url": "/images/products/lightBulb/light2.png",
           "type": "secondary"
         },
         {
           "id": "img-3",
-          "url": "path/to/image_3.jpg",
+          "url": "/images/products/lightBulb/light3.png",
           "type": "secondary"
         }
       ]
@@ -139,6 +189,8 @@
     {
       "id": "6",
       "title": "Anti Stress Punch",
+
+      "category": "general",
       "subTitle": "Me Guy Suction Cup For Office Desk Coworker Boss Gift Green",
       "price": "EGP 122.00",
 
@@ -150,13 +202,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/Punch/mainPunch.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/Punch/punch1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/Punch/punch2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/Punch/punch3.png",
           "type": "secondary"
         }
       ]
@@ -164,6 +226,8 @@
     {
       "id": "7",
       "title": "Head Scalp Massager",
+      "category": "general",
+
       "subTitle": "",
       "price": "EGP 300.00",
 
@@ -175,13 +239,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/headMassage/mainHead.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/headMassage/head1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/headMassage/head2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/headMassage/head3.png",
           "type": "secondary"
         }
       ]
@@ -189,6 +263,8 @@
     {
       "id": "8",
       "title": "Sleep Headphones",
+      "category": "general",
+
       "subTitle": "Headband Wireless V5.0 Bluetooth Headphones, Eye mask Headphones, Built-in ultra-thin HD stereo speakers, Suitable for Side sleep/Sports/Yoga/Fitness/Relaxation",
       "price": "EGP 400.00",
 
@@ -199,13 +275,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/headphone/mainHeadphone.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/headphone/headphone1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/headphone/headphone2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/headphone/headphone3.png",
           "type": "secondary"
         }
       ]
@@ -213,6 +299,8 @@
     {
       "id": "9",
       "title": "Massage Seat Cushion",
+      "category": "general",
+
       "subTitle": "with Heat Back Massager Heated Seat Cover with 5 Vibrating Massage Nodes & 2 Heat Levels Massage Chair Pad for Pain Relief Home Office Use",
       "price": "EGP 120000",
 
@@ -224,13 +312,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/massageSeat/mainSeat.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/massageSeat/seat1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/massageSeat/seat2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/massageSeat/seat3.png",
           "type": "secondary"
         }
       ]
@@ -238,6 +336,8 @@
     {
       "id": "10",
       "title": "Mindsight 'Breathing Buddha'",
+      "category": "general",
+
       "subTitle": "Guided Visual Meditation Tool for Mindfulness",
       "price": "EGP 587.00",
 
@@ -248,13 +348,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/Buddha/mainBuddha.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/Buddha/buddha1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/Buddha/buddha2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/Buddha/buddha3.png",
           "type": "secondary"
         }
       ]
@@ -262,6 +372,8 @@
     {
       "id": "11",
       "title": "experiment Dot Journaling",
+
+      "category": "general",
       "subTitle": "A Practical Guide: How to Start and Keep the Planner, To-Do List, and Diary That'll Actually Help You Get Your Life Together",
       "price": "EGP 240.00",
 
@@ -273,13 +385,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "/images/products/dotJournaling/mainJournaling.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "/images/products/dotJournaling/journaling1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "/images/products/dotJournaling/journaling2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "/images/products/dotJournaling/journaling3.png",
           "type": "secondary"
         }
       ]
