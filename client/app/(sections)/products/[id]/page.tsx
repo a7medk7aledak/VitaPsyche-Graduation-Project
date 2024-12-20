@@ -61,7 +61,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             {/* Add to Cart Button */}
             <div className="mt-6">
               <button
-                className=" px-6 py-3 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition-colors ml-auto block"
+                className=" px-6 py-3 bg-[#216862] text-white font-semibold rounded-lg hover:bg-[#1a4c47] transition-colors ml-auto block"
                 onClick={addToCart} // Call the addToCart function when clicked
               >
                 Add to Cart

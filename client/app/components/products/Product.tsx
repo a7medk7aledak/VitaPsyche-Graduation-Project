@@ -28,10 +28,10 @@ const Product = ({ product }: TProductProps) => {
         />
       </Link>
       <div className="p-5">
-        <h3 className="text-lg font-bold text-[#216862] truncate">
+        <h3 className="text-lg font-bold  truncate" title={product.title}>
           {product.title}
         </h3>
-        <p className="text-[#216862] font-medium mt-2">${product.price}</p>
+        <p className="text-maintext font-medium mt-2">${product.price}</p>
         <button
           onClick={() => addToCart()} // Pass the product to addToCart
           className="flex items-center justify-center w-full px-4 py-3 mt-6 text-white bg-[#216862] rounded-full hover:bg-[#1a4c47] focus:outline-none focus:ring-4 focus:ring-[#3a7c8d] shadow-md transition-all duration-300"
