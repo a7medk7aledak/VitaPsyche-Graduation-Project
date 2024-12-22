@@ -1,61 +1,384 @@
-version: "3.1"
+version: '3.1'
 stories:
 
-- story: mood tracking and goal setting
-  steps:
-    - intent: track_mood
-    - action: utter_track_mood
-    - intent: set_mental_health_goal
-    - action: utter_set_mental_health_goal
-    - intent: check_goal_progress
-    - action: utter_check_goal_progress
+  - story: User greets the bot
+    steps:
+      - intent: greet
+      - action: utter_greeting
 
-- story: personalized plan and coping strategies
-  steps:
-    - intent: request_personalized_plan
-    - action: utter_personalized_plan
-    - intent: ask_for_coping_strategies
-    - action: utter_coping_strategies
 
-- story: resource recommendation and developer info
-  steps:
-    - intent: request_resource_recommendation
-    - action: utter_resource_recommendation
-    - intent: ask_about_developer
-    - action: utter_about_developer
+  - story: User says goodbye to the bot
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
 
-- story: complex mental health support
-  steps:
-    - intent: greet
-    - action: utter_greet
-    - intent: ask_for_anxiety_help
-    - action: utter_anxiety_help
-    - intent: ask_for_breathing_exercise
-    - action: utter_breathing_exercise
-    - intent: track_mood
-    - action: utter_track_mood
-    - intent: set_mental_health_goal
-    - action: utter_set_mental_health_goal
-    - intent: request_personalized_plan
-    - action: utter_personalized_plan
-    - intent: ask_for_coping_strategies
-    - action: utter_coping_strategies
-    - intent: request_resource_recommendation
-    - action: utter_resource_recommendation
-    - intent: goodbye
-    - action: utter_goodbye
 
-- story: crisis support with follow-up
-  steps:
-    - intent: express_suicidal_thoughts
-    - action: utter_crisis_support
-    - intent: ask_for_therapy_options
-    - action: utter_therapy_options
-    - intent: ask_for_coping_strategies
-    - action: utter_coping_strategies
-    - intent: request_resource_recommendation
-    - action: utter_resource_recommendation
-- story: respond to love
-  steps:
-  - intent: express_love
-  - action: utter_love_response
+  - story: User affirms something
+    steps:
+      - intent: affirm
+      - action: utter_affirm
+
+  - story: User denies something
+    steps:
+      - intent: deny
+      - action: utter_deny
+
+  - story: User feels great
+    steps:
+      - intent: mood_great
+      - action: utter_mood_great
+
+  - story: User challenges or asks about the bot
+    steps:
+      - intent: bot_challenge
+      - action: utter_bot_challenge
+
+  - story: User expresses anxiety
+    steps:
+      - intent: handle_anxiety
+      - action: utter_handle_anxiety
+
+  - story: User asks for motivation
+    steps:
+      - intent: motivate
+      - action: utter_motivate
+
+  - story: User seeks mental peace
+    steps:
+      - intent: seeking_mental_peace
+      - action: utter_seeking_mental_peace
+
+  - story: User dealing with memories
+    steps:
+      - intent: dealing_with_memories
+      - action: utter_dealing_with_memories
+
+  - story: User celebrates life
+    steps:
+      - intent: celebrate_life
+      - action: utter_celebrate_life
+
+  - story: User discusses emotions
+    steps:
+      - intent: discuss_emotions
+      - action: utter_discuss_emotions
+
+  - story: User seeks understanding
+    steps:
+      - intent: seek_understanding
+      - action: utter_seek_understanding
+
+
+  - story: User shares excitement
+    steps:
+      - intent: share_excitement
+      - action: utter_share_excitement
+
+
+  - story: User copes with loss
+    steps:
+      - intent: cope_with_loss
+      - action: utter_cope_with_loss
+
+
+  - story: User seeks motivation
+    steps:
+      - intent: find_motivation
+      - action: utter_find_motivation
+
+
+  - story: User celebrates achievement
+    steps:
+      - intent: celebrate_achievement
+      - action: utter_celebrate_achievement
+
+
+  - story: User handles conflict
+    steps:
+      - intent: handle_conflict
+      - action: utter_handle_conflict
+
+
+  - story: User seeks encouragement for positive thinking
+    steps:
+      - intent: encourage_positive_thinking
+      - action: utter_encourage_positive_thinking
+  - story: User expresses fear
+    steps:
+      - intent: express_fear
+      - action: utter_express_fear
+
+
+  - story: User asks for recommendations
+    steps:
+      - intent: ask_for_recommendations
+      - action: utter_ask_for_recommendations
+
+  - story: User shares reflection
+    steps:
+      - intent: share_reflection
+      - action: utter_share_reflection
+
+  - story: User acknowledges support
+    steps:
+      - intent: acknowledge_support
+      - action: utter_acknowledge_support
+
+
+  - story: explore new opportunities
+    steps:
+      - intent: explore_new_opportunities
+      - action: utter_explore_new_opportunities
+
+  - story: share hobbies
+    steps:
+      - intent: share_hobbies
+      - action: utter_share_hobbies
+
+  - story: discuss interests
+    steps:
+      - intent: discuss_interests
+      - action: utter_discuss_interests
+
+  - story: talk about skills
+    steps:
+      - intent: talk_about_skills
+      - action: utter_talk_about_skills
+
+
+  - story: share personality traits
+    steps:
+      - intent: share_personality_traits
+      - action: utter_share_personality_traits
+
+  - story: express creativity
+    steps:
+      - intent: express_creativity
+      - action: utter_express_creativity
+
+
+  - story: share_unique_experiences
+    steps:
+      - intent: share_unique_experiences
+      - action: utter_share_unique_experiences
+
+  - story: express_independence
+    steps:
+      - intent: express_independence
+      - action: utter_express_independence
+
+  - story: discuss_identity
+    steps:
+      - intent: discuss_identity
+      - action: utter_discuss_identity
+
+  - story: talk_about_preferences
+    steps:
+      - intent: talk_about_preferences
+      - action: utter_talk_about_preferences
+
+  - story: express_values
+    steps:
+      - intent: express_values
+      - action: utter_express_values
+
+  - story: discuss_work_challenges
+    steps:
+      - intent: discuss_work_challenges
+      - action: utter_discuss_work_challenges
+
+  - story: share_work_achievements
+    steps:
+      - intent: share_work_achievements
+      - action: utter_share_work_achievements
+
+  - story: seek_career_advice
+    steps:
+      - intent: seek_career_advice
+      - action: utter_seek_career_advice
+
+  - story: discuss_work_life_balance
+    steps:
+      - intent: discuss_work_life_balance
+      - action: utter_discuss_work_life_balance
+
+  - story: express_burnout_from_work
+    steps:
+      - intent: express_burnout_from_work
+      - action: utter_express_burnout_from_work
+
+  - story: discuss_study_habits
+    steps:
+      - intent: discuss_study_habits
+      - action: utter_discuss_study_habits
+
+
+  - story: ask_for_study_tips
+    steps:
+      - intent: ask_for_study_tips
+      - action: utter_ask_for_study_tips
+
+  - story: share_education_goals
+    steps:
+      - intent: share_education_goals
+      - action: utter_share_education_goals
+
+
+  - story: reflect_on_academic_progress
+    steps:
+      - intent: reflect_on_academic_progress
+      - action: utter_reflect_on_academic_progress
+
+  - story: discuss_career_transitions
+    steps:
+      - intent: discuss_career_transitions
+      - action: utter_discuss_career_transitions
+
+
+  - story: discuss_travel_plans
+    steps:
+      - intent: discuss_travel_plans
+      - action: utter_discuss_travel_plans
+
+  - story: share_travel_experiences
+    steps:
+      - intent: share_travel_experiences
+      - action: utter_share_travel_experiences
+
+
+  - story: express_love_for_travel
+    steps:
+      - intent: express_love_for_travel
+      - action: utter_express_love_for_travel
+
+  - story: ask_for_travel_recommendations
+    steps:
+      - intent: ask_for_travel_recommendations
+      - action: utter_ask_for_travel_recommendations
+
+  - story: discuss_dream_destinations
+    steps:
+      - intent: discuss_dream_destinations
+      - action: utter_discuss_dream_destinations
+
+  - story: plan_adventure_activities
+    steps:
+      - intent: plan_adventure_activities
+      - action: utter_plan_adventure_activities
+
+
+  - story: reflect_on_cultural_experiences
+    steps:
+      - intent: reflect_on_cultural_experiences
+      - action: utter_reflect_on_cultural_experiences
+
+  - story: express_wanderlust
+    steps:
+      - intent: express_wanderlust
+      - action: utter_express_wanderlust
+
+  - story: discuss_travel_benefits
+    steps:
+      - intent: discuss_travel_benefits
+      - action: utter_discuss_travel_benefits
+
+  - story: share_travel_hardships
+    steps:
+      - intent: share_travel_hardships
+      - action: utter_share_travel_hardships
+
+
+  - story: discuss_favorite_movies
+    steps:
+      - intent: discuss_favorite_movies
+      - action: utter_discuss_favorite_movies
+
+  - story: talk_about_music_preferences
+    steps:
+      - intent: talk_about_music_preferences
+      - action: utter_talk_about_music_preferences
+
+  - story: express_love_for_art
+    steps:
+      - intent: express_love_for_art
+      - action: utter_express_love_for_art
+
+  - story: discuss_social_issues
+    steps:
+      - intent: discuss_social_issues
+      - action: utter_discuss_social_issues
+
+  - story: express happiness path
+    steps:
+    - intent: express_happiness
+    - action: utter_express_happiness
+
+  - story: express sadness path
+    steps:
+    - intent: express_sadness
+    - action: utter_express_sadness
+
+  - story: express anger path
+    steps:
+    - intent: express_anger
+    - action: utter_express_anger
+
+  - story: express love path
+    steps:
+    - intent: express_love
+    - action: utter_express_love
+
+  - story: express confusion path
+    steps:
+    - intent: express_confusion
+    - action: utter_express_confusion
+
+  - story: ask for comfort path
+    steps:
+    - intent: ask_for_comfort
+    - action: utter_ask_for_comfort
+
+  - story: ask for advice path
+    steps:
+    - intent: ask_for_advice
+    - action: utter_ask_for_advice
+
+  - story: ask for encouragement path
+    steps:
+    - intent: ask_for_encouragement
+    - action: utter_ask_for_encouragement
+
+  - story: ask about day path
+    steps:
+    - intent: ask_about_day
+    - action: utter_ask_about_day
+
+  - story: show gratitude path
+    steps:
+    - intent: show_gratitude
+    - action: utter_show_gratitude
+
+  - story: ask for apology path
+    steps:
+    - intent: ask_for_apology
+    - action: utter_ask_for_apology
+
+  - story: talk about stress path
+    steps:
+    - intent: talk_about_stress
+    - action: utter_talk_about_stress
+
+  - story: talk about relationships path
+    steps:
+    - intent: talk_about_relationships
+    - action: utter_talk_about_relationships
+
+  - story: talk about depression path
+    steps:
+    - intent: talk_about_depression
+    - action: utter_talk_about_depression
+
+  - story: handle insults to girl path
+    steps:
+    - intent: handle_insults_to_girl
+    - action: utter_handle_insults_to_girl
