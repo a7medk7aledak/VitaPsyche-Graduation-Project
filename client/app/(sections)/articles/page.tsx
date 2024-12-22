@@ -84,7 +84,7 @@ const Page = () => {
   ]);
 
   return (
-    <section id="about-us" className="relative">
+    <section id="articles" className="relative">
       <div className="container mx-auto">
         <motion.div
           className="relative w-5/6 mx-auto -mt-14 mb-6"

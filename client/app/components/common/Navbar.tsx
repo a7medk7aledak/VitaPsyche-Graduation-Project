@@ -11,7 +11,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const Navbar = () => {
-  const pathname = usePathname(); // Get the current path
+  const pathname = usePathname(); // for getting the current path
 
   console.log(pathname);
   return (
@@ -30,14 +30,14 @@ const Navbar = () => {
           {/* nav links */}
           <nav className="hidden lg:flex">
             {navLinks.map((link, index) => {
-              const isActive = pathname === link.href; // Check if current link is active
+              const isActive = pathname === link.href; 
               return (
                 <Link
                   key={index}
                   href={link.href}
-                  className={`font-medium text-lg tracking-wide px-4 py-2 min-w-14 transition-all ${
+                  className={`font-medium text-lg tracking-wide px-4 py-2 min-w-14 transition-all hover:text-teal-700 ${
                     isActive
-                      ? "border-b-2 border-teal-700 text-teal-700" // Active link styles
+                      ? "border-b-2 border-teal-700 text-teal-700" 
                       : ""
                   }`}
                 >
@@ -60,13 +60,13 @@ const Navbar = () => {
             </select>
 
             <div className="space-x-2 flex">
-              <Link href={"signin"}>
+              <Link href={"/signin"}>
                 <Button variant="secondary" size="medium" roundedValue="md">
                   <span>Sign in</span>
                   <CiLogin />
                 </Button>
               </Link>
-              <Link href={"signup"}>
+              <Link href={"/signup"}>
                 <Button variant="secondary" size="medium" roundedValue="md">
                   Sign up
                   <BsPersonAdd />
