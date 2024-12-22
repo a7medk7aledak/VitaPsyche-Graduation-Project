@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
-import { IoIosArrowBack } from "react-icons/io";
 import Button from "@components/common/Button";
 import { TFormErrors } from "@app/types/FormDoctor";
 import { useDoctorFormStore } from "@store/useDoctorFormStore";
@@ -38,20 +36,12 @@ const DoctorForm2 = () => {
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
       console.log("Form data ready for submission:", formData);
-      router.push("/signup-doctor/doctor-form2");
+      router.push("/signup-doctor/doctor-form3");
     } else {
       setErrors(formErrors);
     }
   };
 
-  const buttonVariants = {
-    hidden: { x: -100, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  };
   return (
     <>
       {/* Educational Information Section with improved animation */}
@@ -79,23 +69,6 @@ const DoctorForm2 = () => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            {/* Back Button with smooth fade-in */}
-            <motion.div
-              className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2"
-              variants={buttonVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {/* Back Button */}
-              <Link
-                href="/signup-doctor/doctor-form1"
-                className="flex items-center justify-center absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 bg-[#8fd3d1] text-white rounded-full py-2 pr-2 md:pr-4 shadow-md hover:bg-[#6ab7a9] transition duration-200 text-md md:text-2xl"
-              >
-                <IoIosArrowBack className="text-lg md:text-3xl" />
-                <span>Back</span>
-              </Link>
-            </motion.div>
-
             {/* Highest Degree Earned Field with staggered animation */}
             <motion.div
               className="flex flex-col space-y-2 w-full"
@@ -180,24 +153,45 @@ const DoctorForm2 = () => {
               )}
             </motion.div>
 
-            {/* Next Button with smooth transition and scaling effect */}
-            <motion.div
-              className="flex justify-end items-center gap-x-2 text-2xl pt-5"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{
-                duration: 0.4,
-                ease: "easeOut",
-                delay: 0.4,
-              }}
-            >
-              <span className="text-[#686b72]">2/3</span>
-              <div onClick={handleNextClick}>
+            {/* Buttons */}
+            <div className="flex justify-between items-center text-2xl pt-5">
+              {/* Back Button */}
+              <motion.div
+                initial={{ x: "-250px", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                onClick={(e: React.MouseEvent) => {
+                  e.preventDefault();
+                  router.push("/signup-doctor/doctor-form1");
+                }}
+              >
+                <Button variant="primary" size="large" roundedValue="full">
+                  Back
+                </Button>
+              </motion.div>
+
+              {/* Step Indicator */}
+              <motion.span
+                className="text-[#686b72]"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
+              >
+                2/3
+              </motion.span>
+
+              {/* Next Button */}
+              <motion.div
+                initial={{ x: "250px", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                onClick={handleNextClick}
+              >
                 <Button variant="secondary" size="large" roundedValue="full">
                   Next
                 </Button>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </motion.form>
         </div>
       </motion.div>

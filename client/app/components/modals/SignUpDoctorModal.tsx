@@ -18,7 +18,7 @@ const SignUpDoctorModal: React.FC<SignUpDoctorModalProps> = ({
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center z-50">
       <motion.div
-        className="bg-[#daf4f1] p-8 rounded-lg w-1/2 lg:w-2/5 flex flex-col items-center space-y-8"
+        className="bg-[#daf4f1] p-8 rounded-lg w-full mx-3 md:w-1/2 md:mx-0 lg:w-2/5 flex flex-col items-center space-y-8"
         initial={{ opacity: 0, scale: 0.7 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.7 }}

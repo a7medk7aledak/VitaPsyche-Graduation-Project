@@ -4,9 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Button from "@components/common/Button";
 import { FileUpload } from "@components/FileUpload";
-import Link from "next/link";
 import React from "react";
-import { IoIosArrowBack } from "react-icons/io";
 import { specializations } from "@constants/specializations";
 import { useDoctorFormStore } from "@store/useDoctorFormStore";
 import { TFormErrors } from "@app/types/FormDoctor";
@@ -100,15 +98,6 @@ const DoctorForm3 = () => {
     },
   };
 
-  const buttonVariants = {
-    hidden: { x: -100, opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: { duration: 0.7, ease: "easeOut" },
-    },
-  };
-
   const pageVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -143,22 +132,6 @@ const DoctorForm3 = () => {
             animate="visible"
             variants={formVariants}
           >
-            <motion.div
-              className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2"
-              variants={buttonVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {/* Back Button */}
-              <Link
-                href="/signup-doctor/doctor-form2"
-                className="flex items-center justify-center absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 bg-[#8fd3d1] text-white rounded-full py-2 pr-2 md:pr-4 shadow-md hover:bg-[#6ab7a9] transition duration-200 text-md md:text-2xl"
-              >
-                <IoIosArrowBack className="text-lg md:text-3xl" />
-                <span>Back</span>
-              </Link>
-            </motion.div>
-
             {/* category Field */}
 
             <motion.div
@@ -168,8 +141,12 @@ const DoctorForm3 = () => {
               <label className="text-xl font-medium text-[#1e256c]">
                 Category
               </label>
-              <select className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200">
-                <option value="" disabled selected>
+              <select
+                className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
+                value={formData.category}
+                onChange={(e) => setFormData({ category: e.target.value })}
+              >
+                <option value="" disabled>
                   Select Category
                 </option>
                 <option value="psychiatrist">Psychiatrist</option>
@@ -443,24 +420,54 @@ const DoctorForm3 = () => {
                 )}
               </div>
             )}
-            {/* Submit button */}
-            <div className="flex justify-end  items-center gap-x-2 text-2xl pt-5">
-              <span className="text-[#686b72]">3/3</span>
-              <div onClick={handleSubmit}>
-                <Button variant="secondary" size="large" roundedValue="full">
-                  submit
+            {/* Buttons */}
+            <div className="flex justify-between items-center text-2xl pt-5">
+              {/* Back Button */}
+              <motion.div
+                initial={{ x: "-250px", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                onClick={(e: React.MouseEvent) => {
+                  e.preventDefault();
+                  router.push("/signup-doctor/doctor-form2");
+                }}
+              >
+                <Button variant="primary" size="large" roundedValue="full">
+                  Back
                 </Button>
-              </div>
+              </motion.div>
+
+              {/* Step Indicator */}
+              <motion.span
+                className="text-[#686b72]"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
+              >
+                3/3
+              </motion.span>
+
+              {/* Next Button */}
+              <motion.div
+                initial={{ x: "250px", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                onClick={handleSubmit}
+              >
+                <Button variant="secondary" size="large" roundedValue="full">
+                  Submit
+                </Button>
+              </motion.div>
             </div>
           </motion.form>
         </div>
-        {/* Modal Component */}
-        <SignUpDoctorModal
-          isOpen={showModal}
-          onClose={closeModalHandler}
-          message="Thanks For Completing This Form !"
-        />
       </motion.div>
+      {/* Modal Component */}
+      <SignUpDoctorModal
+        isOpen={showModal}
+        onClose={closeModalHandler}
+        message="Thanks For Completing This Form !"
+      />
     </>
   );
 };

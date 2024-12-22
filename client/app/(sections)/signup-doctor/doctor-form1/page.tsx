@@ -279,7 +279,7 @@ const DoctorForm1 = () => {
                 onChange={handleChange}
                 type="email"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2  transition duration-200"
-                placeholder="example@example.com"
+                placeholder="joe.doe@example.com"
               />
               {errors.email && (
                 <span className="text-red-600 text-sm">{errors.email}</span>
@@ -323,6 +323,7 @@ const DoctorForm1 = () => {
               </label>
               <input
                 name="username"
+                placeholder="johndoe123"
                 value={formData.username}
                 onChange={handleChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
@@ -344,7 +345,7 @@ const DoctorForm1 = () => {
                   onChange={handleChange}
                   type={showPassword ? "text" : "password"}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                  placeholder="Your password"
+                  placeholder="********"
                 />
                 <button
                   type="button"
@@ -371,7 +372,7 @@ const DoctorForm1 = () => {
                   onChange={handleChange}
                   type={showConfirmPassword ? "text" : "password"}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                  placeholder="Confirm password"
+                  placeholder="********"
                 />
                 <button
                   type="button"
