@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/widgets/colors.dart';
+import '../const/colors.dart';
 
 class Doctor extends StatelessWidget {
   const Doctor({super.key});
@@ -8,8 +8,8 @@ static const id = 'Doctor';
   Widget build(BuildContext context) {
     return Center(
         child: Container(
-          color: Color(0xffffffff),
-          child:   Text('Doctor',style: TextStyle(color: primaryColor,fontSize: 24),)
+          color:const Color(0xffffffff),
+          child:  const Text('Doctor',style: TextStyle(color: primaryColor,fontSize: 24),)
         ),
     );
   }

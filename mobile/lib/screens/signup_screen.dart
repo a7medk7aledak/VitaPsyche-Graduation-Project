@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/screens/signin_screen.dart';
 import 'package:flutter_mindmed_project/screens/splash_screen.dart';
-import 'package:flutter_mindmed_project/widgets/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+
+import '../const/colors.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -184,7 +185,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   width: 80,
                   height: 80,
                   child: Image.asset(
-                    'assets/animation/Animation - 1726443797305 (1).gif',
+                    'assets/animation/done.gif',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -278,7 +279,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     left: getWidth(30),
                   ),
                   child: Image.asset(
-                    'assets/animation/Animation - 1725391690653.gif',
+                    'assets/animation/chatbot.gif',
                     width: getWidth(270),
                     height: getHeight(270),
                     fit: BoxFit.contain,

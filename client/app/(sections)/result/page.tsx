@@ -19,7 +19,12 @@ interface Question {
 
 interface TestScoring {
   instruction?: string;
-  scoreRanges?: { range: string; description: string; color: string }[];
+  scoreRanges?: {
+    range: string;
+    description: string;
+    color: string;
+    info: string;
+  }[];
 }
 
 interface Test {
@@ -31,7 +36,9 @@ interface Test {
 
 function calculateMaxScore(questions: Question[]): number {
   return questions.reduce((max, question) => {
-    const maxOptionScore = Math.max(...question.options.map((opt) => opt.score));
+    const maxOptionScore = Math.max(
+      ...question.options.map((opt) => opt.score)
+    );
     return max + maxOptionScore;
   }, 0);
 }
@@ -41,6 +48,7 @@ const ClientSideResult: React.FC = () => {
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
   const [feedback, setFeedback] = useState("");
+  const [detailedInfo, setDetailedInfo] = useState("");
   const [maxScore, setMaxScore] = useState(0);
 
   const searchParams = useSearchParams();
@@ -60,11 +68,11 @@ const ClientSideResult: React.FC = () => {
   useEffect(() => {
     if (test && userAnswers.length > 0) {
       let totalScore = 0;
-
       test.questions.forEach((question, index) => {
         const userAnswer = userAnswers[index];
-        const option = question.options.find((opt) => opt.optionId === userAnswer);
-
+        const option = question.options.find(
+          (opt) => opt.optionId === userAnswer
+        );
         if (option && option.score !== undefined) {
           totalScore += option.score;
         }
@@ -74,19 +82,34 @@ const ClientSideResult: React.FC = () => {
       const calculatedMaxScore = calculateMaxScore(test.questions);
       setMaxScore(calculatedMaxScore);
 
-      setFeedback(getFeedback(totalScore, test.scoring.scoreRanges));
+      const { feedbackText, detailedExplanation } = getFeedback(
+        totalScore,
+        test.scoring.scoreRanges
+      );
+      setFeedback(feedbackText);
+      setDetailedInfo(detailedExplanation);
     }
   }, [test, userAnswers]);
 
-  const getFeedback = (score: number, scoreRanges?: { range: string; description: string }[]): string => {
-    if (!scoreRanges) return "No feedback available.";
+  const getFeedback = (
+    score: number,
+    scoreRanges?: { range: string; description: string; info: string }[]
+  ): { feedbackText: string; detailedExplanation: string } => {
+    if (!scoreRanges)
+      return {
+        feedbackText: "No feedback available.",
+        detailedExplanation: "",
+      };
     for (const range of scoreRanges) {
       const [min, max] = range.range.split("-").map(Number);
       if (score >= min && score <= max) {
-        return range.description;
+        return {
+          feedbackText: range.description,
+          detailedExplanation: range.info,
+        };
       }
     }
-    return "Score out of range.";
+    return { feedbackText: "Score out of range.", detailedExplanation: "" };
   };
 
   if (!test) {
@@ -96,58 +119,76 @@ const ClientSideResult: React.FC = () => {
   return (
     <>
       <Navbar />
-      <div className="flex mt-20 flex-col items-center min-h-screen p-4">
-        <div className="min-h-screen w-full flex flex-col bg-gray-100">
-          <header className="w-full bg-green-700 py-6">
-            <h1 className="text-3xl font-bold text-center text-white">{test.testTitle}</h1>
-          </header>
+      <div className="flex flex-col min-h-screen bg-gray-50">
+        {/* Header Section */}
+        <header className="w-full bg-gradient-to-r from-green-700 to-green-600 py-8 px-4 mt-16 shadow-lg">
+          <h1 className="text-2xl md:text-3xl font-bold text-center text-white">
+            {test.testTitle}
+          </h1>
+        </header>
 
-          <main className="flex-grow flex flex-col w-full items-center justify-center p-6">
-            <div className="text-center mb-8">
-              <span className="text-2xl font-semibold">Your result is</span>
-              <div className="flex justify-center items-center gap-2 mt-2">
-                <span className="text-5xl font-bold text-blue-600">{score}</span>
-                <h3 className="text-2xl font-semibold text-gray-700 ml-2">{feedback}</h3>
-                <span className="text-xl font-semibold text-gray-500">/ {maxScore}</span>
+        {/* Main Content */}
+        <main className="flex-grow container mx-auto px-4 py-8 max-w-4xl">
+          {/* Score Card */}
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-4">
+              Your Result
+            </h2>
+            <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+              <div className="flex items-baseline">
+                <span className="text-4xl md:text-5xl font-bold text-blue-600">
+                  {score}
+                </span>
+                <span className="text-4xl md:text-5xl text-black ml-1">
+                  /{maxScore}
+                </span>
+              </div>
+              <div className="text-xl md:text-2xl font-semibold text-green-600 text-center md:text-left">
+                {feedback}
               </div>
             </div>
+          </div>
 
-            <div className="relative w-full mx-auto text-center p-10">
-              <div className="flex justify-center text-center items-center mb-8 w-full">
-                {test.scoring.scoreRanges?.map((range, index) => (
-                  <div
-                    key={index}
-                    className={`py-2 px-2 text-white ${range.color} shadow-lg transition-transform`}
-                  >
-                    <span className="font-semibold block">{range.description}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Detailed Information */}
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+              What does this mean?
+            </h2>
+            <p className="text-gray-600 leading-relaxed text-center md:text-left">
+              {detailedInfo}
+            </p>
+          </div>
 
-            <div className="text-center mb-8 max-w-2xl">
-              <h2 className="text-lg font-semibold mb-2">What does that mean?</h2>
-              <p className="text-gray-700 mb-4">
-                Your depression is severe. You experience symptoms of depression most of the time, and it disrupts your
-                life to a great extent. You need professional help to overcome this depression that is affecting your
-                life greatly.
-              </p>
-              <p className="text-gray-700">
-                Please share the results with your therapist to be absolutely sure of the outcome.
-              </p>
+          {/* Score Ranges */}
+          <div className="bg-white rounded-xl shadow-lg p-6 mb-8 overflow-x-auto">
+            <div className="flex flex-col md:flex-row justify-center gap-2 min-w-max md:min-w-0">
+              {test.scoring.scoreRanges?.map((range, index) => (
+                <div
+                  key={index}
+                  className={`${range.color} p-3 rounded-lg text-white text-center flex-1`}
+                >
+                  <span className="text-sm md:text-base font-medium block">
+                    {range.description}
+                  </span>
+                  <span className="text-xs opacity-90 block">
+                    {range.range} points
+                  </span>
+                </div>
+              ))}
             </div>
+          </div>
 
-            <div className="text-center text-blue-600 font-semibold text-lg mb-6">
-              You shouldn&apos;t try to cope with what you&apos;re going through alone. We&apos;re here to help!
-            </div>
-
-            <div className="text-center">
-              <button className="bg-button hover:bg-heading transitions text-white py-3 px-6 rounded-lg">
-                Choose your specialist doctor
-              </button>
-            </div>
-          </main>
-        </div>
+          {/* Call to Action */}
+          <div className="text-center space-y-6">
+            <p className="text-blue-600 font-semibold text-lg px-4">
+              Don&apos;t face your challenges alone. Professional help is
+              available!
+            </p>
+            <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+              Find a Specialist
+            </button>
+          </div>
+        </main>
       </div>
     </>
   );
@@ -155,7 +196,13 @@ const ClientSideResult: React.FC = () => {
 
 const TestResultPage: React.FC = () => {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center min-h-screen">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-green-600"></div>
+        </div>
+      }
+    >
       <ClientSideResult />
     </Suspense>
   );

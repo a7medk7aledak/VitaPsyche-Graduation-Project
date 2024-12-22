@@ -1,81 +1,95 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/screens/services/test_services/result_text.dart';
+import 'depression_scale_result.dart';
 
 class TextController {
   int currentPositionPage = 0;
   bool isNextOrPrev = false;
-
-  // Dot Indicator Stream
-  late final StreamController<int> streamControllerDotIndicator;
-  late final Sink<int> inPutDataDotIndicator;
-  late final Stream<int> outPutDataDotIndicator;
-
-  // Start Text Stream
-  late final StreamController<int> streamControllerStratText;
-  late final Sink<int> inPutDataStartText;
-  late final Stream<int> outPutDataStartText;
-
-  // Position Stream (used for updating UI on index change)
-  late final Stream<int> positionStream;
-
-  TextController() {
-    streamControllerDotIndicator = StreamController<int>.broadcast();
-    inPutDataDotIndicator = streamControllerDotIndicator.sink;
-    outPutDataDotIndicator = streamControllerDotIndicator.stream;
-
-    streamControllerStratText = StreamController<int>.broadcast();
-    inPutDataStartText = streamControllerStratText.sink;
-    outPutDataStartText = streamControllerStratText.stream;
-
-    // Initialize position stream to reflect dot indicator changes
-    positionStream = outPutDataDotIndicator;
-
-    // Initialize with the starting page
-    inPutDataDotIndicator.add(currentPositionPage);
-    inPutDataStartText.add(currentPositionPage);
+  
+  // Stream controllers
+  final StreamController<int> _pageController = StreamController<int>.broadcast();
+  final StreamController<bool> _prevButtonController = StreamController<bool>.broadcast();
+  
+  // Public streams
+  Stream<int> get positionStream => _pageController.stream;
+  Stream<bool> get prevButtonStream => _prevButtonController.stream;
+  
+  // Question response tracking
+  final List<int?> responses;
+  final int totalQuestions;
+  
+  TextController({required this.totalQuestions}) 
+      : responses = List.filled(totalQuestions, null) {
+    // Initialize streams with starting values
+    _pageController.add(currentPositionPage);
+    _updatePrevButtonVisibility();
   }
 
-  void onTapDotIndicator(int indexPosition) {
-    currentPositionPage = indexPosition;
-    inPutDataDotIndicator.add(currentPositionPage);
-    inPutDataStartText.add(currentPositionPage);
+  void updateResponse(int score) {
+    if (currentPositionPage < responses.length) {
+      responses[currentPositionPage] = score;
+    }
   }
 
- void onTapNext(BuildContext context, int totalQuestions, {required String testTitle, required int totalScore, required int maxScore, required dynamic scoring}) {
-  if (currentPositionPage < totalQuestions - 1) {
-    currentPositionPage++;
-  } else {
-    Navigator.pushNamedAndRemoveUntil(
-      context,
-      ResultText.id,
-      arguments: {
-        'testTitle': testTitle,
-        'totalScore': totalScore,
-        'maxScore': maxScore,
-        'scoring': scoring,
-      },
-      (route) => false, 
-    );
+  bool canMoveNext() {
+    return responses[currentPositionPage] != null;
   }
-  isNextOrPrev = true;
-  inPutDataDotIndicator.add(currentPositionPage);
-  inPutDataStartText.add(currentPositionPage);
-}
 
-  void onTapPrev(BuildContext context) {
+  void onTapNext(BuildContext context, {
+    required String testTitle,
+    required dynamic scoring,
+  }) {
+    if (!canMoveNext()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please select an answer before proceeding."))
+      );
+      return;
+    }
+
+    if (currentPositionPage < totalQuestions - 1) {
+      currentPositionPage++;
+      _pageController.add(currentPositionPage);
+      _updatePrevButtonVisibility();
+      isNextOrPrev = true;
+    } else {
+      // Calculate final score and navigate to results
+      final totalScore = responses.fold(0, (sum, score) => sum + (score ?? 0));
+      
+      Navigator.pushReplacementNamed(
+        context,
+        DepressionScaleResult.id,
+        arguments: {
+          'score': totalScore,
+          'testTitle': testTitle,
+          'scoring': scoring,
+        },
+      );
+    }
+  }
+
+  void onTapPrev() {
     if (currentPositionPage > 0) {
       currentPositionPage--;
+      _pageController.add(currentPositionPage);
+      _updatePrevButtonVisibility();
+      isNextOrPrev = true;
     }
-    isNextOrPrev = true;
-    inPutDataDotIndicator.add(currentPositionPage);
-    inPutDataStartText.add(currentPositionPage);
   }
 
-  void onDispose() {
-    inPutDataDotIndicator.close();
-    streamControllerDotIndicator.close();
-    inPutDataStartText.close();
-    streamControllerStratText.close();
+  void onTapDotIndicator(int index) {
+    if (index >= 0 && index < totalQuestions) {
+      currentPositionPage = index;
+      _pageController.add(currentPositionPage);
+      _updatePrevButtonVisibility();
+    }
+  }
+
+  void _updatePrevButtonVisibility() {
+    _prevButtonController.add(currentPositionPage > 0);
+  }
+
+  void dispose() {
+    _pageController.close();
+    _prevButtonController.close();
   }
 }

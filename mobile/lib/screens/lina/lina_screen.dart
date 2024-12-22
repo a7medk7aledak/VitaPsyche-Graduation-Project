@@ -63,13 +63,9 @@ class _LinaScreenState extends State<LinaScreen> {
       ),
       body: Column(
         children: [
+          //3D model lina here
           const Expanded(
-            child: Center(
-              child: Text(
-                'Welcome, Lina!',
-                style: TextStyle(fontSize: 20),
-              ),
-            ),
+            child: Text('lina'),
           ),
           SpeechToTextStream(
             speechToTextController: _speechToTextController,

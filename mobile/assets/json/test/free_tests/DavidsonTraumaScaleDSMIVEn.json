@@ -1,0 +1,124 @@
+{
+  "testTitle": "Davidson Trauma Scale - DSM-IV",
+  "questions": [
+    {
+      "id": 1,
+      "question": "Have you experienced recurring thoughts or memories of the event?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 2,
+      "question": "Do you feel as though the event is happening again?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "Do you avoid activities or situations that remind you of the event?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 4,
+      "question": "Do you feel emotionally numb?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 5,
+      "question": "Do you feel detached or isolated from others?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 6,
+      "question": "Do you feel unable to experience positive emotions?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 7,
+      "question": "Have you experienced difficulty sleeping?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 8,
+      "question": "Have you had difficulty concentrating?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 9,
+      "question": "Are you easily startled?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    },
+    {
+      "id": 10,
+      "question": "Have you experienced irritability or angry outbursts?",
+      "choices": [
+        { "score": 1, "text": "Not at all" },
+        { "score": 2, "text": "A little bit" },
+        { "score": 3, "text": "Moderately" },
+        { "score": 4, "text": "Quite a bit" },
+        { "score": 5, "text": "Extremely" }
+      ]
+    }
+  ],
+  "scoring": {
+    "instruction": "Each response is rated on a scale from 1 (Not at all) to 5 (Extremely). The total score is the sum of the values for all questions.",
+    "scoreRanges": [
+      { "range": "0-20", "description": "No significant trauma symptoms" },
+      { "range": "21-40", "description": "Mild trauma symptoms" },
+      { "range": "41-60", "description": "Moderate trauma symptoms" },
+      { "range": "61-85", "description": "Severe trauma symptoms" }
+    ]
+  }
+}

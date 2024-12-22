@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/screens/custem_button_bar.dart';
-import 'package:flutter_mindmed_project/screens/signin_screen.dart';
-import 'package:flutter_mindmed_project/screens/signup_screen.dart';
-import 'package:flutter_mindmed_project/widgets/colors.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../const/colors.dart';
+import '../const/const_image.dart';
+import 'custom_button_bar.dart';
+import 'signin_screen.dart';
+import 'signup_screen.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -10,207 +12,158 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get the screen size
+    // Get screen dimensions
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    print('Screen width: $screenWidth');
-    print('Screen height: $screenHeight');
+    double getWidth(double width) => screenWidth * (width / 392.72727272727275);
+    double getHeight(double height) =>
+        screenHeight * (height / 777.4545454545455);
 
-    double getWidth(double width) {
-      return screenWidth * (width / 392.72727272727275);
-    }
-
-    double getHeight(double height) {
-      return screenHeight * (height / 777.4545454545455);
+    // Reusable button widget
+    Widget buildElevatedButton({
+      required String title,
+      required VoidCallback onPressed,
+    }) {
+      return ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          minimumSize: Size(getWidth(300), getHeight(50)),
+          backgroundColor: primaryColor,
+          elevation: 5,
+          shadowColor: Colors.black,
+        ),
+        child: Text(
+          title,
+          style: TextStyle(color: secoundryColor, fontSize: getWidth(16)),
+        ),
+      );
     }
 
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/splash_screen.png'),
-                fit: BoxFit.cover,
+      backgroundColor: secoundryColor,
+      body: Padding(
+        padding: const EdgeInsets.only(top: 70),
+        child: Column(
+          children: [
+            // App Title
+            Text(
+              'Vitapsyche',
+              style: TextStyle(
+                fontSize: 30.sp,
+                color: primaryColor,
+                fontWeight: FontWeight.bold,
               ),
             ),
-          ),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: getHeight(200)),
-                  child: Text(
-                    'Welcome to Mindmed',
-                    style: TextStyle(
-                      fontSize: getWidth(36),
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor,
+            SizedBox(
+              height: 10.h,
+            ),
+            // App Logo
+            Image.asset(
+              logoApp,
+              height: 170,
+              width: 170,
+            ),
+            // Subtitle
+            Text(
+              'The journey to healing \nstarts here...',
+              style: TextStyle(
+                  color: mainBlueColor,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            // Buttons
+            buildElevatedButton(
+              title: 'Sign in',
+              onPressed: () => Navigator.of(context).pushNamed(SigninScreen.id),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            buildElevatedButton(
+              title: 'Sign up',
+              onPressed: () => Navigator.of(context).pushNamed(SignupScreen.id),
+            ),
+            // Divider with "or"
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: getHeight(20.0)),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 1,
+                      indent: getWidth(50),
+                      endIndent: getWidth(10),
+                    ),
+                  ),
+                  Text(
+                    "or",
+                    style:
+                        TextStyle(color: Colors.grey, fontSize: getWidth(16)),
+                  ),
+                  Expanded(
+                    child: Divider(
+                      color: Colors.grey,
+                      thickness: 1,
+                      indent: getWidth(10),
+                      endIndent: getWidth(50),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // Guest Mode Button
+            buildElevatedButton(
+              title: 'Continue as Guest',
+              onPressed: () {
+                Navigator.of(context).pushNamed(CustomButtonBar.id);
+              },
+            ),
+            // Language Selector
+            Padding(
+              padding: EdgeInsets.only(top: getHeight(30)),
+              child: SizedBox(
+                width: getWidth(150),
+                child: Center(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      // Handle language change
+                    },
+                    style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: primaryColor, width: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(
+                          'assets/images/flag.png',
+                          width: getWidth(24),
+                          height: getHeight(24),
+                        ),
+                        SizedBox(width: getWidth(8)),
+                        Text(
+                          'English',
+                          style: TextStyle(
+                            color: primaryColor,
+                            fontSize: getWidth(14),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                SizedBox(height: getHeight(30)),
-
-                // Buttons
-                Column(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(SigninScreen.id);
-                      },
-                      child: Text(
-                        'Sign in',
-                        style: TextStyle(
-                            color: secoundryColor, fontSize: getWidth(16)),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(getWidth(300), getHeight(50)),
-                        backgroundColor: primaryColor,
-                        elevation: 5,
-                        shadowColor: Colors.black,
-                      ).copyWith(
-                        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Color.fromARGB(255, 91, 255, 219);
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: getHeight(30)),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(SignupScreen.id);
-                      },
-                      child: Text(
-                        'Sign up',
-                        style: TextStyle(
-                            color: secoundryColor, fontSize: getWidth(16)),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(getWidth(300), getHeight(50)),
-                        backgroundColor: primaryColor,
-                        elevation: 5,
-                        shadowColor: Colors.black,
-                      ).copyWith(
-                        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Color.fromARGB(255, 91, 255, 219);
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ),
-
-                    // OR with lines
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: getHeight(20.0)),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: Divider(
-                              color: Colors.grey,
-                              thickness: 1,
-                              indent: getWidth(20),
-                              endIndent: getWidth(10),
-                            ),
-                          ),
-                          Text(
-                            "or",
-                            style: TextStyle(
-                                color: Colors.grey, fontSize: getWidth(16)),
-                          ),
-                          Expanded(
-                            child: Divider(
-                              color: Colors.grey,
-                              thickness: 1,
-                              indent: getWidth(10),
-                              endIndent: getWidth(20),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    ElevatedButton(
-                      onPressed: () {
-                        // Navigate as Guest
-
-                        //!here
-                        Navigator.of(context).pushNamed(CustemButtonBar.id);
-                      },
-                      child: Text(
-                        'Continue as Guest',
-                        style: TextStyle(
-                            color: secoundryColor, fontSize: getWidth(16)),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(getWidth(300), getHeight(50)),
-                        backgroundColor: primaryColor,
-                        elevation: 5,
-                        shadowColor: Colors.black,
-                      ).copyWith(
-                        overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.pressed)) {
-                              return Color.fromARGB(255, 91, 255, 219);
-                            }
-                            return null;
-                          },
-                        ),
-                      ),
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.only(top: getHeight(30)),
-                      child: Container(
-                        width: getWidth(150),
-                        child: Center(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              // Handle language change
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                // English Flag
-                                Image.asset(
-                                  'assets/images/download__1_-removebg-preview.png',
-                                  width: getWidth(24),
-                                  height: getHeight(24),
-                                ),
-                                SizedBox(width: getWidth(8)),
-
-                                Text(
-                                  'English',
-                                  style: TextStyle(
-                                      color: primaryColor,
-                                      fontSize: getWidth(14)),
-                                ),
-                              ],
-                            ),
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: primaryColor, width: 2),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

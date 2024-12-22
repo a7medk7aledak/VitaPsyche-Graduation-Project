@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/screens/services/test_services/result_text.dart';
+import 'package:flutter_mindmed_project/screens/services/test_services/depression_scale_result.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../models/modelsoftest/question.dart';
 import 'text_controller.dart';
 import '../../../const/colors.dart';
-import '../../../const/const_image.dart';
-import '../../../widgets/custem_button_back.dart';
 import 'button_bar_text.dart';
 
 class DoTest extends StatefulWidget {
@@ -19,30 +16,51 @@ class DoTest extends StatefulWidget {
 class _DoTestState extends State<DoTest> {
   late String testTitle;
   late dynamic model;
+  late TextController _textController;
+  int? _character;
+  int totalScore = 0;
+  List<int> answers = [];
+  bool _isInitialized = false;
 
   final String _description =
       "Please read the test items carefully and make sure that the choices apply to you in the last two weeks. There is no right or wrong answer, and you do not need to spend a long time answering them.";
 
-  final TextController _textController = TextController();
-  int? _character; // Selected answer for the current question
-  int totalScore = 0;
-  List<int> answers = [];
-
   @override
-  void initState() {
-    super.initState();
-    // Reset selection on position change
-    _textController.positionStream.listen((_) {
-      setState(() {
-        _character = null;
-        _textController.isNextOrPrev = false;
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInitialized) {
+      _initializeData();
+    }
+  }
+
+  void _initializeData() {
+    final arguments =
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+
+    if (arguments != null) {
+      testTitle = arguments['testTitle'];
+      model = arguments['model'];
+      _textController = TextController(totalQuestions: model.questions.length);
+
+      // Set up stream listener
+      _textController.positionStream.listen((_) {
+        if (mounted) {
+          setState(() {
+            _character = null;
+            _textController.isNextOrPrev = false;
+          });
+        }
       });
-    });
+
+      _isInitialized = true;
+    }
   }
 
   @override
   void dispose() {
-    _textController.onDispose();
+    if (_isInitialized) {
+      _textController.dispose();
+    }
     super.dispose();
   }
 
@@ -54,19 +72,18 @@ class _DoTestState extends State<DoTest> {
     calculateScore();
     Navigator.pushNamed(
       context,
-      ResultText.id,
+      DepressionScaleResult.id,
       arguments: {
-        'testTitle': testTitle,
         'totalScore': totalScore,
-        'maxScore':
-            model.questions.length * 3, // Assuming max score per question
-        'scoring': model.scoring, // Ensure scoring implements `getCategory`
       },
     );
   }
 
   void handleAnswerSelection() {
-    if (_character != null) answers.add(_character!);
+    if (_character != null) {
+      answers.add(_character!);
+      _textController.updateResponse(_character!);
+    }
     setState(() {
       _character = null;
       _textController.isNextOrPrev = true;
@@ -74,7 +91,6 @@ class _DoTestState extends State<DoTest> {
   }
 
   void onNextTap() {
-    // Prevent proceeding if no choice is selected
     if (_character == null) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -91,10 +107,7 @@ class _DoTestState extends State<DoTest> {
     } else {
       _textController.onTapNext(
         context,
-        model.questions.length,
         testTitle: testTitle,
-        totalScore: totalScore,
-        maxScore: model.questions.length * 3,
         scoring: model.scoring,
       );
     }
@@ -102,11 +115,7 @@ class _DoTestState extends State<DoTest> {
 
   @override
   Widget build(BuildContext context) {
-    // Extract arguments
-    final arguments =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-
-    if (arguments == null) {
+    if (!_isInitialized) {
       return Scaffold(
         body: Center(
           child: Text(
@@ -117,70 +126,39 @@ class _DoTestState extends State<DoTest> {
       );
     }
 
-    testTitle = arguments['testTitle'];
-    model = arguments['model'];
-
     return Scaffold(
+      backgroundColor: secoundryColor,
       appBar: AppBar(
-        leading: custemButtonBack(context),
+        foregroundColor: primaryColor,
         titleSpacing: 0,
-        backgroundColor: primaryColor,
-        title: Row(
-          children: [
-            Image.asset(logoApp, height: 50.h, fit: BoxFit.cover),
-            Padding(
-              padding: const EdgeInsets.only(left: 4).w,
-              child: Text(
-                'Tests',
-                style: TextStyle(color: secoundryColor, fontSize: 26.sp),
-              ),
-            ),
-          ],
+        centerTitle: true,
+        backgroundColor: secoundryColor,
+        title: Text(
+          'Depression Scale',
+          style: TextStyle(color: primaryColor, fontSize: 16.sp),
         ),
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 12.w),
         child: Column(
           children: [
-            _doingTest(),
-            SizedBox(
-              height: 20.h,
+            Column(
+              children: [
+                SizedBox(height: 10.h),
+                _detailsTest(),
+                _testQuestions(),
+              ],
             ),
-            CustemBottonBarOnboardingscreen(
+            Spacer(),
+            CustomButtonBarOnboardingScreen(
               dotsCount: model.questions.length,
-              onTapDotIndecator: _textController.onTapDotIndicator,
-              outPutDotIndecator: _textController.outPutDataDotIndicator,
-              onTapNext: onNextTap, // Use the updated method
+              onTapDotIndicator: _textController.onTapDotIndicator,
+              outputDotIndicator: _textController.positionStream,
+              outputDotTextStart: _textController.positionStream,
+              onTapNext: onNextTap,
               onTapSkip: () {
                 handleAnswerSelection();
-                _textController.onTapPrev(context);
-              },
-              outPutDotTextStart: _textController.outPutDataStartText,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _doingTest() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12).w,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _detailsTest(),
-            StreamBuilder<int>(
-              stream: _textController.positionStream,
-              initialData: _textController.currentPositionPage,
-              builder: (context, snapshot) {
-                int index = snapshot.data ?? 0;
-                return IndexedStack(
-                  index: index,
-                  children: List.generate(
-                    model.questions.length,
-                    (i) => _itemAnswer(i),
-                  ),
-                );
+                _textController.onTapPrev();
               },
             ),
           ],
@@ -190,79 +168,94 @@ class _DoTestState extends State<DoTest> {
   }
 
   Widget _detailsTest() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Image.asset(ConstImage.test),
-            SizedBox(width: 12.w),
-            Expanded(
-              child: FittedBox(
-                child: Text(
-                  testTitle,
-                  style: TextStyle(
-                      color: textMainColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp),
-                ),
-              ),
-            ),
-          ],
-        ),
-        Text(
-          _description,
-          style: const TextStyle(
-              color: textThirdColor, fontSize: 14, fontWeight: FontWeight.bold),
-        ),
-      ],
+    return Text(
+      _description,
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        color: textThirdColor,
+        fontSize: 12.sp,
+        fontWeight: FontWeight.bold,
+      ),
     );
   }
 
-  Widget _itemAnswer(int indexValue) {
-    List<Choice> choices = model.questions[indexValue].choices;
-
-    return Column(
-      children: [
-        FittedBox(
-          child: Text(
-            '${indexValue + 1} - ${model.questions[indexValue].questionText}',
-            style: TextStyle(
-                color: textMainColor,
-                fontSize: 21.sp,
-                fontWeight: FontWeight.bold),
+  Widget _testQuestions() {
+    return StreamBuilder<int>(
+      stream: _textController.positionStream,
+      initialData: _textController.currentPositionPage,
+      builder: (context, snapshot) {
+        int index = snapshot.data ?? 0;
+        return IndexedStack(
+          index: index,
+          children: List.generate(
+            model.questions.length,
+            (i) => _questionItem(i),
           ),
-        ),
-        ...choices.map(
-          (choice) => Padding(
+        );
+      },
+    );
+  }
+
+  Widget _questionItem(int indexValue) {
+    List choices = model.questions[indexValue].choices;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.h),
+      child: Column(
+        children: [
+          Padding(
             padding: EdgeInsets.only(bottom: 10.h),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.5.r),
-                border: Border.all(color: primaryColor, width: 2),
+            child: Text(
+              model.questions[indexValue].questionText,
+              style: TextStyle(
+                wordSpacing: 0.1,
+                color: textMainColor,
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
               ),
-              child: Center(
-                child: RadioListTile<int>(
-                  groupValue: _character,
-                  value: choice.score,
-                  title: Text(
-                    choice.text,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.sp,
+              textAlign: TextAlign.center,
+              softWrap: true,
+            ),
+          ),
+          ...choices.map(
+            (choice) => Padding(
+              padding: EdgeInsets.symmetric(vertical: 5.h),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _character = choice.score;
+                  });
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.r),
+                    color: _character == choice.score
+                        ? Colors.grey[300]
+                        : Colors.transparent,
+                    border: Border.all(color: primaryColor, width: 2),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 10.h,
+                    ),
+                    child: Center(
+                      child: Text(
+                        choice.text,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12.sp,
+                        ),
+                      ),
                     ),
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      _character = value;
-                    });
-                  },
                 ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -1,0 +1,112 @@
+{
+  "testTitle": "Yale-Brown Obsessive Compulsive Scale (Y-BOCS)",
+  "questions": [
+    {
+      "question": "Amount of time spent on obsessive thoughts",
+      "choices": [
+        { "text": "None", "score": 0 },
+        { "text": "Mild (Less than 1 hour/day or occasional)", "score": 1 },
+        { "text": "Moderate (1-3 hours/day or frequent)", "score": 2 },
+        { "text": "Severe (More than 3 hours/day or very frequent)", "score": 3 },
+        { "text": "Extreme (More than 8 hours/day or nearly constant)", "score": 4 }
+      ]
+    },
+    {
+      "question": "Interference due to obsessive thoughts in social or work activities",
+      "choices": [
+        { "text": "None", "score": 0 },
+        { "text": "Mild interference but generally manageable", "score": 1 },
+        { "text": "Moderate interference, still manageable", "score": 2 },
+        { "text": "Severe interference, hard to manage", "score": 3 },
+        { "text": "Extreme interference, very disabling", "score": 4 }
+      ]
+    },
+    {
+      "question": "Distress or anxiety caused by obsessive thoughts",
+      "choices": [
+        { "text": "None", "score": 0 },
+        { "text": "Mild, occasional distress", "score": 1 },
+        { "text": "Moderate distress, manageable", "score": 2 },
+        { "text": "Severe distress, hard to manage", "score": 3 },
+        { "text": "Extreme distress, disabling", "score": 4 }
+      ]
+    },
+    {
+      "question": "Effort to resist obsessive thoughts",
+      "choices": [
+        { "text": "Always resist or no need to resist", "score": 0 },
+        { "text": "Mostly resist", "score": 1 },
+        { "text": "Sometimes resist", "score": 2 },
+        { "text": "Rarely resist, give in after hesitation", "score": 3 },
+        { "text": "No resistance, fully give in", "score": 4 }
+      ]
+    },
+    {
+      "question": "Control over obsessive thoughts",
+      "choices": [
+        { "text": "Complete control", "score": 0 },
+        { "text": "Good control, usually able to dismiss", "score": 1 },
+        { "text": "Moderate control, sometimes able to dismiss", "score": 2 },
+        { "text": "Low control, hard to dismiss", "score": 3 },
+        { "text": "No control, nearly impossible to dismiss", "score": 4 }
+      ]
+    },
+    {
+      "question": "Amount of time spent on compulsive behaviors",
+      "choices": [
+        { "text": "None", "score": 0 },
+        { "text": "Mild (Less than 1 hour/day or occasional)", "score": 1 },
+        { "text": "Moderate (1-3 hours/day or frequent)", "score": 2 },
+        { "text": "Severe (More than 3 hours/day or very frequent)", "score": 3 },
+        { "text": "Extreme (More than 8 hours/day or nearly constant)", "score": 4 }
+      ]
+    },
+    {
+      "question": "Interference due to compulsive behaviors in social or work activities",
+      "choices": [
+        { "text": "None", "score": 0 },
+        { "text": "Mild interference but generally manageable", "score": 1 },
+        { "text": "Moderate interference, still manageable", "score": 2 },
+        { "text": "Severe interference, hard to manage", "score": 3 },
+        { "text": "Extreme interference, very disabling", "score": 4 }
+      ]
+    },
+    {
+      "question": "Distress or anxiety caused by not performing compulsive behaviors",
+      "choices": [
+        { "text": "None", "score": 0 },
+        { "text": "Mild distress, tolerable", "score": 1 },
+        { "text": "Moderate distress, difficult but tolerable", "score": 2 },
+        { "text": "Severe distress, hard to tolerate", "score": 3 },
+        { "text": "Extreme distress, nearly impossible to tolerate", "score": 4 }
+      ]
+    },
+    {
+      "question": "Effort to resist compulsive behaviors",
+      "choices": [
+        { "text": "Always resist or no need to resist", "score": 0 },
+        { "text": "Mostly resist", "score": 1 },
+        { "text": "Sometimes resist", "score": 2 },
+        { "text": "Rarely resist, give in after hesitation", "score": 3 },
+        { "text": "No resistance, fully give in", "score": 4 }
+      ]
+    },
+    {
+      "question": "Control over compulsive behaviors",
+      "choices": [
+        { "text": "Complete control", "score": 0 },
+        { "text": "Good control, usually able to delay", "score": 1 },
+        { "text": "Moderate control, sometimes able to delay", "score": 2 },
+        { "text": "Low control, hard to delay", "score": 3 },
+        { "text": "No control, nearly impossible to delay", "score": 4 }
+      ]
+    }
+  ],
+  "scoring": {
+    "veryMildOCD": { "min": 0, "max": 7 },
+    "mildOCD": { "min": 8, "max": 15 },
+    "moderateOCD": { "min": 16, "max": 23 },
+    "severeOCD": { "min": 24, "max": 31 },
+    "extremeOCD": { "min": 32, "max": 40 }
+  }
+}
