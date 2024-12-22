@@ -1,12 +1,6 @@
 version: '3.1'
 stories:
 
-  - story: User greets the bot
-    steps:
-      - intent: greet
-      - action: utter_greeting
-
-
   - story: User says goodbye to the bot
     steps:
       - intent: goodbye
@@ -28,10 +22,20 @@ stories:
       - intent: mood_great
       - action: utter_mood_great
 
+  - story: handle unhappy mood story
+    steps:
+    - intent: mood_unhappy
+    - action: utter_mood_unhappy
+
   - story: User challenges or asks about the bot
     steps:
       - intent: bot_challenge
       - action: utter_bot_challenge
+
+  - story: boost confidence story
+    steps:
+    - intent: boost_confidence
+    - action: utter_boost_confidence
 
   - story: User expresses anxiety
     steps:
