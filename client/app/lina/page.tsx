@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import Avatar3D from "@components/Avatar3D";
+import React, { useState, useEffect, useRef } from "react";
 import {
   FaMicrophone,
   FaMicrophoneSlash,
@@ -28,7 +29,6 @@ interface SpeechGrammarList {
   [index: number]: SpeechGrammar;
 }
 
-// Define the base SpeechRecognition interface
 interface SpeechRecognition extends EventTarget {
   continuous: boolean;
   grammars: SpeechGrammarList;
@@ -85,6 +85,7 @@ const VirtualSupportAgent: React.FC = () => {
   const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(true);
   const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [agentMessage, setAgentMessage] = useState<string>(""); // حالة لتخزين رسالة الوكيل
 
   const suggestions: { [key: string]: string[] } = {
     "en-US": [
@@ -105,40 +106,43 @@ const VirtualSupportAgent: React.FC = () => {
     ],
   };
 
-// Define SpeechRecognitionConstructor type
-type SpeechRecognitionConstructor = new () => SpeechRecognition;
+  // Define SpeechRecognitionConstructor type
+  type SpeechRecognitionConstructor = new () => SpeechRecognition;
 
-useEffect(() => {
-  if (typeof window !== 'undefined') {
-    // Directly access SpeechRecognition API with the appropriate casting
-    const SpeechRecognitionAPI = 
-      (window as typeof window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor })
-        .SpeechRecognition || 
-      (window as typeof window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor })
-        .webkitSpeechRecognition;
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const SpeechRecognitionAPI =
+        (window as typeof window & {
+          SpeechRecognition?: SpeechRecognitionConstructor;
+          webkitSpeechRecognition?: SpeechRecognitionConstructor;
+        }).SpeechRecognition ||
+        (window as typeof window & {
+          SpeechRecognition?: SpeechRecognitionConstructor;
+          webkitSpeechRecognition?: SpeechRecognitionConstructor;
+        }).webkitSpeechRecognition;
 
-    if (SpeechRecognitionAPI) {
-      const speechRecognition = new SpeechRecognitionAPI();
-      speechRecognition.lang = language;
-      speechRecognition.continuous = false;
-      speechRecognition.interimResults = false;
+      if (SpeechRecognitionAPI) {
+        const speechRecognition = new SpeechRecognitionAPI();
+        speechRecognition.lang = language;
+        speechRecognition.continuous = false;
+        speechRecognition.interimResults = false;
 
-      speechRecognition.onresult = (event: SpeechRecognitionEvent) => {
-        if (event.results.length > 0) {
-          const transcript = event.results[0][0].transcript;
-          setInput(transcript);
-        }
-      };
+        speechRecognition.onresult = (event: SpeechRecognitionEvent) => {
+          if (event.results.length > 0) {
+            const transcript = event.results[0][0].transcript;
+            setInput(transcript);
+          }
+        };
 
-      speechRecognition.onend = () => {
-        setIsListening(false);
-      };
+        speechRecognition.onend = () => {
+          setIsListening(false);
+        };
 
-      setRecognition(speechRecognition);
+        setRecognition(speechRecognition);
+      }
     }
-  }
-}, [language]);
-    
+  }, [language]);
+
   const handleSendMessage = async (text: string) => {
     if (text.trim() !== "") {
       const userMessage = { sender: "user", text, lang: language };
@@ -162,6 +166,7 @@ useEffect(() => {
             ...prevMessages,
             { sender: "agent", text: data.response, lang: language },
           ]);
+          setAgentMessage(data.response); // تحديث حالة agentMessage
           setIsTyping(false);
         }, 2000);
       } catch (error) {
@@ -195,136 +200,69 @@ useEffect(() => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gradient-to-b from-blue-100 to-blue-200">
-      <div className="flex justify-end p-4 space-x-4">
-        <div className="flex items-center space-x-2 bg-white p-2 rounded-full shadow-md">
-          <FaGlobe className="text-blue-500" />
-          <select
-            value={language}
-            onChange={handleLanguageChange}
-            className="p-2 border-none outline-none focus:ring-0 rounded-full bg-white text-gray-700"
-          >
-            <option value="en-US">English (US)</option>
-            <option value="ar-SA">العربية</option>
-          </select>
-        </div>
-        <button
-          onClick={() => (window.location.href = "/")}
-          className="bg-blue-500 p-3 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
-        >
-          <FaHome />
-        </button>
-      </div>
+    <div className="flex flex-col h-screen relative bg-gradient-to-b from-blue-100 via-purple-100 to-indigo-200">
+    <Avatar3D message={agentMessage} /> {/* عرض الرسالة كفقاعة داخل 3D فقط */}
 
-      <div className="flex-grow flex flex-col items-center justify-center relative overflow-hidden">
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-        <img
-  src="/images/Capture.jpeg"
-  alt="Virtual Agent"
-  className="w-full h-full object-cover"
-/>
-
-        </div>
-        <div className="w-full max-w-4xl px-4 overflow-y-auto flex flex-col-reverse">
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`${
-                msg.sender === "agent" ? "self-start" : "self-end"
-              } bg-white shadow-lg p-4 rounded-lg max-w-xs my-2 ${
-                msg.sender === "agent" ? "ml-20" : "mr-20"
-              } relative`}
-              style={{
-                animation: "fadeIn 0.5s ease",
-                borderRadius: "20px",
-                background: msg.sender === "agent" ? "#e0f7fa" : "#bbdefb",
-                color: msg.sender === "agent" ? "#006064" : "#0d47a1",
-              }}
-            >
-              <div
-                className="absolute w-4 h-4 transform rotate-45"
-                style={{
-                  bottom: "-8px",
-                  left: msg.sender === "agent" ? "20px" : "auto",
-                  right: msg.sender === "agent" ? "auto" : "20px",
-                  background: msg.sender === "agent" ? "#e0f7fa" : "#bbdefb",
-                  boxShadow: "2px 2px 2px rgba(0,0,0,0.1)",
-                  clipPath: "polygon(0% 0%, 100% 100%, 0% 100%)",
-                }}
-              />
-              {msg.text}
-            </div>
-          ))}
-          {isTyping && (
-            <div className="self-start bg-white shadow-lg p-4 rounded-lg max-w-xs my-2 ml-20 relative">
-              <div
-                className="absolute w-4 h-4 transform rotate-45"
-                style={{
-                  bottom: "-8px",
-                  left: "20px",
-                  background: "#e0f7fa",
-                  boxShadow: "2px 2px 2px rgba(0,0,0,0.1)",
-                  clipPath: "polygon(0% 0%, 100% 100%, 0% 100%)",
-                }}
-              />
-              Typing...
-            </div>
-          )}
-        </div>
-      </div>
-
-      <div className="p-4 bg-white border-t border-gray-200 shadow-lg">
-        {showSuggestions && suggestions[language] && (
-          <div className="mb-4">
-            <div className="flex flex-wrap gap-2">
-              {suggestions[language].map((suggestion, index) => (
-                <button
-                  key={index}
-                  onClick={() => handleSuggestionClick(suggestion)}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
+    {/* Message Input and Suggestions */}
+    <div className="p-4 bg-white border-t border-gray-200 shadow-lg z-10">
+      {showSuggestions && suggestions[language] && (
+        <div className="mb-4">
+          <div className="flex flex-wrap gap-2">
+            {suggestions[language].map((suggestion, index) => (
+              <button
+                key={index}
+                onClick={() => handleSuggestionClick(suggestion)}
+                className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
+              >
+                {suggestion}
+              </button>
+            ))}
           </div>
-        )}
+        </div>
+      )}
 
-        <div className="flex items-center space-x-4">
-          <button
-            onClick={handleSpeechToText}
-            className={`${
-              isListening ? "bg-red-500" : "bg-blue-500"
-            } p-3 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md`}
-          >
-            {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
-          </button>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSendMessage(input);
-                setShowSuggestions(false);
-              }
-            }}
-            placeholder="Type your message..."
-            className="flex-grow p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            onClick={() => {
+      <div className="flex items-center space-x-4">
+        <button
+          onClick={handleSpeechToText}
+          className={`${
+            isListening ? "bg-red-500" : "bg-blue-500"
+          } p-3 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md`}
+        >
+          {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+        </button>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
               handleSendMessage(input);
               setShowSuggestions(false);
-            }}
-            className="bg-blue-500 p-3 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
-          >
-            <FaPaperPlane />
-          </button>
-        </div>
+            }
+          }}
+          placeholder="Type your message..."
+          className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <button
+          onClick={() => {
+            handleSendMessage(input);
+            setShowSuggestions(false);
+          }}
+          className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
+        >
+          <FaPaperPlane />
+        </button>
+        <select
+          value={language}
+          onChange={handleLanguageChange}
+          className="p-2 border border-gray-300 rounded-lg shadow-md"
+        >
+          <option value="en-US">English</option>
+          <option value="ar-SA">Arabic</option>
+        </select>
       </div>
     </div>
-  );
+  </div>  );
 };
 
 export default VirtualSupportAgent;

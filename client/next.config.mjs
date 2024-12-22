@@ -10,8 +10,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/register",
+        destination: "https://abdokh.pythonanywhere.com/api/register/patient/",
+      },
+    ];
+  },
 };
-
-
 
 export default nextConfig;

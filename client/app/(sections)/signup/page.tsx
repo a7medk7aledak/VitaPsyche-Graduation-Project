@@ -58,22 +58,68 @@ const LoginPage = () => {
     });
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const { password, confirmPassword, termsAccepted } = formData;
+    const {
+      name,
+      email,
+      password,
+      confirmPassword,
+      phone,
+      birthdate,
+      gender,
+      termsAccepted,
+    } = formData;
 
+    // تحقق من الشروط
     if (!termsAccepted) {
       alert("Please accept the terms and conditions.");
       return;
     }
-
     if (password !== confirmPassword) {
       alert("Passwords do not match.");
       return;
     }
 
-    console.log("Form submitted successfully:", formData);
+    try {
+      // إعداد البيانات في صيغة JSON
+      const payload = {
+        name,
+        email,
+        password,
+        phone,
+        birthdate,
+        gender,
+      };
+
+      // إرسال البيانات للـ API
+      const response = await fetch(
+        "https://abdokh.pythonanywhere.com/api/register/patient/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+
+      // معالجة الرد
+      if (!response.ok) {
+        const errorData = await response.json();
+        alert(`Registration failed: ${errorData.detail || "Unknown error"}`);
+        return;
+      }
+
+      const data = await response.json();
+      console.log("Registration successful:", data);
+
+      alert("Registration successful! You can now log in.");
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("An error occurred. Please try again.");
+    }
   };
 
   return (

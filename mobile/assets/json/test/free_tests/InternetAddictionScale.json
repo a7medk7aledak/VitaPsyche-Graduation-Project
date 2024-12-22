@@ -1,0 +1,234 @@
+{
+  "testTitle": "Internet Addiction Scale",
+  "questions": [
+    {
+      "id": 1,
+      "question": "How often do you find that you stay online longer than you intended?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+       
+      ]
+    },
+    {
+      "id": 2,
+      "question": "How often do you neglect household chores to spend more time online?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 3,
+      "question": "How often do you prefer the excitement of the Internet to intimacy with your partner?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 4,
+      "question": "How often do you form new relationships with fellow online users?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 5,
+      "question": "How often do others in your life complain to you about the amount of time you spend online?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 6,
+      "question": "How often does your academic performance suffer because of the time you spend online?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 7,
+      "question": "How often do you check your email before doing something else you need to do?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 8,
+      "question": "How often does your job performance or productivity suffer because of the Internet?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 9,
+      "question": "How often do you avoid others to spend more time online?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 10,
+      "question": "How often do you block disturbing thoughts about your life with soothing thoughts of the Internet?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 11,
+      "question": "How often do you find yourself anticipating the next time you will go online?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 12,
+      "question": "How often do you fear that life without the Internet would be boring, empty, and joyless?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 13,
+      "question": "How often do you become irritated if someone interrupts you while you are online?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 14,
+      "question": "How often do you lose sleep due to late-night log-ins?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 15,
+      "question": "How often do you find yourself thinking about the Internet even when you are offline?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 16,
+      "question": "How often do you say ‘just a few more minutes’ when online?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 17,
+      "question": "How often do you try to cut down the amount of time you spend online and fail?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 18,
+      "question": "How often do you hide how long you’ve been online from others?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 19,
+      "question": "How often do you choose to spend more time online over going out with others?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    },
+    {
+      "id": 20,
+      "question": "How often do you feel depressed, moody, or nervous when you are offline, which goes away once you are back online?",
+      "choices": [
+        { "score": 1, "text": "Rarely" },
+        { "score": 2, "text": "Sometimes" },
+        { "score": 3, "text": "Frequently" },
+        { "score": 4, "text": "Usually" },
+        { "score": 5, "text": "Always" }
+      ]
+    }
+  ],
+  "scoring": {
+    "instruction": "Add up your score for all the questions. The higher the score, the more severe your level of Internet addiction.",
+    "scoreRanges": [
+      { "range": "20-49", "description": "Your Internet use is within the normal range." },
+      { "range": "50-79", "description": "You are experiencing occasional problems due to Internet overuse." },
+      { "range": "80-100", "description": "Your Internet usage is causing significant problems in your life." }
+    ]
+  }
+}
