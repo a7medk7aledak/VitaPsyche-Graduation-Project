@@ -23,7 +23,16 @@
 - **Express & Node.js**: API back-end that communicates with the front-end and manages data flows between the client and server.
 
 ## Setup Instructions
-
+## What we use (tools and technics) in the project 
+- **[c4 model](https://lucid.app/lucidchart/d27bb7b0-a6a4-4dc4-b331-cb1cb5a0fe75/edit?viewport_loc=-3309%2C-2888%2C14183%2C6936%2CuP1BopAARZY8&invitationId=inv_62660a21-c50a-42fa-bc2f-c8654397950b)**
+- **[Graduation project document (have all details like requirements, sprints, scopes)]**
+- **[=>Arabic](https://docs.google.com/document/d/1X66JluUduaJcJb6x4oN44hjG9j4wGpks/edit?usp=sharing&ouid=106983660667056562566&rtpof=true&sd=true)**
+- **[=>English](https://docs.google.com/document/d/1R4gVHviel13bhA-YSg4s5ha7TkhZY2zE/edit?usp=sharing&ouid=106983660667056562566&rtpof=true&sd=true)**
+- **[Chatbot architecture ](https://lucid.app/lucidchart/0871c322-b0d0-439d-bfc4-b12ea432d21a/edit?viewport_loc=-1229%2C-57%2C2129%2C1041%2C0_0&invitationId=inv_d8c182c1-062d-4ef7-9f43-e9f8667c823c)**
+- **[structure of files](https://app.eraser.io/workspace/T243vGvCy29e7hE33kBA)**
+- **[Methodology SDLC =>Agile software Methodology](https://lucid.app/lucidspark/3b379e59-68f0-4db8-b93b-860cb50fa00a/edit?viewport_loc=-2422%2C-111%2C8894%2C4257%2C0_0&invitationId=inv_359fa0d4-c954-40f2-ae18-a486852a7bbf)**
+- **[hierarchy of the team](https://lucid.app/lucidchart/e68155fa-4cd0-45bc-98c4-c37fab8f13a0/edit?invitationId=inv_4fe57076-e824-4d25-ac5d-38e442c1d9dd&page=0_0)**
+- **[ALM (Application Lifecycle Management) (jira)](https://aiet-team.atlassian.net/jira/software/projects/DP/boards/1/backlog?epics=visible)**
 ### Prerequisites
 
 Ensure you have the following installed on your machine:
@@ -72,8 +81,12 @@ flutter pub get
 ```
 3-Django back-end:
 ```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
+py -3.9 -m venv .venv
+.\.venv\Scripts\activate
 cd server
 pip install django
+py -m pip install --upgrade pip
 pip install requests
 pip install django-cors-headers
 pip install -r requirements.txt
@@ -84,10 +97,11 @@ python manage.py runserver
 ```
 #note Python versions: 3.7, 3.8, 3.9, and 3.10. Note that Python 3.10 is only supported for versions 3.4.x and upwards
 #to make a new Environment =>  that step make it once
-python -m venv venv
-.\venv\Scripts\activate
 cd chatbot
 pip install rasa
+pip install --upgrade cryptography
+or
+pip install cryptography==3.4.8
 rasa train
 rasa run -m models --enable-api --cors "*"
 ```
@@ -95,6 +109,7 @@ rasa run -m models --enable-api --cors "*"
 ```
 cd lina model
 pip install rasa
+pip install cryptography==38.0.4
 rasa train
 rasa run --port 5006
 ```
@@ -110,11 +125,14 @@ rasa shell
 API Testing
 Use Postman or Insomnia to test the APIs for the back-end and to ensure the chatbot is responding as expected.
 
-figma
-moblie
-https://www.figma.com/design/QZWLyKjYRs6WmyCyAiuZII/Untitled?node-id=0-1&t=G417WzsZIOwOOTCJ-1
-web
-https://www.figma.com/design/o7kyURJwQIFXXfRQnH2K7D/mindMED?node-id=0-1&t=MTEzKBMnCCIYmVUO-1
+# Project Design Links figam
+
+### Mobile Design figma
+[moblie](https://www.figma.com/design/QZWLyKjYRs6WmyCyAiuZII/Untitled?node-id=0-1&t=G417WzsZIOwOOTCJ-1)
+
+### Web Design figma
+[web](https://www.figma.com/design/o7kyURJwQIFXXfRQnH2K7D/mindMED?node-id=0-1&t=MTEzKBMnCCIYmVUO-1)
+
 
 Deployment
 To deploy the application, you can use the following services:

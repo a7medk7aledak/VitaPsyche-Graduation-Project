@@ -8,12 +8,18 @@ import { PiMapPinArea } from "react-icons/pi";
 import { motion } from "framer-motion";
 
 const FindPsychiatrists = () => {
-  const [selectedCountry, setSelectedCountry] = useState<string>("Egypt");
+  const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [selectedGovernorate, setSelectedGovernorate] = useState<string>("");
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCountry(e.target.value);
-    setSelectedGovernorate("");
+    const country = e.target.value;
+    setSelectedCountry(country);
+
+    if (country && countriesData[country]) {
+      setSelectedGovernorate(countriesData[country][0]);
+    } else {
+      setSelectedGovernorate("");
+    }
   };
 
   const handleGovernorateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -68,7 +74,7 @@ const FindPsychiatrists = () => {
               </label>
               <div className="flex space-x-2">
                 <CiStethoscope className="text-3xl" />
-                <select className="outline-none px-3 py-2 text-maintext lg:max-w-32">
+                <select className="outline-none px-3 py-2 text-maintext lg:max-w-32 bg-slate-100">
                   <option value="">--Select Specialization--</option>
                   <option value="relationShips">Relationships</option>
                   <option value="addiction">Addiction</option>
@@ -93,11 +99,11 @@ const FindPsychiatrists = () => {
               <div className="flex space-x-2">
                 <PiMapPinArea className="text-3xl text-[#454141]" />
                 <select
-                  className="outline-none px-3 py-2 text-maintext"
+                  className="outline-none px-3 py-2 text-maintext bg-slate-100"
                   value={selectedCountry}
                   onChange={handleCountryChange}
                 >
-                  <option value="">Select the area</option>
+                  <option value="">--Select the area--</option>
                   {Object.keys(countriesData).map((country) => (
                     <option key={country} value={country}>
                       {country}
@@ -121,11 +127,11 @@ const FindPsychiatrists = () => {
               <div className="flex space-x-2">
                 <CiLocationOn className="text-3xl" />
                 <select
-                  className="outline-none px-3 py-2 text-maintext"
+                  className="outline-none px-3 py-2 text-maintext bg-slate-100"
                   value={selectedGovernorate}
                   onChange={handleGovernorateChange}
                 >
-                  <option value="">-- Select Governorate --</option>
+                  <option value="">-- Select Governorate -- </option>
                   {countriesData[selectedCountry]?.map((governorate) => (
                     <option key={governorate} value={governorate}>
                       {governorate}
@@ -154,7 +160,7 @@ const FindPsychiatrists = () => {
                   height={20}
                   className="w-full"
                 />
-                <select className="outline-none px-3 py-2 text-maintext">
+                <select className="outline-none px-3 py-2 text-maintext bg-slate-100">
                   <option value="">--Select name--</option>
                 </select>
               </div>

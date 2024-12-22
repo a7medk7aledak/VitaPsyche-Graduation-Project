@@ -18,6 +18,8 @@
       }
     ],
     "paths": {
+      "@constants/*": ["./app/constants/*"],
+      "@store/*": ["./app/store/*"],
       "@components/*": ["./app/components/*"],
       "@app/*": ["./app/*"],
       "@/*": ["./*"]

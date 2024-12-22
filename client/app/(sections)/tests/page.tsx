@@ -30,7 +30,7 @@ const TestsPage: React.FC = () => {
         icon: '/path-to-adhd-icon.png'
       },
       { 
-        title: 'Stress scale', 
+        title: 'Internet Addiction Scale', 
         description: 'Answer the following questions based on your recent state and feelings.',
         icon: '/path-to-stress-icon.png'
       }

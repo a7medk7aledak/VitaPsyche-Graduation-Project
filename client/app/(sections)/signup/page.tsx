@@ -32,7 +32,9 @@ const LoginPage = () => {
   const togglePasswordVisibility1 = () => setShowPassword1(!showPassword1);
   const togglePasswordVisibility2 = () => setShowPassword2(!showPassword2);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value, type } = e.target;
 
     if (type === "checkbox") {
@@ -86,14 +88,26 @@ const LoginPage = () => {
           <form className="max-w-lg w-full mx-auto" onSubmit={handleSubmit}>
             <div className="mb-8 text-center flex items-center justify-center">
               <img src="/images/logo.png" alt="logo" className="w-32" />
-              <p className="mr-2 text-3xl font-semibold text-heading">MindMed</p>
+              <p className="mr-2 text-3xl font-semibold text-heading ">
+                Vitapsyche
+              </p>
             </div>
 
             <div className="mb-12 items-center">
-              <h3 className="text-3xl font-bold text-center text-maintext">Create an account</h3>
+              <h3 className="text-3xl font-bold text-center text-maintext">
+                Create an account
+              </h3>
             </div>
 
-            {["name", "email", "password", "confirmPassword", "phone", "birthdate", "gender"].map((field, index) => (
+            {[
+              "name",
+              "email",
+              "password",
+              "confirmPassword",
+              "phone",
+              "birthdate",
+              "gender",
+            ].map((field, index) => (
               <motion.div
                 key={field}
                 initial={{ opacity: 0, y: 20 }}
@@ -103,7 +117,9 @@ const LoginPage = () => {
               >
                 {field === "name" && (
                   <>
-                    <label className="text-maintext text-xs block mb-2">Full Name</label>
+                    <label className="text-maintext text-xs block mb-2">
+                      Full Name
+                    </label>
                     <div className="relative flex items-center">
                       <FaUser className="absolute left-2 text-button" />
                       <input
@@ -121,7 +137,9 @@ const LoginPage = () => {
 
                 {field === "email" && (
                   <>
-                    <label className="text-maintext text-xs block mb-2">Email</label>
+                    <label className="text-maintext text-xs block mb-2">
+                      Email
+                    </label>
                     <div className="relative flex items-center">
                       <FaEnvelope className="absolute left-2 text-button" />
                       <input
@@ -139,7 +157,9 @@ const LoginPage = () => {
 
                 {field === "password" && (
                   <>
-                    <label className="text-maintext text-xs block mb-2">Password</label>
+                    <label className="text-maintext text-xs block mb-2">
+                      Password
+                    </label>
                     <div className="relative flex items-center">
                       <FaLock className="absolute left-2 text-button" />
                       <input
@@ -163,7 +183,9 @@ const LoginPage = () => {
 
                 {field === "confirmPassword" && (
                   <>
-                    <label className="text-maintext text-xs block mb-2">Confirm Password</label>
+                    <label className="text-maintext text-xs block mb-2">
+                      Confirm Password
+                    </label>
                     <div className="relative flex items-center">
                       <FaLock className="absolute left-2 text-button" />
                       <input
@@ -187,7 +209,9 @@ const LoginPage = () => {
 
                 {field === "phone" && (
                   <>
-                    <label className="text-maintext text-xs block mb-2">Phone Number</label>
+                    <label className="text-maintext text-xs block mb-2">
+                      Phone Number
+                    </label>
                     <PhoneInput
                       country={"eg"}
                       value={formData.phone}
@@ -213,7 +237,9 @@ const LoginPage = () => {
 
                 {field === "birthdate" && (
                   <>
-                    <label className="text-maintext text-xs block mb-2">Birth Date</label>
+                    <label className="text-maintext text-xs block mb-2">
+                      Birth Date
+                    </label>
                     <div className="relative flex items-center">
                       <FaCalendarAlt className="absolute left-2 text-button" />
                       <input
@@ -230,7 +256,9 @@ const LoginPage = () => {
 
                 {field === "gender" && (
                   <>
-                    <label className="text-maintext text-xs block mb-2">Gender</label>
+                    <label className="text-maintext text-xs block mb-2">
+                      Gender
+                    </label>
                     <div className="relative flex items-center">
                       <FaVenusMars className="absolute left-2 text-button" />
                       <select
@@ -266,7 +294,10 @@ const LoginPage = () => {
                 onChange={handleInputChange}
                 className="h-4 w-4 shrink-0 rounded"
               />
-              <label htmlFor="termsAccepted" className="text-maintext ml-3 block text-sm">
+              <label
+                htmlFor="termsAccepted"
+                className="text-maintext ml-3 block text-sm"
+              >
                 I accept the{" "}
                 <a
                   href="#"
@@ -288,7 +319,10 @@ const LoginPage = () => {
 
             <p className="text-sm text-maintext mt-8 text-left">
               Already have an account?{" "}
-              <Link href="/signin" className="text-heading font-semibold hover:underline ml-1">
+              <Link
+                href="/signin"
+                className="text-heading font-semibold hover:underline ml-1"
+              >
                 Login here
               </Link>
             </p>

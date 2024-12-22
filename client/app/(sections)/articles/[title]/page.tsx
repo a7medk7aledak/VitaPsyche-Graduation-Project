@@ -85,8 +85,8 @@ const ArticlePage = ({ params }: { params: { title: string } }) => {
                 Causes
               </h2>
               <ul className="list-disc list-inside space-y-3">
-                {article.content.causes.map((cause) => (
-                  <li key={cause} className="leading-relaxed text-lg">
+                {article.content.causes.map((cause, indx) => (
+                  <li key={indx} className="leading-relaxed text-lg">
                     {cause}
                   </li>
                 ))}

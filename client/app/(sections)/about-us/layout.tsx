@@ -8,7 +8,7 @@ interface layoutProps {
 
 const layout: FC<layoutProps> = ({ children }) => {
   return (
-    <div className="bg-[#efefef] ">
+    <div className="bg-[#efefef] min-h-screen">
       <Navbar />
       {children}
       <Footer />

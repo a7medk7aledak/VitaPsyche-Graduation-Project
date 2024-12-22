@@ -1,0 +1,288 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "title": "Herbal Mood Sleep Collection",
+      "subTitle": "Top 4 Aromatherapy Oils | Gift Box | Incl. Lavender, Peppermint, Geranium, Lemon |Sweet Dreams, Relax, & Stress Relief Oils",
+      "price": "EGP899.00",
+      "about": [
+        "Natural healing powers! Sleep Collection Essential oil set is a calming, skin-soothing, relaxing, Essential oil.",
+        "Sleep better safely and naturally with premium Essential oils.",
+        "Sleep Essential oils set help to relax the mind and body.",
+        "It has earthy floral, relaxing aroma and is a combination of Lavender, Geranium, Lemongrass and peppermint!",
+        "It can be inhaled, diffused, and applied topically.",
+        "Become relaxed, and sleep better in an instant with a simple drop!",
+        "Relax naturally! This set aspires to soothe the body, and promote deep, meaningful rest."
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "title": "Stress And Anxiety Relief Cube Fidget Toys for Kids",
+      "subTitle": "",
+      "price": "EGP 60.00",
+
+      "about": [
+        "Easy to use",
+        "It provides endless hours of fun and entertainment",
+        "It is good to improve imagination and creativity",
+        "Perfect for developing kid's imagination and manual dexterity",
+        "It helps improving motor skills, hand-eye coordination"
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "title": "1Pcs Colored Soft Grape Mesh Pressure Balls Squeeze",
+      "subTitle": " Change Color Balls Stress Relieve Sensory Squishy Balls Hand Exercise Bouncy Balls. (Blue)",
+      "price": "EGP 65.00",
+
+      "about": [
+        "Magic happens when you squeeze the ball - each ball will show 3 beautiful colors: yellow turns blue, pink and light yellow! Blue turns green, white and blue! Pink turns green, white and yellow! Purple turns pink, white and light purple!",
+        "Stress Relief Balls: These soft stress balls help relieve stress and anxiety in adults and can help people with autism and ADHD.",
+        "Toy material: The toy is made of TPR material, which is soft to the touch, high elasticity and strong recovery. Non-toxic, safe toys for teenagers.",
+        "Best Gifts: Reticulated Pressure Ball Feel Squeeze Toy Fingertip Ball Perfect, Easter, Halloween"
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Stress Relief Gift Basket",
+      "subTitle": "Mental Health Self Care Package for Her - Stress Relief Gift - Care Package for Her - Friendship Gift - Self Care Box For Women- send a gift.",
+      "price": "EGP 3,151.20",
+
+      "about": [
+        "1 Scented candle 3.5oz in the steel golden container, made with soy-bees wax, organic wooden wick, rose and peony fragrance oils added.",
+        "1 Lip balm made with Cocoa butter, Coconut oil, Shea butter and Bees wax. No fragrance added.",
+        "1 Handmade soap bar 3oz (ingredients: saponified coconut oil, olive oil, sweet almond oil, castor oil, bees wax, shea butter, natural colorants, dried rose petals, rose and peony fragrance oils added).",
+        "1 Scented body oil 1oz (sweet almond oil, olive oil, jojoba oil, argan oil, castor oil, rose fragrance oil, peony fragrance oil).",
+        "1 Bath melt (cocoa butter, shea butter, silky emulsifying wax, BTMS 25, polysorbate 80). No fragrance added.",
+        "1 Tube bath 1oz himalayan pink salt with epsom salt. No fragrance added."
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+
+    {
+      "id": "5",
+      "title": "LIGHTBULB IDEAS",
+      "subTitle": "Yogi Stress Balls - Stress Ball with Finger Grip Strap, Stress Balls for Adults and Kids, Grip Strength Trainer Squeeze Balls, Anxiety Stress Relief, Fidget Handball, Squish Ball - 3 Pack",
+      "price": "EGP 675.00",
+
+      "about": [
+        "Our squeeze ball for hand strength helps you stay focused, calm, uplift your mood while strengthening your hand grip. The stress balls for adults and kids are perfect for squishing and squeezing as a sensory toy.",
+        "Our hand strengthener fidget toy combines squishy texture with a flexible finger strap that keeps the ball on your finger so you can keep squishing the hand exercise ball. A great stress relief toy for kids, teens, and adults!",
+        "The hand trainer foam stress balls are made using squishy gel with a smooth fabric cover to offer the right balance of quality, comfort, and softness so you can keep squishing the hand therapy ball throughout the day.",
+        "Each hand strengthening ball is designed with a motivational and inspirational quote that also serves as a stress relief toy to keep training fun, making it a perfect gift for loved ones of all ages."
+      ],
+      "images": [
+        {
+          "id": "img-1",
+          "url": "path/to/main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-2",
+          "url": "path/to/image_2.jpg",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "path/to/image_3.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "title": "Anti Stress Punch",
+      "subTitle": "Me Guy Suction Cup For Office Desk Coworker Boss Gift Green",
+      "price": "EGP 122.00",
+
+      "about": [
+        "Used for stress reliever.",
+        "Perfect for home/office.",
+        "This product will be an excellent pick for you.",
+        "Comes in a proper and secure packaging."
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "7",
+      "title": "Head Scalp Massager",
+      "subTitle": "",
+      "price": "EGP 300.00",
+
+      "about": [
+        "Head Scalp Massager for Headache Relief, Scalp Stress Relax, Hair Stimulation Head Massager, Massager Pain Relief And Hair Growth, Neck Massager (Multi Color).",
+        "Material: Handle (Plastic), Fingers (Plastic), Touch points (stainless steel).",
+        "Suitable for Home, Travel and Office use.",
+        "Relieves Stress, Removes Muscle Tension & Tiredness, Improves Blood Circulation By Massaging Head Or Points On Body."
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "8",
+      "title": "Sleep Headphones",
+      "subTitle": "Headband Wireless V5.0 Bluetooth Headphones, Eye mask Headphones, Built-in ultra-thin HD stereo speakers, Suitable for Side sleep/Sports/Yoga/Fitness/Relaxation",
+      "price": "EGP 400.00",
+
+      "about": [
+        "【2 in 1 Multifunctional】: Sleep Headphones & Sports Headband 2 in 1. Our wireless Bluetooth sleep headset uses a headband design and protects you from being disturbed by your messy hair and sweat. Best Sleeping Headphones for Side Sleepers. It can also be used to eliminate environmental noise. Very suitable for fitness, sleeping, yoga, and other activities.",
+        "【Superior Bluetooth V5.0 Tech & Excellent Stereo】: Built-in speaker with a thickness of only 0.25 inches, which is very comfortable for sleepers. Wireless sleep headphones feature Bluetooth 5.0 version with quality chip, fast pairing speed, less power consumption, 10M wireless range, compatible with all Bluetooth devices. Ensures stable clear sound and excellent HD HIFI sound quality even when the headphones are used in sports.",
+        "【Soft and Comfortable & Washable】: Sleep earphones are made of durable and sturdy braided cord and fit most head shapes."
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "9",
+      "title": "Massage Seat Cushion",
+      "subTitle": "with Heat Back Massager Heated Seat Cover with 5 Vibrating Massage Nodes & 2 Heat Levels Massage Chair Pad for Pain Relief Home Office Use",
+      "price": "EGP 120000",
+
+      "about": [
+        "ULTIMATE COMFORT: The heated massage seat cushion has 5 vibration motors providing ultimate comfort for long trips and extended sitting with home and car adapters. (Note: This is Vibrating massage, not Shiatsu Massage with Rolling Balls)",
+        "SOOTHING HEAT: The seat warmer with auto shut-off targets the full back and seat, radiating gentle warmth. It is also equipped with an overheating protection system with dual insurance for safe use.",
+        "PERFECT GIFTS: Our Back Massager Heated Seat Cover is a perfect gift for Father's Day, Mother's Day, or for Dad, Mum, friends, wife, husband, or any loved ones. Suitable for various occasions, it can be used at home, in the office, etc.",
+        "CUSTOMIZE SETTING: The seat massage cushion features 4 vibration modes targeting 4 areas (Upper back, Lower back, Hips, and Thighs), 2 intensity levels, and an individual Heat on/off button."
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "10",
+      "title": "Mindsight 'Breathing Buddha'",
+      "subTitle": "Guided Visual Meditation Tool for Mindfulness",
+      "price": "EGP 587.00",
+
+      "about": [
+        "WHAT IT'S FOR: Daily guided breathing to help calm and focus your mind during the day or promote a peaceful night's sleep, improving overall wellness. Continued practice can help manage or reduce stress and anxiety in all ages and can help improve symptoms of depression. A simple and fun meditation tool that can also cultivate mindfulness to help you live in the present moment.",
+        "HOW TO USE IT: Two easy-to-use modes with fade-in, fade-out color prompts that simulate the popular 4/7/8 or 5/5 'calming breath'. Green Buddha - Inhale, Purple Buddha - Hold, Blue Buddha - Exhale. Lightly tap on the surface to adjust brightness.",
+        "WHO IT'S FOR: Adults and kids who might benefit from a gentle daily reminder to 'pause and reset'; visual learners who might prefer guided open-eyed meditation (those who find closing their eyes harder to focus); beginning to advanced meditation practitioners; those interested in mindfulness; teachers and counselors."
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    },
+    {
+      "id": "11",
+      "title": "experiment Dot Journaling",
+      "subTitle": "A Practical Guide: How to Start and Keep the Planner, To-Do List, and Diary That'll Actually Help You Get Your Life Together",
+      "price": "EGP 240.00",
+
+      "about": [
+        "Anyone who needs a practical resource for getting his or her life in order will fit it with Miller's step-by-step guide to Dot Journaling. -- 'Atlanta Journal-Constitution'",
+        "If you've never experimented with bullet journaling, this set provides an excellent foray into the art form, namely because it comes with a comprehensive how-to guide. . . . Great quality. -- 'The Spruce'",
+        "It covers everything (seriously, everything) you could ever want to know about organizing your life into one simple journal. -- 'Apartment Therapy'",
+        "This book . . . will actually help you get your life together."
+      ],
+      "images": [
+        {
+          "id": "img-4",
+          "url": "path/to/another_main_image.jpg",
+          "type": "main"
+        },
+        {
+          "id": "img-5",
+          "url": "path/to/another_image_2.jpg",
+          "type": "secondary"
+        }
+      ]
+    }
+  ]
+}

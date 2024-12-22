@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
 import {
   FaMicrophone,
@@ -7,7 +8,72 @@ import {
   FaGlobe,
   FaHome,
 } from "react-icons/fa";
-import Image from "next/image";
+
+// Define Speech Recognition related events
+interface SpeechRecognitionErrorEvent extends Event {
+  error: string;
+  message: string;
+}
+
+interface SpeechGrammar {
+  src: string;
+  weight: number;
+}
+
+interface SpeechGrammarList {
+  readonly length: number;
+  addFromString(string: string, weight?: number): void;
+  addFromURI(src: string, weight?: number): void;
+  item(index: number): SpeechGrammar;
+  [index: number]: SpeechGrammar;
+}
+
+// Define the base SpeechRecognition interface
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  grammars: SpeechGrammarList;
+  interimResults: boolean;
+  lang: string;
+  maxAlternatives: number;
+  onaudioend: ((ev: Event) => void) | null;
+  onaudiostart: ((ev: Event) => void) | null;
+  onend: ((ev: Event) => void) | null;
+  onerror: ((ev: SpeechRecognitionErrorEvent) => void) | null;
+  onnomatch: ((ev: SpeechRecognitionEvent) => void) | null;
+  onresult: ((ev: SpeechRecognitionEvent) => void) | null;
+  onsoundend: ((ev: Event) => void) | null;
+  onsoundstart: ((ev: Event) => void) | null;
+  onspeechend: ((ev: Event) => void) | null;
+  onspeechstart: ((ev: Event) => void) | null;
+  onstart: ((ev: Event) => void) | null;
+  start(): void;
+  stop(): void;
+  abort(): void;
+}
+
+interface SpeechRecognitionAlternative {
+  transcript: string;
+  confidence: number;
+}
+
+interface SpeechRecognitionResult {
+  readonly length: number;
+  item(index: number): SpeechRecognitionAlternative;
+  [index: number]: SpeechRecognitionAlternative;
+  isFinal: boolean;
+}
+
+interface SpeechRecognitionResultList {
+  readonly length: number;
+  item(index: number): SpeechRecognitionResult;
+  [index: number]: SpeechRecognitionResult;
+}
+
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+  resultIndex: number;
+  interpretation: unknown;
+}
 
 const VirtualSupportAgent: React.FC = () => {
   const [messages, setMessages] = useState<
@@ -16,13 +82,11 @@ const VirtualSupportAgent: React.FC = () => {
   const [input, setInput] = useState<string>("");
   const [isListening, setIsListening] = useState<boolean>(false);
   const [language, setLanguage] = useState<string>("en-US");
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(
-    null
-  );
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(true);
   const [isTyping, setIsTyping] = useState<boolean>(false);
 
-  const suggestions = {
+  const suggestions: { [key: string]: string[] } = {
     "en-US": [
       "I need help.",
       "How can I manage stress?",
@@ -41,19 +105,40 @@ const VirtualSupportAgent: React.FC = () => {
     ],
   };
 
-  useEffect(() => {
-    if ("webkitSpeechRecognition" in window) {
-      const speechRecognition = new (window as any).webkitSpeechRecognition();
+// Define SpeechRecognitionConstructor type
+type SpeechRecognitionConstructor = new () => SpeechRecognition;
+
+useEffect(() => {
+  if (typeof window !== 'undefined') {
+    // Directly access SpeechRecognition API with the appropriate casting
+    const SpeechRecognitionAPI = 
+      (window as typeof window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor })
+        .SpeechRecognition || 
+      (window as typeof window & { SpeechRecognition?: SpeechRecognitionConstructor; webkitSpeechRecognition?: SpeechRecognitionConstructor })
+        .webkitSpeechRecognition;
+
+    if (SpeechRecognitionAPI) {
+      const speechRecognition = new SpeechRecognitionAPI();
       speechRecognition.lang = language;
       speechRecognition.continuous = false;
       speechRecognition.interimResults = false;
+
       speechRecognition.onresult = (event: SpeechRecognitionEvent) => {
-        setInput(event.results[0][0].transcript);
+        if (event.results.length > 0) {
+          const transcript = event.results[0][0].transcript;
+          setInput(transcript);
+        }
       };
+
+      speechRecognition.onend = () => {
+        setIsListening(false);
+      };
+
       setRecognition(speechRecognition);
     }
-  }, [language]);
-
+  }
+}, [language]);
+    
   const handleSendMessage = async (text: string) => {
     if (text.trim() !== "") {
       const userMessage = { sender: "user", text, lang: language };
@@ -133,13 +218,12 @@ const VirtualSupportAgent: React.FC = () => {
 
       <div className="flex-grow flex flex-col items-center justify-center relative overflow-hidden">
         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-          <Image
-            src="/images/Capture.PNG"
-            alt="Virtual Agent"
-            className="h-64 w-auto object-contain"
-            width={550}
-            height={550}
-          />
+        <img
+  src="/images/Capture.jpeg"
+  alt="Virtual Agent"
+  className="w-full h-full object-cover"
+/>
+
         </div>
         <div className="w-full max-w-4xl px-4 overflow-y-auto flex flex-col-reverse">
           {messages.map((msg, index) => (
@@ -183,51 +267,61 @@ const VirtualSupportAgent: React.FC = () => {
                   clipPath: "polygon(0% 0%, 100% 100%, 0% 100%)",
                 }}
               />
-              <div className="animate-pulse text-blue-500">...</div>
+              Typing...
             </div>
           )}
         </div>
       </div>
 
-      {showSuggestions && (
-        <div className="flex flex-wrap justify-center space-x-2 p-4">
-          {suggestions[language].map((suggestion, index) => (
-            <button
-              key={index}
-              onClick={() => handleSuggestionClick(suggestion)}
-              className="p-2 bg-blue-500 text-white rounded-full shadow-md hover:bg-blue-600 transition duration-300 m-2"
-            >
-              {suggestion}
-            </button>
-          ))}
-        </div>
-      )}
+      <div className="p-4 bg-white border-t border-gray-200 shadow-lg">
+        {showSuggestions && suggestions[language] && (
+          <div className="mb-4">
+            <div className="flex flex-wrap gap-2">
+              {suggestions[language].map((suggestion, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
-      <div className="flex items-center p-4 border-t border-gray-200 bg-white w-full">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSendMessage(input)}
-          placeholder={
-            language === "en-US" ? "Type your message..." : "اكتب رسالتك..."
-          }
-          className="flex-grow p-3 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-left"
-        />
-        <button
-          onClick={() => handleSendMessage(input)}
-          className="p-3 ml-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300"
-        >
-          <FaPaperPlane />
-        </button>
-        <button
-          onClick={handleSpeechToText}
-          className={`p-3 ml-2 text-white rounded-full ${
-            isListening ? "bg-red-500" : "bg-blue-500"
-          } hover:bg-blue-600 transition duration-300`}
-        >
-          {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
-        </button>
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={handleSpeechToText}
+            className={`${
+              isListening ? "bg-red-500" : "bg-blue-500"
+            } p-3 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md`}
+          >
+            {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+          </button>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSendMessage(input);
+                setShowSuggestions(false);
+              }
+            }}
+            placeholder="Type your message..."
+            className="flex-grow p-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={() => {
+              handleSendMessage(input);
+              setShowSuggestions(false);
+            }}
+            className="bg-blue-500 p-3 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
+          >
+            <FaPaperPlane />
+          </button>
+        </div>
       </div>
     </div>
   );

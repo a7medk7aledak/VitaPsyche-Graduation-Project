@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { SlMenu } from "react-icons/sl";
 import { IoMdClose } from "react-icons/io";
 import Link from "next/link";
@@ -9,14 +9,29 @@ import { CiLogin } from "react-icons/ci";
 
 const MobileNav = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const menuRef = useRef<HTMLDivElement>(null); // Ref for the menu element
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
-      <div className="flex lg:hidden cursor-pointer " onClick={toggleMenu}>
+      <div className="flex lg:hidden cursor-pointer" onClick={toggleMenu}>
         {isOpen ? (
           <IoMdClose className="text-3xl" />
         ) : (
@@ -24,8 +39,8 @@ const MobileNav = () => {
         )}
       </div>
 
-      {/* Menu Wrapper */}
       <div
+        ref={menuRef}
         className={`absolute flex lg:hidden flex-col w-full bg-slate-400 left-0 z-50 text-center p-3 rounded-md shadow-lg transition-all duration-500 ease-in-out ${
           isOpen ? "top-[70px] opacity-100" : "top-[-400px] opacity-0"
         }`}
@@ -57,13 +72,13 @@ const MobileNav = () => {
           </select>
 
           <div className="space-x-2 flex mb-2 mt-2">
-            <Link href="signin">
+            <Link href="/signin">
               <button className="flex items-center bg-subbutton text-white rounded-md px-4 py-2 hover:bg-hoversubbutton">
                 <span>Sign in</span>
                 <CiLogin />
               </button>
             </Link>
-            <Link href="signup">
+            <Link href="/signup">
               <button className="flex items-center bg-subbutton text-white rounded-md px-4 py-2 hover:bg-hoversubbutton">
                 <span>Sign up</span>
                 <BsPersonAdd />

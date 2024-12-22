@@ -7,11 +7,11 @@ const Logo = () => {
     <Link href={"/"} className="flex items-center flex-shrink-0">
       <Image
         src="/images/logo.png"
-        alt="MindMed Logo"
+        alt="Vitapsyche Logo"
         width={65}
         height={65}
       />
-      <h2 className="text-2xl font-semibold  text-teal-700">MindMed</h2>
+      <h2 className="text-2xl font-semibold  text-teal-700 ">Vitapsyche</h2>
     </Link>
   );
 };

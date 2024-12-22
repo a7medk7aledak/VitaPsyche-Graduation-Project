@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -29,16 +30,15 @@ const ScrollToTopButton = () => {
   }, []);
 
   return (
-    <div
-      className={`fixed bottom-6 right-6 z-50 transition-opacity duration-500 ease-in-out ${
-        isVisible
-          ? "opacity-60 translate-y-0"
-          : "opacity-0 translate-y-4 pointer-events-none"
-      } hover:opacity-90`}
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={isVisible ? { opacity: 0.6, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+      className="fixed bottom-6 right-6 z-50"
     >
       <button
         onClick={scrollToTop}
-        className="bg-transparent p-4 rounded-full  transition-transform duration-300 hover:scale-110 flex justify-center items-center"
+        className="bg-transparent p-4 rounded-full transition-transform duration-300 hover:scale-110 flex justify-center items-center"
       >
         <Image
           src={"/images/scrollUp.png"}
@@ -47,7 +47,7 @@ const ScrollToTopButton = () => {
           alt="scrollUp.png"
         />
       </button>
-    </div>
+    </motion.div>
   );
 };
 
