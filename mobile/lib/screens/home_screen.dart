@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmed_project/screens/Lyna_Model.dart';
 import 'package:flutter_mindmed_project/screens/chatbot.dart';
-import 'package:flutter_mindmed_project/screens/lina/lina_screen.dart';
 import 'package:flutter_mindmed_project/screens/services/products/all_products_screen.dart';
 import 'package:flutter_mindmed_project/screens/services/blog/blog_service.dart';
 import 'package:flutter_mindmed_project/screens/services/test_services/test_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../const/animation_gif.dart';
 import '../const/colors.dart';
-import '../widgets/animation_gif.dart';
-import '../widgets/const_image.dart';
+import '../const/const_image.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen>
                     subtitle1: 'Click to Treat',
                     subtitle2: 'Yourself',
                     imagePath: AnimationGif.linachatBot,
-                    onTap: () => Navigator.of(context).pushNamed(LinaScreen.id),
+                    onTap: () => Navigator.of(context).pushNamed(LynaModel.id),
                     clipRoundedImage: true,
                   ),
                 ],

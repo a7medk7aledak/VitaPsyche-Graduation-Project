@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import '../const/colors.dart';
+import 'package:flutter_mindmed_project/screens/splash_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
 
+import '../widgets/colors.dart'; // Assuming primaryColor is defined here
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -45,6 +48,20 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: primaryColor, // Set the AppBar color
+        title: const Text(
+          'Profile',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back,
+              color: Colors.white), // White back arrow
+          onPressed: () {
+            Navigator.of(context).pop(); // Go back to the previous screen
+          },
+        ),
+      ),
       body: SingleChildScrollView(
         child: Stack(children: [
           Column(
@@ -187,74 +204,71 @@ class _ProfileState extends State<Profile> {
                                     20), // Space between avatar and user info
                             Padding(
                               padding: EdgeInsets.only(bottom: 50),
-                              child: Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons
-                                              .person, // Icon next to user name
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.person, // Icon next to user name
+                                        color: secoundryColor,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        'User Name', // User name text
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
                                           color: secoundryColor,
                                         ),
-                                        const SizedBox(width: 5),
-                                        Text(
-                                          'User Name', // User name text
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: secoundryColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.email, // Email icon
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.email, // Email icon
+                                        color: secoundryColor,
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Text(
+                                        'user@example.com', // User email text
+                                        style: TextStyle(
+                                          fontSize: 14,
                                           color: secoundryColor,
                                         ),
-                                        const SizedBox(width: 5),
-                                        Text(
-                                          'user@example.com', // User email text
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: secoundryColor,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Container(
-                                      height: 35,
-                                      decoration: BoxDecoration(
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Container(
+                                    height: 35,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          primaryColor, // Background color of the button
+                                      borderRadius: BorderRadius.circular(8),
+                                      border: Border.all(
                                         color:
-                                            primaryColor, // Background color of the button
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                          color: Colors
-                                              .white, // White border color
-                                          width: 2, // Border width
-                                        ),
+                                            Colors.white, // White border color
+                                        width: 2, // Border width
                                       ),
-                                      child: TextButton(
-                                        onPressed: () {
-                                          // TODO: Add functionality to edit profile
-                                        },
-                                        child: Text(
-                                          'Edit Info',
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            color: secoundryColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                    ),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        // TODO: Add functionality to edit profile
+                                      },
+                                      child: Text(
+                                        'Edit Info',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: secoundryColor,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
@@ -350,9 +364,7 @@ class _ProfileState extends State<Profile> {
                     ),
                     SizedBox(width: 25),
                     ElevatedButton(
-                      onPressed: () {
-                        // Handle sign out logic
-                      },
+                      onPressed: _signOut, // Call sign out function
                       style: ElevatedButton.styleFrom(
                         side: const BorderSide(
                             color: Colors.red, width: 2), // Border only
@@ -396,5 +408,18 @@ class _ProfileState extends State<Profile> {
         ]),
       ),
     );
+  }
+
+  void _signOut() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('access_token'); // Remove the access token
+    Fluttertoast.showToast(
+      backgroundColor: primaryColor,
+      msg: "Successfully logged out", // Success message
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+    );
+    Navigator.of(context)
+        .pushReplacementNamed(SplashScreen.id); // Navigate to SplashScreen
   }
 }

@@ -34,7 +34,6 @@ class More extends StatelessWidget {
       'title': 'Sign Out',
       'icon': Icons.logout,
       'onTap': SplashScreen.id,
-      'color': redColor,
     },
   ];
 

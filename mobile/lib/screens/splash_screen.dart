@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../const/colors.dart';
 import '../const/const_image.dart';
-import 'custom_button_bar.dart';
+import 'custem_button_bar.dart';
 import 'signin_screen.dart';
 import 'signup_screen.dart';
 
@@ -41,130 +41,142 @@ class SplashScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: secoundryColor,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 70),
-        child: Column(
-          children: [
-            // App Title
-            Text(
-              'Vitapsyche',
-              style: TextStyle(
-                fontSize: 30.sp,
-                color: primaryColor,
-                fontWeight: FontWeight.bold,
+      body: Stack(children: [
+        Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/SplashScreen.png'),
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 100),
+          child: Column(
+            children: [
+              // App Title
+              Text(
+                'Vitapsyche',
+                style: TextStyle(
+                  fontSize: 30.sp,
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            // App Logo
-            Image.asset(
-              logoApp,
-              height: 170,
-              width: 170,
-            ),
-            // Subtitle
-            Text(
-              'The journey to healing \nstarts here...',
-              style: TextStyle(
-                  color: mainBlueColor,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 10.h,
-            ),
-            // Buttons
-            buildElevatedButton(
-              title: 'Sign in',
-              onPressed: () => Navigator.of(context).pushNamed(SigninScreen.id),
-            ),
-            SizedBox(
-              height: 20.h,
-            ),
-            buildElevatedButton(
-              title: 'Sign up',
-              onPressed: () => Navigator.of(context).pushNamed(SignupScreen.id),
-            ),
-            // Divider with "or"
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: getHeight(20.0)),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Divider(
-                      color: Colors.grey,
-                      thickness: 1,
-                      indent: getWidth(50),
-                      endIndent: getWidth(10),
-                    ),
-                  ),
-                  Text(
-                    "or",
-                    style:
-                        TextStyle(color: Colors.grey, fontSize: getWidth(16)),
-                  ),
-                  Expanded(
-                    child: Divider(
-                      color: Colors.grey,
-                      thickness: 1,
-                      indent: getWidth(10),
-                      endIndent: getWidth(50),
-                    ),
-                  ),
-                ],
+              SizedBox(
+                height: 10.h,
               ),
-            ),
-            // Guest Mode Button
-            buildElevatedButton(
-              title: 'Continue as Guest',
-              onPressed: () {
-                Navigator.of(context).pushNamed(CustomButtonBar.id);
-              },
-            ),
-            // Language Selector
-            Padding(
-              padding: EdgeInsets.only(top: getHeight(30)),
-              child: SizedBox(
-                width: getWidth(150),
-                child: Center(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      // Handle language change
-                    },
-                    style: OutlinedButton.styleFrom(
-                      side: const BorderSide(color: primaryColor, width: 2),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+              // App Logo
+              Image.asset(
+                logoApp,
+                height: 170,
+                width: 170,
+              ),
+              // Subtitle
+              Text(
+                'The journey to healing \nstarts here...',
+                style: TextStyle(
+                    color: mainBlueColor,
+                    fontSize: 20.sp,
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              // Buttons
+              buildElevatedButton(
+                title: 'Sign in',
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(SigninScreen.id),
+              ),
+              SizedBox(
+                height: 20.h,
+              ),
+              buildElevatedButton(
+                title: 'Sign up',
+                onPressed: () =>
+                    Navigator.of(context).pushNamed(SignupScreen.id),
+              ),
+              // Divider with "or"
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: getHeight(20.0)),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Divider(
+                        color: Colors.grey,
+                        thickness: 1,
+                        indent: getWidth(50),
+                        endIndent: getWidth(10),
                       ),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(
-                          'assets/images/flag.png',
-                          width: getWidth(24),
-                          height: getHeight(24),
-                        ),
-                        SizedBox(width: getWidth(8)),
-                        Text(
-                          'English',
-                          style: TextStyle(
-                            color: primaryColor,
-                            fontSize: getWidth(14),
+                    Text(
+                      "or",
+                      style:
+                          TextStyle(color: Colors.grey, fontSize: getWidth(16)),
+                    ),
+                    Expanded(
+                      child: Divider(
+                        color: Colors.grey,
+                        thickness: 1,
+                        indent: getWidth(10),
+                        endIndent: getWidth(50),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Guest Mode Button
+              buildElevatedButton(
+                title: 'Continue as Guest',
+                onPressed: () {
+                  // AuthService.logout();
+                  Navigator.of(context).pushNamed(CustemButtonBar.id);
+                },
+              ),
+              // Language Selector
+              Padding(
+                padding: EdgeInsets.only(top: getHeight(30)),
+                child: Container(
+                  width: getWidth(150),
+                  child: Center(
+                    child: OutlinedButton(
+                      onPressed: () {
+                        // Handle language change
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          // English Flag
+                          Image.asset(
+                            'assets/images/download__1_-removebg-preview.png',
+                            width: getWidth(24),
+                            height: getHeight(24),
                           ),
+                          SizedBox(width: getWidth(8)),
+
+                          Text(
+                            'English',
+                            style: TextStyle(
+                                color: primaryColor, fontSize: getWidth(14)),
+                          ),
+                        ],
+                      ),
+                      style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: primaryColor, width: 2),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
+      ]),
     );
   }
 }
