@@ -14,3 +14,4 @@ const Color textThirdColor = Color(0xFF5F6E78);
 const Color whiteColor = Color(0xffF4F1F1);
 const Color mainBlueColor = Color(0xFF1E256C);
 const Color grayColor = Color(0xFFA5A5AE);
+const Color redColor = Colors.red;

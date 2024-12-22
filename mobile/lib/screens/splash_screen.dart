@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../const/colors.dart';
 import '../const/const_image.dart';
-import 'auth_service.dart';
-import 'custem_button_bar.dart';
+import 'custom_button_bar.dart';
 import 'signin_screen.dart';
 import 'signup_screen.dart';
 
@@ -42,6 +41,7 @@ class SplashScreen extends StatelessWidget {
     }
 
     return Scaffold(
+      backgroundColor: secoundryColor,
       body: Padding(
         padding: const EdgeInsets.only(top: 70),
         child: Column(
@@ -121,8 +121,7 @@ class SplashScreen extends StatelessWidget {
             buildElevatedButton(
               title: 'Continue as Guest',
               onPressed: () {
-                AuthService.logout();
-                Navigator.of(context).pushNamed(CustemButtonBar.id);
+                Navigator.of(context).pushNamed(CustomButtonBar.id);
               },
             ),
             // Language Selector
@@ -145,7 +144,7 @@ class SplashScreen extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Image.asset(
-                          'assets/images/download__1_-removebg-preview.png',
+                          'assets/images/flag.png',
                           width: getWidth(24),
                           height: getHeight(24),
                         ),

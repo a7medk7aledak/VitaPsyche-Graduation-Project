@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/screens/chatbot.dart';
 import 'package:flutter_mindmed_project/screens/lina/lina_screen.dart';
+import 'package:flutter_mindmed_project/screens/services/products/all_products_screen.dart';
 import 'package:flutter_mindmed_project/screens/services/blog/blog_service.dart';
 import 'package:flutter_mindmed_project/screens/services/test_services/test_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,13 +30,8 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  void toggleDrawer() {
-    if (_controller.isDismissed) {
-      _controller.forward();
-    } else {
-      _controller.reverse();
-    }
-  }
+  void toggleDrawer() =>
+      _controller.isDismissed ? _controller.forward() : _controller.reverse();
 
   @override
   void dispose() {
@@ -43,7 +39,15 @@ class _HomeScreenState extends State<HomeScreen>
     super.dispose();
   }
 
-  Widget cardChatBot(onTap) {
+  // Reusable Service Card Widget
+  Widget _serviceCard({
+    required String title,
+    required String subtitle1,
+    required String subtitle2,
+    required String imagePath,
+    VoidCallback? onTap,
+    bool clipRoundedImage = false,
+  }) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -62,263 +66,80 @@ class _HomeScreenState extends State<HomeScreen>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'ChatBot Service',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      color: mainBlueColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Click to Treat',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: grayColor,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  Text(
-                    'Yourself',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: grayColor,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
+                  Text(title,
+                      style: _textStyle(18.sp, mainBlueColor, FontWeight.bold)),
+                  Text(subtitle1,
+                      style: _textStyle(14.sp, grayColor, FontWeight.w300)),
+                  Text(subtitle2,
+                      style: _textStyle(14.sp, grayColor, FontWeight.w300)),
                 ],
               ),
             ),
             SizedBox(width: 20.w),
-            Image.asset(
-              AnimationGif.chatBot,
-              // height: 120.h,
-              filterQuality: FilterQuality.high,
-              fit: BoxFit.cover,
-            ),
+            clipRoundedImage
+                ? ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: const Radius.circular(15).r,
+                      topRight: const Radius.circular(15).r,
+                    ),
+                    child: Image.asset(imagePath, fit: BoxFit.cover),
+                  )
+                : Image.asset(imagePath, fit: BoxFit.cover),
           ],
         ),
       ),
     );
   }
 
-  Widget linaChatBot(onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        margin: const EdgeInsets.only(right: 20, bottom: 15, top: 10).w,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15).r,
-          side: const BorderSide(color: primaryColor),
-        ),
-        elevation: 5,
-        color: secoundryColor,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(10.0).w,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Lina Service',
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                      color: mainBlueColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Click to Treat',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: grayColor,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                  Text(
-                    'Yourself',
-                    style: TextStyle(
-                      fontSize: 14.sp,
-                      color: grayColor,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(width: 20.w),
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                bottomRight: const Radius.circular(15).r,
-                topRight: const Radius.circular(15).r,
-              ),
-              child: Image.asset(
-                AnimationGif.linachatBot,
-                // height: 115.h,
-                filterQuality: FilterQuality.high,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _compunetService(String text, String videoAnimation,
-      {void Function()? onTap}) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Card(
-        margin: const EdgeInsets.only(right: 10, bottom: 10, top: 8).w,
-        elevation: 5,
-        color: secoundryColor,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.r)),
-        child: Column(
-          children: [
-            SizedBox(height: 10.h),
-            Text(
-              text,
-              style: TextStyle(
-                color: mainBlueColor,
-                fontSize: 18.sp,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 20.h),
-            Image.asset(
-              videoAnimation,
-              width: 140.w,
-              height: 80.h,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget doctorsSpecialists(String titel) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-      elevation: 2,
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(15).r,
-                topRight: const Radius.circular(15).r,
-              ),
-            ),
-            height: 100.h,
-            width: 302.w,
-            child: Image.asset(
-              titel,
-              fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            'Sport \n Psychology',
-            style: TextStyle(
-              color: mainBlueColor,
-              fontSize: 14.sp,
-              fontWeight: FontWeight.bold,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 10.h),
-          Text(
-            '30 doctors',
-            textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.w500),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget getHelp(IconData getIcon, String title) {
+  // Reusable Header Widget
+  Widget _header(String title) {
     return Padding(
-      padding: const EdgeInsets.all(8.0).w,
-      child: Card(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25),
-            side: const BorderSide(color: primaryColor)),
-        elevation: 2,
-        child: SizedBox(
-          height: 60.h,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16).w,
-            child: Row(
-              children: [
-                Icon(
-                  getIcon,
-                  color: primaryColor,
-                  size: 35.sp,
-                ),
-                SizedBox(
-                  width: 20.w,
-                ),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: mainBlueColor,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
+      padding: const EdgeInsets.all(16.0),
+      child: Text(
+        title,
+        style: _textStyle(24.sp, primaryColor, FontWeight.bold),
       ),
     );
+  }
+
+  // Reusable Text Style
+  TextStyle _textStyle(double size, Color color, FontWeight weight) {
+    return TextStyle(fontSize: size, color: color, fontWeight: weight);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: whiteColor,
+      backgroundColor: secoundryColor,
       body: CustomScrollView(
         slivers: [
           // Header Section
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Your Service',
-                style: TextStyle(
-                  fontSize: 24.sp,
-                  color: primaryColor,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
+          SliverToBoxAdapter(child: _header('Your Service')),
 
           // ChatBot and Lina Service Section
           SliverToBoxAdapter(
             child: SizedBox(
               height: 180.h,
-              child: Padding(
+              child: ListView(
                 padding: const EdgeInsets.symmetric(horizontal: 12).w,
-                child: ListView(
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    cardChatBot(() {
-                      Navigator.of(context).pushNamed(ChatScreen.id);
-                    }),
-                    linaChatBot(() {
-                      Navigator.of(context).pushNamed(LinaScreen.id);
-                    }),
-                  ],
-                ),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _serviceCard(
+                    title: 'ChatBot Service',
+                    subtitle1: 'Click to Treat',
+                    subtitle2: 'Yourself',
+                    imagePath: AnimationGif.chatBot,
+                    onTap: () => Navigator.of(context).pushNamed(ChatScreen.id),
+                  ),
+                  _serviceCard(
+                    title: 'Lina Service',
+                    subtitle1: 'Click to Treat',
+                    subtitle2: 'Yourself',
+                    imagePath: AnimationGif.linachatBot,
+                    onTap: () => Navigator.of(context).pushNamed(LinaScreen.id),
+                    clipRoundedImage: true,
+                  ),
+                ],
               ),
             ),
           ),
@@ -326,94 +147,127 @@ class _HomeScreenState extends State<HomeScreen>
           // Compunet Services Section
           SliverToBoxAdapter(
             child: SizedBox(
-              height: 200.h,
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8).w,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    _compunetService('Test', AnimationGif.test,
-                        onTap: () =>
-                            Navigator.of(context).pushNamed(TestService.id)),
-                    _compunetService(
-                      'Blog',
-                      AnimationGif.blog,
+              height: 170.h,
+              child: ListView(
+                padding: const EdgeInsets.symmetric(horizontal: 8).w,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _compunetService('Test', AnimationGif.test,
                       onTap: () =>
-                          Navigator.of(context).pushNamed(BlogService.id),
-                    ),
-                    _compunetService(
-                      'Products',
-                      AnimationGif.blog, // Change animation to products
-                      onTap: () => Navigator.of(context).pushNamed(
-                          BlogService.id), // Change location to navigator
-                    ),
-                  ],
-                ),
+                          Navigator.of(context).pushNamed(TestService.id)),
+                  _compunetService('Blog', AnimationGif.blog,
+                      onTap: () =>
+                          Navigator.of(context).pushNamed(BlogService.id)),
+                  _compunetService('product', AnimationGif.production,
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AllProductsScreen.id)),
+                ],
               ),
             ),
           ),
 
           // Doctors Specialists Section
+          SliverToBoxAdapter(child: _header('Doctors Specialists')),
           SliverToBoxAdapter(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Doctors Specialists',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      color: primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+            child: SizedBox(
+              height: 200.h,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: imagesOfDoctorsSpecialists.length,
+                itemBuilder: (context, index) => Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0).w,
+                  child: _doctorsSpecialistsCard(
+                      imagesOfDoctorsSpecialists[index]),
                 ),
-                SizedBox(
-                  height: 200.h, // Constrained height
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: imagesOfDoctorsSpecialists.length,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0).w,
-                      child:
-                          doctorsSpecialists(imagesOfDoctorsSpecialists[index]),
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
 
           // Get Help Section
+          SliverToBoxAdapter(child: _header('Get Help')),
           SliverToBoxAdapter(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                    'Get Help',
-                    style: TextStyle(
-                      fontSize: 24.sp,
-                      color: primaryColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Column(
-                  children: [
-                    getHelp(Icons.support_agent_sharp, 'Talk to Support'),
-                    getHelp(Icons.help_outline_rounded,
-                        'Get Matched to a Therapist'),
-                    getHelp(Icons.wechat_sharp, 'Talk to a matching advisor'),
-                  ],
-                ),
+                _getHelpCard(Icons.support_agent_sharp, 'Talk to Support'),
+                _getHelpCard(
+                    Icons.help_outline_rounded, 'Get Matched to a Therapist'),
+                _getHelpCard(Icons.wechat_sharp, 'Talk to a matching advisor'),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _compunetService(String title, String imagePath,
+      {VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        margin: const EdgeInsets.all(10).w,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.r)),
+        elevation: 5,
+        color: secoundryColor,
+        child: Column(
+          children: [
+            SizedBox(height: 10.h),
+            Text(title,
+                style: _textStyle(18.sp, mainBlueColor, FontWeight.bold)),
+            SizedBox(height: 20.h),
+            Image.asset(imagePath, width: 140.w, height: 80.h),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _doctorsSpecialistsCard(String imagePath) {
+    return Card(
+      color: secoundryColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      elevation: 2,
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius:
+                  BorderRadius.vertical(top: const Radius.circular(15).r),
+            ),
+            height: 100.h,
+            width: 302.w,
+            child: Image.asset(imagePath, fit: BoxFit.cover),
+          ),
+          SizedBox(height: 10.h),
+          Text('Sport \n Psychology',
+              textAlign: TextAlign.center,
+              style: _textStyle(14.sp, mainBlueColor, FontWeight.bold)),
+          SizedBox(height: 10.h),
+          Text('30 doctors',
+              textAlign: TextAlign.center,
+              style: _textStyle(12.sp, grayColor, FontWeight.w500)),
+        ],
+      ),
+    );
+  }
+
+  Widget _getHelpCard(IconData icon, String title) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0).w,
+      child: Card(
+        color: secoundryColor,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+          side: const BorderSide(color: primaryColor),
+        ),
+        elevation: 2,
+        child: ListTile(
+          leading: Icon(icon, color: primaryColor, size: 35.sp),
+          title: Text(title,
+              style: _textStyle(16.sp, mainBlueColor, FontWeight.bold)),
+        ),
       ),
     );
   }

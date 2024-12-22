@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/screens/custem_button_bar.dart';
+import 'package:flutter_mindmed_project/screens/custom_button_bar.dart';
 import 'package:flutter_mindmed_project/screens/signup_screen.dart';
 import 'package:flutter_mindmed_project/screens/splash_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../const/colors.dart';
-import 'auth_service.dart';
+
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -28,28 +28,30 @@ class _SigninScreenState extends State<SigninScreen> {
   bool _isPasswordFocused = false;
 
   Color _containerColor = primaryColor;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _emailFocusNode.addListener(() {
-      setState(() {
-        _isEmailFocused = _emailFocusNode.hasFocus;
-        _isPasswordFocused = _passwordFocusNode.hasFocus;
-      });
+  
+ @override
+void initState() {
+  super.initState();
+  
+  _emailFocusNode.addListener(() {
+    setState(() {
+      _isEmailFocused = _emailFocusNode.hasFocus;
+      _isPasswordFocused = _passwordFocusNode.hasFocus;
     });
+  });
 
-    _passwordFocusNode.addListener(() {
-      setState(() {
-        _isEmailFocused = _emailFocusNode.hasFocus;
-        _isPasswordFocused = _passwordFocusNode.hasFocus;
-      });
+  _passwordFocusNode.addListener(() {
+    setState(() {
+      _isEmailFocused = _emailFocusNode.hasFocus;
+      _isPasswordFocused = _passwordFocusNode.hasFocus;
     });
-  }
+  });
+}
+
 
   @override
   void dispose() {
+ 
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     _emailController.dispose();
@@ -132,7 +134,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   width: 80,
                   height: 80,
                   child: Image.asset(
-                    'assets/animation/Animation - 1726443797305 (1).gif',
+                    'assets/animation/done.gif',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -155,16 +157,17 @@ class _SigninScreenState extends State<SigninScreen> {
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton(
+      ElevatedButton(
                   onPressed: () {
-                    AuthService.login();
-                    Navigator.of(context).pushNamed(CustemButtonBar.id);
-                    // Fluttertoast.showToast(
-                    //   msg: "Sign In successful",
-                    //   backgroundColor: const Color.fromARGB(255, 110, 228, 114),
-                    //   toastLength: Toast.LENGTH_SHORT,
-                    //   gravity: ToastGravity.BOTTOM,
-                    // );
+                    // Use AuthCubit to sign in
+                   
+                    Navigator.of(context).pushNamed(CustomButtonBar.id);
+                    Fluttertoast.showToast(
+                      msg: "Sign In successful",
+                      backgroundColor: const Color.fromARGB(255, 110, 228, 114),
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.BOTTOM,
+                    );
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
@@ -177,7 +180,7 @@ class _SigninScreenState extends State<SigninScreen> {
                     style: TextStyle(color: secoundryColor),
                   ),
                 ),
-              ],
+      ],
             ),
           ),
         );
@@ -216,7 +219,7 @@ class _SigninScreenState extends State<SigninScreen> {
                   padding: EdgeInsets.only(
                       top: screenHeight * 0.1, left: screenWidth * 0.1),
                   child: Image.asset(
-                    'assets/animation/Animation - 1725391690653.gif',
+                    'assets/animation/chatbot.gif',
                     width: screenWidth * 0.7,
                     height: screenWidth * 0.7,
                     fit: BoxFit.contain,

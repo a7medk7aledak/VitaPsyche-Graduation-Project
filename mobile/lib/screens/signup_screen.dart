@@ -185,7 +185,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   width: 80,
                   height: 80,
                   child: Image.asset(
-                    'assets/animation/Animation - 1726443797305 (1).gif',
+                    'assets/animation/done.gif',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -279,7 +279,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     left: getWidth(30),
                   ),
                   child: Image.asset(
-                    'assets/animation/Animation - 1725391690653.gif',
+                    'assets/animation/chatbot.gif',
                     width: getWidth(270),
                     height: getHeight(270),
                     fit: BoxFit.contain,
