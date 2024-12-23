@@ -4,7 +4,7 @@ type TNavLinks = {
 }[];
 
 export const navLinks: TNavLinks = [
-  { label: "Home", href: "/" },
+  { label: "BELAL", href: "/" },
   { label: "Tests", href: "/tests" },
   { label: "Talk to Ai", href: "/chatbot" },
   { label: "Lina", href: "/lina" },
