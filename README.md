@@ -79,7 +79,32 @@ npm run dev
 cd mobile
 flutter pub get
 ```
-3-Django back-end:
+3.5-Django back-end all project:
+```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
+py -3.9 -m venv .venv
+.\.venv\Scripts\activate
+cd Back-End
+cd Project
+pip install django
+py -m pip install --upgrade pip
+pip install requests
+pip install djangorestframework
+pip install django-cors-headers
+pip install drf-yasg
+pip install djangorestframework-simplejwt
+pip install coverage
+
+or 
+pip install -r requirements.txt
+#to run the server
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+
+python manage.py runserver 5000
+```
+3-Django back-end for chatbot:
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
 py -3.9 -m venv .venv
@@ -89,12 +114,60 @@ pip install django
 py -m pip install --upgrade pip
 pip install requests
 pip install django-cors-headers
+pip install drf-yasg
+pip install djangorestframework-simplejwt
 pip install -r requirements.txt
 #to run the server
 python manage.py runserver
 ```
-4-rasa chatbot:
+to make backend tastes:
+```bash
+cd Back-End/Project
+python manage.py test
+coverage run --source='.' manage.py test
+coverage report -m
 ```
+defult python version is 3.9
+defult tast 
+Name                                                                         Stmts   Miss  Cover   Missing
+----------------------------------------------------------------------------------------------------------
+Project\__init__.py                                                              0      0   100%
+Project\asgi.py                                                                  4      4     0%   10-16
+Project\settings.py                                                             27      0   100%
+Project\urls.py                                                                 12      1    92%   33
+Project\wsgi.py                                                                  4      4     0%   10-16
+User\__init__.py                                                                 0      0   100%
+User\admin.py                                                                    5      0   100%
+User\apps.py                                                                     4      0   100%
+User\backends.py                                                                12     12     0%   1-14
+User\migrations\0001_initial.py                                                 10      0   100%
+User\migrations\0002_remove_patient_date_of_birth_and_more.py                    4      0   100%
+User\migrations\0003_rename_fluent_languges_customuser_fluent_languages.py       4      0   100%
+User\migrations\0004_remove_doctor_prifix_doctor_prefix.py                       4      0   100%
+User\migrations\0005_remove_doctor_prefix_doctor_prifix.py                       4      0   100%
+User\migrations\__init__.py                                                      0      0   100%
+User\models.py                                                                  26      3    88%   30, 37, 44
+User\permissions.py                                                              7      0   100%
+User\serializers.py                                                             73     16    78%   31, 35, 93-104, 107-128
+User\tests.py                                                                   78      0   100%
+User\urls.py                                                                     3      0   100%
+User\views.py                                                                   41     19    54%   35-39, 75-97
+chatbot_api\__init__.py                                                          0      0   100%
+chatbot_api\admin.py                                                             5      0   100%
+chatbot_api\apps.py                                                              4      0   100%
+chatbot_api\migrations\0001_initial.py                                           7      0   100%
+chatbot_api\migrations\0002_message_is_answered.py                               4      0   100%
+chatbot_api\migrations\__init__.py                                               0      0   100%
+chatbot_api\models.py                                                           22      3    86%   11, 22, 31
+chatbot_api\serializers.py                                                      14      0   100%
+chatbot_api\tests.py                                                            83      0   100%
+chatbot_api\urls.py                                                              3      0   100%
+chatbot_api\views.py                                                            59      6    90%   45-46, 61-64, 77
+manage.py                                                                       11      2    82%   12-13
+----------------------------------------------------------------------------------------------------------
+TOTAL                                                                          534     70    87%
+4-rasa chatbot:
+```bash
 #note Python versions: 3.7, 3.8, 3.9, and 3.10. Note that Python 3.10 is only supported for versions 3.4.x and upwards
 #to make a new Environment =>  that step make it once
 cd chatbot
@@ -106,7 +179,7 @@ rasa train
 rasa run -m models --enable-api --cors "*"
 ```
 5-rasa lina:
-```
+```bash
 cd lina model
 pip install rasa
 pip install cryptography==38.0.4
@@ -118,7 +191,7 @@ rasa run --port 5006
 
 note:
 To test the Rasa Chatbot and Lina by terminal:
-```
+```bash
 rasa train
 rasa shell
 ```
