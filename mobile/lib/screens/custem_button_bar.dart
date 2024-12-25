@@ -25,7 +25,7 @@ class _CustemButtonBarState extends State<CustemButtonBar>
     Doctor(),
     ChatScreen(),
     const HomeScreen(),
-    LynaModel(title: 'Lyna Model'),
+    const LynaModel(title: 'Lyna Model'),
     const More(),
   ];
 

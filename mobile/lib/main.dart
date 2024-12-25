@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_mindmed_project/On_Board/on_boarding.dart';
 import 'package:flutter_mindmed_project/screens/Lyna_Model.dart';
 import 'package:flutter_mindmed_project/screens/Screen1.dart';
+import 'package:flutter_mindmed_project/screens/services/ask_doctor/ask_doctor_service.dart';
 import 'package:flutter_mindmed_project/screens/services/products/all_products_screen.dart';
 import 'package:flutter_mindmed_project/screens/services/products/cart_screen.dart';
 import 'package:flutter_mindmed_project/screens/services/products/cubit/cart_cubit.dart';
@@ -36,7 +37,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ChatProvider()),
-         BlocProvider(create: (context) => CartCubit()),
+        BlocProvider(create: (context) => CartCubit()),
       ],
       child: MyApp(),
     ),
@@ -84,6 +85,7 @@ class MyApp extends StatelessWidget {
             AllProductsScreen.id: (context) => const AllProductsScreen(),
             ProductDetailsScreen.id: (context) => const ProductDetailsScreen(),
             CartScreen.id: (context) => const CartScreen(),
+            AskDoctorService.id: (context) => const AskDoctorService(),
           },
         );
       },

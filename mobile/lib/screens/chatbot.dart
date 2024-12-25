@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/const/colors.dart';
 import 'package:provider/provider.dart';
 import '../provider/chat_provider.dart';
-// import 'package:flutter_tts/flutter_tts.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class ChatScreen extends StatefulWidget {
