@@ -11,10 +11,10 @@ interface DoctorProfileProps {
   clinicName?: string;
 }
 
-interface CareerTimelineItem {
-  year: string;
-  event: string;
-}
+// interface CareerTimelineItem {
+//   year: string;
+//   event: string;
+// }
 
 interface DoctorData {
   profileImageUrl: string;
@@ -107,7 +107,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   };
 
   const renderPersonalInfo = () => (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {[
         { label: "Full Name (English)", key: "fullNameEn" },
         { label: "Full Name (Arabic)", key: "fullNameAr" },
@@ -122,7 +122,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
         { label: "Fluent Languages", key: "fluentLanguages" },
       ].map((field) => (
         <div key={field.key}>
-          <p className="text-sm font-bold text-gray-700">
+          <p className="text-md font-bold text-gray-700">
             {field.label}{" "}
             {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
           </p>
@@ -165,7 +165,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   );
 
   const renderPaymentInfo = () => (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {[
         { label: "Payment Method", key: "paymentMethod", locked: true },
         { label: "Card Type", key: "cardType", locked: true },
@@ -173,7 +173,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
         { label: "PayPal Connected", key: "paypalConnected", locked: true },
       ].map((field) => (
         <div key={field.key}>
-          <p className="text-sm font-bold text-gray-700">
+          <p className="text-md font-bold text-gray-700">
             {field.label}{" "}
             {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
           </p>
@@ -278,9 +278,9 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   return (
     <div className="min-h-screen bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 p-8 flex justify-center items-center">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-2xl">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center">
-            <div className="relative w-24 h-24 rounded-full overflow-hidden mr-4">
+        <div className="flex flex-col md:flex-row items-center justify-between mb-8 space-y-4 md:space-y-0">
+          <div className="flex flex-col md:flex-row items-center relative w-full">
+            <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-4">
               <Image
                 src={"/images/about-us/me.jpg"}
                 alt={`Dr. ${doctorData.fullNameEn}`}
@@ -303,25 +303,27 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
                 </label>
               )}
             </div>
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            <div className="text-center md:text-left">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                 {doctorData.fullNameEn}
               </h1>
-              <p className="text-2xl text-gray-600">{doctorData.fullNameAr}</p>
-              <p className="text-gray-600">
+              <p className="text-lg sm:text-xl lg:text-2xl text-gray-600">
+                {doctorData.fullNameAr}
+              </p>
+              <p className="text-sm sm:text-base lg:text-lg text-gray-600">
                 {doctorData.specialization} | {doctorData.clinicName}
               </p>
             </div>
+            <button
+              onClick={() => setEditing(!editing)}
+              className="absolute top-2 right-2 md:static md:ml-auto text-white py-2 px-4 rounded bg-[#00bfa5] hover:bg-[#139485] transition"
+            >
+              {editing ? "Save" : "Edit"}
+            </button>
           </div>
-          <button
-            onClick={() => setEditing(!editing)}
-            className=" text-white py-2 px-4 rounded  bg-[#00bfa5] hover:bg-[#139485] transition"
-          >
-            {editing ? "Save" : "Edit"}
-          </button>
         </div>
 
-        <div className="tabs flex justify-between mb-6">
+        <div className="tabs flex justify-between flex-wrap gap-y-4 mb-6">
           {["personal", "payment", "career", "documents"].map((tab) => (
             <button
               key={tab}
