@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -34,7 +35,10 @@ interface DoctorData {
   cardType: string;
   cardNumber: string;
   paypalConnected: boolean;
-  careerTimeline: CareerTimelineItem[];
+  // careerTimeline: { year: string; event: string }[];
+  highestDegree: string;
+  institutionName: string;
+  totalExperience: number;
 }
 
 const DoctorProfile: React.FC<DoctorProfileProps> = ({
@@ -63,12 +67,15 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
     cardType: "Visa",
     cardNumber: "**** **** **** 1234",
     paypalConnected: false,
-    careerTimeline: [
-      { year: "2009", event: "Completed Psychiatry Residency" },
-      { year: "2010", event: "Joined New York Psychiatry Clinic" },
-      { year: "2015", event: "Specialized in Child Psychology" },
-      { year: "2020", event: "Became Head of Child Psychiatry Department" },
-    ],
+    // careerTimeline: [
+    //   { year: "2009", event: "Completed Psychiatry Residency" },
+    //   { year: "2010", event: "Joined New York Psychiatry Clinic" },
+    //   { year: "2015", event: "Specialized in Child Psychology" },
+    //   { year: "2020", event: "Became Head of Child Psychiatry Department" },
+    // ],
+    highestDegree: "Doctor of Medicine (MD)",
+    institutionName: "Harvard Medical School",
+    totalExperience: 15,
   });
 
   const [editing, setEditing] = useState(false);
@@ -208,9 +215,38 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
     </div>
   );
 
-  const renderCareerTimeline = () => (
+  const renderCareerInfo = () => (
     <div className="mt-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Career Timeline</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Career</h2>
+      <ul className="timeline">
+        <li className="mb-4">
+          <span className=" font-semibold  text-lg text-gray-600">
+            Highest Degree Earned
+          </span>
+          <p className=" ">{doctorData.highestDegree}</p>
+        </li>
+        <li className="mb-4">
+          <span className=" font-semibold text-lg text-gray-600">
+            Institution
+          </span>
+          <p className="text-lg ">{doctorData.institutionName}</p>
+        </li>
+        <li className="mb-4">
+          <span className=" font-semibold text-lg text-gray-600">
+            Specialized In
+          </span>
+          <p className="text-lg ">{doctorData.specialization}</p>
+        </li>
+        <li className="mb-4">
+          <span className=" font-semibold text-lg text-gray-600">
+            Total Years of Experience
+          </span>
+          <p className="text-lg ">{doctorData.totalExperience} years</p>
+        </li>
+      </ul>
+      {/* <h2 className="text-xl font-semibold text-gray-800 mb-4">
+        Career Timeline
+      </h2>
       <ul className="timeline">
         {doctorData.careerTimeline.map((item, index) => (
           <li key={index} className="mb-4">
@@ -218,14 +254,14 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
             <p className="text-lg font-semibold">{item.event}</p>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 
   const renderDocuments = () => (
     <div className="mt-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Documents</h2>
-      <div className="space-y-2">
+      <div className="space-x-6 ">
         <a href="/path-to-cv" className="text-blue-500 hover:underline">
           View CV
         </a>
@@ -240,15 +276,16 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-cyan-500 to-blue-500 p-8 flex justify-center items-center">
+    <div className="min-h-screen bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 p-8 flex justify-center items-center">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-2xl">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center">
             <div className="relative w-24 h-24 rounded-full overflow-hidden mr-4">
-              <img
-                src={doctorData.profileImageUrl}
+              <Image
+                src={"/images/about-us/me.jpg"}
                 alt={`Dr. ${doctorData.fullNameEn}`}
-                className="w-full h-full object-cover"
+                layout="fill"
+                objectFit="cover"
               />
               {editing && (
                 <label
@@ -278,7 +315,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
           </div>
           <button
             onClick={() => setEditing(!editing)}
-            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
+            className=" text-white py-2 px-4 rounded  bg-[#00bfa5] hover:bg-[#139485] transition"
           >
             {editing ? "Save" : "Edit"}
           </button>
@@ -291,7 +328,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
               onClick={() => setActiveTab(tab)}
               className={`tab ${
                 activeTab === tab
-                  ? "bg-blue-600 text-white"
+                  ? "bg-[#00bfa5]  text-white"
                   : "bg-gray-200 text-gray-700"
               } py-2 px-4 rounded-t-lg transition`}
             >
@@ -300,10 +337,10 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
           ))}
         </div>
 
-        <div className="tab-content mt-8 bg-gray-100 p-6 rounded-lg">
+        <div className=" mt-8 bg-gray-100 p-6 rounded-lg">
           {activeTab === "personal" && renderPersonalInfo()}
           {activeTab === "payment" && renderPaymentInfo()}
-          {activeTab === "career" && renderCareerTimeline()}
+          {activeTab === "career" && renderCareerInfo()}
           {activeTab === "documents" && renderDocuments()}
         </div>
       </div>
