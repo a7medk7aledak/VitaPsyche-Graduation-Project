@@ -5,10 +5,7 @@ import 'package:flutter_mindmed_project/screens/chatbot.dart';
 import 'package:flutter_mindmed_project/screens/doctor.dart';
 import 'package:flutter_mindmed_project/screens/home_screen.dart';
 import 'package:flutter_mindmed_project/screens/more.dart';
-// import 'package:flutter_mindmed_project/screens/services/auth_service.dart';
-// import 'package:flutter_mindmed_project/screens/signin_screen.dart';
-// import 'package:flutter_mindmed_project/screens/signup_screen.dart';
-import '../widgets/const_image.dart';
+import '../const/const_image.dart';
 
 class CustemButtonBar extends StatefulWidget {
   const CustemButtonBar({super.key});

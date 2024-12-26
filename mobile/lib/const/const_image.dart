@@ -11,4 +11,8 @@ class ConstImage {
   static const test = 'assets/images/test_2.png';
   static const blogDetails = 'assets/images/imageBlogdetails.png';
   static const sadIdea = 'assets/images/sad_idea.png';
+  static const language = 'assets/images/language.png';
+  static const country = 'assets/images/country.png';
+  static const contactUs = 'assets/images/contactus.png';
+  static const emargactCall = 'assets/images/Emargacycall.png';
 }
