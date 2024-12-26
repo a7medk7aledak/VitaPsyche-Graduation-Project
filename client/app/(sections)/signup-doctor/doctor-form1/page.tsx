@@ -15,7 +15,8 @@ import { useRouter } from "next/navigation";
 import { customStylesForLanguageInput } from "./customStyles";
 import { TFormErrors } from "@app/types/FormDoctor";
 import { useDoctorFormStore } from "@store/useDoctorFormStore";
-export type OptionType = { value: string; label: string };
+import { languageOptions, OptionType } from "@constants/doctorLanguages";
+
 const DoctorForm1 = () => {
   const { formData, setFormData, setLanguages } = useDoctorFormStore();
 
@@ -23,14 +24,6 @@ const DoctorForm1 = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
-
-  const languageOptions: OptionType[] = [
-    { value: "english", label: "English" },
-    { value: "spanish", label: "Spanish" },
-    { value: "french", label: "French" },
-    { value: "arabic", label: "Arabic" },
-    { value: "chinese", label: "Chinese" },
-  ];
 
   const [errors, setErrors] = useState<TFormErrors>({});
 
