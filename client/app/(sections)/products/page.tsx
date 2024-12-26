@@ -43,7 +43,7 @@ const Products = () => {
           />
           {/* Product Information */}
           <div className="flex-1 text-center lg:text-left space-y-6">
-            <h3 className="text-4xl font-semibold font-serif text-[#216862] leading-snug">
+            <h3 className="text-4xl font-semibold font-serif  leading-snug">
               Vitapsyche Products
             </h3>
             <p className="text-lg text-gray-700 leading-relaxed tracking-wide">

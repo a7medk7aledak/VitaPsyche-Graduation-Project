@@ -37,6 +37,10 @@ section {
   @apply py-3 px-6;
 }
 
+.btn-extraLarge {
+  @apply py-4 px-8;
+}
+
 .btn-primary {
   @apply bg-button hover:bg-hoverbutton;
 }

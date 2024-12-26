@@ -4,40 +4,57 @@ import Logo from "./Logo";
 import Button from "./Button";
 import Image from "next/image";
 import { FaUserDoctor } from "react-icons/fa6";
-import { IoPersonSharp, IoLogoFacebook } from "react-icons/io5";
+import { IoPersonSharp } from "react-icons/io5";
 import { RiInstagramFill } from "react-icons/ri";
 import { BsLinkedin } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { IoLogoFacebook } from "react-icons/io";
 
 const Footer = () => {
-  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [isVisible, setIsVisible] = useState<boolean>(true); // Default to visible initially
+  const [hasAnimated, setHasAnimated] = useState<boolean>(false); // Track if animation has already been triggered
   const footerRef = useRef<HTMLDivElement | null>(null);
 
-  const handleScroll = () => {
-    if (footerRef.current) {
-      const rect = footerRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Check if the footer is in the viewport
-      if (rect.top < windowHeight && rect.bottom > 0) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    }
-  };
-
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
+    const handleScrollOrResize = () => {
+      if (footerRef.current) {
+        const rect = footerRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        // Footer is visible if any part of it is in the viewport
+        const isFooterVisible = rect.top < windowHeight && rect.bottom > 0;
+
+        // Only trigger animation if it becomes visible and hasn't been animated yet
+        if (isFooterVisible && !hasAnimated) {
+          setIsVisible(true);
+          setHasAnimated(true); // Set to true to prevent further animations
+        } else if (!isFooterVisible && !hasAnimated) {
+          setIsVisible(false);
+        }
+      }
     };
-  }, []);
+
+    // Perform an initial visibility check
+    handleScrollOrResize();
+
+    // Attach event listeners for scroll and resize
+    window.addEventListener("scroll", handleScrollOrResize);
+    window.addEventListener("resize", handleScrollOrResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollOrResize);
+      window.removeEventListener("resize", handleScrollOrResize);
+    };
+  }, [hasAnimated]); // Only depend on `hasAnimated`
 
   return (
-    <footer id="footer" className="relative pt-5 bg-[#dce9e6]" ref={footerRef}>
+    <footer
+      id="footer"
+      className="relative  pt-5 bg-[#dce9e6] "
+      ref={footerRef}
+    >
       <div className="container px-3 mx-auto">
         <div className="flex flex-wrap justify-center md:justify-between items-center">
           {/* Logo and Join Us Section */}
@@ -154,7 +171,7 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <h6 className="text-center text-xl -mb-12 mt-4">
+      <h6 className="text-center text-xl mt-4">
         Copyright © 2024 All Rights Reserved
       </h6>
     </footer>
