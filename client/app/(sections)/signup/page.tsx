@@ -75,105 +75,75 @@ const LoginPage: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
+const handleSubmit = async (event: React.FormEvent) => {
+  event.preventDefault();
 
-    if (!formData.termsAccepted) {
-      alert("Please accept the terms and conditions.");
-      return;
-    }
-    if (formData.password !== formData.password2) {
-      alert("Passwords do not match.");
-      return;
-    }
+  if (!formData.termsAccepted) {
+    alert("Please accept the terms and conditions.");
+    return;
+  }
+  if (formData.password !== formData.password2) {
+    alert("Passwords do not match.");
+    return;
+  }
 
-    try {
-      const response = await axios.post("/api/register/patient", formData, {
-        headers: { "Content-Type": "application/json" },
-      });
+  try {
+    const response = await axios.post("/api/register/patient", formData, {
+      headers: { "Content-Type": "application/json" },
+    });
 
-      console.log("Registration successful:", response.data);
-      alert("Registration successful! You can now log in.");
-    } catch (error: any) {
-      const errorMessage =
-        error.response?.data?.detail || error.message || "Registration failed";
-      alert(errorMessage);
-      console.error("Error during registration:", error);
-    }
-  };
+    console.log("Registration successful:", response.data);
+    alert("Registration successful! You can now log in.");
+  } catch (error: any) {
+    const errorMessage =
+      error.response?.data?.error || error.message || "Registration failed";
+    alert(errorMessage);
+    console.error("Error during registration:", error);
+  }
+};
 
-  const formFields = [
-    {
-      name: "username",
-      label: "Username",
-      type: "text",
-      icon: FaUser,
-      required: true,
-    },
-    {
-      name: "first_name",
-      label: "First Name",
-      type: "text",
-      icon: FaUser,
-      required: true,
-    },
-    {
-      name: "last_name",
-      label: "Last Name",
-      type: "text",
-      icon: FaUser,
-      required: true,
-    },
-    {
-      name: "email",
-      label: "Email",
-      type: "email",
-      icon: FaEnvelope,
-      required: true,
-    },
-    {
-      name: "password",
-      label: "Password",
-      type: showPassword1 ? "text" : "password",
-      icon: FaLock,
-      required: true,
-      showPassword: showPassword1,
-      togglePassword: togglePasswordVisibility1,
-    },
-    {
-      name: "password2",
-      label: "Confirm Password",
-      type: showPassword2 ? "text" : "password",
-      icon: FaLock,
-      required: true,
-      showPassword: showPassword2,
-      togglePassword: togglePasswordVisibility2,
-    },
-  ];
 
-  const additionalFields = [
-    {
-      name: "nationality",
-      label: "Nationality",
-      type: "text",
-      icon: FaGlobe,
-      required: true,
-    },
-    {
-      name: "fluent_languages",
-      label: "Fluent Languages",
-      type: "text",
-      icon: FaLanguage,
-      required: true,
-    },
-    {
-      name: "current_residence",
-      label: "Current Residence",
-      type: "text",
-      icon: FaHome,
-      required: true,
-    },
-  ];
+  const renderInputField = (
+    name: string,
+    label: string,
+    type: string,
+    icon: React.ElementType,
+    value: string,
+    required: boolean,
+    showPassword?: boolean,
+    togglePassword?: () => void
+  ) => (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="mt-8"
+    >
+      <label className="text-maintext text-xs block mb-2">{label}</label>
+      <div className="relative flex items-center">
+        {React.createElement(icon, {
+          className: "absolute left-2 text-button",
+        })}
+        <input
+          name={name}
+          type={type}
+          value={value}
+          onChange={handleInputChange}
+          required={required}
+          className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
+          placeholder={`Enter ${label.toLowerCase()}`}
+        />
+        {togglePassword && (
+          <div
+            className="absolute right-2 cursor-pointer text-button"
+            onClick={togglePassword}
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
 
   return (
     <div className="font-[sans-serif] bg-white md:h-screen">
@@ -198,44 +168,63 @@ const LoginPage: React.FC = () => {
               </h3>
             </div>
 
-            {formFields.map((field, index) => (
-              <motion.div
-                key={field.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="mt-8"
-              >
-                <label className="text-maintext text-xs block mb-2">
-                  {field.label}
-                </label>
-                <div className="relative flex items-center">
-                  <field.icon className="absolute left-2 text-button" />
-                  <input
-                    name={field.name}
-                    type={field.type}
-                    value={formData[field.name as keyof FormData] as string}
-                    onChange={handleInputChange}
-                    required={field.required}
-                    className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
-                    placeholder={`Enter ${field.label.toLowerCase()}`}
-                  />
-                  {field.togglePassword && (
-                    <div
-                      className="absolute right-2 cursor-pointer text-button"
-                      onClick={field.togglePassword}
-                    >
-                      {field.showPassword ? <FaEyeSlash /> : <FaEye />}
-                    </div>
-                  )}
-                </div>
-              </motion.div>
-            ))}
+            {renderInputField(
+              "username",
+              "Username",
+              "text",
+              FaUser,
+              formData.username,
+              true
+            )}
+            {renderInputField(
+              "first_name",
+              "First Name",
+              "text",
+              FaUser,
+              formData.first_name,
+              true
+            )}
+            {renderInputField(
+              "last_name",
+              "Last Name",
+              "text",
+              FaUser,
+              formData.last_name,
+              true
+            )}
+            {renderInputField(
+              "email",
+              "Email",
+              "email",
+              FaEnvelope,
+              formData.email,
+              true
+            )}
+            {renderInputField(
+              "password",
+              "Password",
+              showPassword1 ? "text" : "password",
+              FaLock,
+              formData.password,
+              true,
+              showPassword1,
+              togglePasswordVisibility1
+            )}
+            {renderInputField(
+              "password2",
+              "Confirm Password",
+              showPassword2 ? "text" : "password",
+              FaLock,
+              formData.password2,
+              true,
+              showPassword2,
+              togglePasswordVisibility2
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+              transition={{ duration: 0.5 }}
               className="mt-8"
             >
               <label className="text-maintext text-xs block mb-2">
@@ -266,7 +255,7 @@ const LoginPage: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 }}
+              transition={{ duration: 0.5 }}
               className="mt-8"
             >
               <label className="text-maintext text-xs block mb-2">
@@ -287,7 +276,7 @@ const LoginPage: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.7 }}
+              transition={{ duration: 0.5 }}
               className="mt-8"
             >
               <label className="text-maintext text-xs block mb-2">Gender</label>
@@ -307,36 +296,35 @@ const LoginPage: React.FC = () => {
               </div>
             </motion.div>
 
-            {additionalFields.map((field, index) => (
-              <motion.div
-                key={field.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                className="mt-8"
-              >
-                <label className="text-maintext text-xs block mb-2">
-                  {field.label}
-                </label>
-                <div className="relative flex items-center">
-                  <field.icon className="absolute left-2 text-button" />
-                  <input
-                    name={field.name}
-                    type={field.type}
-                    value={formData[field.name as keyof FormData] as string}
-                    onChange={handleInputChange}
-                    required={field.required}
-                    className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
-                    placeholder={`Enter ${field.label.toLowerCase()}`}
-                  />
-                </div>
-              </motion.div>
-            ))}
+            {renderInputField(
+              "nationality",
+              "Nationality",
+              "text",
+              FaGlobe,
+              formData.nationality,
+              true
+            )}
+            {renderInputField(
+              "fluent_languages",
+              "Fluent Languages",
+              "text",
+              FaLanguage,
+              formData.fluent_languages,
+              true
+            )}
+            {renderInputField(
+              "current_residence",
+              "Current Residence",
+              "text",
+              FaHome,
+              formData.current_residence,
+              true
+            )}
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 1.1 }}
+              transition={{ duration: 0.5 }}
               className="flex items-center mt-8"
             >
               <input
@@ -347,7 +335,7 @@ const LoginPage: React.FC = () => {
                 className="h-4 w-4 shrink-0 rounded"
               />
               <label className="text-maintext ml-3 block text-sm">
-                I accept the{" "}
+                I accept the
                 <a
                   href="#"
                   className="text-buttonhov font-semibold hover:underline ml-1"
@@ -367,7 +355,7 @@ const LoginPage: React.FC = () => {
             </div>
 
             <p className="text-sm text-maintext mt-8 text-left">
-              Already have an account?{" "}
+              Already have an account?
               <Link
                 href="/signin"
                 className="text-heading font-semibold hover:underline ml-1"
