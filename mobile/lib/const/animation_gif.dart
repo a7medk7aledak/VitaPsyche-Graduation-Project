@@ -10,4 +10,6 @@ class AnimationGif {
   static const String joinAsDoctor = 'assets/animation/as_doctor.gif';
   static const String aboutUs = 'assets/animation/about.gif';
   static const String contactUs = 'assets/animation/context_us.gif';
+  static const String linachatBot = 'assets/animation/Lina.gif';
+  static const String production = 'assets/animation/production.gif';
 }

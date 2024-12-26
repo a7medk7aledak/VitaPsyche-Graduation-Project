@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/screens/custom_button_bar.dart';
+import 'package:flutter_mindmed_project/screens/custem_button_bar.dart';
 import 'package:flutter_mindmed_project/screens/signup_screen.dart';
 import 'package:flutter_mindmed_project/screens/splash_screen.dart';
+import 'package:flutter_mindmed_project/widgets/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import '../const/colors.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
@@ -17,6 +19,7 @@ class SigninScreen extends StatefulWidget {
 class _SigninScreenState extends State<SigninScreen> {
   bool _isPasswordVisible = false;
   bool _isPressed = false;
+  bool _isLoading = false;
 
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
@@ -28,30 +31,28 @@ class _SigninScreenState extends State<SigninScreen> {
   bool _isPasswordFocused = false;
 
   Color _containerColor = primaryColor;
-  
- @override
-void initState() {
-  super.initState();
-  
-  _emailFocusNode.addListener(() {
-    setState(() {
-      _isEmailFocused = _emailFocusNode.hasFocus;
-      _isPasswordFocused = _passwordFocusNode.hasFocus;
-    });
-  });
 
-  _passwordFocusNode.addListener(() {
-    setState(() {
-      _isEmailFocused = _emailFocusNode.hasFocus;
-      _isPasswordFocused = _passwordFocusNode.hasFocus;
-    });
-  });
-}
+  @override
+  void initState() {
+    super.initState();
 
+    _emailFocusNode.addListener(() {
+      setState(() {
+        _isEmailFocused = _emailFocusNode.hasFocus;
+        _isPasswordFocused = _passwordFocusNode.hasFocus;
+      });
+    });
+
+    _passwordFocusNode.addListener(() {
+      setState(() {
+        _isEmailFocused = _emailFocusNode.hasFocus;
+        _isPasswordFocused = _passwordFocusNode.hasFocus;
+      });
+    });
+  }
 
   @override
   void dispose() {
- 
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     _emailController.dispose();
@@ -59,7 +60,7 @@ void initState() {
     super.dispose();
   }
 
-  void _validateAndSignIn() {
+  void _validateAndSignIn() async {
     String email = _emailController.text;
     String password = _passwordController.text;
 
@@ -88,8 +89,59 @@ void initState() {
         gravity: ToastGravity.BOTTOM,
       );
     } else {
-      // Proceed with sign-in logic
-      _showSuccessDialog(context);
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        final response = await http.post(
+          Uri.parse('https://abdokh.pythonanywhere.com/api/login/'),
+          headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'X-CSRFToken':
+                'BVHx8z9HbsuwhOzIWALCnyrojC8vNdD6QvwE0kOBq9UwW4jxsHIin0eXU12DLKK7',
+          },
+          body: jsonEncode({
+            'email': email,
+            'password': password,
+          }),
+        );
+
+        if (response.statusCode == 200) {
+          final data = jsonDecode(response.body);
+          Fluttertoast.showToast(
+            msg: data['message'],
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+          );
+
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          await prefs.setString('access_token', data['access_token']);
+
+          print("Access Token: ${data['access_token']}");
+          print(response.statusCode);
+          print(response.body);
+
+          _showSuccessDialog(context);
+        } else {
+          Fluttertoast.showToast(
+            msg: "Login failed",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+          );
+        }
+      } catch (e) {
+        Fluttertoast.showToast(
+          msg: "An error occurred",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+        );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     }
   }
 
@@ -102,7 +154,7 @@ void initState() {
   void _onTapDown(TapDownDetails details) {
     setState(() {
       _containerColor =
-          const Color.fromARGB(255, 91, 255, 219); // Change color when pressed
+          Color.fromARGB(255, 91, 255, 219); // Change color when pressed
     });
   }
 
@@ -124,7 +176,7 @@ void initState() {
           ),
           elevation: 16,
           child: Container(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(20),
             width: MediaQuery.of(context).size.width * 0.8,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -134,21 +186,21 @@ void initState() {
                   width: 80,
                   height: 80,
                   child: Image.asset(
-                    'assets/animation/done.gif',
+                    'assets/animation/Animation - 1726443797305 (1).gif',
                     fit: BoxFit.cover,
                   ),
                 ),
-                const SizedBox(height: 20),
-                const Text(
+                SizedBox(height: 20),
+                Text(
                   "Success!",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 0, 255, 8),
+                    color: const Color.fromARGB(255, 0, 255, 8),
                   ),
                 ),
-                const SizedBox(height: 10),
-                const Text(
+                SizedBox(height: 10),
+                Text(
                   "You have successfully signed in.",
                   style: TextStyle(
                     fontSize: 16,
@@ -156,18 +208,11 @@ void initState() {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20),
-      ElevatedButton(
+                SizedBox(height: 20),
+                ElevatedButton(
                   onPressed: () {
-                    // Use AuthCubit to sign in
-                   
-                    Navigator.of(context).pushNamed(CustomButtonBar.id);
-                    Fluttertoast.showToast(
-                      msg: "Sign In successful",
-                      backgroundColor: const Color.fromARGB(255, 110, 228, 114),
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.BOTTOM,
-                    );
+                    Navigator.of(context).pushReplacementNamed(
+                        CustemButtonBar.id); // Navigate to SigninScreen
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
@@ -175,12 +220,12 @@ void initState() {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text(
+                  child: Text(
                     'OK',
                     style: TextStyle(color: secoundryColor),
                   ),
                 ),
-      ],
+              ],
             ),
           ),
         );
@@ -201,244 +246,259 @@ void initState() {
       child: Scaffold(
         backgroundColor: primaryColor,
         resizeToAvoidBottomInset: true,
-        body: SingleChildScrollView(
-          child: Stack(
-            children: [
-              Container(
-                height: screenHeight,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/Signin_Screen.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.topCenter,
-                child: Padding(
-                  padding: EdgeInsets.only(
-                      top: screenHeight * 0.1, left: screenWidth * 0.1),
-                  child: Image.asset(
-                    'assets/animation/chatbot.gif',
-                    width: screenWidth * 0.7,
-                    height: screenWidth * 0.7,
-                    fit: BoxFit.contain,
-                  ),
-                ),
-              ),
-              Column(
+        body: Stack(
+          children: [
+            SingleChildScrollView(
+              child: Stack(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(
-                        top: screenHeight * 0.45, right: screenWidth * 0.07),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "If you have't an account ?",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(width: 8),
-                        GestureDetector(
-                          onTapDown: (_) {
-                            setState(() {
-                              _isPressed = true;
-                            });
-                          },
-                          onTapUp: (_) {
-                            setState(() {
-                              _isPressed = false;
-                            });
-                            Navigator.of(context).pushNamed(SignupScreen.id);
-                          },
-                          child: Text(
-                            'Sign up',
-                            style: TextStyle(
-                              color: _isPressed ? primaryColor : Colors.red,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 15),
-                    child: Text(
-                      'Sign in',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  SizedBox(
-                    width: screenWidth * 0.8,
-                    child: Theme(
-                      data: Theme.of(context).copyWith(
-                        textSelectionTheme: TextSelectionThemeData(
-                          selectionColor: primaryColor.withOpacity(0.5),
-                          selectionHandleColor: primaryColor,
-                        ),
-                      ),
-                      child: TextField(
-                        controller: _emailController,
-                        focusNode: _emailFocusNode,
-                        cursorColor: primaryColor,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle: TextStyle(
-                            color:
-                                _isEmailFocused ? primaryColor : Colors.black,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.email,
-                            color:
-                                _isEmailFocused ? primaryColor : Colors.black,
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: primaryColor, width: 2.0),
-                          ),
-                          filled: true,
-                          fillColor: secoundryColor.withOpacity(0.8),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  SizedBox(
-                    width: screenWidth * 0.8,
-                    child: Theme(
-                      data: Theme.of(context).copyWith(
-                        textSelectionTheme: TextSelectionThemeData(
-                          selectionColor: primaryColor.withOpacity(0.5),
-                          selectionHandleColor: primaryColor,
-                        ),
-                      ),
-                      child: TextField(
-                        controller: _passwordController,
-                        focusNode: _passwordFocusNode,
-                        obscureText: !_isPasswordVisible,
-                        cursorColor: primaryColor,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          labelStyle: TextStyle(
-                            color: _isPasswordFocused
-                                ? primaryColor
-                                : Colors.black,
-                          ),
-                          prefixIcon: Icon(
-                            Icons.lock,
-                            color: _isPasswordFocused
-                                ? primaryColor
-                                : Colors.black,
-                          ),
-                          suffixIcon: IconButton(
-                            icon: Icon(
-                              _isPasswordVisible
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
-                              color: _isPasswordVisible
-                                  ? primaryColor
-                                  : Colors.black,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _isPasswordVisible = !_isPasswordVisible;
-                              });
-                            },
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: Colors.grey, width: 2.0),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                                color: primaryColor, width: 2.0),
-                          ),
-                          filled: true,
-                          fillColor: secoundryColor.withOpacity(0.8),
-                        ),
+                  Container(
+                    height: screenHeight,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/Signin_Screen.png'),
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   Align(
-                    alignment: Alignment.bottomRight,
+                    alignment: Alignment.topCenter,
                     child: Padding(
-                      padding:
-                          EdgeInsets.only(top: 60, right: screenWidth * 0.1),
-                      child: SizedBox(
-                        width: 120,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: _validateAndSignIn,
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: primaryColor,
-                            elevation: 5,
-                            shadowColor: Colors.black,
-                          ).copyWith(
-                            overlayColor:
-                                MaterialStateProperty.resolveWith<Color?>(
-                              (Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return const Color.fromARGB(
-                                      255, 91, 255, 219);
-                                }
-                                return null;
-                              },
-                            ),
-                          ),
-                          child: const Text(
-                            'Sign In',
-                            style: TextStyle(fontSize: 18, color: Colors.white),
-                          ),
-                        ),
+                      padding: EdgeInsets.only(
+                          top: screenHeight * 0.1, left: screenWidth * 0.1),
+                      child: Image.asset(
+                        'assets/animation/Animation - 1725391690653.gif',
+                        width: screenWidth * 0.7,
+                        height: screenWidth * 0.7,
+                        fit: BoxFit.contain,
                       ),
                     ),
                   ),
+                  Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: screenHeight * 0.45,
+                            right: screenWidth * 0.07),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "If you have't an account ?",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: 8),
+                            GestureDetector(
+                              onTapDown: (_) {
+                                setState(() {
+                                  _isPressed = true;
+                                });
+                              },
+                              onTapUp: (_) {
+                                setState(() {
+                                  _isPressed = false;
+                                });
+                                Navigator.of(context)
+                                    .pushNamed(SignupScreen.id);
+                              },
+                              child: Text(
+                                'Sign up',
+                                style: TextStyle(
+                                  color: _isPressed ? primaryColor : Colors.red,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 15),
+                        child: Text(
+                          'Sign in',
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 30),
+                      Container(
+                        width: screenWidth * 0.8,
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                            textSelectionTheme: TextSelectionThemeData(
+                              selectionColor: primaryColor.withOpacity(0.5),
+                              selectionHandleColor: primaryColor,
+                            ),
+                          ),
+                          child: TextField(
+                            controller: _emailController,
+                            focusNode: _emailFocusNode,
+                            cursorColor: primaryColor,
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              labelStyle: TextStyle(
+                                color: _isEmailFocused
+                                    ? primaryColor
+                                    : Colors.black,
+                              ),
+                              prefixIcon: Icon(
+                                Icons.email,
+                                color: _isEmailFocused
+                                    ? primaryColor
+                                    : Colors.black,
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 2.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: primaryColor, width: 2.0),
+                              ),
+                              filled: true,
+                              fillColor: secoundryColor.withOpacity(0.8),
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 25),
+                      Container(
+                        width: screenWidth * 0.8,
+                        child: Theme(
+                          data: Theme.of(context).copyWith(
+                            textSelectionTheme: TextSelectionThemeData(
+                              selectionColor: primaryColor.withOpacity(0.5),
+                              selectionHandleColor: primaryColor,
+                            ),
+                          ),
+                          child: TextField(
+                            controller: _passwordController,
+                            focusNode: _passwordFocusNode,
+                            obscureText: !_isPasswordVisible,
+                            cursorColor: primaryColor,
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              labelStyle: TextStyle(
+                                color: _isPasswordFocused
+                                    ? primaryColor
+                                    : Colors.black,
+                              ),
+                              prefixIcon: Icon(
+                                Icons.lock,
+                                color: _isPasswordFocused
+                                    ? primaryColor
+                                    : Colors.black,
+                              ),
+                              suffixIcon: IconButton(
+                                icon: Icon(
+                                  _isPasswordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
+                                  color: _isPasswordVisible
+                                      ? primaryColor
+                                      : Colors.black,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    _isPasswordVisible = !_isPasswordVisible;
+                                  });
+                                },
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.grey, width: 2.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: primaryColor, width: 2.0),
+                              ),
+                              filled: true,
+                              fillColor: secoundryColor.withOpacity(0.8),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                              top: 60, right: screenWidth * 0.1),
+                          child: Container(
+                            width: 120,
+                            height: 50,
+                            child: ElevatedButton(
+                              onPressed: _validateAndSignIn,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: primaryColor,
+                                elevation: 5,
+                                shadowColor: Colors.black,
+                              ).copyWith(
+                                overlayColor:
+                                    MaterialStateProperty.resolveWith<Color?>(
+                                  (Set<MaterialState> states) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
+                                      return Color.fromARGB(255, 91, 255, 219);
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              child: Text(
+                                'Sign In',
+                                style: TextStyle(
+                                    fontSize: 18, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 60,
+                    left: screenWidth * 0.1,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(SplashScreen.id);
+                      },
+                      onTapDown: _onTapDown,
+                      onTapUp: _onTapUp,
+                      child: Container(
+                        height: 50,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _containerColor,
+                        ),
+                        padding: EdgeInsets.only(left: 10),
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
-              Positioned(
-                top: 60,
-                left: screenWidth * 0.1,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(SplashScreen.id);
-                  },
-                  onTapDown: _onTapDown,
-                  onTapUp: _onTapUp,
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _containerColor,
-                    ),
-                    padding: const EdgeInsets.only(left: 10),
-                    child: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: 28,
-                    ),
-                  ),
+            ),
+            if (_isLoading)
+              Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
                 ),
-              )
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );

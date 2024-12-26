@@ -1,9 +1,11 @@
+import 'dart:convert';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/screens/signin_screen.dart';
 import 'package:flutter_mindmed_project/screens/splash_screen.dart';
+import 'package:flutter_mindmed_project/widgets/colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import '../const/colors.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -41,6 +43,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
+  final TextEditingController _genderController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
@@ -144,7 +147,7 @@ class _SignupScreenState extends State<SignupScreen> {
       return;
     } else {
       // If all validations pass, show a success message
-      _showSuccessDialog(context);
+      _register();
     }
 
     // Continue with form submission logic
@@ -185,7 +188,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   width: 80,
                   height: 80,
                   child: Image.asset(
-                    'assets/animation/done.gif',
+                    'assets/animation/Animation - 1726443797305 (1).gif',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -210,13 +213,8 @@ class _SignupScreenState extends State<SignupScreen> {
                 SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
-                    // Fluttertoast.showToast(
-                    //   msg: "Sign In successful",
-                    //   backgroundColor: const Color.fromARGB(255, 110, 228, 114),
-                    //   toastLength: Toast.LENGTH_SHORT,
-                    //   gravity: ToastGravity.BOTTOM,
-                    // );
+                    Navigator.of(context).pushReplacementNamed(
+                        SigninScreen.id); // Navigate to SigninScreen
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
@@ -235,6 +233,63 @@ class _SignupScreenState extends State<SignupScreen> {
         );
       },
     );
+  }
+
+  Future<void> _register() async {
+    final url =
+        Uri.parse('https://abdokh.pythonanywhere.com/api/register/patient/');
+    final headers = {
+      'accept': 'application/json',
+      'Content-Type': 'application/json',
+      // Try removing the CSRF token if it's not strictly required for this API
+      //'X-CSRFToken': 'mrvSzhNKsALjslQYQpQVycU1AIkY1OeudGPWQfESG9Cyy75KNO9QMSTlrylJYm45',
+    };
+    final body = jsonEncode({
+      "username": _nameController.text.trim(),
+      "first_name": _firstNameController.text.trim(),
+      "last_name": _lastNameController.text.trim(),
+      "email": _emailController.text.trim(),
+      "password": _passwordController.text,
+      "password2": _confirmPasswordController.text,
+      "phone_number": _phoneController.text.trim(),
+      "birth_date": _dateController.text.trim(),
+      "gender": _genderController.text.trim(),
+      "nationality": _nationalityController.text.trim(),
+      "fluent_languages": _fluentLanguageController.text.trim(),
+      "current_residence": _currentResidenceController.text.trim(),
+    });
+
+    try {
+      final response = await http.post(url, headers: headers, body: body);
+
+      if (response.statusCode == 201) {
+        final responseData = jsonDecode(response.body);
+        _showSuccessDialog(context);
+        print('Status Code: ${response.statusCode}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(responseData['message'])),
+        );
+      } else if (response.statusCode == 400) {
+        final responseData = jsonDecode(response.body);
+        print('Error 400: ${responseData}');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  'Registration failed: ${responseData['error'] ?? 'Bad request'}')),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+              content: Text(
+                  'Registration failed. Status code: ${response.statusCode}')),
+        );
+      }
+    } catch (error) {
+      print('Error: $error');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred. Please try again.')),
+      );
+    }
   }
 
   @override
@@ -279,7 +334,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     left: getWidth(30),
                   ),
                   child: Image.asset(
-                    'assets/animation/chatbot.gif',
+                    'assets/animation/Animation - 1725391690653.gif',
                     width: getWidth(270),
                     height: getHeight(270),
                     fit: BoxFit.contain,
@@ -729,7 +784,15 @@ class _SignupScreenState extends State<SignupScreen> {
       child: ValueListenableBuilder<String?>(
         valueListenable: _selectedGender,
         builder: (context, selectedGender, _) {
+          // Synchronize the controller's text with the selected gender
+          if (selectedGender != null &&
+              _genderController.text != selectedGender) {
+            _genderController.text = selectedGender;
+          }
+
           return DropdownButtonFormField<String>(
+            value: selectedGender,
+            // controller: _genderController,
             focusNode: _genderFocusNode,
             decoration: InputDecoration(
               labelText: 'Gender',
@@ -750,8 +813,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ),
               ),
             ),
-            value: selectedGender,
-            items: ['Male', 'Female', 'Other'].map((gender) {
+            items: ['male', 'female', 'other'].map((gender) {
               return DropdownMenuItem<String>(
                 value: gender,
                 child: Text(
@@ -765,6 +827,7 @@ class _SignupScreenState extends State<SignupScreen> {
             }).toList(),
             onChanged: (value) {
               _selectedGender.value = value;
+              _genderController.text = value ?? ''; // Update the controller
             },
           );
         },
@@ -825,8 +888,19 @@ class _SignupScreenState extends State<SignupScreen> {
           );
 
           if (pickedDate != null) {
-            String formattedDate =
-                "${pickedDate.day}/${pickedDate.month}/${pickedDate.year}";
+            // Extract the selected day
+            int selectedDay = pickedDate.day;
+
+            // Format the date to 'YYYY-MM-DD'
+            String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+
+            // Example logic: Check if the selected day is a specific day
+            if (selectedDay == 1) {
+              print("You selected the first day of the month!");
+            } else {
+              print("Selected day is $selectedDay.");
+            }
+
             setState(() {
               _dateController.text = formattedDate;
             });

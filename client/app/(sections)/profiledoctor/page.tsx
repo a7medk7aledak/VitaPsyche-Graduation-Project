@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 import React, { useState } from "react";
 import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -10,10 +11,10 @@ interface DoctorProfileProps {
   clinicName?: string;
 }
 
-interface CareerTimelineItem {
-  year: string;
-  event: string;
-}
+// interface CareerTimelineItem {
+//   year: string;
+//   event: string;
+// }
 
 interface DoctorData {
   profileImageUrl: string;
@@ -34,7 +35,10 @@ interface DoctorData {
   cardType: string;
   cardNumber: string;
   paypalConnected: boolean;
-  careerTimeline: CareerTimelineItem[];
+  // careerTimeline: { year: string; event: string }[];
+  highestDegree: string;
+  institutionName: string;
+  totalExperience: number;
 }
 
 const DoctorProfile: React.FC<DoctorProfileProps> = ({
@@ -63,12 +67,15 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
     cardType: "Visa",
     cardNumber: "**** **** **** 1234",
     paypalConnected: false,
-    careerTimeline: [
-      { year: "2009", event: "Completed Psychiatry Residency" },
-      { year: "2010", event: "Joined New York Psychiatry Clinic" },
-      { year: "2015", event: "Specialized in Child Psychology" },
-      { year: "2020", event: "Became Head of Child Psychiatry Department" },
-    ],
+    // careerTimeline: [
+    //   { year: "2009", event: "Completed Psychiatry Residency" },
+    //   { year: "2010", event: "Joined New York Psychiatry Clinic" },
+    //   { year: "2015", event: "Specialized in Child Psychology" },
+    //   { year: "2020", event: "Became Head of Child Psychiatry Department" },
+    // ],
+    highestDegree: "Doctor of Medicine (MD)",
+    institutionName: "Harvard Medical School",
+    totalExperience: 15,
   });
 
   const [editing, setEditing] = useState(false);
@@ -100,7 +107,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   };
 
   const renderPersonalInfo = () => (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {[
         { label: "Full Name (English)", key: "fullNameEn" },
         { label: "Full Name (Arabic)", key: "fullNameAr" },
@@ -115,7 +122,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
         { label: "Fluent Languages", key: "fluentLanguages" },
       ].map((field) => (
         <div key={field.key}>
-          <p className="text-sm font-bold text-gray-700">
+          <p className="text-md font-bold text-gray-700">
             {field.label}{" "}
             {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
           </p>
@@ -158,7 +165,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   );
 
   const renderPaymentInfo = () => (
-    <div className="grid grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {[
         { label: "Payment Method", key: "paymentMethod", locked: true },
         { label: "Card Type", key: "cardType", locked: true },
@@ -166,7 +173,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
         { label: "PayPal Connected", key: "paypalConnected", locked: true },
       ].map((field) => (
         <div key={field.key}>
-          <p className="text-sm font-bold text-gray-700">
+          <p className="text-md font-bold text-gray-700">
             {field.label}{" "}
             {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
           </p>
@@ -208,9 +215,38 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
     </div>
   );
 
-  const renderCareerTimeline = () => (
+  const renderCareerInfo = () => (
     <div className="mt-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Career Timeline</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-4">Career</h2>
+      <ul className="timeline">
+        <li className="mb-4">
+          <span className=" font-semibold  text-lg text-gray-600">
+            Highest Degree Earned
+          </span>
+          <p className=" ">{doctorData.highestDegree}</p>
+        </li>
+        <li className="mb-4">
+          <span className=" font-semibold text-lg text-gray-600">
+            Institution
+          </span>
+          <p className="text-lg ">{doctorData.institutionName}</p>
+        </li>
+        <li className="mb-4">
+          <span className=" font-semibold text-lg text-gray-600">
+            Specialized In
+          </span>
+          <p className="text-lg ">{doctorData.specialization}</p>
+        </li>
+        <li className="mb-4">
+          <span className=" font-semibold text-lg text-gray-600">
+            Total Years of Experience
+          </span>
+          <p className="text-lg ">{doctorData.totalExperience} years</p>
+        </li>
+      </ul>
+      {/* <h2 className="text-xl font-semibold text-gray-800 mb-4">
+        Career Timeline
+      </h2>
       <ul className="timeline">
         {doctorData.careerTimeline.map((item, index) => (
           <li key={index} className="mb-4">
@@ -218,14 +254,14 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
             <p className="text-lg font-semibold">{item.event}</p>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 
   const renderDocuments = () => (
     <div className="mt-6">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Documents</h2>
-      <div className="space-y-2">
+      <div className="space-x-6 ">
         <a href="/path-to-cv" className="text-blue-500 hover:underline">
           View CV
         </a>
@@ -240,15 +276,16 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-cyan-500 to-blue-500 p-8 flex justify-center items-center">
+    <div className="min-h-screen bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 p-8 flex justify-center items-center">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-2xl">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center">
-            <div className="relative w-24 h-24 rounded-full overflow-hidden mr-4">
-              <img
-                src={doctorData.profileImageUrl}
+        <div className="flex flex-col md:flex-row items-center justify-between mb-8 space-y-4 md:space-y-0">
+          <div className="flex flex-col md:flex-row items-center relative w-full">
+            <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-4">
+              <Image
+                src={"/images/about-us/me.jpg"}
                 alt={`Dr. ${doctorData.fullNameEn}`}
-                className="w-full h-full object-cover"
+                layout="fill"
+                objectFit="cover"
               />
               {editing && (
                 <label
@@ -266,32 +303,34 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
                 </label>
               )}
             </div>
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
+            <div className="text-center md:text-left">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
                 {doctorData.fullNameEn}
               </h1>
-              <p className="text-2xl text-gray-600">{doctorData.fullNameAr}</p>
-              <p className="text-gray-600">
+              <p className="text-lg sm:text-xl lg:text-2xl text-gray-600">
+                {doctorData.fullNameAr}
+              </p>
+              <p className="text-sm sm:text-base lg:text-lg text-gray-600">
                 {doctorData.specialization} | {doctorData.clinicName}
               </p>
             </div>
+            <button
+              onClick={() => setEditing(!editing)}
+              className="absolute top-2 right-2 md:static md:ml-auto text-white py-2 px-4 rounded bg-[#00bfa5] hover:bg-[#139485] transition"
+            >
+              {editing ? "Save" : "Edit"}
+            </button>
           </div>
-          <button
-            onClick={() => setEditing(!editing)}
-            className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 transition"
-          >
-            {editing ? "Save" : "Edit"}
-          </button>
         </div>
 
-        <div className="tabs flex justify-between mb-6">
+        <div className="tabs flex justify-between flex-wrap gap-y-4 mb-6">
           {["personal", "payment", "career", "documents"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`tab ${
                 activeTab === tab
-                  ? "bg-blue-600 text-white"
+                  ? "bg-[#00bfa5]  text-white"
                   : "bg-gray-200 text-gray-700"
               } py-2 px-4 rounded-t-lg transition`}
             >
@@ -300,10 +339,10 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
           ))}
         </div>
 
-        <div className="tab-content mt-8 bg-gray-100 p-6 rounded-lg">
+        <div className=" mt-8 bg-gray-100 p-6 rounded-lg">
           {activeTab === "personal" && renderPersonalInfo()}
           {activeTab === "payment" && renderPaymentInfo()}
-          {activeTab === "career" && renderCareerTimeline()}
+          {activeTab === "career" && renderCareerInfo()}
           {activeTab === "documents" && renderDocuments()}
         </div>
       </div>
