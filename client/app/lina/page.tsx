@@ -1,14 +1,8 @@
 "use client";
 
 import Avatar3D from "@components/Avatar3D";
-import React, { useState, useEffect, useRef } from "react";
-import {
-  FaMicrophone,
-  FaMicrophoneSlash,
-  FaPaperPlane,
-  FaGlobe,
-  FaHome,
-} from "react-icons/fa";
+import React, { useState, useEffect } from "react";
+import { FaMicrophone, FaMicrophoneSlash, FaPaperPlane } from "react-icons/fa";
 
 // Define Speech Recognition related events
 interface SpeechRecognitionErrorEvent extends Event {
@@ -82,7 +76,9 @@ const VirtualSupportAgent: React.FC = () => {
   const [input, setInput] = useState<string>("");
   const [isListening, setIsListening] = useState<boolean>(false);
   const [language, setLanguage] = useState<string>("en-US");
-  const [recognition, setRecognition] = useState<SpeechRecognition | null>(null);
+  const [recognition, setRecognition] = useState<SpeechRecognition | null>(
+    null
+  );
   const [showSuggestions, setShowSuggestions] = useState<boolean>(true);
   const [isTyping, setIsTyping] = useState<boolean>(false);
   const [agentMessage, setAgentMessage] = useState<string>(""); // حالة لتخزين رسالة الوكيل
@@ -112,14 +108,18 @@ const VirtualSupportAgent: React.FC = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const SpeechRecognitionAPI =
-        (window as typeof window & {
-          SpeechRecognition?: SpeechRecognitionConstructor;
-          webkitSpeechRecognition?: SpeechRecognitionConstructor;
-        }).SpeechRecognition ||
-        (window as typeof window & {
-          SpeechRecognition?: SpeechRecognitionConstructor;
-          webkitSpeechRecognition?: SpeechRecognitionConstructor;
-        }).webkitSpeechRecognition;
+        (
+          window as typeof window & {
+            SpeechRecognition?: SpeechRecognitionConstructor;
+            webkitSpeechRecognition?: SpeechRecognitionConstructor;
+          }
+        ).SpeechRecognition ||
+        (
+          window as typeof window & {
+            SpeechRecognition?: SpeechRecognitionConstructor;
+            webkitSpeechRecognition?: SpeechRecognitionConstructor;
+          }
+        ).webkitSpeechRecognition;
 
       if (SpeechRecognitionAPI) {
         const speechRecognition = new SpeechRecognitionAPI();
@@ -201,68 +201,68 @@ const VirtualSupportAgent: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen relative bg-gradient-to-b from-blue-100 via-purple-100 to-indigo-200">
-    <Avatar3D message={agentMessage} /> {/* عرض الرسالة كفقاعة داخل 3D فقط */}
-
-    {/* Message Input and Suggestions */}
-    <div className="p-4 bg-white border-t border-gray-200 shadow-lg z-10">
-      {showSuggestions && suggestions[language] && (
-        <div className="mb-4">
-          <div className="flex flex-wrap gap-2">
-            {suggestions[language].map((suggestion, index) => (
-              <button
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
-                className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
-              >
-                {suggestion}
-              </button>
-            ))}
+      <Avatar3D message={agentMessage} /> {/* عرض الرسالة كفقاعة داخل 3D فقط */}
+      {/* Message Input and Suggestions */}
+      <div className="p-4 bg-white border-t border-gray-200 shadow-lg z-10">
+        {showSuggestions && suggestions[language] && (
+          <div className="mb-4">
+            <div className="flex flex-wrap gap-2">
+              {suggestions[language].map((suggestion, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <div className="flex items-center space-x-4">
-        <button
-          onClick={handleSpeechToText}
-          className={`${
-            isListening ? "bg-red-500" : "bg-blue-500"
-          } p-3 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md`}
-        >
-          {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
-        </button>
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
+        <div className="flex items-center space-x-4">
+          <button
+            onClick={handleSpeechToText}
+            className={`${
+              isListening ? "bg-red-500" : "bg-blue-500"
+            } p-3 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md`}
+          >
+            {isListening ? <FaMicrophoneSlash /> : <FaMicrophone />}
+          </button>
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                handleSendMessage(input);
+                setShowSuggestions(false);
+              }
+            }}
+            placeholder="Type your message..."
+            className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <button
+            onClick={() => {
               handleSendMessage(input);
               setShowSuggestions(false);
-            }
-          }}
-          placeholder="Type your message..."
-          className="flex-grow px-4 py-2 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          onClick={() => {
-            handleSendMessage(input);
-            setShowSuggestions(false);
-          }}
-          className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
-        >
-          <FaPaperPlane />
-        </button>
-        <select
-          value={language}
-          onChange={handleLanguageChange}
-          className="p-2 border border-gray-300 rounded-lg shadow-md"
-        >
-          <option value="en-US">English</option>
-          <option value="ar-SA">Arabic</option>
-        </select>
+            }}
+            className="p-3 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition duration-300 shadow-md"
+          >
+            <FaPaperPlane />
+          </button>
+          <select
+            value={language}
+            onChange={handleLanguageChange}
+            className="p-2 border border-gray-300 rounded-lg shadow-md"
+          >
+            <option value="en-US">English</option>
+            <option value="ar-SA">Arabic</option>
+          </select>
+        </div>
       </div>
     </div>
-  </div>  );
+  );
 };
 
 export default VirtualSupportAgent;

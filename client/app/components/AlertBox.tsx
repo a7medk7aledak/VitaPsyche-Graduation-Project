@@ -64,7 +64,7 @@ const AlertBox = () => {
         }}
       />
       <p style={{ marginBottom: "15px", fontSize: "16px", fontWeight: "bold" }}>
-        Hi, I am Lina. Let's talk...
+        Hi, I am Lina. Let&apos;s talk...
       </p>
       <button
         onClick={redirectToLina}

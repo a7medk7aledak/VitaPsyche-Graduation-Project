@@ -65,7 +65,6 @@ const TestsPage: React.FC = () => {
               <TestCard
                 key={index}
                 title={test.title}
-                icon={test.icon}
                 questions={test.questions}
               />
             ))}

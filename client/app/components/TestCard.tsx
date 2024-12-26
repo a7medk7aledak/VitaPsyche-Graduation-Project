@@ -3,6 +3,7 @@ import React from "react";
 
 interface TestCardProps {
   title: string;
+  questions: number; // Add the questions property to the interface
 }
 
 const TestCard: React.FC<TestCardProps> = ({ title, questions }) => {
