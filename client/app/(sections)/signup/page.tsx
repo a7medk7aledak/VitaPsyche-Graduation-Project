@@ -9,6 +9,9 @@ import {
   FaEyeSlash,
   FaCalendarAlt,
   FaVenusMars,
+  FaGlobe,
+  FaLanguage,
+  FaHome,
 } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -17,37 +20,37 @@ import { motion } from "framer-motion";
 import axios from "axios";
 
 interface FormData {
-  name: string;
+  username: string;
+  first_name: string;
+  last_name: string;
   email: string;
   password: string;
-  confirmPassword: string;
-  phone: string;
-  birthdate: string;
+  password2: string;
+  phone_number: string;
+  birth_date: string;
   gender: string;
+  nationality: string;
+  fluent_languages: string;
+  current_residence: string;
   termsAccepted: boolean;
-}
-
-interface ApiError {
-  response?: {
-    data?: {
-      detail?: string;
-    };
-    status?: number;
-  };
-  message: string;
 }
 
 const LoginPage: React.FC = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    name: "",
+    username: "",
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
-    confirmPassword: "",
-    phone: "",
-    birthdate: "",
+    password2: "",
+    phone_number: "",
+    birth_date: "",
     gender: "",
+    nationality: "",
+    fluent_languages: "",
+    current_residence: "",
     termsAccepted: false,
   });
 
@@ -68,104 +71,107 @@ const LoginPage: React.FC = () => {
   const handlePhoneChange = (phone: string) => {
     setFormData((prev) => ({
       ...prev,
-      phone,
+      phone_number: phone,
     }));
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    const {
-      name,
-      email,
-      password,
-      confirmPassword,
-      phone,
-      birthdate,
-      gender,
-      termsAccepted,
-    } = formData;
-
-    if (!termsAccepted) {
+    if (!formData.termsAccepted) {
       alert("Please accept the terms and conditions.");
       return;
     }
-    if (password !== confirmPassword) {
+    if (formData.password !== formData.password2) {
       alert("Passwords do not match.");
       return;
     }
 
     try {
-      const response = await axios.post(
-        "register/patient/",
-        {
-          name,
-          email,
-          password,
-          phone,
-          birthdate,
-          gender,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-        }
-      );
+      const response = await axios.post("/api/register/patient", formData, {
+        headers: { "Content-Type": "application/json" },
+      });
 
       console.log("Registration successful:", response.data);
       alert("Registration successful! You can now log in.");
-    } catch (error: unknown) {
-      const isApiError = (error: unknown): error is ApiError => {
-        return (
-          typeof error === "object" && error !== null && "message" in error
-        );
-      };
-
-      let errorMessage = "An error occurred. Please try again.";
-
-      if (isApiError(error)) {
-        errorMessage = error.response?.data?.detail || error.message;
-      }
-
-      alert(`Registration failed: ${errorMessage}`);
+    } catch (error: any) {
+      const errorMessage =
+        error.response?.data?.detail || error.message || "Registration failed";
+      alert(errorMessage);
       console.error("Error during registration:", error);
     }
   };
 
   const formFields = [
     {
-      name: "name",
-      label: "Full Name",
+      name: "username",
+      label: "Username",
       type: "text",
       icon: FaUser,
-      placeholder: "Enter name",
+      required: true,
+    },
+    {
+      name: "first_name",
+      label: "First Name",
+      type: "text",
+      icon: FaUser,
+      required: true,
+    },
+    {
+      name: "last_name",
+      label: "Last Name",
+      type: "text",
+      icon: FaUser,
+      required: true,
     },
     {
       name: "email",
       label: "Email",
       type: "email",
       icon: FaEnvelope,
-      placeholder: "Enter email",
+      required: true,
     },
     {
       name: "password",
       label: "Password",
       type: showPassword1 ? "text" : "password",
       icon: FaLock,
-      placeholder: "Enter password",
+      required: true,
       showPassword: showPassword1,
       togglePassword: togglePasswordVisibility1,
     },
     {
-      name: "confirmPassword",
+      name: "password2",
       label: "Confirm Password",
       type: showPassword2 ? "text" : "password",
       icon: FaLock,
-      placeholder: "Confirm password",
+      required: true,
       showPassword: showPassword2,
       togglePassword: togglePasswordVisibility2,
+    },
+  ];
+
+  const additionalFields = [
+    {
+      name: "nationality",
+      label: "Nationality",
+      type: "text",
+      icon: FaGlobe,
+      required: true,
+    },
+    {
+      name: "fluent_languages",
+      label: "Fluent Languages",
+      type: "text",
+      icon: FaLanguage,
+      required: true,
+    },
+    {
+      name: "current_residence",
+      label: "Current Residence",
+      type: "text",
+      icon: FaHome,
+      required: true,
     },
   ];
 
@@ -210,9 +216,9 @@ const LoginPage: React.FC = () => {
                     type={field.type}
                     value={formData[field.name as keyof FormData] as string}
                     onChange={handleInputChange}
-                    required
+                    required={field.required}
                     className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
-                    placeholder={field.placeholder}
+                    placeholder={`Enter ${field.label.toLowerCase()}`}
                   />
                   {field.togglePassword && (
                     <div
@@ -237,7 +243,7 @@ const LoginPage: React.FC = () => {
               </label>
               <PhoneInput
                 country="eg"
-                value={formData.phone}
+                value={formData.phone_number}
                 onChange={handlePhoneChange}
                 inputStyle={{
                   width: "100%",
@@ -257,46 +263,72 @@ const LoginPage: React.FC = () => {
               />
             </motion.div>
 
-            {["birthdate", "gender"].map((field, index) => (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+              className="mt-8"
+            >
+              <label className="text-maintext text-xs block mb-2">
+                Birth Date
+              </label>
+              <div className="relative flex items-center">
+                <FaCalendarAlt className="absolute left-2 text-button" />
+                <input
+                  name="birth_date"
+                  type="date"
+                  value={formData.birth_date}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
+              className="mt-8"
+            >
+              <label className="text-maintext text-xs block mb-2">Gender</label>
+              <div className="relative flex items-center">
+                <FaVenusMars className="absolute left-2 text-button" />
+                <select
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </motion.div>
+
+            {additionalFields.map((field, index) => (
               <motion.div
-                key={field}
+                key={field.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
                 className="mt-8"
               >
                 <label className="text-maintext text-xs block mb-2">
-                  {field === "birthdate" ? "Birth Date" : "Gender"}
+                  {field.label}
                 </label>
                 <div className="relative flex items-center">
-                  {field === "birthdate" ? (
-                    <FaCalendarAlt className="absolute left-2 text-button" />
-                  ) : (
-                    <FaVenusMars className="absolute left-2 text-button" />
-                  )}
-                  {field === "birthdate" ? (
-                    <input
-                      name="birthdate"
-                      type="date"
-                      value={formData.birthdate}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
-                    />
-                  ) : (
-                    <select
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
-                    >
-                      <option value="">Select gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                  )}
+                  <field.icon className="absolute left-2 text-button" />
+                  <input
+                    name={field.name}
+                    type={field.type}
+                    value={formData[field.name as keyof FormData] as string}
+                    onChange={handleInputChange}
+                    required={field.required}
+                    className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
+                    placeholder={`Enter ${field.label.toLowerCase()}`}
+                  />
                 </div>
               </motion.div>
             ))}
@@ -304,7 +336,7 @@ const LoginPage: React.FC = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
+              transition={{ duration: 0.5, delay: 1.1 }}
               className="flex items-center mt-8"
             >
               <input
