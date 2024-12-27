@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/models/model_blog.dart';
-import 'package:flutter_mindmed_project/models/read_json_file.dart';
+import 'package:flutter_mindmed_project/model/model_blog.dart';
+import 'package:flutter_mindmed_project/model/read_json_file.dart';
 import 'package:flutter_mindmed_project/screens/services/blog/details_blog.dart';
 import 'package:flutter_mindmed_project/const/colors.dart';
 import 'package:flutter_mindmed_project/const/const_image.dart';
