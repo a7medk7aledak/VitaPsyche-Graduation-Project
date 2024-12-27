@@ -545,3 +545,87 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 }
+
+
+// by ahmed khaled
+
+// import 'package:flutter/material.dart'; // For UI components
+// import 'chat_service.dart'; // Import the ChatService
+
+// void main() => runApp(MyApp()); // Entry point for the app
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       home: ChatScreen(), // Set ChatScreen as the home screen
+//     );
+//   }
+// }
+
+// class ChatScreen extends StatefulWidget {
+//   @override
+//   _ChatScreenState createState() => _ChatScreenState();
+// }
+
+// class _ChatScreenState extends State<ChatScreen> {
+//   final TextEditingController _controller = TextEditingController(); // For handling input
+//   final ChatService _chatService = ChatService(); // Instance of ChatService
+//   List<String> _messages = []; // List to store chat messages
+
+//   // Function to send a message
+//   void _sendMessage() async {
+//     if (_controller.text.isNotEmpty) {
+//       final message = _controller.text; // Get the message from the input field
+//       setState(() {
+//         _messages.add('You: $message'); // Add user's message to the list
+//       });
+
+//       final response = await _chatService.sendMessage(message); // Send message to backend
+//       setState(() {
+//         _messages.add('Bot: $response'); // Add bot's response to the list
+//       });
+
+//       _controller.clear(); // Clear the input field
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('ChatBot')), // App bar with title
+//       body: Column(
+//         children: [
+//           Expanded(
+//             child: ListView.builder(
+//               itemCount: _messages.length, // Number of messages
+//               itemBuilder: (context, index) {
+//                 return ListTile(title: Text(_messages[index])); // Display each message
+//               },
+//             ),
+//           ),
+//           Padding(
+//             padding: const EdgeInsets.all(8.0), // Add padding around input area
+//             child: Row(
+//               children: [
+//                 Expanded(
+//                   child: TextField(
+//                     controller: _controller, // Bind input controller
+//                     decoration: InputDecoration(
+//                       border: OutlineInputBorder(), // Add border to input field
+//                       hintText: 'Enter your message', // Placeholder text
+//                     ),
+//                   ),
+//                 ),
+//                 IconButton(
+//                   icon: Icon(Icons.send), // Send icon button
+//                   onPressed: _sendMessage, // Trigger sendMessage function
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
