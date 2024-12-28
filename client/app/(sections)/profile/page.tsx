@@ -1,325 +1,326 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaUser,
   FaWallet,
-  FaLock,
   FaEdit,
-  FaCreditCard,
-  FaCcVisa,
-  FaPaypal,
-} from "react-icons/fa"; // Importing icons
+  FaEnvelope,
+  FaPhone,
+  FaGlobe,
+  FaLanguage,
+  FaHome,
+  FaBirthdayCake,
+  FaVenusMars,
+} from "react-icons/fa";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "@/app/store/store";
+import { useRouter } from "next/navigation";
+import { logout } from "@/app/store/authSlice";
+import { motion } from "framer-motion";
+import Navbar from "@components/common/Navbar";
 
-const ProfilePage = () => {
-  const [activeTab, setActiveTab] = useState("personalInfo");
-  const [isEditMode, setIsEditMode] = useState(false); // To toggle between edit and view modes
-  const [showSignOutModal, setShowSignOutModal] = useState(false); // For sign out modal
-  const [profileData, setProfileData] = useState({
-    nickname: "belalsq",
-    phone: "+201123456789",
-    email: "test@gmail.com",
-    gender: "Male",
-    birthYear: "2002",
+interface ProfileData {
+  username: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_number: string;
+  birth_date: string;
+  gender: string;
+  nationality: string;
+  fluent_languages: string;
+  current_residence: string;
+}
+
+interface ProfileFieldProps {
+  icon: React.ElementType;
+  label: string;
+  value: string;
+  name: string;
+}
+
+const ProfilePage: React.FC = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  const [activeTab, setActiveTab] = useState<"personalInfo" | "paymentInfo">(
+    "personalInfo"
+  );
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
+  const [showSignOutModal, setShowSignOutModal] = useState<boolean>(false);
+  const [profileData, setProfileData] = useState<ProfileData>({
+    username: "",
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone_number: "",
+    birth_date: "",
+    gender: "",
+    nationality: "",
+    fluent_languages: "",
+    current_residence: "",
   });
 
-  // Toggle Edit Mode
-  const toggleEditMode = () => {
+  useEffect(() => {
+    if (user) {
+      setProfileData({
+        username: user.username || "",
+        first_name: user.first_name || "",
+        last_name: user.last_name || "",
+        email: user.email || "",
+        phone_number: user.phone_number || "",
+        birth_date: user.birth_date || "",
+        gender: user.gender || "",
+        nationality: user.nationality || "",
+        fluent_languages: user.fluent_languages || "",
+        current_residence: user.current_residence || "",
+      });
+    }
+  }, [user]);
+
+  const toggleEditMode = (): void => {
     setIsEditMode(!isEditMode);
   };
 
-  // Handle Input Changes
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target;
-    setProfileData({
-      ...profileData,
+    setProfileData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   };
 
-  // Show or hide the sign-out confirmation modal
-  const toggleSignOutModal = () => {
-    setShowSignOutModal(!showSignOutModal);
+  const handleSignOut = (): void => {
+    dispatch(logout());
+    router.push("/");
   };
 
-  // Handle the sign-out process
-  const handleSignOut = () => {
-    setShowSignOutModal(false);
-    console.log("User signed out");
-  };
+  const ProfileField: React.FC<ProfileFieldProps> = ({
+    icon: Icon,
+    label,
+    value,
+    name,
+  }) => (
+    <motion.div
+      className="flex justify-between items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+      whileHover={{ scale: 1.01 }}
+    >
+      <div className="flex items-center space-x-3">
+        <Icon className="text-teal-600 text-xl" />
+        <span className="text-gray-700 font-medium">{label}</span>
+      </div>
+      {isEditMode ? (
+        <input
+          type="text"
+          name={name}
+          value={value}
+          onChange={handleInputChange}
+          className="border rounded-md p-2 w-full max-w-[200px] focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+        />
+      ) : (
+        <span className="text-gray-800 font-semibold">{value}</span>
+      )}
+    </motion.div>
+  );
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 flex justify-center items-center px-4 sm:px-6 lg:px-8">
-      <div className="container justify-center mx-auto flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
-        {/* Sidebar */}
-        <aside className="lg:w-1/4 w-full justify-center bg-white shadow-md p-4 rounded-2xl h-auto lg:h-[350px] flex flex-col items-center">
-          <div className="flex flex-col   items-center ">
-            {/* Profile Image with Icon */}
-            <div className="relative w-24 h-24 bg-button rounded-full mb-4 flex items-center justify-center">
-              <FaUser className="text-white text-4xl" />
-            </div>
-            <h2 className="text-lg font-semibold text-heading">
-              {profileData.nickname}
-            </h2>
-            <div className="flex items-center space-x-2 text-gray-600">
-              <FaWallet className="text-maintext" />
-              <span>Wallet (0)</span>
-            </div>
-          </div>
-        </aside>
-
-        {/* Main Content */}
-        <main className="lg:w-3/6 w-full bg-white shadow-md p-6 rounded-2xl">
-          {/* Tabs */}
-          <div className="flex justify-start space-x-4 border-b pb-4 mb-4">
-            <button
-              className={`text-lg font-medium  ${
-                activeTab === "personalInfo" ? "border-b-2 border-heading text-heading" : ""
-              }`}
-              onClick={() => setActiveTab("personalInfo")}
+    <>
+      <Navbar />
+      <div className="min-h-screen bg-gray-100 py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Sidebar */}
+            <motion.aside
+              className="lg:col-span-3 bg-white rounded-2xl shadow-lg p-6"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              Personal Information
-            </button>
-            <button
-              className={`text-lg font-medium  ${
-                activeTab === "paymentInfo" ? "border-b-2 border-heading text-heading " : ""
-              }`}
-              onClick={() => setActiveTab("paymentInfo")}
+              <div className="flex flex-col items-center">
+                <div className="relative w-32 h-32 bg-gradient-to-r from-teal-500 to-teal-600 rounded-full mb-6 flex items-center justify-center">
+                  <FaUser className="text-white text-5xl" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">
+                  {profileData.first_name} {profileData.last_name}
+                </h2>
+                <p className="text-gray-600 mb-4">@{profileData.username}</p>
+                <div className="flex items-center space-x-2 text-teal-600">
+                  <FaWallet />
+                  <span>Wallet Balance: $0</span>
+                </div>
+              </div>
+            </motion.aside>
+
+            {/* Main Content */}
+            <motion.main
+              className="lg:col-span-9 bg-white rounded-2xl shadow-lg p-6"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
             >
-              Payment Info
-            </button>
-          </div>
-
-          {/* Content */}
-          {activeTab === "personalInfo" && (
-            <div className="space-y-4">
-              {/* Edit Mode Toggle */}
-              <button
-                className="text-subbutton transitions flex items-center justify-center hover:text-hoversubbutton mb-4"
-                onClick={toggleEditMode}
-              >
-                {isEditMode ? "Cancel Edit" : "Edit Profile"}
-                <FaEdit className="ml-2 text-maintext transitions hover:text-hoversubbutton" />
-              </button>
-
-              {/* Personal Information */}
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" />
-                  <span className="text-paragraphtext">Name (or Nickname)</span>
-                </div>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    name="nickname"
-                    value={profileData.nickname}
-                    onChange={handleInputChange}
-                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
-                  />
-                ) : (
-                  <span className="font-medium">{profileData.nickname}</span>
-                )}
-              </div>
-
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" />
-                  <span className="text-paragraphtext">
-                    Phone Number (Unverified)
-                  </span>
-                </div>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    name="phone"
-                    value={profileData.phone}
-                    onChange={handleInputChange}
-                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
-                  />
-                ) : (
-                  <div className="space-x-2">
-                    <span className="font-medium">{profileData.phone}</span>
-                    <a href="#" className="text-heading font-semibold">
-                      Verify
-                    </a>
-                  </div>
-                )}
-              </div>
-
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" />
-                  <span className="text-paragraphtext">Email (Unverified)</span>
-                </div>
-                {isEditMode ? (
-                  <input
-                    type="email"
-                    name="email"
-                    value={profileData.email}
-                    onChange={handleInputChange}
-                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
-                  />
-                ) : (
-                  <div className="space-x-2">
-                    <span className="font-medium">{profileData.email}</span>
-                    <a href="#" className="text-heading font-semibold">
-                      Verify
-                    </a>
-                  </div>
-                )}
-              </div>
-
-              <p className="text-sm text-paragraphtext font-semibold">
-                A verification email has been sent. Open it up to confirm your
-                email address.
-              </p>
-
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" />
-                  <span className="text-paragraphtext">Gender</span>
-                </div>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    name="gender"
-                    value={profileData.gender}
-                    onChange={handleInputChange}
-                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
-                  />
-                ) : (
-                  <span className="font-medium">{profileData.gender}</span>
-                )}
-              </div>
-
-              <div className="flex justify-between items-center">
-                <div className="flex items-center space-x-2">
-                  <FaLock className="text-maintext" />
-                  <span className="text-paragraphtext">Year of birth</span>
-                </div>
-                {isEditMode ? (
-                  <input
-                    type="text"
-                    name="birthYear"
-                    value={profileData.birthYear}
-                    onChange={handleInputChange}
-                    className="border rounded-md p-2 w-full max-w-[150px] lg:max-w-none"
-                  />
-                ) : (
-                  <span className="font-medium">{profileData.birthYear}</span>
-                )}
-              </div>
-
-              {/* Save Button (only visible in edit mode) */}
-              {isEditMode && (
+              {/* Tabs */}
+              <div className="flex space-x-6 border-b border-gray-200 mb-6">
                 <button
-                  className="w-full bg-heading text-white py-2 rounded-md hover:bg-[#139485] transitions"
-                  onClick={toggleEditMode} // Save and switch back to view mode
+                  className={`pb-4 px-2 text-lg font-medium transition-colors ${
+                    activeTab === "personalInfo"
+                      ? "text-teal-600 border-b-2 border-teal-600"
+                      : "text-gray-600 hover:text-teal-600"
+                  }`}
+                  onClick={() => setActiveTab("personalInfo")}
                 >
-                  Save
+                  Personal Information
                 </button>
+                <button
+                  className={`pb-4 px-2 text-lg font-medium transition-colors ${
+                    activeTab === "paymentInfo"
+                      ? "text-teal-600 border-b-2 border-teal-600"
+                      : "text-gray-600 hover:text-teal-600"
+                  }`}
+                  onClick={() => setActiveTab("paymentInfo")}
+                >
+                  Payment Information
+                </button>
+              </div>
+
+              {activeTab === "personalInfo" && (
+                <div className="space-y-4">
+                  <div className="flex justify-end mb-6">
+                    <button
+                      onClick={toggleEditMode}
+                      className="flex items-center space-x-2 px-4 py-2 bg-teal-50 text-teal-600 rounded-lg hover:bg-teal-100 transition-colors"
+                    >
+                      <FaEdit />
+                      <span>
+                        {isEditMode ? "Save Changes" : "Edit Profile"}
+                      </span>
+                    </button>
+                  </div>
+
+                  <div className="grid gap-4">
+                    <ProfileField
+                      icon={FaUser}
+                      label="Username"
+                      value={profileData.username}
+                      name="username"
+                    />
+                    <ProfileField
+                      icon={FaUser}
+                      label="First Name"
+                      value={profileData.first_name}
+                      name="first_name"
+                    />
+                    <ProfileField
+                      icon={FaUser}
+                      label="Last Name"
+                      value={profileData.last_name}
+                      name="last_name"
+                    />
+                    <ProfileField
+                      icon={FaEnvelope}
+                      label="Email"
+                      value={profileData.email}
+                      name="email"
+                    />
+                    <ProfileField
+                      icon={FaPhone}
+                      label="Phone Number"
+                      value={profileData.phone_number}
+                      name="phone_number"
+                    />
+                    <ProfileField
+                      icon={FaBirthdayCake}
+                      label="Birth Date"
+                      value={profileData.birth_date}
+                      name="birth_date"
+                    />
+                    <ProfileField
+                      icon={FaVenusMars}
+                      label="Gender"
+                      value={profileData.gender}
+                      name="gender"
+                    />
+                    <ProfileField
+                      icon={FaGlobe}
+                      label="Nationality"
+                      value={profileData.nationality}
+                      name="nationality"
+                    />
+                    <ProfileField
+                      icon={FaLanguage}
+                      label="Fluent Languages"
+                      value={profileData.fluent_languages}
+                      name="fluent_languages"
+                    />
+                    <ProfileField
+                      icon={FaHome}
+                      label="Current Residence"
+                      value={profileData.current_residence}
+                      name="current_residence"
+                    />
+                  </div>
+
+                  <div className="mt-8 space-y-4">
+                    <button
+                      className="w-full py-3 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors"
+                      onClick={() => {
+                        /* Handle password change */
+                      }}
+                    >
+                      Change Password
+                    </button>
+                    <button
+                      className="w-full py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                      onClick={() => setShowSignOutModal(true)}
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                </div>
               )}
 
-              {/* Other Buttons */}
-              <div className="mt-6 space-y-4">
-                <button className="w-full bg-heading text-white py-2 rounded-md  hover:bg-[#139485] transitions">
-                  Change Password
-                </button>
-                <button
-                  className="w-full bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transitions"
-                  onClick={toggleSignOutModal}
-                >
-                  Sign out
-                </button>
-              </div>
-            </div>
-          )}
+              {activeTab === "paymentInfo" && (
+                <div>{/* Your payment info content */}</div>
+              )}
+            </motion.main>
+          </div>
+        </div>
 
-          {activeTab === "paymentInfo" && (
-            <div className="space-y-4">
-              {/* Payment Info */}
-              <div className="space-y-6">
-                {/* Payment Method */}
-                <div className="flex justify-between items-center text-gray-600">
-                  <div className="flex items-center space-x-2">
-                    <FaCreditCard className="text-heading" />
-                    <span className="font-semibold text-paragraphtext">
-                      Payment Method
-                    </span>
-                  </div>
-                  <span className="font-medium text-heading">Active</span>
-                </div>
-
-                {/* Card Type */}
-                <div className="flex justify-between items-center text-gray-600">
-                  <div className="flex items-center space-x-2">
-                    <FaCcVisa className="text-blue-600 text-xl" />
-                    <span className="font-semibold text-paragraphtext">
-                      Card Type
-                    </span>
-                  </div>
-                  <span className="font-medium">Visa</span>
-                </div>
-
-                {/* Card Number */}
-                <div className="flex justify-between items-center text-gray-600">
-                  <div className="flex items-center space-x-2">
-                    <FaLock className="text-maintext" />
-                    <span className="font-semibold text-paragraphtext">
-                      Card Number
-                    </span>
-                  </div>
-                  <span className="font-medium">**** **** **** 1234</span>
-                </div>
-
-                {/* PayPal */}
-                <div className="flex justify-between items-center text-gray-600">
-                  <div className="flex items-center space-x-2">
-                    <FaPaypal className="text-blue-500 text-xl" />
-                    <span className="font-semibold text-paragraphtext">
-                      PayPal
-                    </span>
-                  </div>
-                  <span className="font-medium text-heading">Connected</span>
-                </div>
-              </div>
-
-              {/* Add New Payment Method */}
-              <div className="mt-6">
-                <button className="w-full bg-subbutton text-white py-2 rounded-md hover:bg-hoversubbutton transitions">
-                  Add Payment Method
-                </button>
-              </div>
-            </div>
-          )}
-        </main>
-
-        {/* Sign-out Confirmation Modal */}
+        {/* Sign Out Modal */}
         {showSignOutModal && (
-          <div className="fixed inset-0 bg-gray-600 bg-opacity-75 flex justify-center items-center">
-            <div className="bg-white rounded-lg p-6 w-11/12 sm:w-96">
-              <h2 className="text-lg font-semibold text-heading mb-4">
-                Are you sure you want to sign out?
-              </h2>
-              <div className="flex justify-end space-x-4">
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <motion.div
+              className="bg-white rounded-2xl p-6 w-96"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+            >
+              <h3 className="text-xl font-bold text-gray-800 mb-4">
+                Sign Out Confirmation
+              </h3>
+              <p className="text-gray-600 mb-6">
+                Are you sure you want to sign out? You will need to log in again
+                to access your account.
+              </p>
+              <div className="flex space-x-4">
                 <button
-                  className="bg-gray-500 text-white py-2 px-4 rounded-md hover:bg-gray-600"
-                  onClick={handleSignOut}
+                  className="flex-1 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                  onClick={() => setShowSignOutModal(false)}
                 >
                   Cancel
                 </button>
                 <button
-                  className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600"
-                  onClick={toggleSignOutModal}
+                  className="flex-1 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                  onClick={handleSignOut}
                 >
-                  Sign out
+                  Sign Out
                 </button>
               </div>
-            </div>
+            </motion.div>
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 };
 

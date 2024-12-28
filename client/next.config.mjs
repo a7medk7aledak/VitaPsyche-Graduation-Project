@@ -10,8 +10,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/tests/paid/:path*",
+        destination: "/tests/paid/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
-
-
 
 export default nextConfig;

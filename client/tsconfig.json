@@ -18,6 +18,9 @@
       }
     ],
     "paths": {
+      "three/examples/jsm/loaders/GLTFLoader": [
+        "./node_modules/@types/three/examples/jsm/loaders/GLTFLoader"
+      ],
       "@constants/*": ["./app/constants/*"],
       "@store/*": ["./app/store/*"],
       "@components/*": ["./app/components/*"],

@@ -5,33 +5,101 @@ import Head from "next/head";
 import Image from "next/image";
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import { motion } from "framer-motion"; // Import motion from framer-motion
+import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { setUser, setToken } from "@/app/store/authSlice";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
-const LoginPage = () => {
+// Interfaces
+interface UserData {
+  id: string;
+  email: string;
+  role: string;
+  username: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  birth_date: string;
+  gender: string;
+  nationality: string;
+  fluent_languages: string;
+  current_residence: string;
+}
+
+interface LoginResponse {
+  access_token: string;
+  user: UserData;
+}
+
+interface ApiError {
+  response?: {
+    data?: {
+      error?: string;
+      message?: string;
+    };
+    status?: number;
+  };
+  message: string;
+}
+
+const LoginPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
   const [role, setRole] = useState<"Visitor" | "Doctor">("Visitor");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const togglePasswordVisibility = () => {
+  const togglePasswordVisibility = (): void => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
     e.preventDefault();
+    setError("");
+    setIsLoading(true);
 
     if (!email || !password) {
       setError("Please enter both email and password.");
+      setIsLoading(false);
       return;
     }
 
-    console.log("Submitting form...");
-    console.log("Role:", role);
-    console.log("Email:", email);
-    console.log("Password:", password);
+    try {
+      const response = await axios.post<LoginResponse>("/api/login", {
+        email,
+        password,
+        role: role.toLowerCase(),
+      });
 
-    setError(""); // Clear any previous errors
+      console.log("Login Response:", response.data);
+
+      const { access_token, user } = response.data;
+
+      dispatch(setToken(access_token));
+      localStorage.setItem("access_token", access_token);
+
+      dispatch(setUser(user));
+      localStorage.setItem("user", JSON.stringify(user));
+
+      router.push("/");
+    } catch (error) {
+      console.error("Login error:", error);
+      const apiError = error as ApiError;
+      setError(
+        apiError.response?.data?.error ||
+          apiError.response?.data?.message ||
+          "Invalid email or password. Please try again."
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -43,7 +111,6 @@ const LoginPage = () => {
       {/* Left Section (Form Section) */}
       <div className="w-full md:w-1/2 bg-white flex items-center justify-center">
         <div className="max-w-md w-full px-8 py-10">
-          {/* Logo and Title */}
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -61,16 +128,6 @@ const LoginPage = () => {
             </h2>
           </motion.div>
 
-          {/* Sign in as Title */}
-          <motion.h3
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-xl font-medium text-center text-blue-900 mb-8"
-          >
-            Sign in as
-          </motion.h3>
-
           {/* Role Selection */}
           <div className="flex justify-center mb-8">
             <motion.button
@@ -81,6 +138,7 @@ const LoginPage = () => {
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              type="button"
             >
               <div
                 className={`w-16 h-16 rounded-full p-2 ${
@@ -105,6 +163,7 @@ const LoginPage = () => {
               initial={{ scale: 1 }}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
+              type="button"
             >
               <div
                 className={`w-16 h-16 rounded-full p-2 ${
@@ -122,8 +181,8 @@ const LoginPage = () => {
             </motion.button>
           </div>
 
-          {/* Email Input */}
           <form onSubmit={handleSubmit}>
+            {/* Email Input */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -137,6 +196,7 @@ const LoginPage = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-buttonhov"
+                disabled={isLoading}
               />
             </motion.div>
 
@@ -154,6 +214,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-buttonhov"
+                disabled={isLoading}
               />
               <div
                 className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
@@ -168,13 +229,21 @@ const LoginPage = () => {
             </motion.div>
 
             {/* Error Message */}
-            {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+            {error && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-red-500 text-sm mb-4"
+              >
+                {error}
+              </motion.p>
+            )}
 
             {/* Forget Password */}
             <div className="mb-6 text-left">
-              <a href="#" className="text-teal-600 text-sm">
+              <Link href="/forgot-password" className="text-teal-600 text-sm">
                 Forget password?
-              </a>
+              </Link>
             </div>
 
             {/* Sign In Button */}
@@ -183,8 +252,9 @@ const LoginPage = () => {
               className="w-full bg-heading transitions text-white py-2 rounded-md hover:bg-[#1baa97] transition duration-300"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              disabled={isLoading}
             >
-              Sign In
+              {isLoading ? "Signing in..." : "Sign In"}
             </motion.button>
           </form>
 
@@ -203,13 +273,11 @@ const LoginPage = () => {
         </div>
       </div>
 
-      {/* Right Section (Empty or Decorative Section) */}
+      {/* Right Section */}
       <div className="hidden md:block w-1/2 bg-teal-50">
         <img
           src="https://readymadeui.com/signin-image.webp"
           alt="login-image"
-          width={900}
-          height={900}
           className="lg:max-w-[85%] w-full h-full object-contain block mx-auto"
         />
       </div>

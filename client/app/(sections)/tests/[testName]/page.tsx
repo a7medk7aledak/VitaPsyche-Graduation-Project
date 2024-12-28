@@ -116,6 +116,26 @@ const TestPage: React.FC = () => {
             ))}
           </div>
         </div>
+        {/* Progress Indicator */}
+        <div className="w-full mb-6">
+          <div className="flex justify-between mb-2">
+            <span className="text-sm text-gray-600">
+              Question {currentPage} of {test.questions.length}
+            </span>
+            <span className="text-sm text-gray-600">
+              {Math.round((currentPage / test.questions.length) * 100)}%
+              Complete
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-gradient-to-r from-green-600 to-green-300 h-2 rounded-full transition-all duration-300"
+              style={{
+                width: `${(currentPage / test.questions.length) * 100}%`,
+              }}
+            ></div>
+          </div>
+        </div>
 
         {/* Pagination */}
         <div className="flex justify-center mt-4 mb-6 flex-wrap">
