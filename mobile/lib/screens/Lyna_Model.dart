@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/const/colors.dart';
-import 'package:flutter_mindmed_project/models/questions_and_answers.dart';
+import 'package:flutter_mindmed_project/models_moblie/questions_and_answers.dart';
 // import 'package:flutter_mindmed_project/models/questions_and_answers.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';

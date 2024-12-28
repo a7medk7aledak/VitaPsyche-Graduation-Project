@@ -1,14 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/services.dart';
-import 'package:flutter_mindmed_project/models/model__of_test/asset_path.dart';
-import 'package:flutter_mindmed_project/models/model__of_test/piad/conner.dart';
-import '../../models/model__of_test/free/adhd.dart' as adhd;
-import '../../models/model__of_test/free/beck_depression_inventory.dart';
-import '../../models/model__of_test/free/davidson_trauma.dart';
-import '../../models/model__of_test/free/internet_addiction.dart';
-import '../../models/model__of_test/free/taylor_anxiety.dart';
-import '../../models/model__of_test/free/ybocs.dart';
-import '../../models/model__of_test/piad/depression.dart';
+import 'package:flutter_mindmed_project/models_moblie/model__of_test/asset_path.dart';
+import 'package:flutter_mindmed_project/models_moblie/model__of_test/piad/conner.dart';
+import '../../models_moblie/model__of_test/free/adhd.dart' as adhd;
+import '../../models_moblie/model__of_test/free/beck_depression_inventory.dart';
+import '../../models_moblie/model__of_test/free/davidson_trauma.dart';
+import '../../models_moblie/model__of_test/free/internet_addiction.dart';
+import '../../models_moblie/model__of_test/free/taylor_anxiety.dart';
+import '../../models_moblie/model__of_test/free/ybocs.dart';
+import '../../models_moblie/model__of_test/piad/depression.dart';
 class ReqJsonText {
   // Generic method to load data from JSON
   static Future<T> loadTestData<T>(String assetPath, T Function(Map<String, dynamic>) fromJson) async {
