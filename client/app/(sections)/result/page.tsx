@@ -3,7 +3,9 @@
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { tests } from "@app/content/free tests/data";
+import { paidtests } from "@app/content/paid tests/data";
 import Navbar from "@components/common/Navbar";
+import { FaCrown } from "react-icons/fa";
 
 interface Option {
   optionId: number;
@@ -32,6 +34,7 @@ interface Test {
   testSlug: string;
   questions: Question[];
   scoring: TestScoring;
+  isPremium?: boolean; // إضافة خاصية لتحديد نوع الاختبار
 }
 
 function calculateMaxScore(questions: Question[]): number {
@@ -54,16 +57,21 @@ const ClientSideResult: React.FC = () => {
   const searchParams = useSearchParams();
   const testSlug = searchParams?.get("testSlug");
   const answersStr = searchParams?.get("answers");
+  const isPremium = searchParams?.get("isPremium") === "true";
 
   useEffect(() => {
     if (testSlug) {
-      const selectedTest = tests.find((t) => t.testSlug === testSlug);
+      // البحث في كلا المجموعتين من الاختبارات
+      const selectedTest = isPremium
+        ? paidtests.find((t) => t.testSlug === testSlug)
+        : tests.find((t) => t.testSlug === testSlug);
+
       if (selectedTest) {
-        setTest(selectedTest);
+        setTest({ ...selectedTest, isPremium });
         setUserAnswers(JSON.parse(answersStr || "[]"));
       }
     }
-  }, [testSlug, answersStr]);
+  }, [testSlug, answersStr, isPremium]);
 
   useEffect(() => {
     if (test && userAnswers.length > 0) {
@@ -121,10 +129,19 @@ const ClientSideResult: React.FC = () => {
       <Navbar />
       <div className="flex flex-col min-h-screen bg-gray-50">
         {/* Header Section */}
-        <header className="w-full bg-gradient-to-r from-green-700 to-green-600 py-8 px-4 mt-16 shadow-lg">
-          <h1 className="text-2xl md:text-3xl font-bold text-center text-white">
-            {test.testTitle}
-          </h1>
+        <header
+          className={`w-full ${
+            test.isPremium
+              ? "bg-gradient-to-r from-purple-700 to-indigo-600"
+              : "bg-gradient-to-r from-green-700 to-green-600"
+          } py-8 px-4 mt-16 shadow-lg`}
+        >
+          <div className="flex items-center justify-center gap-2">
+            {test.isPremium && <FaCrown className="text-yellow-300 text-2xl" />}
+            <h1 className="text-2xl md:text-3xl font-bold text-center text-white">
+              {test.testTitle}
+            </h1>
+          </div>
         </header>
 
         {/* Main Content */}
@@ -136,14 +153,22 @@ const ClientSideResult: React.FC = () => {
             </h2>
             <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
               <div className="flex items-baseline">
-                <span className="text-4xl md:text-5xl font-bold text-blue-600">
+                <span
+                  className={`text-4xl md:text-5xl font-bold ${
+                    test.isPremium ? "text-purple-600" : "text-blue-600"
+                  }`}
+                >
                   {score}
                 </span>
                 <span className="text-4xl md:text-5xl text-black ml-1">
                   /{maxScore}
                 </span>
               </div>
-              <div className="text-xl md:text-2xl font-semibold text-green-600 text-center md:text-left">
+              <div
+                className={`text-xl md:text-2xl font-semibold ${
+                  test.isPremium ? "text-purple-600" : "text-green-600"
+                } text-center md:text-left`}
+              >
                 {feedback}
               </div>
             </div>
@@ -180,11 +205,21 @@ const ClientSideResult: React.FC = () => {
 
           {/* Call to Action */}
           <div className="text-center space-y-6">
-            <p className="text-blue-600 font-semibold text-lg px-4">
+            <p
+              className={`${
+                test.isPremium ? "text-purple-600" : "text-blue-600"
+              } font-semibold text-lg px-4`}
+            >
               Don&apos;t face your challenges alone. Professional help is
               available!
             </p>
-            <button className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+            <button
+              className={`${
+                test.isPremium
+                  ? "bg-purple-600 hover:bg-purple-700"
+                  : "bg-green-600 hover:bg-green-700"
+              } text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105`}
+            >
               Find a Specialist
             </button>
           </div>

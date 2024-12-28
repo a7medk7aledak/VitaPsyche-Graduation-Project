@@ -18,6 +18,9 @@ import "react-phone-input-2/lib/style.css";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/app/store/authSlice";
+import { useRouter } from "next/navigation";
 
 interface FormData {
   username: string;
@@ -34,8 +37,21 @@ interface FormData {
   current_residence: string;
   termsAccepted: boolean;
 }
+interface ApiError {
+  response?: {
+    data?: {
+      error?: string;
+      message?: string;
+      detail?: string;
+    };
+    status?: number;
+  };
+  message: string;
+}
+const SignUpPage: React.FC = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
 
-const LoginPage: React.FC = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -75,34 +91,64 @@ const LoginPage: React.FC = () => {
     }));
   };
 
-const handleSubmit = async (event: React.FormEvent) => {
-  event.preventDefault();
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
 
-  if (!formData.termsAccepted) {
-    alert("Please accept the terms and conditions.");
-    return;
-  }
-  if (formData.password !== formData.password2) {
-    alert("Passwords do not match.");
-    return;
-  }
+    if (!formData.termsAccepted) {
+      alert("Please accept the terms and conditions.");
+      return;
+    }
+    if (formData.password !== formData.password2) {
+      alert("Passwords do not match.");
+      return;
+    }
 
-  try {
-    const response = await axios.post("/api/register/patient", formData, {
-      headers: { "Content-Type": "application/json" },
-    });
+    const apiData = {
+      username: formData.username,
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      email: formData.email,
+      password: formData.password,
+      password2: formData.password2,
+      phone_number: formData.phone_number,
+      birth_date: formData.birth_date,
+      gender: formData.gender,
+      nationality: formData.nationality,
+      fluent_languages: formData.fluent_languages,
+      current_residence: formData.current_residence,
+    };
 
-    console.log("Registration successful:", response.data);
-    alert("Registration successful! You can now log in.");
-  } catch (error: any) {
-    const errorMessage =
-      error.response?.data?.error || error.message || "Registration failed";
-    alert(errorMessage);
-    console.error("Error during registration:", error);
-  }
-};
+    try {
+      await axios.post("/api/register/patient", apiData);
 
+      const userData = {
+        username: formData.username,
+        first_name: formData.first_name,
+        last_name: formData.last_name,
+        email: formData.email,
+        phone_number: formData.phone_number,
+        birth_date: formData.birth_date,
+        gender: formData.gender,
+        nationality: formData.nationality,
+        fluent_languages: formData.fluent_languages,
+        current_residence: formData.current_residence,
+      };
 
+      dispatch(setUser(userData));
+      router.push("/");
+    } catch (error) {
+      const apiError = error as ApiError;
+      const errorMessage =
+        apiError.response?.data?.error ||
+        apiError.response?.data?.message ||
+        apiError.response?.data?.detail ||
+        apiError.message ||
+        "Registration failed";
+
+      alert(errorMessage);
+      console.error("Error during registration:", apiError);
+    }
+  };
   const renderInputField = (
     name: string,
     label: string,
@@ -378,4 +424,4 @@ const handleSubmit = async (event: React.FormEvent) => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

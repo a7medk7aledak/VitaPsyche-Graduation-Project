@@ -1,12 +1,11 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useLoader, useFrame } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 import axios from "axios";
-
-// Types and Constants
-
 interface BonesRef {
   head?: THREE.Object3D;
   spine?: THREE.Object3D;
@@ -300,10 +299,6 @@ const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
         transitionSpeed
       );
     }
-
-    // تعريف متغيرات الحركة
-    const leftArmMovement = primaryGesture * pattern.leftArm.movement.x;
-    const rightArmMovement = secondaryGesture * pattern.rightArm.movement.x;
   };
 
   useFrame((state, delta) => {
