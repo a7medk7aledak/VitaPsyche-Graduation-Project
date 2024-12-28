@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/screens/Lyna_Model.dart';
 import 'package:flutter_mindmed_project/screens/chatbot.dart';
-import 'package:flutter_mindmed_project/screens/services/ask_doctor/ask_doctor_service.dart';
-import 'package:flutter_mindmed_project/screens/services/fqas/fqas_service.dart';
-import 'package:flutter_mindmed_project/screens/services/products/all_products_screen.dart';
-import 'package:flutter_mindmed_project/screens/services/blog/blog_service.dart';
-import 'package:flutter_mindmed_project/screens/services/test_services/test_service.dart';
+import 'package:flutter_mindmed_project/services/ask_doctor/ask_doctor_service.dart';
+import 'package:flutter_mindmed_project/services/fqas/fqas_service.dart';
+import 'package:flutter_mindmed_project/services/products/all_products_screen.dart';
+import 'package:flutter_mindmed_project/services/blog/blog_service.dart';
+import 'package:flutter_mindmed_project/services/test_services/test_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../const/animation_gif.dart';
 

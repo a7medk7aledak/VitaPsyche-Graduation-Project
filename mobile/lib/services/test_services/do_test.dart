@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/screens/services/test_services/depression_scale_result.dart';
+import 'package:flutter_mindmed_project/services/test_services/depression_scale_result.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'text_controller.dart';
-import '../../../const/colors.dart';
+import '../../const/colors.dart';
 import 'button_bar_text.dart';
 
 class DoTest extends StatefulWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/const/colors.dart';
 import 'package:flutter_mindmed_project/screens/Lyna_Model.dart';
-import 'package:flutter_mindmed_project/screens/chatbot.dart';
+import 'package:flutter_mindmed_project/screens/chat_screen.dart';
 import 'package:flutter_mindmed_project/screens/doctor.dart';
 import 'package:flutter_mindmed_project/screens/home_screen.dart';
 import 'package:flutter_mindmed_project/screens/more.dart';

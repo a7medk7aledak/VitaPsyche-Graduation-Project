@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/screens/services/test_services/do_test.dart';
+import 'package:flutter_mindmed_project/services/test_services/do_test.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../const/colors.dart';
-import '../../../const/const_image.dart';
-import '../../../screens/services/test_services/req_json_text.dart';
+import '../../const/colors.dart';
+import '../../const/const_image.dart';
+import 'req_json_text.dart';
 
 class TestService extends StatefulWidget {
   const TestService({super.key});

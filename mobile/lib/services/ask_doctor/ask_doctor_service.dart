@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../widgets/colors.dart';
+import '../../widgets/colors.dart';
 
 class AskDoctorService extends StatefulWidget {
   const AskDoctorService({super.key});

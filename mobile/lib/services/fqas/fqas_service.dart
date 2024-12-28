@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mindmed_project/const/colors.dart';
-import 'package:flutter_mindmed_project/model/model_fqas.dart';
+import 'package:flutter_mindmed_project/models/model_fqas.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FqasService extends StatefulWidget {

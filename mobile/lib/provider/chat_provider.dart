@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../model/message_model.dart';
+import '../models/message_model.dart';
 
 class ChatProvider with ChangeNotifier {
   final String _apiUrl = 'https://api-inference.huggingface.co/models/gpt2';

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../const/colors.dart';
-import '../../../const/const_image.dart';
+import '../../const/colors.dart';
+import '../../const/const_image.dart';
 import 'cart_screen.dart';
 import 'cart_item_data.dart';
 import 'cubit/cart_cubit.dart';

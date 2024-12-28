@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_mindmed_project/const/colors.dart';
-import 'package:flutter_mindmed_project/screens/services/products/product_details_screen.dart';
-import '../../../const/const_image.dart';
+import 'package:flutter_mindmed_project/services/products/product_details_screen.dart';
+import '../../const/const_image.dart';
 import 'cart_item_data.dart';
 import 'cart_screen.dart';
 import 'cubit/cart_cubit.dart';

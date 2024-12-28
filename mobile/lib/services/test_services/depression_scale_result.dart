@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../const/colors.dart';
+import '../../const/colors.dart';
 import 'depression_scale_painter.dart';
 import 'depression_scoring.dart';
 
