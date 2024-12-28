@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { FaStar, FaRegClock, FaRegCalendarAlt } from "react-icons/fa";
+import Link from "next/link";
 
 const DoctorCard = () => {
   return (
@@ -74,9 +75,11 @@ const DoctorCard = () => {
         <button className="text-lg font-medium text-subheading hover:underline">
           View Profile
         </button>
-        <button className="btn-secondary rounded-full text-white py-2 px-4 shadow-md hover:shadow-lg font-medium">
-          Book Now
-        </button>
+        <Link href={"/doctorList/booking"}>
+          <button className="btn-secondary rounded-full text-white py-2 px-4 shadow-md hover:shadow-lg font-medium">
+            Book Now
+          </button>
+        </Link>
       </div>
     </div>
   );

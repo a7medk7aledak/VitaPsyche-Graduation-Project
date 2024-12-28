@@ -2,15 +2,17 @@ import Image from "next/image";
 import React from "react";
 import { motion } from "framer-motion";
 
-interface SignUpDoctorModalProps {
+interface SuccessfullModalProps {
   isOpen: boolean;
   onClose: () => void;
+  img: string;
   message?: string;
 }
 
-const SignUpDoctorModal: React.FC<SignUpDoctorModalProps> = ({
+const SuccessfullModal: React.FC<SuccessfullModalProps> = ({
   isOpen,
   onClose,
+  img,
   message,
 }) => {
   if (!isOpen) return null;
@@ -45,12 +47,7 @@ const SignUpDoctorModal: React.FC<SignUpDoctorModalProps> = ({
             },
           }} // Welcoming effect
         >
-          <Image
-            src={"/images/signup-doctor/submissionModal.png"}
-            alt="submissionModal.png"
-            width={200}
-            height={200}
-          />
+          <Image src={img} alt="submissionModal.png" width={200} height={200} />
         </motion.div>
 
         {/* Message Animation */}
@@ -92,4 +89,4 @@ const SignUpDoctorModal: React.FC<SignUpDoctorModalProps> = ({
   );
 };
 
-export default SignUpDoctorModal;
+export default SuccessfullModal;
