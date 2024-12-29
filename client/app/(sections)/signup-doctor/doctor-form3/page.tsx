@@ -8,8 +8,8 @@ import React from "react";
 import { specializations } from "@constants/specializations";
 import { useDoctorFormStore } from "@store/useDoctorFormStore";
 import { TFormErrors } from "@app/types/FormDoctor";
-import SignUpDoctorModal from "@components/modals/SignUpDoctorModal";
 import { useRouter } from "next/navigation";
+import SuccessfullModal from "@components/modals/SuccessfullModal";
 
 const DoctorForm3 = () => {
   const router = useRouter();
@@ -463,9 +463,10 @@ const DoctorForm3 = () => {
         </div>
       </motion.div>
       {/* Modal Component */}
-      <SignUpDoctorModal
+      <SuccessfullModal
         isOpen={showModal}
         onClose={closeModalHandler}
+        img="/images/signup-doctor/submissionModal.png"
         message="Thanks For Completing This Form !"
       />
     </>
