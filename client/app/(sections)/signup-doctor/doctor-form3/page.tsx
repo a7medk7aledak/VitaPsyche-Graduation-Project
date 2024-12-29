@@ -388,7 +388,7 @@ const DoctorForm3 = () => {
             {multipleQualifications === "yes" && (
               <div>
                 <FileUpload
-                  existingFile={formData.anotherQualification1}
+                  existingFile={formData.anotherQualification1 || null}
                   label="If you possess multiple professional qualifications."
                   acceptedFileTypes=".pdf,.doc,.docx"
                   onFileChange={(file) =>
@@ -396,7 +396,7 @@ const DoctorForm3 = () => {
                   }
                 />
                 <FileUpload
-                  existingFile={formData.anotherQualification2}
+                  existingFile={formData.anotherQualification2 || null}
                   label=""
                   acceptedFileTypes=".pdf,.doc,.docx"
                   onFileChange={(file) =>
