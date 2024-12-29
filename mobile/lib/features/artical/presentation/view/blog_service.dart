@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/features/artical/data/model_blog.dart';
 import 'package:flutter_mindmed_project/features/artical/data/read_json_file.dart';
-import 'package:flutter_mindmed_project/features/artical/presentation/view/details_blog.dart';
 import 'package:flutter_mindmed_project/core/theme/colors.dart';
 import 'package:flutter_mindmed_project/core/const/image_app.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../widget/custem_button_back.dart';
 
-class BlogService extends StatelessWidget {
-  const BlogService({super.key});
-  static String id = 'Blog';
+class BlogScreen extends StatelessWidget {
+  const BlogScreen({super.key});
 
   Future<List<ModelBlog>> fetchBlog() async {
     List<dynamic> jsonData =
@@ -33,7 +32,7 @@ class BlogService extends StatelessWidget {
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
             blurRadius: 5,
-            offset: Offset(0, 3),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
@@ -63,7 +62,7 @@ class BlogService extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
             child: Image.network(
               blog.images,
               fit: BoxFit.cover,
@@ -72,7 +71,7 @@ class BlogService extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -95,7 +94,7 @@ class BlogService extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(
+                    const Row(
                       children: [
                         Icon(Icons.timelapse_outlined, size: 18),
                         SizedBox(width: 5),
@@ -107,15 +106,16 @@ class BlogService extends StatelessWidget {
                       ],
                     ),
                     ElevatedButton(
-                      onPressed: () => Navigator.of(_)
-                          .pushNamed(DetailsBlog.id, arguments: blog),
+                      onPressed: () => Navigator.pushNamed(
+                          _, AppRoutes.detailsBlog,
+                          arguments: blog),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
                         ),
                       ),
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.my_library_books_outlined, size: 18),
                           SizedBox(width: 5),
@@ -172,11 +172,11 @@ class BlogService extends StatelessWidget {
         future: fetchBlog(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasError) {
-            return Center(
+            return const Center(
               child: Text('Error loading articles'),
             );
           } else if (snapshot.hasData && snapshot.data != null) {
@@ -213,7 +213,7 @@ class BlogService extends StatelessWidget {
               ],
             );
           } else {
-            return Center(
+            return const Center(
               child: Text('No Blogs found'),
             );
           }

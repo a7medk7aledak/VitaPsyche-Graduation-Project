@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/features/main_navigation/presentation/view/main_navigation_screen.dart';
-import 'package:flutter_mindmed_project/features/authentication/presentation/view/signup_screen.dart';
-import 'package:flutter_mindmed_project/features/authentication/presentation/view/authentication.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/colors.dart';
 
 class SigninScreen extends StatefulWidget {
   const SigninScreen({super.key});
-  static const id = '/signin';
 
   @override
   State<SigninScreen> createState() => _SigninScreenState();
@@ -155,7 +152,7 @@ class _SigninScreenState extends State<SigninScreen> {
   void _onTapDown(TapDownDetails details) {
     setState(() {
       _containerColor =
-          Color.fromARGB(255, 91, 255, 219); // Change color when pressed
+          const Color.fromARGB(255, 91, 255, 219); // Change color when pressed
     });
   }
 
@@ -177,7 +174,7 @@ class _SigninScreenState extends State<SigninScreen> {
           ),
           elevation: 16,
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             width: MediaQuery.of(context).size.width * 0.8,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -191,17 +188,17 @@ class _SigninScreenState extends State<SigninScreen> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(height: 20),
-                Text(
+                const SizedBox(height: 20),
+                const Text(
                   "Success!",
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: const Color.fromARGB(255, 0, 255, 8),
+                    color: Color.fromARGB(255, 0, 255, 8),
                   ),
                 ),
-                SizedBox(height: 10),
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                   "You have successfully signed in.",
                   style: TextStyle(
                     fontSize: 16,
@@ -209,11 +206,11 @@ class _SigninScreenState extends State<SigninScreen> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.of(context).pushReplacementNamed(
-                        MainNavigationScreen.id); // Navigate to SigninScreen
+                    Navigator.of(context).pushReplacementNamed(AppRoutes
+                        .mainNavigationScreen); // Navigate to SigninScreen
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
@@ -221,7 +218,7 @@ class _SigninScreenState extends State<SigninScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: Text(
+                  child: const Text(
                     'OK',
                     style: TextStyle(color: secoundryColor),
                   ),
@@ -254,7 +251,7 @@ class _SigninScreenState extends State<SigninScreen> {
                 children: [
                   Container(
                     height: screenHeight,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/Signin_Screen.png'),
                         fit: BoxFit.cover,
@@ -283,7 +280,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            const Text(
                               "If you have't an account ?",
                               style: TextStyle(
                                 color: Colors.black,
@@ -291,7 +288,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             GestureDetector(
                               onTapDown: (_) {
                                 setState(() {
@@ -303,7 +300,7 @@ class _SigninScreenState extends State<SigninScreen> {
                                   _isPressed = false;
                                 });
                                 Navigator.of(context)
-                                    .pushNamed(SignupScreen.id);
+                                    .pushNamed(AppRoutes.signupScreen);
                               },
                               child: Text(
                                 'Sign up',
@@ -317,7 +314,7 @@ class _SigninScreenState extends State<SigninScreen> {
                           ],
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 15),
                         child: Text(
                           'Sign in',
@@ -327,8 +324,8 @@ class _SigninScreenState extends State<SigninScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 30),
-                      Container(
+                      const SizedBox(height: 30),
+                      SizedBox(
                         width: screenWidth * 0.8,
                         child: Theme(
                           data: Theme.of(context).copyWith(
@@ -356,13 +353,13 @@ class _SigninScreenState extends State<SigninScreen> {
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 2.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    BorderSide(color: primaryColor, width: 2.0),
+                                borderSide: const BorderSide(
+                                    color: primaryColor, width: 2.0),
                               ),
                               filled: true,
                               fillColor: secoundryColor.withOpacity(0.8),
@@ -370,8 +367,8 @@ class _SigninScreenState extends State<SigninScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 25),
-                      Container(
+                      const SizedBox(height: 25),
+                      SizedBox(
                         width: screenWidth * 0.8,
                         child: Theme(
                           data: Theme.of(context).copyWith(
@@ -415,13 +412,13 @@ class _SigninScreenState extends State<SigninScreen> {
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 2.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.grey, width: 2.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide:
-                                    BorderSide(color: primaryColor, width: 2.0),
+                                borderSide: const BorderSide(
+                                    color: primaryColor, width: 2.0),
                               ),
                               filled: true,
                               fillColor: secoundryColor.withOpacity(0.8),
@@ -434,7 +431,7 @@ class _SigninScreenState extends State<SigninScreen> {
                         child: Padding(
                           padding: EdgeInsets.only(
                               top: 60, right: screenWidth * 0.1),
-                          child: Container(
+                          child: SizedBox(
                             width: 120,
                             height: 50,
                             child: ElevatedButton(
@@ -449,13 +446,14 @@ class _SigninScreenState extends State<SigninScreen> {
                                   (Set<MaterialState> states) {
                                     if (states
                                         .contains(MaterialState.pressed)) {
-                                      return Color.fromARGB(255, 91, 255, 219);
+                                      return const Color.fromARGB(
+                                          255, 91, 255, 219);
                                     }
                                     return null;
                                   },
                                 ),
                               ),
-                              child: Text(
+                              child: const Text(
                                 'Sign In',
                                 style: TextStyle(
                                     fontSize: 18, color: Colors.white),
@@ -471,7 +469,8 @@ class _SigninScreenState extends State<SigninScreen> {
                     left: screenWidth * 0.1,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pushNamed(SplashScreen.id);
+                        Navigator.of(context)
+                            .pushNamed(AppRoutes.authentication);
                       },
                       onTapDown: _onTapDown,
                       onTapUp: _onTapUp,
@@ -481,8 +480,8 @@ class _SigninScreenState extends State<SigninScreen> {
                           shape: BoxShape.circle,
                           color: _containerColor,
                         ),
-                        padding: EdgeInsets.only(left: 10),
-                        child: Icon(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: const Icon(
                           Icons.arrow_back,
                           color: Colors.white,
                           size: 28,
@@ -494,7 +493,7 @@ class _SigninScreenState extends State<SigninScreen> {
               ),
             ),
             if (_isLoading)
-              Center(
+              const Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(primaryColor),
                 ),

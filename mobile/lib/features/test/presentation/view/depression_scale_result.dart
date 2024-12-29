@@ -1,28 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/colors.dart';
+import '../../controller/test_route_agruments.dart';
 import '../widget/depression_scale_painter.dart';
 import 'depression_scoring.dart';
 
 class DepressionScaleResult extends StatelessWidget {
   const DepressionScaleResult({super.key});
-  static String id = 'DepressionScaleResult';
 
   @override
-  Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
-
-    if (args == null) {
-      return const Scaffold(
-        body: Center(child: Text('Error: Missing score data!')),
-      );
-    }
-
-    final int score = args['totalScore'] as int? ?? 0;
-
-    final DepressionResult result =
-        DepressionScoring.getDepressionResult(score);
+  Widget build(BuildContext context) {    final args = TestRouteArguments.fromMap(
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ?? {},
+    );
+    
+    // الحصول على النتيجة
+    final score = args.score ?? 0;
+    
+    // الحصول على تصنيف الاكتئاب بناءً على النتيجة
+    final DepressionResult result = DepressionScoring.getDepressionResult(score);
 
     return Scaffold(
       appBar: AppBar(

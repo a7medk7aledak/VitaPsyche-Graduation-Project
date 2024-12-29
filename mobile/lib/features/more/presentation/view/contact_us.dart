@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/core/theme/colors.dart';
-import 'package:flutter_mindmed_project/features/more/data/send_to_gmail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../../core/routes/app_routes.dart';
 
 class ContactUs extends StatelessWidget {
   const ContactUs({super.key});
-  static String id = 'contact us';
 
   final String _scrip =
       """ you can get touch with us below platforms. our team will reach out to you as soon as it would be possible""";
@@ -66,7 +66,7 @@ class ContactUs extends StatelessWidget {
               ),
               item(_, go: '', titles: 'Phone', subtitle: '012345678911'),
               item(_,
-                  go: SendToGmail.id,
+                  go: AppRoutes.sendToGmail,
                   titles: 'Gmail',
                   subtitle: 'graduation.team2025@gmail.com'),
             ],

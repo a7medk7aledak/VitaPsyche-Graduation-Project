@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/features/test/presentation/view/do_test.dart';
+import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/const/image_app.dart';
+import '../../controller/test_route_agruments.dart';
 import '../../data/req_json_text.dart';
 
-class TestService extends StatefulWidget {
-  const TestService({super.key});
-  static const String id = 'test';
+class TestScreen extends StatefulWidget {
+  const TestScreen({super.key});
 
   @override
-  State<TestService> createState() => _TestServiceState();
+  State<TestScreen> createState() => _TestScreenState();
 }
 
-class _TestServiceState extends State<TestService> {
+class _TestScreenState extends State<TestScreen> {
   final String _data = '''
 These critical tests help to understand the personality of the person better, as they give an idea about the personality and some indications of the current psychological state. But you should know an expert after getting the results because the tests are not a substitute for him.
   ''';
@@ -124,17 +124,33 @@ These critical tests help to understand the personality of the person better, as
                   onPressed: () {
                     if (questions.isNotEmpty) {
                       final scoring = model.scoring ?? {};
+                       print("Title: $title"); // للتأكد من العنوان
+        print("Questions Length: ${questions.length}"); // للتأكد من الأسئلة
+        print("Model: $model");
+
+
+        final args = TestRouteArguments(
+            testTitle: title,
+            model: model,
+            scoring: scoring,
+        );
+        
+        print("Arguments Map: ${args.toMap()}"); 
                       Navigator.pushNamed(
                         context,
-                        DoTest.id,
-                        arguments: {
-                          'testTitle': title,
-                          'model': model,
-                          'scoring': scoring,
-                        },
+                        AppRoutes.doTest,
+                        arguments: TestRouteArguments(
+                          testTitle: title,
+                          model: model,
+                          scoring: scoring,
+                        ).toMap(),
+                        
                       );
                     } else {
-                      print("No questions available.");
+                        print("No questions available.");
+                      ScaffoldMessenger.of(context).showSnackBar(
+    const SnackBar(content: Text("No questions available for this test.")),
+  );
                     }
                   },
                   child: Text(

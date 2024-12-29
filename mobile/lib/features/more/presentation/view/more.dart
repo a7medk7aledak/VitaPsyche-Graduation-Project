@@ -1,36 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/core/const/image_app.dart';
-import 'package:flutter_mindmed_project/features/more/presentation/view/contact_us.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/colors.dart';
-import 'language.dart';
-import '../../../authentication/presentation/view/authentication.dart';
 
 class More extends StatelessWidget {
   const More({super.key});
 
-  static const id = 'More';
 
   static final List<Map<String, dynamic>> _moreItems = [
     {
       'title': 'Languages',
       'image': ImageApp.language,
-      'onTap': Language.id,
+      'onTap': AppRoutes.language,
     },
     {
       'title': 'Country',
       'image': ImageApp.country,
-      'onTap': Language.id,
+      'onTap': AppRoutes.language,
     },
     {
       'title': 'Contact Us',
       'image': ImageApp.contactUs,
-      'onTap': ContactUs.id,
+      'onTap': AppRoutes.contactUs,
     },
     {
       'title': 'Emargancy Call',
       'image': ImageApp.emargactCall,
-      'onTap': SplashScreen.id,
+      'onTap': AppRoutes.language,
     },
   ];
 

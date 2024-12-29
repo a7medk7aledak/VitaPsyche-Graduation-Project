@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/features/authentication/presentation/view/authentication.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart'; // Import SharedPreferences
 
-import '../../../../core/theme/colors.dart';// Assuming primaryColor is defined here
+import '../../../../core/routes/app_routes.dart';
+import '../../../../core/theme/colors.dart'; // Assuming primaryColor is defined here
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
-  static const id = 'Profile';
 
   @override
   _ProfileState createState() => _ProfileState();
@@ -153,7 +152,7 @@ class _ProfileState extends State<Profile> {
                                 Stack(
                                   alignment: AlignmentDirectional.bottomStart,
                                   children: [
-                                    CircleAvatar(
+                                    const CircleAvatar(
                                       radius: 80, // Size of the avatar
                                       backgroundImage: AssetImage(
                                           'assets/images/User_fill@3x.png'), // Placeholder image
@@ -189,7 +188,7 @@ class _ProfileState extends State<Profile> {
                                   ],
                                 ),
                                 const SizedBox(height: 10),
-                                Text(
+                                const Text(
                                   'Add Photo',
                                   style: TextStyle(
                                     fontSize: 16,
@@ -203,17 +202,17 @@ class _ProfileState extends State<Profile> {
                                 width:
                                     20), // Space between avatar and user info
                             Padding(
-                              padding: EdgeInsets.only(bottom: 50),
+                              padding: const EdgeInsets.only(bottom: 50),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.person, // Icon next to user name
                                         color: secoundryColor,
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5),
                                       Text(
                                         'User Name', // User name text
                                         style: TextStyle(
@@ -225,13 +224,13 @@ class _ProfileState extends State<Profile> {
                                     ],
                                   ),
                                   const SizedBox(height: 10),
-                                  Row(
+                                  const Row(
                                     children: [
                                       Icon(
                                         Icons.email, // Email icon
                                         color: secoundryColor,
                                       ),
-                                      const SizedBox(width: 5),
+                                      SizedBox(width: 5),
                                       Text(
                                         'user@example.com', // User email text
                                         style: TextStyle(
@@ -258,7 +257,7 @@ class _ProfileState extends State<Profile> {
                                       onPressed: () {
                                         // TODO: Add functionality to edit profile
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         'Edit Info',
                                         style: TextStyle(
                                           fontSize: 12,
@@ -276,10 +275,10 @@ class _ProfileState extends State<Profile> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
-              Text(
+              const Text(
                 'My Profile',
                 style: TextStyle(
                     fontSize: 30,
@@ -295,12 +294,12 @@ class _ProfileState extends State<Profile> {
                       children: [
                         Text(
                           info['label'],
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Container(
-                          padding: EdgeInsets.all(16),
-                          margin: EdgeInsets.only(bottom: 16),
+                          padding: const EdgeInsets.all(16),
+                          margin: const EdgeInsets.only(bottom: 16),
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(8),
@@ -310,7 +309,7 @@ class _ProfileState extends State<Profile> {
                             children: [
                               Text(
                                 info['data'],
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 18,
                                 ),
@@ -346,9 +345,9 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Icon(
                             Icons.lock_outline,
                             color: primaryColor,
@@ -362,7 +361,7 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 25),
+                    const SizedBox(width: 25),
                     ElevatedButton(
                       onPressed: _signOut, // Call sign out function
                       style: ElevatedButton.styleFrom(
@@ -375,9 +374,9 @@ class _ProfileState extends State<Profile> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                       ),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           Icon(Icons.logout),
                           SizedBox(width: 8.0),
                           Text('Sign Out',
@@ -420,6 +419,6 @@ class _ProfileState extends State<Profile> {
       gravity: ToastGravity.BOTTOM,
     );
     Navigator.of(context)
-        .pushReplacementNamed(SplashScreen.id); // Navigate to SplashScreen
+        .pushReplacementNamed(AppRoutes.authentication); // Navigate to SplashScreen
   }
 }

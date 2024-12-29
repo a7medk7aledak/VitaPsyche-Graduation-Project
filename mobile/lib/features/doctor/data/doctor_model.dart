@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../../../core/theme/colors.dart';
-import 'doctor_profile_details.dart'; // Import the new screen
+import '../../../core/theme/colors.dart';
+import '../presentation/view/doctor_profile_details.dart'; // Import the new screen
 
 // Define a Doctor model class
 class DoctorModel {

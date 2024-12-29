@@ -1,24 +1,27 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../presentation/view/depression_scale_result.dart';
+import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
+import 'package:flutter_mindmed_project/features/test/controller/test_route_agruments.dart';
 
 class TextController {
   int currentPositionPage = 0;
   bool isNextOrPrev = false;
-  
+
   // Stream controllers
-  final StreamController<int> _pageController = StreamController<int>.broadcast();
-  final StreamController<bool> _prevButtonController = StreamController<bool>.broadcast();
-  
+  final StreamController<int> _pageController =
+      StreamController<int>.broadcast();
+  final StreamController<bool> _prevButtonController =
+      StreamController<bool>.broadcast();
+
   // Public streams
   Stream<int> get positionStream => _pageController.stream;
   Stream<bool> get prevButtonStream => _prevButtonController.stream;
-  
+
   // Question response tracking
   final List<int?> responses;
   final int totalQuestions;
-  
-  TextController({required this.totalQuestions}) 
+
+  TextController({required this.totalQuestions})
       : responses = List.filled(totalQuestions, null) {
     // Initialize streams with starting values
     _pageController.add(currentPositionPage);
@@ -35,14 +38,14 @@ class TextController {
     return responses[currentPositionPage] != null;
   }
 
-  void onTapNext(BuildContext context, {
+  void onTapNext(
+    BuildContext context, {
     required String testTitle,
     required dynamic scoring,
   }) {
     if (!canMoveNext()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please select an answer before proceeding."))
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("Please select an answer before proceeding.")));
       return;
     }
 
@@ -54,15 +57,11 @@ class TextController {
     } else {
       // Calculate final score and navigate to results
       final totalScore = responses.fold(0, (sum, score) => sum + (score ?? 0));
-      
+
       Navigator.pushReplacementNamed(
         context,
-        DepressionScaleResult.id,
-        arguments: {
-          'score': totalScore,
-          'testTitle': testTitle,
-          'scoring': scoring,
-        },
+        AppRoutes.depressionScaleResult,
+        arguments: TestRouteArguments(testTitle: testTitle, score: totalScore).toMap()
       );
     }
   }
