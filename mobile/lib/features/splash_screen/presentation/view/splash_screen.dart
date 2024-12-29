@@ -1,17 +1,18 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/core/theme/colors.dart';
-import 'package:flutter_mindmed_project/features/main_navigation/presentation/view/main_navigation_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class Screen1 extends StatefulWidget {
-  const Screen1({super.key});
+import '../../../../core/routes/app_routes.dart';
 
+class SplachScreen extends StatefulWidget {
+  const SplachScreen({super.key});
   @override
-  State<Screen1> createState() => _Screen1State();
+  State<SplachScreen> createState() => _SplachScreenState();
 }
 
-class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
+class _SplachScreenState extends State<SplachScreen>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _imageAnimation;
   late Animation<double> _textAnimation;
@@ -54,10 +55,10 @@ class _Screen1State extends State<Screen1> with SingleTickerProviderStateMixin {
 
     if (token != null) {
       // If token exists, navigate to CustemButtonBar
-      Navigator.of(context).pushReplacementNamed(MainNavigationScreen.id);
+      Navigator.of(context).pushReplacementNamed(AppRoutes.mainNavigationScreen);
     } else {
       // If no token exists, navigate to the onboarding screen
-      Navigator.pushReplacementNamed(context, '/on_boarding');
+      Navigator.of(context).pushReplacementNamed(AppRoutes.onBoardingScreen);
     }
   }
 

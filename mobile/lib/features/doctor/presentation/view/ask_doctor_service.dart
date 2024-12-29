@@ -4,16 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/theme/colors.dart';
 
-
-class AskDoctorService extends StatefulWidget {
-  const AskDoctorService({super.key});
-  static const String id = 'ask_doctor';
+class AskDoctor extends StatefulWidget {
+  const AskDoctor({super.key});
 
   @override
-  State<AskDoctorService> createState() => _AskDoctorServiceState();
+  State<AskDoctor> createState() => _AskDoctorState();
 }
 
-class _AskDoctorServiceState extends State<AskDoctorService> {
+class _AskDoctorState extends State<AskDoctor> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _questionController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();

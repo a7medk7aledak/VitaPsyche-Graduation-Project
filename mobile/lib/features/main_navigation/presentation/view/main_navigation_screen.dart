@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/core/theme/colors.dart';
-import 'package:flutter_mindmed_project/features/doctor/presentation/view/doctor.dart';
+import 'package:flutter_mindmed_project/features/doctor/data/doctor_model.dart';
 import 'package:flutter_mindmed_project/features/home/presentation/view/home_screen.dart';
 import 'package:flutter_mindmed_project/features/more/presentation/view/more.dart';
 import '../../../../core/const/image_app.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../../ai_service/view/ai_service_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
@@ -90,19 +91,32 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
         items: _bottomBar(),
         currentIndex: _currentIndex,
         onTap: (int newValue) {
-          setState(() {
-            _currentIndex = newValue;
-            _pageController
-                .jumpToPage(newValue); // Sync PageView with BottomNavigationBar
-          });
+          if (newValue == 2) {
+            // If the AI button is tapped
+           Navigator.pushNamed(context, AppRoutes.aiServiceScreen);
+          } else {
+            setState(() {
+              _currentIndex = newValue;
+              _pageController.jumpToPage(
+                  newValue); // Sync PageView with BottomNavigationBar
+            });
+          }
         },
       ),
       body: PageView(
         controller: _pageController,
         onPageChanged: (int index) {
-          setState(() {
-            _currentIndex = index; // Sync BottomNavigationBar with PageView
-          });
+          if (index == 2) {
+            // If the AI button is tapped
+           Navigator.pushNamed(context, AppRoutes.aiServiceScreen);
+
+          } else {
+            setState(() {
+              _currentIndex = index;
+              _pageController
+                  .jumpToPage(index); // Sync PageView with BottomNavigationBar
+            });
+          }
         },
         children: _pages,
       ),

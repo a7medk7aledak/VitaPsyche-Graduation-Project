@@ -2,15 +2,13 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/features/authentication/presentation/view/signin_screen.dart';
-import 'package:flutter_mindmed_project/features/authentication/presentation/view/authentication.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/colors.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
-  static const id = '/signup';
 
   @override
   State<SignupScreen> createState() => _SignupScreenState();
@@ -215,7 +213,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pushReplacementNamed(
-                        SigninScreen.id); // Navigate to SigninScreen
+                        AppRoutes.signinScreen); // Navigate to SigninScreen
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
@@ -372,7 +370,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             setState(() {
                               _isPressed = false;
                             });
-                            Navigator.of(context).pushNamed(SigninScreen.id);
+                            Navigator.of(context)
+                                .pushNamed(AppRoutes.signinScreen);
                           },
                           child: Text(
                             'Sign in',
@@ -552,7 +551,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   left: getWidth(40),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed(SplashScreen.id);
+                      Navigator.of(context).pushNamed(AppRoutes.authentication);
                     },
                     child: Container(
                       height: getHeight(50),

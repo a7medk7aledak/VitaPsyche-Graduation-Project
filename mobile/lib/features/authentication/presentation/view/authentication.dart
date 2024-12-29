@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/const/image_app.dart';
-import '../../../main_navigation/presentation/view/main_navigation_screen.dart';
-import 'signin_screen.dart';
-import 'signup_screen.dart';
-
-class SplashScreen extends StatelessWidget {
-  const SplashScreen({super.key});
-  static const id = '/splash';
+class Authentication extends StatelessWidget {
+  const Authentication({super.key});
+  // static const id = '/splash';
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +40,7 @@ class SplashScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(children: [
         Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/images/SplashScreen.png'),
               fit: BoxFit.cover,
@@ -88,7 +85,7 @@ class SplashScreen extends StatelessWidget {
               buildElevatedButton(
                 title: 'Sign in',
                 onPressed: () =>
-                    Navigator.of(context).pushNamed(SigninScreen.id),
+                    Navigator.of(context).pushNamed(AppRoutes.signinScreen),
               ),
               SizedBox(
                 height: 20.h,
@@ -96,7 +93,7 @@ class SplashScreen extends StatelessWidget {
               buildElevatedButton(
                 title: 'Sign up',
                 onPressed: () =>
-                    Navigator.of(context).pushNamed(SignupScreen.id),
+                    Navigator.of(context).pushNamed(AppRoutes.signupScreen),
               ),
               // Divider with "or"
               Padding(
@@ -132,19 +129,25 @@ class SplashScreen extends StatelessWidget {
                 title: 'Continue as Guest',
                 onPressed: () {
                   // AuthService.logout();
-                  Navigator.of(context).pushNamed(MainNavigationScreen.id);
+                  Navigator.of(context).pushNamed(AppRoutes.mainNavigationScreen);
                 },
               ),
               // Language Selector
               Padding(
                 padding: EdgeInsets.only(top: getHeight(30)),
-                child: Container(
+                child: SizedBox(
                   width: getWidth(150),
                   child: Center(
                     child: OutlinedButton(
                       onPressed: () {
                         // Handle language change
                       },
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(color: primaryColor, width: 2),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -162,12 +165,6 @@ class SplashScreen extends StatelessWidget {
                                 color: primaryColor, fontSize: getWidth(14)),
                           ),
                         ],
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        side: BorderSide(color: primaryColor, width: 2),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
                       ),
                     ),
                   ),

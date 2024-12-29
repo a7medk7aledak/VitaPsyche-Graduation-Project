@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/features/ai_service/service/lina/presentation/view/line_screen.dart';
-import 'package:flutter_mindmed_project/features/doctor/presentation/view/ask_doctor_service.dart';
-import 'package:flutter_mindmed_project/features/fqas/presentation/view/fqas_service.dart';
-import 'package:flutter_mindmed_project/features/products/presentation/view/all_products_screen.dart';
-import 'package:flutter_mindmed_project/features/artical/presentation/view/blog_service.dart';
-import 'package:flutter_mindmed_project/features/test/presentation/view/test_service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/const/animation_gif.dart';
 
+import '../../../../core/routes/app_routes.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/const/image_app.dart';
-import '../../../ai_service/service/chat_bot/presentation/view/chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-  static const String id = 'HomeScreen';
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -43,7 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return GestureDetector(
       onTap: onTap,
       child: Card(
-        margin: const EdgeInsets.only(right: 20, bottom: 15, top: 10).w,
+        margin: const EdgeInsets.only(right: 10, bottom: 15, top: 10).w,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15).r,
           side: const BorderSide(color: primaryColor),
@@ -106,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CustomScrollView(
         slivers: [
           // Header Section
-          SliverToBoxAdapter(child: _header('Your Service')),
+          SliverToBoxAdapter(child: _header('Our Service')),
 
           // ChatBot and Lina Service Section
           SliverToBoxAdapter(
@@ -117,19 +110,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   _serviceCard(
-                    title: 'ChatBot Service',
-                    subtitle1: 'Click to Treat',
-                    subtitle2: 'Yourself',
-                    imagePath: AnimationGif.chatBot,
-                    onTap: () => Navigator.of(context).pushNamed(ChatScreen.id),
-                  ),
-                  _serviceCard(
                     title: 'Lina Service',
                     subtitle1: 'Click to Treat',
                     subtitle2: 'Yourself',
                     imagePath: AnimationGif.linachatBot,
-                    onTap: () => Navigator.of(context).pushNamed(LinaScreen.id),
+                    onTap: () =>
+                        Navigator.of(context).pushNamed(AppRoutes.linaScreen),
                     clipRoundedImage: true,
+                  ),
+                  _serviceCard(
+                    title: 'ChatBot Service',
+                    subtitle1: 'Click to Treat',
+                    subtitle2: 'Yourself',
+                    imagePath: AnimationGif.chatBot,
+                    onTap: () =>
+                        Navigator.of(context).pushNamed(AppRoutes.chatScreen),
                   ),
                 ],
               ),
@@ -145,20 +140,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 children: [
                   _compunetService('Test', AnimationGif.test,
-                      onTap: () =>
-                          Navigator.of(context).pushNamed(TestService.id)),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.testScreen)),
                   _compunetService('Blog', AnimationGif.blog,
-                      onTap: () =>
-                          Navigator.of(context).pushNamed(BlogService.id)),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.blogScreen)),
                   _compunetService('product', AnimationGif.production,
                       onTap: () => Navigator.of(context)
-                          .pushNamed(AllProductsScreen.id)),
+                          .pushNamed(AppRoutes.productsScreen)),
                   _compunetService('FQAs', AnimationGif.fqas,
-                      onTap: () =>
-                          Navigator.of(context).pushNamed(FqasService.id)),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed(AppRoutes.fqasScreen)),
                   _compunetService('Ask Doctor', AnimationGif.askDoctor,
                       onTap: () =>
-                          Navigator.of(context).pushNamed(AskDoctorService.id)),
+                          Navigator.of(context).pushNamed(AppRoutes.askDoctor)),
                 ],
               ),
             ),
@@ -205,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Card(
         margin: const EdgeInsets.all(10).w,
         shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(50.r)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
         elevation: 5,
         color: secoundryColor,
         child: Column(

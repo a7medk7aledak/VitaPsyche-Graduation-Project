@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../core/const/animation_gif.dart';
 import '../../../core/theme/colors.dart';
-import '../service/chat_bot/presentation/view/chat_screen.dart';
-import '../service/lina/presentation/view/line_screen.dart';
 
 class AiServiceScreen extends StatelessWidget {
   const AiServiceScreen({super.key});
-  static const String id = 'AiServiceScreen';
 
   TextStyle _textStyle(double size, Color color, FontWeight weight) {
     return TextStyle(fontSize: size, color: color, fontWeight: weight);
@@ -102,14 +100,14 @@ class AiServiceScreen extends StatelessWidget {
             subtitle1: 'Click to Treat',
             subtitle2: 'Yourself',
             imagePath: AnimationGif.chatBot,
-            onTap: () => Navigator.of(context).pushNamed(ChatScreen.id),
+            onTap: () => Navigator.of(context).pushNamed(AppRoutes.chatScreen),
           ),
           _serviceCard(
             title: 'Lina Service',
             subtitle1: 'Click to Treat',
             subtitle2: 'Yourself',
             imagePath: AnimationGif.linachatBot,
-            onTap: () => Navigator.of(context).pushNamed(LinaScreen.id),
+            onTap: () => Navigator.of(context).pushNamed(AppRoutes.linaScreen),
             clipRoundedImage: true,
           ),
         ],

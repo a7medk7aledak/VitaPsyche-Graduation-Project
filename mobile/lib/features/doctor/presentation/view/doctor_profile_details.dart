@@ -14,7 +14,7 @@ class DoctorProfileDetails extends StatelessWidget {
   final String salary;
 
   const DoctorProfileDetails({
-    Key? key,
+    super.key,
     required this.doctorName,
     required this.specialty,
     required this.imagePath,
@@ -25,7 +25,7 @@ class DoctorProfileDetails extends StatelessWidget {
     required this.joiningDate,
     required this.sessions,
     required this.salary,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

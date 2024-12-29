@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/features/test/presentation/view/do_test.dart';
+import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/const/image_app.dart';
 import '../../data/req_json_text.dart';
 
-class TestService extends StatefulWidget {
-  const TestService({super.key});
-  static const String id = 'test';
+class TestScreen extends StatefulWidget {
+  const TestScreen({super.key});
 
   @override
-  State<TestService> createState() => _TestServiceState();
+  State<TestScreen> createState() => _TestScreenState();
 }
 
-class _TestServiceState extends State<TestService> {
+class _TestScreenState extends State<TestScreen> {
   final String _data = '''
 These critical tests help to understand the personality of the person better, as they give an idea about the personality and some indications of the current psychological state. But you should know an expert after getting the results because the tests are not a substitute for him.
   ''';
@@ -121,22 +120,23 @@ These critical tests help to understand the personality of the person better, as
                       borderRadius: BorderRadius.circular(12.5).r,
                     ),
                   ),
-                  onPressed: () {
-                    if (questions.isNotEmpty) {
-                      final scoring = model.scoring ?? {};
-                      Navigator.pushNamed(
-                        context,
-                        DoTest.id,
-                        arguments: {
-                          'testTitle': title,
-                          'model': model,
-                          'scoring': scoring,
-                        },
-                      );
-                    } else {
-                      print("No questions available.");
-                    }
-                  },
+                 onPressed: () {
+  if (questions.isNotEmpty) {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.doTest,
+      arguments: {
+        'testTitle': title,
+        'model': model,
+        'scoring': model.scoring, // Pass scoring directly
+      },
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("No questions available for this test."))
+    );
+  }
+},
                   child: Text(
                     'take the test',
                     style: TextStyle(color: secoundryColor, fontSize: 16.sp),

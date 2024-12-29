@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/features/test/presentation/view/depression_scale_result.dart';
+import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../controller/test_route_agruments.dart';
 import '../../controller/text_controller.dart';
 import '../../../../core/theme/colors.dart';
 import '../widget/button_bar_text.dart';
 
 class DoTest extends StatefulWidget {
   const DoTest({super.key});
-  static const String id = 'doText';
 
   @override
   State<DoTest> createState() => _DoTestState();
@@ -34,12 +34,15 @@ class _DoTestState extends State<DoTest> {
   }
 
   void _initializeData() {
-    final arguments =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+    // استخدام TestRouteArguments للحصول على البيانات
+    final args = TestRouteArguments.fromMap(
+      ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ?? {},
+    );
 
-    if (arguments != null) {
-      testTitle = arguments['testTitle'];
-      model = arguments['model'];
+    // التحقق من وجود البيانات المطلوبة
+    if (args.testTitle.isNotEmpty && args.model != null) {
+      testTitle = args.testTitle;
+      model = args.model;
       _textController = TextController(totalQuestions: model.questions.length);
 
       // Set up stream listener
@@ -72,7 +75,7 @@ class _DoTestState extends State<DoTest> {
     calculateScore();
     Navigator.pushNamed(
       context,
-      DepressionScaleResult.id,
+      AppRoutes.depressionScaleResult,
       arguments: {
         'totalScore': totalScore,
       },

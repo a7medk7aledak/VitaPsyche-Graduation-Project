@@ -6,7 +6,6 @@ import '../../../../core/const/image_app.dart';
 
 class About extends StatelessWidget {
   const About({super.key});
-  static String id = 'about';
 
   final String _doc = """
 We are ten engineers, our goal is to help individuals understand their problems and behaviors, as well as to develop effective strategies for coping with the mental health challenges they face. We also seek to identify the optimal treatment method for a wide range of mental health conditions. """;

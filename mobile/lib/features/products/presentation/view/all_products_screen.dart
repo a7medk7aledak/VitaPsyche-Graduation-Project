@@ -7,15 +7,15 @@ import 'cart_item_data.dart';
 import 'cart_screen.dart';
 import '../cubit/cart_cubit.dart';
 
-class AllProductsScreen extends StatefulWidget {
-  const AllProductsScreen({super.key});
+class ProductsScreen extends StatefulWidget {
+  const ProductsScreen({super.key});
   static String id = 'products';
 
   @override
-  State<AllProductsScreen> createState() => _AllProductsScreenState();
+  State<ProductsScreen> createState() => _ProductsScreenState();
 }
 
-class _AllProductsScreenState extends State<AllProductsScreen> {
+class _ProductsScreenState extends State<ProductsScreen> {
   final TextEditingController _searchController = TextEditingController();
   List<Map<String, String>> _products = [];
   List<Map<String, String>> _filteredProducts = [];
@@ -90,7 +90,7 @@ class _AllProductsScreenState extends State<AllProductsScreen> {
       onTap: () {
         Navigator.pushNamed(
           context,
-          ProductDetailsScreen.id,
+          DetailsProduct.id,
           arguments: {
             'title': _filteredProducts[index]["title"],
             'price': double.parse(

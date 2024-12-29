@@ -5,7 +5,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SendToGmail extends StatefulWidget {
   const SendToGmail({super.key});
-  static String id = 'send to gmail';
   @override
   _SendToGmailState createState() => _SendToGmailState();
 }
