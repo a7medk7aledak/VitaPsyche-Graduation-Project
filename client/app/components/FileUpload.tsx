@@ -6,20 +6,23 @@ interface FileUploadProps {
   label: string;
   acceptedFileTypes: string;
   onFileChange: (file: File | null) => void; // Callback from parent to give it the file to store
+  existingFile: File | null; // made it to prevent reseting files when going back to the previous form and return
 }
 
 export const FileUpload: React.FC<FileUploadProps> = ({
   label,
   acceptedFileTypes,
   onFileChange,
+  existingFile,
 }) => {
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<File | null>(existingFile);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = e.target.files ? e.target.files[0] : null;
     if (selectedFile) {
       setFile(selectedFile);
       onFileChange(selectedFile);
+      console.log(selectedFile);
     }
   };
 

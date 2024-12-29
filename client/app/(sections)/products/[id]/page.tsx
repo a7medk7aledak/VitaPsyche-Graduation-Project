@@ -1,10 +1,10 @@
+// pages/products/[id]/page.tsx
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import productsData from "../../../content/products.json";
 import ProductImageSlider from "@components/products/ProductImageSlider";
-import { useCartStore } from "@store/useCartStore";
-
-// Import Swiper styles
+import { useDispatch } from "react-redux";
+import { addToCart } from "@store/cartSlice";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
@@ -14,8 +14,8 @@ import ProductsHeader from "@components/products/ProductsHeader";
 const ProductPage = ({ params }: { params: { id: string } }) => {
   const { products } = productsData;
   const product = products.find((p) => p.id === params.id);
-
-  const addToCart = useCartStore((state) => state.addToCart); // Access the addToCart function from the store
+  const [quantity, setQuantity] = useState(1); // State for quantity
+  const dispatch = useDispatch();
 
   if (!product) {
     return (
@@ -24,6 +24,10 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
       </div>
     );
   }
+
+  const handleAddToCart = () => {
+    dispatch(addToCart({ id: product.id, quantity }));
+  };
 
   return (
     <div className="py-10 mx-5 lg:mx-0">
@@ -58,11 +62,22 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
               </ul>
             </div>
 
-            {/* Add to Cart Button */}
-            <div className="mt-6">
+            {/* Quantity Dropdown and Add to Cart Button */}
+            <div className="mt-6 flex items-center gap-4 justify-end">
+              <select
+                value={quantity}
+                onChange={(e) => setQuantity(Number(e.target.value))}
+                className="w-20 p-2 border border-gray-300 rounded"
+              >
+                {[...Array(4)].map((_, index) => (
+                  <option key={index} value={index + 1}>
+                    {index + 1}
+                  </option>
+                ))}
+              </select>
               <button
-                className=" px-6 py-3 bg-[#216862] text-white font-semibold rounded-lg hover:bg-[#1a4c47] transition-colors ml-auto block"
-                onClick={addToCart} // Call the addToCart function when clicked
+                className="px-6 py-3 bg-[#216862] text-white font-semibold rounded-lg hover:bg-[#1a4c47] transition-colors "
+                onClick={handleAddToCart}
               >
                 Add to Cart
               </button>

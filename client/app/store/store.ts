@@ -1,10 +1,27 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
+import doctorFormReducer from "./doctorFormSlice";
+import cartReducer from "./cartSlice";
 
 export const store = configureStore({
   reducer: {
     auth: authReducer,
+    doctorForm: doctorFormReducer,
+    cart: cartReducer,
   },
+  //for the error of handling files in redux dueto unserializble of File object
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["doctorForm/setFormData"],
+        ignoredPaths: [
+          "doctorForm.cv",
+          "doctorForm.certifications",
+          "doctorForm.anotherQualification1",
+          "doctorForm.anotherQualification2",
+        ],
+      },
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

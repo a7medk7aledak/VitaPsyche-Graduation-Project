@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useSelector, useDispatch } from "react-redux";
 
 import { countries } from "@app/constants/countries";
 import Button from "@components/common/Button";
@@ -14,32 +15,30 @@ import Select, { MultiValue } from "react-select";
 import { useRouter } from "next/navigation";
 import { customStylesForLanguageInput } from "./customStyles";
 import { TFormErrors } from "@app/types/FormDoctor";
-import { useDoctorFormStore } from "@store/useDoctorFormStore";
 import { languageOptions, OptionType } from "@constants/doctorLanguages";
+import { RootState } from "@store/store";
+import { setFormData, setLanguages } from "@store/doctorFormSlice";
 
 const DoctorForm1 = () => {
-  const { formData, setFormData, setLanguages } = useDoctorFormStore();
-
+  const dispatch = useDispatch();
+  const formData = useSelector((state: RootState) => state.doctorForm);
   const router = useRouter();
+
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
-
   const [errors, setErrors] = useState<TFormErrors>({});
 
-  const handleLanguageChange = (selected: MultiValue<OptionType>) => {
-    // Extract the selected language values
-    const selectedLanguages = selected.map((option) => option.value);
-
-    // Update the fluentLanguages in the store with the selected values
-    setLanguages(selectedLanguages);
-  };
-
-  const handleChange = (
+  const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData({ [name]: value });
+    dispatch(setFormData({ [name]: value }));
+  };
+
+  const handleLanguageChange = (selected: MultiValue<OptionType>) => {
+    const selectedLanguages = selected.map((option) => option.value);
+    dispatch(setLanguages(selectedLanguages));
   };
 
   const validateForm = (): TFormErrors => {
@@ -215,7 +214,7 @@ const DoctorForm1 = () => {
                 <input
                   name="fullNameEnglish"
                   value={formData.fullNameEnglish}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                   placeholder="John Doe"
                 />
@@ -232,7 +231,7 @@ const DoctorForm1 = () => {
                 <input
                   name="fullNameArabic"
                   value={formData.fullNameArabic}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   className="w-full px-3 py-2 outline-none  rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                   placeholder="جون دو"
                 />
@@ -252,7 +251,7 @@ const DoctorForm1 = () => {
               <input
                 name="prefix"
                 value={formData.prefix}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 placeholder="Dr, Ms, Mrs, Mr, Prof"
               />
@@ -269,7 +268,7 @@ const DoctorForm1 = () => {
               <input
                 name="email"
                 value={formData.email}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 type="email"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2  transition duration-200"
                 placeholder="joe.doe@example.com"
@@ -287,7 +286,7 @@ const DoctorForm1 = () => {
               <PhoneInput
                 country={"eg"}
                 value={formData.phone}
-                onChange={(phone) => setFormData({ ...formData, phone })}
+                onChange={(phone) => dispatch(setFormData({ phone }))}
                 placeholder="Enter phone number"
                 containerStyle={{ width: "100%" }}
                 inputStyle={{
@@ -318,7 +317,7 @@ const DoctorForm1 = () => {
                 name="username"
                 placeholder="johndoe123"
                 value={formData.username}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               />
               {errors.username && (
@@ -335,7 +334,7 @@ const DoctorForm1 = () => {
                 <input
                   name="password"
                   value={formData.password}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   type={showPassword ? "text" : "password"}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                   placeholder="********"
@@ -362,7 +361,7 @@ const DoctorForm1 = () => {
                 <input
                   name="confirmPassword"
                   value={formData.confirmPassword}
-                  onChange={handleChange}
+                  onChange={handleInputChange}
                   type={showConfirmPassword ? "text" : "password"}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                   placeholder="********"
@@ -390,7 +389,7 @@ const DoctorForm1 = () => {
               <input
                 name="dateOfBirth"
                 value={formData.dateOfBirth}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 type="date"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               />
@@ -409,7 +408,7 @@ const DoctorForm1 = () => {
               <select
                 name="gender"
                 value={formData.gender}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               >
                 <option value="" disabled>
@@ -432,7 +431,7 @@ const DoctorForm1 = () => {
               <select
                 name="nationality"
                 value={formData.nationality}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               >
                 <option disabled value="">
@@ -459,7 +458,7 @@ const DoctorForm1 = () => {
               <select
                 name="countryOfResidence"
                 value={formData.countryOfResidence}
-                onChange={handleChange}
+                onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               >
                 <option disabled value="">

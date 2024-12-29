@@ -1,42 +1,42 @@
 "use client";
-import { motion } from "framer-motion";
 
+import { motion } from "framer-motion";
 import { useState } from "react";
 import Button from "@components/common/Button";
 import { FileUpload } from "@components/FileUpload";
 import React from "react";
 import { specializations } from "@constants/specializations";
-import { useDoctorFormStore } from "@store/useDoctorFormStore";
 import { TFormErrors } from "@app/types/FormDoctor";
 import { useRouter } from "next/navigation";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
+import { useDispatch, useSelector } from "react-redux";
+import { setFormData } from "@store/doctorFormSlice"; // import setFormData action
+import { RootState } from "@store/store";
 
 const DoctorForm3 = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const formData = useSelector((state: RootState) => state.doctorForm); // Get the current form data from Redux
 
-  const { formData, setFormData } = useDoctorFormStore();
-
-  const [workingInClinic, setWorkingInClinic] = useState("");
-
+  const [workingInClinic, setWorkingInClinic] = useState(
+    formData.workingInClinic
+  );
   const [multipleQualifications, setMultipleQualifications] = useState("");
-  // State to store all files for testing
-  // const [files, setFiles] = useState<{ [key: string]: File | null }>({});
 
   const [errors, setErrors] = useState<TFormErrors>({});
+  const [showModal, setShowModal] = useState(false);
 
-  const [showModal, setShowModal] = useState(false); // Modal visibility state
-
-  const handleFileChange = (key: string, file: File | null) => {
-    // setFiles((prevFiles) => ({
-    //   ...prevFiles,
-    //   [key]: file,
-    // }));
-    setFormData({ [key]: file });
-
-    // console.log(files);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    dispatch(setFormData({ [name]: value }));
   };
 
-  // Validate form fields
+  const handleFileChange = (key: string, file: File | null) => {
+    dispatch(setFormData({ [key]: file })); // Dispatch the file to Redux state
+  };
+
   const validateForm = () => {
     const errors: TFormErrors = {};
 
@@ -67,10 +67,10 @@ const DoctorForm3 = () => {
       (!formData.anotherQualification1 || !formData.anotherQualification2)
     ) {
       errors.additionalQualifications =
-        "additional qualifications must be uploaded if you have selected yes.";
+        "Additional qualifications must be uploaded if you have selected yes.";
     }
 
-    return errors; // Valid if no errors
+    return errors;
   };
 
   const handleSubmit = (e: React.MouseEvent) => {
@@ -78,7 +78,7 @@ const DoctorForm3 = () => {
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
       console.log("Form data ready for submission:", formData);
-      setShowModal(true);
+      // setShowModal(true);
     } else {
       setErrors(formErrors);
     }
@@ -86,7 +86,7 @@ const DoctorForm3 = () => {
 
   const closeModalHandler = () => {
     setShowModal(false);
-    router.push("/");
+    // router.push("/");
   };
 
   const formVariants = {
@@ -142,9 +142,10 @@ const DoctorForm3 = () => {
                 Category
               </label>
               <select
+                name="category"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.category}
-                onChange={(e) => setFormData({ category: e.target.value })}
+                onChange={handleInputChange}
               >
                 <option value="" disabled>
                   Select Category
@@ -171,11 +172,10 @@ const DoctorForm3 = () => {
                 Specialization
               </label>
               <select
+                name="specialization"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.specialization}
-                onChange={(e) =>
-                  setFormData({ specialization: e.target.value })
-                }
+                onChange={handleInputChange}
               >
                 <option value="" disabled>
                   Select Specialization
@@ -201,16 +201,11 @@ const DoctorForm3 = () => {
               </label>
 
               <input
+                name="yearsOfExperience"
                 type="number"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.yearsOfExperience || ""}
-                onChange={(e) =>
-                  setFormData({
-                    yearsOfExperience: e.target.value
-                      ? parseInt(e.target.value)
-                      : null,
-                  })
-                }
+                onChange={handleInputChange}
               />
               {errors.yearsOfExperience && (
                 <p className="text-red-500 text-sm">
@@ -228,14 +223,11 @@ const DoctorForm3 = () => {
                 License Number (If applicable)
               </label>
               <input
+                name="licenseNumber"
                 placeholder="if applicable"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.licenseNumber || ""}
-                onChange={(e) =>
-                  setFormData({
-                    licenseNumber: e.target.value,
-                  })
-                }
+                onChange={handleInputChange}
               />
             </motion.div>
 
@@ -248,13 +240,10 @@ const DoctorForm3 = () => {
                 licensing Organization{" "}
               </label>
               <input
+                name="licensingOrganization"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.licensingOrganization || ""}
-                onChange={(e) =>
-                  setFormData({
-                    licensingOrganization: e.target.value,
-                  })
-                }
+                onChange={handleInputChange}
               />
             </motion.div>
 
@@ -267,10 +256,14 @@ const DoctorForm3 = () => {
                 Working in a clinic
               </label>
               <select
+                name="workingInClinic"
                 required
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={workingInClinic}
-                onChange={(e) => setWorkingInClinic(e.target.value)}
+                onChange={(e) => {
+                  setWorkingInClinic(e.target.value);
+                  handleInputChange(e);
+                }}
               >
                 <option value="" disabled>
                   select
@@ -296,15 +289,11 @@ const DoctorForm3 = () => {
                   Clinic Name
                 </label>
                 <input
+                  name="clinicName"
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 transition duration-200"
                   placeholder="if you are working in a clinic"
                   value={formData.clinicName || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      clinicName: e.target.value,
-                    })
-                  }
+                  onChange={handleInputChange}
                 />
                 {errors.clinicName && (
                   <p className="text-red-500 text-sm">{errors.clinicName}</p>
@@ -321,13 +310,10 @@ const DoctorForm3 = () => {
                 Availability for Sessions
               </label>
               <select
+                name="availabilityForSessions"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.availabilityForSessions || ""}
-                onChange={(e) =>
-                  setFormData({
-                    availabilityForSessions: e.target.value,
-                  })
-                }
+                onChange={handleInputChange}
               >
                 <option value="" disabled>
                   Select availability
@@ -346,6 +332,7 @@ const DoctorForm3 = () => {
             {/* Upload CV Field */}
             <div>
               <FileUpload
+                existingFile={formData.cv}
                 label="Upload Cv"
                 acceptedFileTypes=".pdf,.doc,.docx"
                 onFileChange={(file) => handleFileChange("cv", file)}
@@ -357,6 +344,7 @@ const DoctorForm3 = () => {
 
             <div>
               <FileUpload
+                existingFile={formData.certifications}
                 label="Upload Professional qualifications and educational certifications"
                 acceptedFileTypes=".pdf,.doc,.docx"
                 onFileChange={(file) =>
@@ -400,6 +388,7 @@ const DoctorForm3 = () => {
             {multipleQualifications === "yes" && (
               <div>
                 <FileUpload
+                  existingFile={formData.anotherQualification1}
                   label="If you possess multiple professional qualifications."
                   acceptedFileTypes=".pdf,.doc,.docx"
                   onFileChange={(file) =>
@@ -407,6 +396,7 @@ const DoctorForm3 = () => {
                   }
                 />
                 <FileUpload
+                  existingFile={formData.anotherQualification2}
                   label=""
                   acceptedFileTypes=".pdf,.doc,.docx"
                   onFileChange={(file) =>
