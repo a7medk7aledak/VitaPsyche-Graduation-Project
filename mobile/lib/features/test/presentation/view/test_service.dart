@@ -3,7 +3,6 @@ import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/colors.dart';
 import '../../../../core/const/image_app.dart';
-import '../../controller/test_route_agruments.dart';
 import '../../data/req_json_text.dart';
 
 class TestScreen extends StatefulWidget {
@@ -121,38 +120,23 @@ These critical tests help to understand the personality of the person better, as
                       borderRadius: BorderRadius.circular(12.5).r,
                     ),
                   ),
-                  onPressed: () {
-                    if (questions.isNotEmpty) {
-                      final scoring = model.scoring ?? {};
-                       print("Title: $title"); // للتأكد من العنوان
-        print("Questions Length: ${questions.length}"); // للتأكد من الأسئلة
-        print("Model: $model");
-
-
-        final args = TestRouteArguments(
-            testTitle: title,
-            model: model,
-            scoring: scoring,
-        );
-        
-        print("Arguments Map: ${args.toMap()}"); 
-                      Navigator.pushNamed(
-                        context,
-                        AppRoutes.doTest,
-                        arguments: TestRouteArguments(
-                          testTitle: title,
-                          model: model,
-                          scoring: scoring,
-                        ).toMap(),
-                        
-                      );
-                    } else {
-                        print("No questions available.");
-                      ScaffoldMessenger.of(context).showSnackBar(
-    const SnackBar(content: Text("No questions available for this test.")),
-  );
-                    }
-                  },
+                 onPressed: () {
+  if (questions.isNotEmpty) {
+    Navigator.pushNamed(
+      context,
+      AppRoutes.doTest,
+      arguments: {
+        'testTitle': title,
+        'model': model,
+        'scoring': model.scoring, // Pass scoring directly
+      },
+    );
+  } else {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("No questions available for this test."))
+    );
+  }
+},
                   child: Text(
                     'take the test',
                     style: TextStyle(color: secoundryColor, fontSize: 16.sp),

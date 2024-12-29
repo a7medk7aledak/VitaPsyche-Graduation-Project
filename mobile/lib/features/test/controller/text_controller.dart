@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
-import 'package:flutter_mindmed_project/features/test/controller/test_route_agruments.dart';
 
 class TextController {
   int currentPositionPage = 0;
@@ -39,32 +38,36 @@ class TextController {
   }
 
   void onTapNext(
-    BuildContext context, {
-    required String testTitle,
-    required dynamic scoring,
-  }) {
-    if (!canMoveNext()) {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text("Please select an answer before proceeding.")));
-      return;
-    }
-
-    if (currentPositionPage < totalQuestions - 1) {
-      currentPositionPage++;
-      _pageController.add(currentPositionPage);
-      _updatePrevButtonVisibility();
-      isNextOrPrev = true;
-    } else {
-      // Calculate final score and navigate to results
-      final totalScore = responses.fold(0, (sum, score) => sum + (score ?? 0));
-
-      Navigator.pushReplacementNamed(
-        context,
-        AppRoutes.depressionScaleResult,
-        arguments: TestRouteArguments(testTitle: testTitle, score: totalScore).toMap()
-      );
-    }
+  BuildContext context, {
+  required String testTitle,
+  required dynamic scoring,
+}) {
+  if (!canMoveNext()) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Please select an answer before proceeding."))
+    );
+    return;
   }
+
+  if (currentPositionPage < totalQuestions - 1) {
+    currentPositionPage++;
+    _pageController.add(currentPositionPage);
+    _updatePrevButtonVisibility();
+    isNextOrPrev = true;
+  } else {
+    // Calculate final score
+    final totalScore = responses.fold(0, (sum, score) => sum + (score ?? 0));
+    
+    Navigator.pushReplacementNamed(
+      context,
+      AppRoutes.depressionScaleResult,
+      arguments: {
+        'testTitle': testTitle,
+        'totalScore': totalScore,
+      },
+    );
+  }
+}
 
   void onTapPrev() {
     if (currentPositionPage > 0) {
