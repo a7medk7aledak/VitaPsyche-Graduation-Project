@@ -17,11 +17,11 @@ import { customStylesForLanguageInput } from "./customStyles";
 import { TFormErrors } from "@app/types/FormDoctor";
 import { languageOptions, OptionType } from "@constants/doctorLanguages";
 import { RootState } from "@store/store";
-import { setFormData, setLanguages } from "@store/doctorFormSlice";
+import { setFormData, setLanguages } from "@store/authDoctor/authDoctorSlice";
 
 const DoctorForm1 = () => {
   const dispatch = useDispatch();
-  const formData = useSelector((state: RootState) => state.doctorForm);
+  const formData = useSelector((state: RootState) => state.doctorForm.formData);
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState<boolean>(false);

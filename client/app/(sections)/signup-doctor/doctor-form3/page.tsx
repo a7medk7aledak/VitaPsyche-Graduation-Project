@@ -9,14 +9,18 @@ import { specializations } from "@constants/specializations";
 import { TFormErrors } from "@app/types/FormDoctor";
 import { useRouter } from "next/navigation";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
-import { useDispatch, useSelector } from "react-redux";
-import { setFormData } from "@store/doctorFormSlice"; // import setFormData action
-import { RootState } from "@store/store";
+import { setFormData } from "@store/authDoctor/authDoctorSlice"; // import setFormData action
+import { RootState, useAppDispatch } from "@store/store";
+import { actAuthDoctorRegister } from "@store/authDoctor/act/actAuthDoctorRegister";
+import { useSelector } from "react-redux";
 
 const DoctorForm3 = () => {
   const router = useRouter();
-  const dispatch = useDispatch();
-  const formData = useSelector((state: RootState) => state.doctorForm); // Get the current form data from Redux
+  const dispatch = useAppDispatch();
+  const formData = useSelector((state: RootState) => state.doctorForm.formData); // Get the current form data from Redux
+  const { loading, error } = useSelector(
+    (state: RootState) => state.doctorForm
+  );
 
   const [workingInClinic, setWorkingInClinic] = useState(
     formData.workingInClinic
@@ -73,12 +77,13 @@ const DoctorForm3 = () => {
     return errors;
   };
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
       console.log("Form data ready for submission:", formData);
-      // setShowModal(true);
+      await dispatch(actAuthDoctorRegister(formData));
+      setShowModal(true);
     } else {
       setErrors(formErrors);
     }
@@ -445,9 +450,10 @@ const DoctorForm3 = () => {
                 onClick={handleSubmit}
               >
                 <Button variant="secondary" size="large" roundedValue="full">
-                  Submit
+                  {loading == "pending" ? "loading..." : "submit"}
                 </Button>
               </motion.div>
+              {error && <p className="text-[#DC3545] mt-6">{error}</p>}
             </div>
           </motion.form>
         </div>

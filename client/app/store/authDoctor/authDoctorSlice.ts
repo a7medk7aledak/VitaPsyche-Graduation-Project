@@ -1,7 +1,16 @@
 import { TFormData } from "@app/types/FormDoctor";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { actAuthDoctorRegister } from "./act/actAuthDoctorRegister";
+import { TLoading } from "@app/types/shared.types";
+import { isString } from "@app/types/types";
 
-const initialState: TFormData = {
+type TInitialState = {
+  formData: TFormData;
+  loading: TLoading;
+  error: string | null;
+};
+
+const formData = {
   fullNameEnglish: "",
   fullNameArabic: "",
   prefix: "",
@@ -32,16 +41,39 @@ const initialState: TFormData = {
   anotherQualification2: null,
 };
 
+// Define the initial state with proper typing
+const initialState: TInitialState = {
+  formData: formData,
+  loading: "idle",
+  error: null as string | null,
+};
+
 const doctorFormSlice = createSlice({
   name: "doctorForm",
   initialState,
   reducers: {
     setFormData: (state, action: PayloadAction<Partial<TFormData>>) => {
-      Object.assign(state, action.payload);
+      Object.assign(state.formData, action.payload);
     },
     setLanguages: (state, action: PayloadAction<string[]>) => {
-      state.fluentLanguages = action.payload;
+      state.formData.fluentLanguages = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    //register of doctor
+    builder.addCase(actAuthDoctorRegister.pending, (state) => {
+      state.loading = "pending";
+      state.error = null;
+    });
+    builder.addCase(actAuthDoctorRegister.fulfilled, (state) => {
+      state.loading = "succedded";
+    });
+    builder.addCase(actAuthDoctorRegister.rejected, (state, action) => {
+      state.loading = "failed";
+      if (isString(action.payload)) {
+        state.error = action.payload;
+      }
+    });
   },
 });
 

@@ -20,8 +20,12 @@ export default function CheckoutPage() {
         <Heading variant="secondary">Checkout</Heading>
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-        <PaymentMethods setShowModal={setShowModal} />
-        <AppointmentDetails />
+        <div className="order-1 md:order-1">
+          <AppointmentDetails />
+        </div>
+        <div className="order-2 md:order-2">
+          <PaymentMethods setShowModal={setShowModal} />
+        </div>
       </div>
 
       <CustomerSupport />
