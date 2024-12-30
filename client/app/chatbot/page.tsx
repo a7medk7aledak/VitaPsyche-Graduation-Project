@@ -1,6 +1,6 @@
 "use client";
-
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import dynamic from "next/dynamic";
 import Navbar from "@components/common/Navbar";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
@@ -63,11 +63,7 @@ const ChatBotPage: React.FC = () => {
           setIsListening(false);
         };
 
-        newRecognition.onerror = (event: Event) => {
-          console.error(
-            "Speech recognition error:",
-            (event as ErrorEvent).error
-          );
+        newRecognition.onerror = () => {
           setIsListening(false);
         };
 
@@ -98,8 +94,7 @@ const ChatBotPage: React.FC = () => {
         }));
 
         setMessages(formattedMessages);
-      } catch (error) {
-        console.error("Error loading messages:", error);
+      } catch {
         setMessages([]);
       }
     };
@@ -135,9 +130,7 @@ const ChatBotPage: React.FC = () => {
 
   const handleMessageSent = (message: Message) => {
     setMessages((prev) => [...prev, message]);
-    setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleLogout = () => {
@@ -197,4 +190,4 @@ const ChatBotPage: React.FC = () => {
   );
 };
 
-export default ChatBotPage;
+export default dynamic(() => Promise.resolve(ChatBotPage), { ssr: false });
