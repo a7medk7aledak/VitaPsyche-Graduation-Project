@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Button from "@components/common/Button";
 import { TFormErrors } from "@app/types/FormDoctor";
 import { useSelector, useDispatch } from "react-redux";
-import { setFormData } from "@store/doctorFormSlice"; // Redux action
+import { setFormData } from "@store/authDoctor/authDoctorSlice"; // Redux action
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { RootState } from "@store/store";
@@ -11,7 +11,7 @@ import { RootState } from "@store/store";
 const DoctorForm2 = () => {
   const router = useRouter();
   const dispatch = useDispatch();
-  const formData = useSelector((state: RootState) => state.doctorForm);
+  const formData = useSelector((state: RootState) => state.doctorForm.formData);
   const [errors, setErrors] = useState<TFormErrors>({});
 
   const validateForm = () => {
