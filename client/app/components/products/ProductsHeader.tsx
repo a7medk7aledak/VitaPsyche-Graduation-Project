@@ -1,14 +1,18 @@
+// components/ProductsHeader.tsx
 "use client";
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import { useCartStore } from "@store/useCartStore";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
 
 interface ProductsHeaderProps {
   setSearchQuery?: (query: string) => void;
 }
 
 const ProductsHeader: React.FC<ProductsHeaderProps> = ({ setSearchQuery }) => {
-  const cartCount = useCartStore((state) => state.count); // Get the cart count from the Zustand store
+  const cartCount = useSelector((state: RootState) =>
+    state.cart.items.reduce((total, item) => total + item.quantity, 0)
+  );
 
   return (
     <div className="mx-auto container flex items-center justify-between my-5">

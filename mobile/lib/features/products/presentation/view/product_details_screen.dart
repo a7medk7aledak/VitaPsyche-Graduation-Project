@@ -52,16 +52,16 @@ class CustomButtonCard extends StatelessWidget {
   }
 }
 
-class ProductDetailsScreen extends StatefulWidget {
+class DetailsProduct extends StatefulWidget {
   static String id = 'ProductDetails';
 
-  const ProductDetailsScreen({super.key});
+  const DetailsProduct({super.key});
 
   @override
-  State<ProductDetailsScreen> createState() => _ProductDetailsScreenState();
+  State<DetailsProduct> createState() => _DetailsProductState();
 }
 
-class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
+class _DetailsProductState extends State<DetailsProduct> {
   int _currentImageIndex = 0;
   final PageController _pageController = PageController();
   Timer? _autoPageTimer;

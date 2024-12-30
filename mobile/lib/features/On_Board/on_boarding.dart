@@ -70,37 +70,38 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         Navigator.of(context).pushReplacement(
                           PageTransition(
                             type: PageTransitionType.bottomToTop,
-                            child: const SplashScreen(),
+                            child: const Authentication(),
                           ),
                         );
                       },
                       child: Container(
-                      height: MediaQuery.of(context).size.height * 0.05,
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      decoration: BoxDecoration(
-                          color: const Color.fromARGB(255, 3, 190, 150),
-                          borderRadius: BorderRadius.circular(35)),
-                      child: Center(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Done ",
-                              style: GoogleFonts.inter(
-                                  fontSize: 16.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  letterSpacing: 1),
-                            ),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.04,
-                              width: MediaQuery.of(context).size.width * 0.04,
-                              child: Image.asset("assets/icons/check.png"),
-                            ),
-                          ],
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 3, 190, 150),
+                            borderRadius: BorderRadius.circular(35)),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Done ",
+                                style: GoogleFonts.inter(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    letterSpacing: 1),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.04,
+                                width: MediaQuery.of(context).size.width * 0.04,
+                                child: Image.asset("assets/icons/check.png"),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ))
+                      ))
                   : GestureDetector(
                       onTap: () {
                         _controller.nextPage(

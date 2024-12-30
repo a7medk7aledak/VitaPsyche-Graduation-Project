@@ -5,16 +5,14 @@ import 'package:flutter_mindmed_project/core/theme/colors.dart';
 import 'package:flutter_mindmed_project/features/fqas/data/model_fqas.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FqasService extends StatefulWidget {
-  const FqasService({super.key});
-
-  static const String id = 'fqasService';
+class FqasScreen extends StatefulWidget {
+  const FqasScreen({super.key});
 
   @override
-  State<FqasService> createState() => _FqasServiceState();
+  State<FqasScreen> createState() => _FqasScreenState();
 }
 
-class _FqasServiceState extends State<FqasService> {
+class _FqasScreenState extends State<FqasScreen> {
   static const String _jsonPath = 'assets/json/FAQs.json';
 
   Future<Fqas> _loadFqasData() async {

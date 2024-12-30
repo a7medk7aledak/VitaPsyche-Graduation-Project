@@ -2,14 +2,16 @@
 import React, { useState } from "react";
 import Button from "@components/common/Button";
 import { TFormErrors } from "@app/types/FormDoctor";
-import { useDoctorFormStore } from "@store/useDoctorFormStore";
+import { useSelector, useDispatch } from "react-redux";
+import { setFormData } from "@store/authDoctor/authDoctorSlice"; // Redux action
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { RootState } from "@store/store";
 
 const DoctorForm2 = () => {
   const router = useRouter();
-
-  const { formData, setFormData } = useDoctorFormStore();
+  const dispatch = useDispatch();
+  const formData = useSelector((state: RootState) => state.doctorForm.formData);
   const [errors, setErrors] = useState<TFormErrors>({});
 
   const validateForm = () => {
@@ -44,7 +46,6 @@ const DoctorForm2 = () => {
 
   return (
     <>
-      {/* Educational Information Section with improved animation */}
       <motion.div
         className="relative py-10 px-8 md:px-0"
         initial={{ opacity: 0, y: 50 }}
@@ -62,14 +63,12 @@ const DoctorForm2 = () => {
             Educational Information
           </h5>
 
-          {/* Form Section with smooth animation */}
           <motion.form
             className="bg-white relative p-6 md:w-3/4 mx-auto rounded-lg shadow-lg space-y-6 mb-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
-            {/* Highest Degree Earned Field with staggered animation */}
             <motion.div
               className="flex flex-col space-y-2 w-full"
               initial={{ opacity: 0 }}
@@ -82,7 +81,9 @@ const DoctorForm2 = () => {
               <select
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.highestDegree || ""}
-                onChange={(e) => setFormData({ highestDegree: e.target.value })}
+                onChange={(e) =>
+                  dispatch(setFormData({ highestDegree: e.target.value }))
+                }
               >
                 <option value="" disabled>
                   Select your degree
@@ -96,7 +97,6 @@ const DoctorForm2 = () => {
               )}
             </motion.div>
 
-            {/* Name of Institution Field with a subtle scaling animation */}
             <motion.div
               className="flex flex-col space-y-2 w-full"
               initial={{ opacity: 0 }}
@@ -111,7 +111,7 @@ const DoctorForm2 = () => {
                 placeholder="Enter the name of your institution"
                 value={formData.institutionName || ""}
                 onChange={(e) =>
-                  setFormData({ institutionName: e.target.value })
+                  dispatch(setFormData({ institutionName: e.target.value }))
                 }
               />
               {errors.institutionName && (
@@ -119,7 +119,6 @@ const DoctorForm2 = () => {
               )}
             </motion.div>
 
-            {/* Year of Graduation Field with a slight scale and fade-in */}
             <motion.div
               className="flex flex-col space-y-2 w-full mb-10"
               initial={{ opacity: 0, scale: 0.95 }}
@@ -141,11 +140,13 @@ const DoctorForm2 = () => {
                 placeholder="Enter your graduation year"
                 value={formData.graduationYear || ""}
                 onChange={(e) =>
-                  setFormData({
-                    graduationYear: e.target.value
-                      ? parseInt(e.target.value)
-                      : null,
-                  })
+                  dispatch(
+                    setFormData({
+                      graduationYear: e.target.value
+                        ? parseInt(e.target.value)
+                        : null,
+                    })
+                  )
                 }
               />
               {errors.graduationYear && (
@@ -153,9 +154,7 @@ const DoctorForm2 = () => {
               )}
             </motion.div>
 
-            {/* Buttons */}
             <div className="flex justify-between items-center text-2xl pt-5">
-              {/* Back Button */}
               <motion.div
                 initial={{ x: "-250px", opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
@@ -170,7 +169,6 @@ const DoctorForm2 = () => {
                 </Button>
               </motion.div>
 
-              {/* Step Indicator */}
               <motion.span
                 className="text-[#686b72]"
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -180,7 +178,6 @@ const DoctorForm2 = () => {
                 2/3
               </motion.span>
 
-              {/* Next Button */}
               <motion.div
                 initial={{ x: "250px", opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}

@@ -6,21 +6,15 @@ import 'depression_scoring.dart';
 
 class DepressionScaleResult extends StatelessWidget {
   const DepressionScaleResult({super.key});
-  static String id = 'DepressionScaleResult';
 
   @override
   Widget build(BuildContext context) {
     final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
+            {};
+    final score = args['totalScore'] as int? ?? 0;
 
-    if (args == null) {
-      return const Scaffold(
-        body: Center(child: Text('Error: Missing score data!')),
-      );
-    }
-
-    final int score = args['totalScore'] as int? ?? 0;
-
+    // Get depression result
     final DepressionResult result =
         DepressionScoring.getDepressionResult(score);
 
@@ -79,10 +73,11 @@ class DepressionScaleResult extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 20.0).w,
                           child: Text(
                             result.description,
-                            style:  TextStyle(fontSize: 16.sp),
+                            style: TextStyle(fontSize: 16.sp),
                           ),
                         ),
                       ],

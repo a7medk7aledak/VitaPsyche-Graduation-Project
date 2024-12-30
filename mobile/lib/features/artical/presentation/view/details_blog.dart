@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/core/theme/colors.dart';
-import 'package:flutter_mindmed_project/features/artical/data/model_blog.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../core/const/image_app.dart';
 import '../widget/custem_button_back.dart';
+import '../../data/model_blog.dart';
 
 class DetailsBlog extends StatelessWidget {
   const DetailsBlog({super.key});
-  static String id = 'DetailsBlog';
 
   Widget _detailsBlog({
     required String imagesBlog,
@@ -30,6 +29,9 @@ class DetailsBlog extends StatelessWidget {
                 image: DecorationImage(
                   image: NetworkImage(imagesBlog),
                   fit: BoxFit.cover,
+                  onError: (error, stackTrace) {
+                    // Placeholder if the image fails to load
+                  },
                 ),
               ),
             ),
@@ -159,7 +161,7 @@ class DetailsBlog extends StatelessWidget {
   Widget build(BuildContext context) {
     final ModelBlog blog =
         ModalRoute.of(context)!.settings.arguments as ModelBlog;
-
+    // Based on all bugs requery proper check => adujts ()lcode .
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: primaryColor,
@@ -190,7 +192,7 @@ class DetailsBlog extends StatelessWidget {
         ),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [primaryColor, secoundryColor],
             begin: Alignment.topCenter,
