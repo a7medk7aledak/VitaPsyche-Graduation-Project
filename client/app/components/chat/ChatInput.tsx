@@ -68,6 +68,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         chat_session: currentSession.id,
       };
       onMessageSent(userMessage);
+      await saveBotMessageToAPI(userMessage);
 
       // Get chatbot response
       const response = await fetch("/api/chatbot", {
@@ -98,7 +99,6 @@ export const ChatInput: React.FC<ChatInputProps> = ({
       onMessageSent(botMessage);
 
       // Then save it to the API
-      await saveBotMessageToAPI(userMessage);
 
       await saveBotMessageToAPI(botMessage);
 
