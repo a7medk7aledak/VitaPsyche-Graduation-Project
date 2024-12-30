@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "./authSlice";
 import chatReducer from "./chatSlice";
-import doctorFormReducer from "./authDoctor/authDoctorSlice";
 import { useDispatch } from "react-redux";
 
 export const store = configureStore({
