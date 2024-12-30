@@ -98,6 +98,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({
       onMessageSent(botMessage);
 
       // Then save it to the API
+      await saveBotMessageToAPI(userMessage);
+
       await saveBotMessageToAPI(botMessage);
 
       setInput("");
