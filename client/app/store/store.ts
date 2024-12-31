@@ -13,10 +13,21 @@ export const store = configureStore({
     doctorForm: doctorFormReducer,
     cart: cartReducer, // إضافة cart reducer
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ["doctorForm/setFormData"],
+        ignoredPaths: [
+          "doctorForm.formData.cv",
+          "doctorForm.formData.certifications",
+          "doctorForm.formData.anotherQualification1",
+          "doctorForm.formData.anotherQualification2",
+        ],
+      },
+    }),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
 export const useAppDispatch: () => AppDispatch = useDispatch;
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

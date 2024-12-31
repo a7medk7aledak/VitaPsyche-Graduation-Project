@@ -41,6 +41,12 @@ const formData = {
   anotherQualification2: null,
 };
 
+
+// highestDegree: "",
+//       category: "",
+//   licenseNumber: "",
+//   licensingOrganization: "",
+
 // Define the initial state with proper typing
 const initialState: TInitialState = {
   formData: formData,
