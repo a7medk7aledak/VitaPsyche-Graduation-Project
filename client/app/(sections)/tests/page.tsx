@@ -37,7 +37,7 @@ const TestsPage: React.FC = () => {
     {
       title: "Rosenberg Self-Esteem Scale (RSES)",
       icon: "/path-to-adhd-icon.png",
-      questions: 25,
+      questions: 10,
     },
     {
       title: "Internet Addiction Scale",
