@@ -22,7 +22,7 @@ const TestsPage: React.FC = () => {
     {
       title: "Anxiety scale",
       icon: "/path-to-anxiety-icon.png",
-      questions: 44,
+      questions: 50,
     },
     {
       title: "OCD scale",
