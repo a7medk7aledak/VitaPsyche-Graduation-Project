@@ -1986,6 +1986,55 @@ export const tests = [
           { optionId: 2, optionText: "No", score: 1 },
         ],
       },
+      {
+        questionId: 45,
+        questionText: "I don't cry easily.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 0 },
+          { optionId: 2, optionText: "No", score: 1 },
+        ],
+      },
+      {
+        questionId: 46,
+        questionText: "I feared things or people I know can't hurt me.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 47,
+        questionText: "I am highly susceptible to being affected by events.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 48,
+        questionText: "I often get headaches.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 49,
+        questionText:
+          "I must admit that I felt anxious about things that have no value.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 50,
+        questionText: "I can't focus my thoughts on one thing.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
     ],
     scoring: {
       scoreRanges: [
@@ -1996,25 +2045,25 @@ export const tests = [
           info: "This refers to a state where feelings of anxiety are minimal and do not significantly impact daily functioning or emotional well-being.",
         },
         {
-          range: "17-21",
+          range: "17-19",
           description: "Low Anxiety",
           color: "bg-green-500",
           info: "Low anxiety involves mild feelings of worry or unease that may arise occasionally in stressful situations but are manageable and not overwhelming.",
         },
         {
-          range: "22-26",
+          range: "20-24",
           description: "Moderate Anxiety",
           color: "bg-yellow-500",
           info: "Moderate anxiety presents more frequent and noticeable symptoms that may impact daily activities and emotional health, though still manageable with support or intervention.",
         },
         {
-          range: "27-31",
+          range: "25-29",
           description: "High Anxiety",
           color: "bg-orange-600",
           info: "High anxiety involves frequent, intense feelings of unease and stress that significantly interfere with daily life, often impairing emotional and physical well-being.",
         },
         {
-          range: "32-50",
+          range: "30-50",
           description: "Very High Anxiety",
           color: "bg-red-600",
           info: "very high anxiety is overwhelming and pervasive, often leading to severe emotional distress, disruptions in daily activities, and a high likelihood of physical and psychological symptoms.",
