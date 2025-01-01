@@ -1,293 +1,135 @@
 export const tests = [
   {
-    testTitle: "ADHD and Impulsivity Diagnosis Scale",
-    testSlug: "adhd-self-report-scale", // URL-friendly slug
+    testTitle: "Rosenberg Self-Esteem Scale (RSES)",
+    testSlug: "rosenberg-self-esteem-scale-(rses)",
     questions: [
       {
         questionId: 1,
-        questionText:
-          "Have you experienced recurring thoughts or memories of the event?",
+        questionText: "On the whole, I am satisfied with myself",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
       {
         questionId: 2,
-        questionText:
-          "Does the child need extra effort to pay attention to the teacher’s instructions?",
+        questionText: "At times, I think I am no good at all",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 3,
-        questionText: "Does the child appear confused or disoriented?",
+        questionText: "I feel that I have a number of good qualities",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
       {
         questionId: 4,
-        questionText:
-          "Does the child fail to complete tasks or activities they start?",
+        questionText: "I am able to do things as well as most other people",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
       {
         questionId: 5,
-        questionText:
-          "Does the child frequently switch between activities or tasks?",
+        questionText: "I feel I do not have much to be proud of",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 6,
-        questionText: "Does the child not listen or pay attention to others?",
+        questionText: "I certainly feel useless at times",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 7,
-        questionText: "Does the child struggle to follow details?",
+        questionText:
+          "I feel that I'm a person of worth, at least on an equal plane with others",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
       {
         questionId: 8,
-        questionText:
-          "Does the child have difficulty understanding and comprehending relationships?",
+        questionText: "I wish I could have more respect for myself",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 9,
-        questionText: "Does the child struggle to focus?",
+        questionText: "All in all, I am inclined to feel that I am a failure",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 10,
-        questionText:
-          "Does the child experience academic difficulties or challenges in learning?",
+        questionText: "I take a positive attitude toward myself",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 11,
-        questionText: "Does the child frequently daydream?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 12,
-        questionText: "Is the child easily distracted by external stimuli?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 13,
-        questionText: "Does the child forget important tasks?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 14,
-        questionText: "Does the child struggle to organize tasks?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 15,
-        questionText: "Does the child fail to follow through on instructions?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 16,
-        questionText:
-          "Does the child frequently leave their seat without permission?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 17,
-        questionText:
-          "Does the child frequently engage in disruptive behaviors?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 18,
-        questionText:
-          "Does the child show restlessness and squirming during seated activities?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 19,
-        questionText: "Does the child cause noise and distraction in class?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 20,
-        questionText: "Does the child disrupt others in class?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 21,
-        questionText: "Does the child struggle to control their actions?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 22,
-        questionText: "Does the child struggle to control their behavior?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 23,
-        questionText: "Does the child show explosive mood swings?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 24,
-        questionText: "Is the child overly sensitive to criticism?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 25,
-        questionText: "Does the child cry easily?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
     ],
     scoring: {
       instruction:
-        "Rate each item based on frequency (1=Rarely, 2=Sometimes, 3=Often, 4=Always). Add up the total score to assess ADHD and impulsivity symptoms.",
+        "Sum up the scores for all 10 items. Items 2, 5, 6, 8, and 9 are reverse scored.",
       scoreRanges: [
         {
-          range: "0-49",
-          description: "Mild symptoms.",
-          color: "bg-green-600",
-          info: "ADHD symptoms are minimal and have little impact on daily life and functioning.",
-        },
-        {
-          range: "50-79",
-          description: "Moderate symptoms.",
-          color: "bg-yellow-500",
-          info: "ADHD symptoms are more noticeable and have a moderate impact on daily life, requiring some intervention or adjustments.",
-        },
-        {
-          range: "80-100",
-          description: "Severe symptoms.",
+          range: "0-10",
+          description: "Low self-esteem",
           color: "bg-red-600",
-          info: "ADHD symptoms are intense and pervasive, causing significant disruptions in multiple areas of life, including academic, social, and professional functioning.",
+          info: "Indicates significant concerns with self-esteem that may require professional support.",
+        },
+        {
+          range: "11-20",
+          description: "Moderate self-esteem",
+          color: "bg-yellow-500",
+          info: "Shows average levels of self-esteem with room for improvement.",
+        },
+        {
+          range: "21-30",
+          description: "High self-esteem",
+          color: "bg-green-600",
+          info: "Demonstrates healthy levels of self-esteem and positive self-regard.",
         },
       ],
     },
-    maxscoring: 100,
+    maxscoring: 30,
   },
   {
     testTitle: "Yale-Brown Obsessive Compulsive Scale (Y-BOCS)",
