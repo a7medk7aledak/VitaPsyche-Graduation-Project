@@ -22,6 +22,7 @@
         "./node_modules/@types/three/examples/jsm/loaders/GLTFLoader"
       ],
       "@constants/*": ["./app/constants/*"],
+      "@hooks/*": ["./app/hooks/*"],
       "@store/*": ["./app/store/*"],
       "@components/*": ["./app/components/*"],
       "@app/*": ["./app/*"],

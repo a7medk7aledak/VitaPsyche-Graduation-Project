@@ -41,7 +41,6 @@ const formData = {
   anotherQualification2: null,
 };
 
-
 // highestDegree: "",
 //       category: "",
 //   licenseNumber: "",

@@ -5,6 +5,7 @@ import Image from "next/image";
 
 type PaymentMethodsProps = {
   setShowModal: (value: boolean) => void;
+  price: number;
 };
 
 const paymentOptions = [
@@ -43,7 +44,7 @@ const paymentOptions = [
   },
 ];
 
-export function PaymentMethods({ setShowModal }: PaymentMethodsProps) {
+export function PaymentMethods({ setShowModal, price }: PaymentMethodsProps) {
   const [selectedMethod, setSelectedMethod] = useState("credit");
 
   return (
@@ -98,7 +99,7 @@ export function PaymentMethods({ setShowModal }: PaymentMethodsProps) {
         onClick={() => setShowModal(true)}
         className="w-full white rounded-xl py-4 mt-6 font-semibold transition-colors text-white bg-subbutton hover:bg-hoversubbutton "
       >
-        Continue 800 EGP
+        Continue {price} EGP
       </button>
     </div>
   );

@@ -1,6 +1,6 @@
-import Link from "next/link";
 import React from "react";
 import { FaCrown, FaCheck } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 interface PremiumTestCardProps {
   title: string;
@@ -9,6 +9,7 @@ interface PremiumTestCardProps {
   description?: string; // أضف هذا
   features?: string[]; // أضف هذا
   isPurchased?: boolean;
+  price: number;
 }
 
 const PremiumTestCard: React.FC<PremiumTestCardProps> = ({
@@ -18,7 +19,22 @@ const PremiumTestCard: React.FC<PremiumTestCardProps> = ({
   description = "Professional psychological assessment",
   features = ["Detailed Analysis", "Expert Insights", "Comprehensive Report"],
   isPurchased = false,
+  price,
 }) => {
+  const router = useRouter();
+
+  const handlePurchase = () => {
+    // Construct the query string manually
+    const query = new URLSearchParams({
+      title,
+      testSlug,
+      price: price.toString(),
+    }).toString();
+
+    // Push the full URL with the query string
+    router.push(`/tests/premium/checkoutPremiumTest?${query}`);
+  };
+
   return (
     <div className="border rounded-2xl shadow-lg p-6 bg-white flex flex-col justify-between relative group hover:shadow-xl transition-all duration-300">
       {/* Premium Badge */}
@@ -64,27 +80,26 @@ const PremiumTestCard: React.FC<PremiumTestCardProps> = ({
       </div>
 
       {/* Action Button */}
-      <Link href={`/tests/premium/${testSlug}`} className="mt-4 block">
-        <button
-          className={`w-full ${
-            isPurchased
-              ? "bg-purple-600 hover:bg-purple-700"
-              : "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
-          } text-white text-sm font-semibold rounded-lg px-4 py-3 transform transition-all duration-300 hover:scale-[1.02] flex items-center justify-center`}
-        >
-          {isPurchased ? (
-            <>
-              Take Test
-              <FaCheck className="ml-2" />
-            </>
-          ) : (
-            <>
-              Purchase & Take Test
-              <FaCrown className="ml-2" />
-            </>
-          )}
-        </button>
-      </Link>
+      <button
+        onClick={handlePurchase}
+        className={`w-full mt-4 block ${
+          isPurchased
+            ? "bg-purple-600 hover:bg-purple-700"
+            : "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+        } text-white text-sm font-semibold rounded-lg px-4 py-3 transform transition-all duration-300 hover:scale-[1.02] flex items-center justify-center`}
+      >
+        {isPurchased ? (
+          <>
+            Take Test
+            <FaCheck className="ml-2" />
+          </>
+        ) : (
+          <>
+            Purchase & Take Test
+            <FaCrown className="ml-2" />
+          </>
+        )}
+      </button>
     </div>
   );
 };

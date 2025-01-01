@@ -1,15 +1,16 @@
-// components/ProductsHeader.tsx
 "use client";
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
+import { useRouter } from "next/navigation";
 
 interface ProductsHeaderProps {
   setSearchQuery?: (query: string) => void;
 }
 
 const ProductsHeader: React.FC<ProductsHeaderProps> = ({ setSearchQuery }) => {
+  const router = useRouter();
   const cartCount = useSelector((state: RootState) =>
     state.cart.items.reduce((total, item) => total + item.quantity, 0)
   );
@@ -42,7 +43,12 @@ const ProductsHeader: React.FC<ProductsHeaderProps> = ({ setSearchQuery }) => {
           placeholder="Search for products..."
         />
       </div>
-      <button className="flex items-center bg-[#216862] text-white px-5 py-3 rounded-full shadow-md hover:bg-[#1a4c47] transition-colors duration-300">
+      <button
+        onClick={() => {
+          router.push("/cart");
+        }}
+        className="flex items-center bg-[#216862] text-white px-5 py-3 rounded-full shadow-md hover:bg-[#1a4c47] transition-colors duration-300"
+      >
         <FaShoppingCart className="mr-2 text-lg" />
         <span className="font-medium">{cartCount}</span>{" "}
         {/* Display the cart count */}
