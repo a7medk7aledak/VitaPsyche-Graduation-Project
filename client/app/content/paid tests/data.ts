@@ -1157,7 +1157,7 @@ export const paidtests = [
           info: "The child shows very severe symptoms. Immediate professional intervention is critical.",
         },
         {
-          range: "71+",
+          range: "71-240",
           description: "Extremely above average",
           color: "bg-red-1000",
           info: "The child shows extremely severe symptoms. Immediate professional intervention is urgent.",
