@@ -20,8 +20,8 @@ export const store = configureStore({
         ignoredPaths: [
           "doctorForm.formData.cv",
           "doctorForm.formData.certifications",
-          "doctorForm.formData.anotherQualification1",
-          "doctorForm.formData.anotherQualification2",
+          "doctorForm.formData.another_qualification1",
+          "doctorForm.formData.another_qualification2",
         ],
       },
     }),

@@ -6,7 +6,7 @@ export function AppointmentDetails() {
   const [coupon, setCoupon] = useState("");
 
   return (
-    <div className="bg-white rounded-3xl p-8 shadow-sm ">
+    <div className="bg-white rounded-3xl p-8 shadow-md ">
       <div className="flex items-center gap-4 mb-8">
         <Image
           src="/images/about-us/me.jpg"
@@ -46,7 +46,7 @@ export function AppointmentDetails() {
         </div>
       </div>
 
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6">
         <input
           type="text"
           placeholder="Enter coupon code"
@@ -55,7 +55,7 @@ export function AppointmentDetails() {
           className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#00978c]"
         />
         <button
-          className="px-6 py-3 bg-[#00978c] text-white rounded-xl font-medium  transition-colors disabled:opacity-40"
+          className="px-6 py-3 bg-[#00978c] block ml-auto text-white rounded-xl font-medium  transition-colors disabled:opacity-40"
           disabled={!coupon}
         >
           Apply

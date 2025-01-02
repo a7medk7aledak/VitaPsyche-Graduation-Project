@@ -8,37 +8,39 @@ type TInitialState = {
   formData: TFormData;
   loading: TLoading;
   error: string | null;
+  showModal: boolean;
 };
 
 const formData = {
-  fullNameEnglish: "",
-  fullNameArabic: "",
+  first_name: "",
+  last_name: "",
+  full_name_arabic: "",
   prefix: "",
   email: "",
-  phone: "",
+  phone_number: "",
   username: "",
   password: "",
-  confirmPassword: "",
-  dateOfBirth: "",
+  password2: "",
+  birth_date: "",
   gender: "",
   nationality: "",
-  countryOfResidence: "",
-  fluentLanguages: [],
+  current_residence: "",
+  fluent_languages: [],
   highestDegree: "",
   institutionName: "",
   graduationYear: null,
   category: "",
   specialization: "",
-  yearsOfExperience: null,
+  years_of_experience: null,
   licenseNumber: "",
   licensingOrganization: "",
   workingInClinic: "",
-  clinicName: "",
-  availabilityForSessions: "",
+  clinic_name: "",
+  availability_for_sessions: true,
   cv: null,
   certifications: null,
-  anotherQualification1: null,
-  anotherQualification2: null,
+  another_qualification1: null,
+  another_qualification2: null,
 };
 
 // highestDegree: "",
@@ -51,6 +53,7 @@ const initialState: TInitialState = {
   formData: formData,
   loading: "idle",
   error: null as string | null,
+  showModal: false,
 };
 
 const doctorFormSlice = createSlice({
@@ -61,7 +64,10 @@ const doctorFormSlice = createSlice({
       Object.assign(state.formData, action.payload);
     },
     setLanguages: (state, action: PayloadAction<string[]>) => {
-      state.formData.fluentLanguages = action.payload;
+      state.formData.fluent_languages = action.payload;
+    },
+    setShowModal(state, action: PayloadAction<boolean>) {
+      state.showModal = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -72,6 +78,7 @@ const doctorFormSlice = createSlice({
     });
     builder.addCase(actAuthDoctorRegister.fulfilled, (state) => {
       state.loading = "succedded";
+      state.showModal = true;
     });
     builder.addCase(actAuthDoctorRegister.rejected, (state, action) => {
       state.loading = "failed";
@@ -82,5 +89,6 @@ const doctorFormSlice = createSlice({
   },
 });
 
-export const { setFormData, setLanguages } = doctorFormSlice.actions;
+export const { setFormData, setLanguages, setShowModal } =
+  doctorFormSlice.actions;
 export default doctorFormSlice.reducer;

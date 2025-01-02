@@ -45,7 +45,7 @@ const ProductDetailsCheckout: React.FC = () => {
           </div>
         );
       })}
-      <div className="flex gap-2 mb-6">
+      <div className="flex flex-wrap gap-2 mb-6">
         <input
           type="text"
           placeholder="Enter coupon code"
@@ -54,7 +54,7 @@ const ProductDetailsCheckout: React.FC = () => {
           className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#00978c]"
         />
         <button
-          className="px-6 py-3 bg-[#00978c] text-white rounded-xl font-medium  transition-colors disabled:opacity-40"
+          className="px-6 py-3 bg-[#00978c] block ml-auto text-white rounded-xl font-medium  transition-colors disabled:opacity-40"
           disabled={!coupon}
         >
           Apply
