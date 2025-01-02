@@ -25,13 +25,13 @@ function CheckoutPage() {
   };
 
   return (
-    <main className="py-16 min-h-screen bg-gray-50">
+    <main className="py-16 min-h-screen  bg-gray-50">
       <div className="mb-10 text-center">
         <Heading variant="secondary">Checkout</Heading>
       </div>
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2  gap-6">
         {/* Premium Test Details Section */}
-        <div className="order-1 md:order-1 bg-white p-8 rounded-lg shadow-xl">
+        <div className="bg-white p-6 rounded-lg shadow-md order-1 md:order-1">
           <h2 className="text-3xl font-semibold text-gray-800 tracking-wide">
             Premium Test Details
           </h2>
@@ -52,16 +52,16 @@ function CheckoutPage() {
             >
               Coupon Code
             </label>
-            <div className="flex gap-4 mb-6">
+            <div className="flex flex-wrap gap-3 mb-6">
               <input
                 type="text"
                 placeholder="Enter coupon code"
                 value={coupon}
                 onChange={(e) => setCoupon(e.target.value)}
-                className="flex-1 px-6 py-4 rounded-lg border border-gray-300 focus:outline-none focus:border-[#00978c] transition-all duration-300"
+                className="flex-1 px-3 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#00978c]"
               />
               <button
-                className="px-8 py-4 bg-[#00978c] text-white rounded-lg font-semibold hover:bg-[#007b74] transition-colors disabled:opacity-50"
+                className="px-6 py-3 bg-[#00978c] block ml-auto text-white rounded-xl font-medium  transition-colors disabled:opacity-40"
                 disabled={!coupon}
               >
                 Apply
@@ -71,7 +71,7 @@ function CheckoutPage() {
         </div>
 
         {/* Payment Methods Section */}
-        <div className="order-2 md:order-2 bg-white p-8 rounded-lg shadow-lg">
+        <div className="order-2 md:order-2">
           <PaymentMethods setShowModal={setShowModal} price={price} />
         </div>
       </div>

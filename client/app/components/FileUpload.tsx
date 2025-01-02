@@ -15,14 +15,31 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   onFileChange,
   existingFile,
 }) => {
+  const minSize = 1024; // 1 KB
+  const maxSize = 5242880; // 5 MB
+
   const [file, setFile] = useState<File | null>(existingFile);
+  const [error, setError] = useState("");
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
     const selectedFile = e.target.files ? e.target.files[0] : null;
     if (selectedFile) {
-      setFile(selectedFile);
-      onFileChange(selectedFile);
-      console.log(selectedFile);
+      const fileSize = selectedFile.size;
+
+      if (fileSize < minSize || fileSize > maxSize) {
+        // File size is invalid
+        setError(
+          `File size must be between ${minSize / 1024} KB and ${
+            maxSize / 1048576
+          } MB.`
+        );
+        setFile(null); // Clear file if invalid size
+      } else {
+        // File size is valid
+        setFile(selectedFile);
+        onFileChange(selectedFile);
+        setError(""); // Clear error if file size is valid
+      }
     }
   };
 
@@ -30,8 +47,22 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     e.preventDefault();
     const droppedFile = e.dataTransfer.files[0];
     if (droppedFile) {
-      setFile(droppedFile);
-      onFileChange(droppedFile);
+      const fileSize = droppedFile.size;
+
+      if (fileSize < minSize || fileSize > maxSize) {
+        // File size is invalid
+        setError(
+          `File size must be between ${minSize / 1024} KB and ${
+            maxSize / 1048576
+          } MB.`
+        );
+        setFile(null); // Clear file if invalid size
+      } else {
+        // File size is valid
+        setFile(droppedFile);
+        onFileChange(droppedFile);
+        setError(""); // Clear error if file size is valid
+      }
     }
   };
 
@@ -93,6 +124,17 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         </motion.label>
       </motion.div>
 
+      {error && (
+        <motion.p
+          className="text-red-600 mt-2 text-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          {error}
+        </motion.p>
+      )}
+
       {file && (
         <motion.div
           className="mt-4"
@@ -111,6 +153,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             <span
               onClick={() => {
                 setFile(null);
+                setError(""); // Clear error when removing file
               }}
             >
               <FiX className="h-5 w-5 text-red-700 cursor-pointer" />

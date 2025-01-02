@@ -47,17 +47,20 @@ const DoctorForm1 = () => {
     const regexPassword =
       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Password regex (min 8 chars, 1 letter, 1 number, 1 special char)
 
-    if (!formData.fullNameEnglish)
-      errors.fullNameEnglish = "Full name (English) is required.";
-    if (!formData.fullNameArabic)
-      errors.fullNameArabic = "Full name (Arabic) is required.";
+    if (!formData.first_name)
+      errors.first_name = "first name (English) is required.";
+    if (!formData.last_name)
+      errors.last_name = "last name (English) is required.";
+    if (!formData.full_name_arabic)
+      errors.full_name_arabic = "Full name (Arabic) is required.";
     if (!formData.prefix) errors.prefix = "Prefix is required.";
     if (!formData.email) {
       errors.email = "Email is required.";
     } else if (!regexEmail.test(formData.email)) {
       errors.email = "Email format is invalid.";
     }
-    if (!formData.phone) errors.phone = "Phone number is required.";
+    if (!formData.phone_number)
+      errors.phone_number = "Phone number is required.";
     if (!formData.username) errors.username = "Username is required.";
 
     // Password validation
@@ -70,17 +73,16 @@ const DoctorForm1 = () => {
         "Password must contain at least one letter, one number, and one special character.";
     }
 
-    if (formData.password !== formData.confirmPassword)
-      errors.confirmPassword = "Passwords do not match.";
+    if (formData.password !== formData.password2)
+      errors.password2 = "Passwords do not match.";
 
-    if (!formData.dateOfBirth)
-      errors.dateOfBirth = "Date of birth is required.";
+    if (!formData.birth_date) errors.birth_date = "Date of birth is required.";
     if (!formData.gender) errors.gender = "Gender is required.";
     if (!formData.nationality) errors.nationality = "Nationality is required.";
-    if (!formData.countryOfResidence)
-      errors.countryOfResidence = "Country of residence is required.";
-    if (!formData.fluentLanguages.length)
-      errors.fluentLanguages = "At least one language must be selected.";
+    if (!formData.current_residence)
+      errors.current_residence = "Country of residence is required.";
+    if (!formData.fluent_languages.length)
+      errors.fluent_languages = "At least one language must be selected.";
 
     return errors;
   };
@@ -207,40 +209,61 @@ const DoctorForm1 = () => {
           <form className="bg-white p-6 md:w-3/4 mx-auto rounded-lg shadow-lg space-y-6 mb-4">
             {/* Full Name Fields */}
             <div className="flex flex-col md:flex-row gap-6">
+              {/* First Name Field */}
               <div className="flex flex-col space-y-2 w-full md:w-1/2">
                 <label className="text-xl font-medium text-[#1e256c]">
-                  Full Name (in English)
+                  First Name
                 </label>
                 <input
-                  name="fullNameEnglish"
-                  value={formData.fullNameEnglish}
+                  name="first_name"
+                  value={formData.first_name}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                  placeholder="John Doe"
+                  placeholder="John"
                 />
-                {errors.fullNameEnglish && (
+                {errors.first_name && (
                   <span className="text-red-600 text-sm">
-                    {errors.fullNameEnglish}
+                    {errors.first_name}
                   </span>
                 )}
               </div>
+              {/* Last Name Field */}
               <div className="flex flex-col space-y-2 w-full md:w-1/2">
                 <label className="text-xl font-medium text-[#1e256c]">
-                  Full Name (in Arabic)
+                  Last Name
                 </label>
                 <input
-                  name="fullNameArabic"
-                  value={formData.fullNameArabic}
+                  name="last_name"
+                  value={formData.last_name}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 outline-none  rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                  placeholder="جون دو"
+                  className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
+                  placeholder="Doe"
                 />
-                {errors.fullNameArabic && (
+                {errors.last_name && (
                   <span className="text-red-600 text-sm">
-                    {errors.fullNameArabic}
+                    {errors.last_name}
                   </span>
                 )}
               </div>
+            </div>
+
+            {/* Full Name in Arabic Field */}
+            <div className="flex flex-col space-y-2 w-full">
+              <label className="text-xl font-medium text-[#1e256c]">
+                Full Name (in Arabic)
+              </label>
+              <input
+                name="full_name_arabic"
+                value={formData.full_name_arabic}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
+                placeholder="جون دو"
+              />
+              {errors.full_name_arabic && (
+                <span className="text-red-600 text-sm">
+                  {errors.full_name_arabic}
+                </span>
+              )}
             </div>
 
             {/* Prefix Field */}
@@ -285,8 +308,10 @@ const DoctorForm1 = () => {
               </label>
               <PhoneInput
                 country={"eg"}
-                value={formData.phone}
-                onChange={(phone) => dispatch(setFormData({ phone }))}
+                value={formData.phone_number}
+                onChange={(phone_number) =>
+                  dispatch(setFormData({ phone_number }))
+                }
                 placeholder="Enter phone number"
                 containerStyle={{ width: "100%" }}
                 inputStyle={{
@@ -303,8 +328,10 @@ const DoctorForm1 = () => {
                   padding: "2px",
                 }}
               />
-              {errors.phone && (
-                <span className="text-red-600 text-sm">{errors.phone}</span>
+              {errors.phone_number && (
+                <span className="text-red-600 text-sm">
+                  {errors.phone_number}
+                </span>
               )}
             </div>
 
@@ -359,8 +386,8 @@ const DoctorForm1 = () => {
               </label>
               <div className="relative">
                 <input
-                  name="confirmPassword"
-                  value={formData.confirmPassword}
+                  name="password2"
+                  value={formData.password2}
                   onChange={handleInputChange}
                   type={showConfirmPassword ? "text" : "password"}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
@@ -374,10 +401,8 @@ const DoctorForm1 = () => {
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
               </div>
-              {errors.confirmPassword && (
-                <span className="text-red-600 text-sm">
-                  {errors.confirmPassword}
-                </span>
+              {errors.password2 && (
+                <span className="text-red-600 text-sm">{errors.password2}</span>
               )}
             </div>
 
@@ -387,15 +412,15 @@ const DoctorForm1 = () => {
                 Date of Birth
               </label>
               <input
-                name="dateOfBirth"
-                value={formData.dateOfBirth}
+                name="birth_date"
+                value={formData.birth_date}
                 onChange={handleInputChange}
                 type="date"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               />
-              {errors.dateOfBirth && (
+              {errors.birth_date && (
                 <span className="text-red-600 text-sm">
-                  {errors.dateOfBirth}
+                  {errors.birth_date}
                 </span>
               )}
             </div>
@@ -416,7 +441,7 @@ const DoctorForm1 = () => {
                 </option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option value="other">Other</option>
+                <option value="prefer_not_to_say">Other</option>
               </select>
               {errors.gender && (
                 <span className="text-red-600 text-sm">{errors.gender}</span>
@@ -456,8 +481,8 @@ const DoctorForm1 = () => {
                 Country of Residence
               </label>
               <select
-                name="countryOfResidence"
-                value={formData.countryOfResidence}
+                name="current_residence"
+                value={formData.current_residence}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               >
@@ -470,9 +495,9 @@ const DoctorForm1 = () => {
                   </option>
                 ))}
               </select>
-              {errors.countryOfResidence && (
+              {errors.current_residence && (
                 <span className="text-red-600 text-sm">
-                  {errors.countryOfResidence}
+                  {errors.current_residence}
                 </span>
               )}
             </div>
@@ -483,20 +508,20 @@ const DoctorForm1 = () => {
                 Fluent Languages
               </label>
               <Select
-                name="fluentLanguages"
+                name="fluent_languages"
                 instanceId={useId()}
                 isMulti
                 options={languageOptions}
                 value={languageOptions.filter((option) =>
-                  formData.fluentLanguages.includes(option.value)
+                  formData.fluent_languages.includes(option.value)
                 )}
                 onChange={handleLanguageChange}
                 placeholder="List languages you are fluent in"
                 styles={customStylesForLanguageInput}
               />
-              {errors.fluentLanguages && (
+              {errors.fluent_languages && (
                 <p className="mt-2 text-sm text-red-600">
-                  {errors.fluentLanguages}
+                  {errors.fluent_languages}
                 </p>
               )}
             </div>

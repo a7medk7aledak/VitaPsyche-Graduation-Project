@@ -8,6 +8,7 @@ interface SuccessfullModalProps {
   onClose: () => void;
   img: string;
   message?: string;
+  isTransaction?: boolean;
 }
 
 const SuccessfullModal: React.FC<SuccessfullModalProps> = ({
@@ -15,6 +16,7 @@ const SuccessfullModal: React.FC<SuccessfullModalProps> = ({
   onClose,
   img,
   message,
+  isTransaction = true,
 }) => {
   const [loading, setLoading] = useState(true);
 
@@ -67,7 +69,7 @@ const SuccessfullModal: React.FC<SuccessfullModalProps> = ({
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              Processing your payment, please wait...
+              {isTransaction && "Processing your payment, please wait..."}
             </motion.p>
           </motion.div>
         ) : (
