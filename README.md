@@ -77,9 +77,36 @@ npm run dev
 2-Flutter mobile app:
 ```
 cd mobile
+flutter clean
 flutter pub get
+flutter run
 ```
-3-Django back-end:
+3.5-Django back-end all project:
+```bash
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
+py -3.9 -m venv .venv
+.\.venv\Scripts\activate
+cd Back-End
+cd Project
+pip install django
+py -m pip install --upgrade pip
+pip install requests
+pip install djangorestframework
+pip install django-cors-headers
+pip install drf-yasg
+pip install djangorestframework-simplejwt
+pip install coverage
+
+or 
+pip install -r requirements.txt
+#to run the server
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+
+python manage.py runserver 5000
+```
+3-Django back-end for chatbot:
 ```bash
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
 py -3.9 -m venv .venv
@@ -89,12 +116,22 @@ pip install django
 py -m pip install --upgrade pip
 pip install requests
 pip install django-cors-headers
+pip install drf-yasg
+pip install djangorestframework-simplejwt
 pip install -r requirements.txt
 #to run the server
 python manage.py runserver
 ```
-4-rasa chatbot:
+to make backend tastes:
+```bash
+cd Back-End/Project
+python manage.py test
+coverage run --source='.' manage.py test
+coverage report -m
 ```
+
+4-rasa chatbot:
+```bash
 #note Python versions: 3.7, 3.8, 3.9, and 3.10. Note that Python 3.10 is only supported for versions 3.4.x and upwards
 #to make a new Environment =>  that step make it once
 cd chatbot
@@ -106,7 +143,7 @@ rasa train
 rasa run -m models --enable-api --cors "*"
 ```
 5-rasa lina:
-```
+```bash
 cd lina model
 pip install rasa
 pip install cryptography==38.0.4
@@ -118,7 +155,7 @@ rasa run --port 5006
 
 note:
 To test the Rasa Chatbot and Lina by terminal:
-```
+```bash
 rasa train
 rasa shell
 ```

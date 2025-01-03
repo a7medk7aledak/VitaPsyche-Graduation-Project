@@ -1,59 +1,63 @@
 "use client";
-import { motion } from "framer-motion";
 
+import { motion } from "framer-motion";
 import { useState } from "react";
 import Button from "@components/common/Button";
 import { FileUpload } from "@components/FileUpload";
 import React from "react";
 import { specializations } from "@constants/specializations";
-import { useDoctorFormStore } from "@store/useDoctorFormStore";
 import { TFormErrors } from "@app/types/FormDoctor";
-import SignUpDoctorModal from "@components/modals/SignUpDoctorModal";
 import { useRouter } from "next/navigation";
+import SuccessfullModal from "@components/modals/SuccessfullModal";
+import { setFormData, setShowModal } from "@store/authDoctor/authDoctorSlice"; // import setFormData action
+import { RootState, useAppDispatch } from "@store/store";
+import { actAuthDoctorRegister } from "@store/authDoctor/act/actAuthDoctorRegister";
+import { useSelector } from "react-redux";
 
 const DoctorForm3 = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const formData = useSelector((state: RootState) => state.doctorForm.formData); // Get the current form data from Redux
+  const { loading, error, showModal } = useSelector(
+    (state: RootState) => state.doctorForm
+  );
 
-  const { formData, setFormData } = useDoctorFormStore();
-
-  const [workingInClinic, setWorkingInClinic] = useState("");
-
+  const [workingInClinic, setWorkingInClinic] = useState(
+    formData.workingInClinic
+  );
   const [multipleQualifications, setMultipleQualifications] = useState("");
-  // State to store all files for testing
-  // const [files, setFiles] = useState<{ [key: string]: File | null }>({});
 
   const [errors, setErrors] = useState<TFormErrors>({});
 
-  const [showModal, setShowModal] = useState(false); // Modal visibility state
-
-  const handleFileChange = (key: string, file: File | null) => {
-    // setFiles((prevFiles) => ({
-    //   ...prevFiles,
-    //   [key]: file,
-    // }));
-    setFormData({ [key]: file });
-
-    // console.log(files);
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    dispatch(setFormData({ [name]: value }));
   };
 
-  // Validate form fields
+  const handleFileChange = (key: string, file: File | null) => {
+    dispatch(setFormData({ [key]: file })); // Dispatch the file to Redux state
+  };
+
   const validateForm = () => {
     const errors: TFormErrors = {};
 
     if (!formData.category) errors.category = "Category is required.";
     if (!formData.specialization)
       errors.specialization = "Specialization is required.";
-    if (!formData.yearsOfExperience)
-      errors.yearsOfExperience = "Years of experience is required.";
+    if (!formData.years_of_experience)
+      errors.years_of_experience = "Years of experience is required.";
 
     if (!workingInClinic)
       errors.workingInClinic =
         "Please select if you are working in a clinic or not.";
-    if (workingInClinic === "yes" && !formData.clinicName)
-      errors.clinicName = "Clinic name is required if you have selected yes.";
+    if (workingInClinic === "yes" && !formData.clinic_name)
+      errors.clinic_name = "Clinic name is required if you have selected yes.";
 
-    if (!formData.availabilityForSessions)
-      errors.availabilityForSessions = "Availability for sessions is required.";
+    if (!formData.availability_for_sessions)
+      errors.availability_for_sessions =
+        "Availability for sessions is required.";
 
     if (!formData.cv) errors.cv = "CV upload is required.";
     if (!formData.certifications)
@@ -64,28 +68,80 @@ const DoctorForm3 = () => {
         "Please specify if you have multiple qualifications.";
     if (
       multipleQualifications === "yes" &&
-      (!formData.anotherQualification1 || !formData.anotherQualification2)
+      (!formData.another_qualification1 || !formData.another_qualification2)
     ) {
       errors.additionalQualifications =
-        "additional qualifications must be uploaded if you have selected yes.";
+        "Additional qualifications must be uploaded if you have selected yes.";
     }
 
-    return errors; // Valid if no errors
+    return errors;
   };
 
-  const handleSubmit = (e: React.MouseEvent) => {
+  const handleSubmit = async (e: React.MouseEvent) => {
     e.preventDefault();
+
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
       console.log("Form data ready for submission:", formData);
-      setShowModal(true);
+
+      const {
+        username,
+        first_name,
+        last_name,
+        email,
+        password,
+        password2,
+        full_name_arabic,
+        phone_number,
+        birth_date,
+        gender,
+        specialization,
+        prefix,
+        nationality,
+        fluent_languages,
+        current_residence,
+        clinic_name,
+        years_of_experience,
+        availability_for_sessions,
+        cv,
+        certifications,
+        another_qualification1,
+        another_qualification2,
+      } = formData;
+
+      await dispatch(
+        actAuthDoctorRegister({
+          username,
+          first_name,
+          last_name,
+          email,
+          password,
+          password2,
+          full_name_arabic,
+          phone_number,
+          birth_date,
+          gender,
+          specialization,
+          prefix,
+          nationality,
+          fluent_languages,
+          current_residence,
+          clinic_name,
+          years_of_experience,
+          availability_for_sessions,
+          cv,
+          certifications,
+          another_qualification1,
+          another_qualification2,
+        })
+      );
     } else {
       setErrors(formErrors);
     }
   };
 
   const closeModalHandler = () => {
-    setShowModal(false);
+    dispatch(setShowModal(false));
     router.push("/");
   };
 
@@ -142,9 +198,10 @@ const DoctorForm3 = () => {
                 Category
               </label>
               <select
+                name="category"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.category}
-                onChange={(e) => setFormData({ category: e.target.value })}
+                onChange={handleInputChange}
               >
                 <option value="" disabled>
                   Select Category
@@ -171,11 +228,10 @@ const DoctorForm3 = () => {
                 Specialization
               </label>
               <select
+                name="specialization"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.specialization}
-                onChange={(e) =>
-                  setFormData({ specialization: e.target.value })
-                }
+                onChange={handleInputChange}
               >
                 <option value="" disabled>
                   Select Specialization
@@ -201,20 +257,15 @@ const DoctorForm3 = () => {
               </label>
 
               <input
+                name="years_of_experience"
                 type="number"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                value={formData.yearsOfExperience || ""}
-                onChange={(e) =>
-                  setFormData({
-                    yearsOfExperience: e.target.value
-                      ? parseInt(e.target.value)
-                      : null,
-                  })
-                }
+                value={formData.years_of_experience || ""}
+                onChange={handleInputChange}
               />
-              {errors.yearsOfExperience && (
+              {errors.years_of_experience && (
                 <p className="text-red-500 text-sm">
-                  {errors.yearsOfExperience}
+                  {errors.years_of_experience}
                 </p>
               )}
             </motion.div>
@@ -228,14 +279,11 @@ const DoctorForm3 = () => {
                 License Number (If applicable)
               </label>
               <input
+                name="licenseNumber"
                 placeholder="if applicable"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.licenseNumber || ""}
-                onChange={(e) =>
-                  setFormData({
-                    licenseNumber: e.target.value,
-                  })
-                }
+                onChange={handleInputChange}
               />
             </motion.div>
 
@@ -248,13 +296,10 @@ const DoctorForm3 = () => {
                 licensing Organization{" "}
               </label>
               <input
+                name="licensingOrganization"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.licensingOrganization || ""}
-                onChange={(e) =>
-                  setFormData({
-                    licensingOrganization: e.target.value,
-                  })
-                }
+                onChange={handleInputChange}
               />
             </motion.div>
 
@@ -267,10 +312,14 @@ const DoctorForm3 = () => {
                 Working in a clinic
               </label>
               <select
+                name="workingInClinic"
                 required
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={workingInClinic}
-                onChange={(e) => setWorkingInClinic(e.target.value)}
+                onChange={(e) => {
+                  setWorkingInClinic(e.target.value);
+                  handleInputChange(e);
+                }}
               >
                 <option value="" disabled>
                   select
@@ -296,18 +345,14 @@ const DoctorForm3 = () => {
                   Clinic Name
                 </label>
                 <input
+                  name="clinic_name"
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 transition duration-200"
                   placeholder="if you are working in a clinic"
-                  value={formData.clinicName || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      clinicName: e.target.value,
-                    })
-                  }
+                  value={formData.clinic_name || ""}
+                  onChange={handleInputChange}
                 />
-                {errors.clinicName && (
-                  <p className="text-red-500 text-sm">{errors.clinicName}</p>
+                {errors.clinic_name && (
+                  <p className="text-red-500 text-sm">{errors.clinic_name}</p>
                 )}
               </motion.div>
             )}
@@ -321,24 +366,20 @@ const DoctorForm3 = () => {
                 Availability for Sessions
               </label>
               <select
+                name="availability_for_sessions"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                value={formData.availabilityForSessions || ""}
-                onChange={(e) =>
-                  setFormData({
-                    availabilityForSessions: e.target.value,
-                  })
-                }
+                value={formData.availability_for_sessions.toString()}
+                onChange={handleInputChange}
               >
                 <option value="" disabled>
                   Select availability
                 </option>
-                <option value="weekdays">Weekdays</option>
-                <option value="weekends">Weekends</option>
-                <option value="both">Both</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
               </select>
-              {errors.availabilityForSessions && (
+              {errors.availability_for_sessions && (
                 <p className="text-red-500 text-sm">
-                  {errors.availabilityForSessions}
+                  {errors.availability_for_sessions}
                 </p>
               )}
             </motion.div>
@@ -346,6 +387,7 @@ const DoctorForm3 = () => {
             {/* Upload CV Field */}
             <div>
               <FileUpload
+                existingFile={formData.cv}
                 label="Upload Cv"
                 acceptedFileTypes=".pdf,.doc,.docx"
                 onFileChange={(file) => handleFileChange("cv", file)}
@@ -357,6 +399,7 @@ const DoctorForm3 = () => {
 
             <div>
               <FileUpload
+                existingFile={formData.certifications}
                 label="Upload Professional qualifications and educational certifications"
                 acceptedFileTypes=".pdf,.doc,.docx"
                 onFileChange={(file) =>
@@ -400,17 +443,19 @@ const DoctorForm3 = () => {
             {multipleQualifications === "yes" && (
               <div>
                 <FileUpload
+                  existingFile={formData.another_qualification1 || null}
                   label="If you possess multiple professional qualifications."
                   acceptedFileTypes=".pdf,.doc,.docx"
                   onFileChange={(file) =>
-                    handleFileChange("anotherQualification1", file)
+                    handleFileChange("another_qualification1", file)
                   }
                 />
                 <FileUpload
+                  existingFile={formData.another_qualification2 || null}
                   label=""
                   acceptedFileTypes=".pdf,.doc,.docx"
                   onFileChange={(file) =>
-                    handleFileChange("anotherQualification2", file)
+                    handleFileChange("another_qualification2", file)
                   }
                 />
                 {errors.additionalQualifications && (
@@ -455,18 +500,21 @@ const DoctorForm3 = () => {
                 onClick={handleSubmit}
               >
                 <Button variant="secondary" size="large" roundedValue="full">
-                  Submit
+                  {loading == "pending" ? "loading..." : "submit"}
                 </Button>
               </motion.div>
             </div>
+            {error && <p className="text-[#DC3545] mt-6 text-right">{error}</p>}
           </motion.form>
         </div>
       </motion.div>
       {/* Modal Component */}
-      <SignUpDoctorModal
+      <SuccessfullModal
         isOpen={showModal}
         onClose={closeModalHandler}
-        message="Thanks For Completing This Form !"
+        img="/images/signup-doctor/submissionModal.png"
+        message="Registration completed successfully! Welcome aboard!"
+        isTransaction={false}
       />
     </>
   );

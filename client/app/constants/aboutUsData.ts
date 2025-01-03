@@ -14,6 +14,13 @@ export const doctorsData: TAboutUsData = [
     role: "software engineer",
     linkedinUrl: "#",
   },
+  {
+    title: "ali mohamed",
+    img: "/images/about-us/me.jpg",
+    alt: "me.jpg",
+    role: "software engineer",
+    linkedinUrl: "#",
+  },
 ];
 
 export const aboutUsData: TAboutUsData = [

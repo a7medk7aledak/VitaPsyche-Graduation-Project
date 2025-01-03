@@ -1,12 +1,11 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { Canvas, useLoader, useFrame } from "@react-three/fiber";
 import { Html, OrbitControls } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 import axios from "axios";
-
-// Types and Constants
-
 interface BonesRef {
   head?: THREE.Object3D;
   spine?: THREE.Object3D;
@@ -38,40 +37,40 @@ const gesturePatterns = {
     // وضع الأذرع مضمومة عند البطن
     rightArm: {
       rotation: { x: Math.PI / 4, y: 0, z: -Math.PI / 6 },
-      movement: { x: 0, y: 0, z: 0 }
+      movement: { x: 0, y: 0, z: 0 },
     },
     leftArm: {
       rotation: { x: Math.PI / 4, y: 0, z: Math.PI / 6 },
-      movement: { x: 0, y: 0, z: 0 }
+      movement: { x: 0, y: 0, z: 0 },
     },
     rightForeArm: {
       rotation: { x: Math.PI / 4, y: 0, z: Math.PI / 8 }, // ثني الساعد نحو البطن
-      movement: { x: 0, y: 0, z: 0 }
+      movement: { x: 0, y: 0, z: 0 },
     },
     leftForeArm: {
       rotation: { x: Math.PI / 4, y: 0, z: -Math.PI / 8 }, // ثني الساعد نحو البطن
-      movement: { x: 0, y: 0, z: 0 }
-    }
+      movement: { x: 0, y: 0, z: 0 },
+    },
   },
   speaking: {
     // حركات طبيعية أثناء الكلام
     rightArm: {
       rotation: { x: Math.PI / 3, y: 0, z: -Math.PI / 4 },
-      movement: { x: 0.2, y: 0.15, z: 0.1 } // نطاق حركة أكبر للتعبير
+      movement: { x: 0.2, y: 0.15, z: 0.1 }, // نطاق حركة أكبر للتعبير
     },
     leftArm: {
       rotation: { x: Math.PI / 3, y: 0, z: Math.PI / 4 },
-      movement: { x: 0.2, y: 0.15, z: 0.1 }
+      movement: { x: 0.2, y: 0.15, z: 0.1 },
     },
     rightForeArm: {
       rotation: { x: -Math.PI / 6, y: 0, z: Math.PI / 6 },
-      movement: { x: 0.15, y: 0.1, z: 0.12 }
+      movement: { x: 0.15, y: 0.1, z: 0.12 },
     },
     leftForeArm: {
       rotation: { x: -Math.PI / 6, y: 0, z: -Math.PI / 6 },
-      movement: { x: 0.15, y: 0.1, z: 0.12 }
-    }
-  }
+      movement: { x: 0.15, y: 0.1, z: 0.12 },
+    },
+  },
 };
 
 // Utility Functions
@@ -83,7 +82,8 @@ const getRandomInRange = (min: number, max: number) => {
   return Math.random() * (max - min) + min;
 };
 const ELEVENLABS_API_URL = "https://api.elevenlabs.io/v1/text-to-speech";
-const ELEVENLABS_API_KEY = "sk_63385b7f36aa405ffcf380178c7370c066746da5be191fb0";
+const ELEVENLABS_API_KEY =
+  "sk_63385b7f36aa405ffcf380178c7370c066746da5be191fb0";
 
 // Avatar Model Component
 const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
@@ -91,32 +91,13 @@ const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
   const bonesRef = useRef<BonesRef>({});
   const eyesRef = useRef<EyesRef>({});
   const lipsRef = useRef<THREE.Object3D | null>(null);
-  const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const isSpeaking = useRef(false);
   const gestureTimeRef = useRef(0);
-  const lastMicroMovement = useRef(0);
   const blinkTimer = useRef(0);
   const breatheTimer = useRef(0);
 
   useEffect(() => {
     if (!gltf.scene) return;
-
-    // Initialize bones and references
-    gltf.scene.traverse((object) => {
-      if (object instanceof THREE.Object3D) {
-        const lowerName = object.name.toLowerCase();
-        if (lowerName.includes("eye")) {
-          if (lowerName.includes("left")) {
-            eyesRef.current.leftEye = object;
-          } else if (lowerName.includes("right")) {
-            eyesRef.current.rightEye = object;
-          }
-        }
-        if (lowerName.includes("lips")) {
-          lipsRef.current = object;
-        }
-      }
-    });
 
     // Initialize bone references
     bonesRef.current = {
@@ -143,19 +124,19 @@ const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
   }, [gltf]);
 
   const initializePose = () => {
-    const { 
-      hips, 
-      spine, 
-      spineOne, 
-      spineTwo, 
-      leftUpLeg, 
-      rightUpLeg, 
-      leftLeg, 
+    const {
+      hips,
+      spine,
+      spineOne,
+      spineTwo,
+      leftUpLeg,
+      rightUpLeg,
+      leftLeg,
       rightLeg,
       leftArm,
       rightArm,
       leftForeArm,
-      rightForeArm 
+      rightForeArm,
     } = bonesRef.current;
 
     // Set sitting pose
@@ -238,96 +219,92 @@ const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
 
   const updateArmMovements = (time: number) => {
     const { leftArm, rightArm, leftForeArm, rightForeArm } = bonesRef.current;
-    const pattern = isSpeaking.current ? gesturePatterns.speaking : gesturePatterns.idle;
-  
+    const pattern = isSpeaking.current
+      ? gesturePatterns.speaking
+      : gesturePatterns.idle;
+
     // توقيت الحركة يعتمد على حالة الكلام
     const gestureSpeed = isSpeaking.current ? 2.0 : 0.3;
     const gestureMagnitude = isSpeaking.current ? 1 : 0.1;
-    
+
     // حركات طبيعية للمحادثة
     const primaryGesture = Math.sin(time * gestureSpeed) * gestureMagnitude;
-    const secondaryGesture = Math.cos(time * gestureSpeed * 0.7) * (gestureMagnitude * 0.6);
-    const microMovements = Math.sin(time * 4) * 0.01; // حركات دقيقة مستمرة
-  
+    const secondaryGesture =
+      Math.cos(time * gestureSpeed * 0.7) * (gestureMagnitude * 0.6);
+
     if (leftArm && rightArm) {
       // انتقال سلس بين وضع السكون والكلام
       const transitionSpeed = isSpeaking.current ? 0.15 : 0.08;
-  
+
       // تحديث موضع الذراع الأيسر
-      leftArm.rotation.x = lerp(
-        leftArm.rotation.x,
-        pattern.leftArm.rotation.x + (isSpeaking.current ? leftArmMovement : 0),
-        transitionSpeed
-      );
       leftArm.rotation.z = lerp(
         leftArm.rotation.z,
-        pattern.leftArm.rotation.z + (isSpeaking.current ? secondaryGesture * 0.2 : 0),
+        pattern.leftArm.rotation.z +
+          (isSpeaking.current ? secondaryGesture * 0.2 : 0),
         transitionSpeed
       );
-  
-      // تحديث موضع الذراع الأيمن
-      rightArm.rotation.x = lerp(
-        rightArm.rotation.x,
-        pattern.rightArm.rotation.x + (isSpeaking.current ? rightArmMovement : 0),
-        transitionSpeed
-      );
+
       rightArm.rotation.z = lerp(
         rightArm.rotation.z,
-        pattern.rightArm.rotation.z - (isSpeaking.current ? primaryGesture * 0.2 : 0),
+        pattern.rightArm.rotation.z -
+          (isSpeaking.current ? primaryGesture * 0.2 : 0),
         transitionSpeed
       );
-  
+
       // حركة خفيفة للأمام والخلف
       if (isSpeaking.current) {
         leftArm.rotation.y = Math.sin(time * gestureSpeed * 0.5) * 0.1;
-        rightArm.rotation.y = Math.sin(time * gestureSpeed * 0.5 + Math.PI) * 0.1;
+        rightArm.rotation.y =
+          Math.sin(time * gestureSpeed * 0.5 + Math.PI) * 0.1;
       } else {
         leftArm.rotation.y = lerp(leftArm.rotation.y, 0, transitionSpeed);
         rightArm.rotation.y = lerp(rightArm.rotation.y, 0, transitionSpeed);
       }
     }
-  
+
     if (leftForeArm && rightForeArm) {
       const transitionSpeed = isSpeaking.current ? 0.15 : 0.08;
-  
+
       // تحديث موضع الساعد الأيسر
       leftForeArm.rotation.x = lerp(
         leftForeArm.rotation.x,
-        pattern.leftForeArm.rotation.x + (isSpeaking.current ? secondaryGesture * pattern.leftForeArm.movement.x : 0),
+        pattern.leftForeArm.rotation.x +
+          (isSpeaking.current
+            ? secondaryGesture * pattern.leftForeArm.movement.x
+            : 0),
         transitionSpeed
       );
       leftForeArm.rotation.z = lerp(
         leftForeArm.rotation.z,
-        pattern.leftForeArm.rotation.z + (isSpeaking.current ? Math.sin(time * gestureSpeed * 0.3) * 0.1 : 0),
+        pattern.leftForeArm.rotation.z +
+          (isSpeaking.current ? Math.sin(time * gestureSpeed * 0.3) * 0.1 : 0),
         transitionSpeed
       );
-  
+
       // تحديث موضع الساعد الأيمن
       rightForeArm.rotation.x = lerp(
         rightForeArm.rotation.x,
-        pattern.rightForeArm.rotation.x + (isSpeaking.current ? primaryGesture * pattern.rightForeArm.movement.x : 0),
+        pattern.rightForeArm.rotation.x +
+          (isSpeaking.current
+            ? primaryGesture * pattern.rightForeArm.movement.x
+            : 0),
         transitionSpeed
       );
       rightForeArm.rotation.z = lerp(
         rightForeArm.rotation.z,
-        pattern.rightForeArm.rotation.z + (isSpeaking.current ? Math.sin(time * gestureSpeed * 0.3 + Math.PI) * 0.1 : 0),
+        pattern.rightForeArm.rotation.z +
+          (isSpeaking.current
+            ? Math.sin(time * gestureSpeed * 0.3 + Math.PI) * 0.1
+            : 0),
         transitionSpeed
       );
     }
-  
-    // تعريف متغيرات الحركة
-    const leftArmMovement = primaryGesture * pattern.leftArm.movement.x;
-    const rightArmMovement = secondaryGesture * pattern.rightArm.movement.x;
   };
-    
+
   useFrame((state, delta) => {
     const time = state.clock.getElapsedTime();
     gestureTimeRef.current += delta;
 
-    // Update speaking state
-    isSpeaking.current = audio && !audio.paused;
-
-    // Apply all animations
     blink(delta);
     breathe(delta);
     updateArmMovements(time);
@@ -336,7 +313,7 @@ const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
     if (bonesRef.current.head) {
       const headTilt = Math.sin(time * 0.5) * 0.1;
       const headTurn = Math.sin(time * 0.3) * 0.05;
-      
+
       bonesRef.current.head.rotation.y = lerp(
         bonesRef.current.head.rotation.y,
         headTurn,
@@ -353,13 +330,16 @@ const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
   return (
     <>
       <primitive object={gltf.scene} scale={2} position={[0, -0.6, -1.1]} />
-      <AvatarMessage message={message} lipsRef={lipsRef} setAudio={setAudio} />
+      <AvatarMessage message={message} lipsRef={lipsRef} />
     </>
   );
 };
 
 // Avatar Message Component
-const AvatarMessage: React.FC<{ message: string; lipsRef: React.MutableRefObject<THREE.Object3D | null> }> = ({ message, lipsRef }) => {
+const AvatarMessage: React.FC<{
+  message: string;
+  lipsRef: React.MutableRefObject<THREE.Object3D | null>;
+}> = ({ message, lipsRef }) => {
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [displayedText, setDisplayedText] = useState(""); // النص الذي يظهر تدريجيًا
 
@@ -388,7 +368,7 @@ const AvatarMessage: React.FC<{ message: string; lipsRef: React.MutableRefObject
       const audioUrl = URL.createObjectURL(audioBlob);
       setAudio(new Audio(audioUrl));
     } catch (error) {
-      console.error("Error fetching speech from Eleven Labs:", error.response?.data || error.message);
+      console.error("Error fetching speech from Eleven Labs:");
     }
   };
 
@@ -439,18 +419,19 @@ const AvatarMessage: React.FC<{ message: string; lipsRef: React.MutableRefObject
     }
   }, [audio]);
 
-
   return (
     <Html position={[0.2, 0.8, 0]}>
-      <div style={{
-        backgroundColor: "white",
-        padding: "10px",
-        borderRadius: "10px",
-        minWidth: "180px",
-        maxWidth: "300px",
-        boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
-        transition: "all 0.3s ease",
-      }}>
+      <div
+        style={{
+          backgroundColor: "white",
+          padding: "10px",
+          borderRadius: "10px",
+          minWidth: "180px",
+          maxWidth: "300px",
+          boxShadow: "0px 4px 10px rgba(0,0,0,0.2)",
+          transition: "all 0.3s ease",
+        }}
+      >
         <p style={{ margin: 0, fontSize: "14px", color: "#333" }}>
           {displayedText}
         </p>
@@ -475,11 +456,7 @@ const RoomModel: React.FC = () => {
 const ChairModel: React.FC = () => {
   const chairGltf = useLoader(GLTFLoader, "./chair.glb");
   return (
-    <primitive
-      object={chairGltf.scene}
-      scale={1.5}
-      position={[0, -0.4, -1]}
-    />
+    <primitive object={chairGltf.scene} scale={1.5} position={[0, -0.4, -1]} />
   );
 };
 
@@ -501,7 +478,6 @@ const Avatar3D: React.FC<{ message: string }> = ({ message }) => {
       />
       <ambientLight intensity={2} color="#e3a90b" />
       <hemisphereLight
-        skyColor="#ffefd5"
         groundColor="#ffe5b4"
         intensity={2}
         position={[0, 10, 0]}
@@ -522,14 +498,14 @@ const Avatar3D: React.FC<{ message: string }> = ({ message }) => {
 
       {/* Camera controls */}
       <OrbitControls
-  enablePan={true}
-  enableZoom={true}
-  enableRotate={true}
-  maxPolarAngle={Math.PI / 1.5}
-  minDistance={0.5} // تقليل المسافة للسماح بزوم أقرب
-  maxDistance={15} // زيادة المسافة للسماح بزوم أبعد
-  target={new THREE.Vector3(0, 0, 0)}
-/>
+        enablePan={true}
+        enableZoom={true}
+        enableRotate={true}
+        maxPolarAngle={Math.PI / 1.5}
+        minDistance={0.5} // تقليل المسافة للسماح بزوم أقرب
+        maxDistance={15} // زيادة المسافة للسماح بزوم أبعد
+        target={new THREE.Vector3(0, 0, 0)}
+      />
     </Canvas>
   );
 };

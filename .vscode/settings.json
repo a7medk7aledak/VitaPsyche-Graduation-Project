@@ -1,0 +1,9 @@
+{
+    "workbench.colorCustomizations": {
+        "terminal.background": "#00000000",
+        "activityBar.background": "#3C1473",
+        "titleBar.activeBackground": "#541CA1",
+        "titleBar.activeForeground": "#FDFDFF"
+    },
+    "dart.showTodos": false
+}

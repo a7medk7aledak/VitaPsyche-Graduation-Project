@@ -116,28 +116,113 @@ const TestPage: React.FC = () => {
             ))}
           </div>
         </div>
+        {/* Progress Indicator */}
+        <div className="w-full mb-6">
+          <div className="flex justify-between mb-2">
+            <span className="text-sm text-gray-600">
+              Question {currentPage} of {test.questions.length}
+            </span>
+            <span className="text-sm text-gray-600">
+              {Math.round((currentPage / test.questions.length) * 100)}%
+              Complete
+            </span>
+          </div>
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-gradient-to-r from-green-600 to-green-300 h-2 rounded-full transition-all duration-300"
+              style={{
+                width: `${(currentPage / test.questions.length) * 100}%`,
+              }}
+            ></div>
+          </div>
+        </div>
 
         {/* Pagination */}
-        <div className="flex justify-center mt-4 mb-6 flex-wrap">
-          {test.questions.map((_, index) => (
-            <span
-              key={index}
-              className={`px-2 py-1 m-1 text-base cursor-pointer transition ${
-                index + 1 === currentPage
-                  ? "text-heading border-b-2 border-heading"
-                  : !answers[currentPage - 1]
-                  ? "text-gray-400 cursor-not-allowed"
-                  : "text-black border-transparent"
-              }`}
-              onClick={() => {
-                if (answers[currentPage - 1]) {
-                  setCurrentPage(index + 1);
-                }
-              }}
+        <div className="flex justify-center mt-4 mb-6">
+          <div className="flex items-center gap-1">
+            {/* First page */}
+            <button
+              className={`w-8 h-8 flex items-center justify-center rounded-full text-sm
+        ${currentPage === 1 ? "bg-heading text-white" : "bg-gray-100"}
+        ${
+          !answers[currentPage - 1]
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:bg-emerald-600"
+        }`}
+              onClick={() => answers[currentPage - 1] && setCurrentPage(1)}
+              disabled={!answers[currentPage - 1]}
             >
-              {index + 1}
-            </span>
-          ))}
+              1
+            </button>
+
+            {/* Show dots if current page is far from start */}
+            {currentPage > 4 && <span className="px-2">...</span>}
+
+            {/* Show nearby pages */}
+            {[...Array(test.questions.length)].map((_, index) => {
+              const pageNumber = index + 1;
+              // Show only 2 pages before and after current page
+              if (
+                pageNumber !== 1 &&
+                pageNumber !== test.questions.length &&
+                pageNumber >= currentPage - 2 &&
+                pageNumber <= currentPage + 2
+              ) {
+                return (
+                  <button
+                    key={pageNumber}
+                    className={`w-8 h-8 flex items-center justify-center rounded-full text-sm
+              ${
+                pageNumber === currentPage
+                  ? "bg-heading text-white"
+                  : "bg-gray-100"
+              }
+              ${
+                !answers[currentPage - 1]
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:bg-purple-100"
+              }`}
+                    onClick={() =>
+                      answers[currentPage - 1] && setCurrentPage(pageNumber)
+                    }
+                    disabled={!answers[currentPage - 1]}
+                  >
+                    {pageNumber}
+                  </button>
+                );
+              }
+              return null;
+            })}
+
+            {/* Show dots if current page is far from end */}
+            {currentPage < test.questions.length - 3 && (
+              <span className="px-2">...</span>
+            )}
+
+            {/* Last page */}
+            {test.questions.length > 1 && (
+              <button
+                className={`w-8 h-8 flex items-center justify-center rounded-full text-sm
+          ${
+            currentPage === test.questions.length
+              ? "bg-heading text-white"
+              : "bg-gray-100"
+          }
+          ${
+            !answers[currentPage - 1]
+              ? "opacity-50 cursor-not-allowed"
+              : "hover:bg-purple-100"
+          }`}
+                onClick={() =>
+                  answers[currentPage - 1] &&
+                  setCurrentPage(test.questions.length)
+                }
+                disabled={!answers[currentPage - 1]}
+              >
+                {test.questions.length}
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Previous and Next Buttons */}
