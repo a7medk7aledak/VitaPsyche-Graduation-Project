@@ -22,10 +22,10 @@ export default function CheckoutPage() {
         <Heading variant="secondary">Checkout</Heading>
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="order-1 md:order-1">
+        <div className="order-2 md:order-1">
           <ProductDetailsCheckout />
         </div>
-        <div className="order-2 md:order-2">
+        <div className="md:sticky md:top-6 h-fit order-1 md:order-2">
           <PaymentMethods setShowModal={setShowModal} price={totalPrice} />
         </div>
       </div>
