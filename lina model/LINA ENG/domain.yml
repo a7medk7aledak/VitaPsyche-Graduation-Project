@@ -1,0 +1,704 @@
+version: '3.1'
+
+
+intents:
+  - handle_insults_to_girl
+  - talk_about_depression
+  - talk_about_relationships
+  - talk_about_stress
+  - ask_for_apology
+  - show_gratitude
+  - ask_about_day
+  - ask_for_encouragement
+  - ask_for_advice
+  - ask_for_comfort
+  - express_confusion
+  - express_love
+  - express_anger
+  - express_sadness
+  - express_happiness
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - mood_unhappy
+  - bot_challenge
+  - boost_confidence
+  - handle_anxiety
+  - motivate
+  - seeking_mental_peace
+  - dealing_with_memories
+  - celebrate_life
+  - discuss_emotions
+  - seek_understanding
+  - share_excitement
+  - cope_with_loss
+  - find_motivation
+  - celebrate_achievement
+  - handle_conflict
+  - encourage_positive_thinking
+  - express_fear
+  - ask_for_recommendations
+  - share_reflection
+  - acknowledge_support
+  - explore_new_opportunities
+  - share_hobbies
+  - discuss_interests
+  - talk_about_skills
+  - share_personality_traits
+  - express_creativity
+  - share_unique_experiences
+  - express_independence
+  - discuss_identity
+  - talk_about_preferences
+  - express_values
+  - discuss_work_challenges
+  - share_work_achievements
+  - seek_career_advice
+  - discuss_work_life_balance
+  - express_burnout_from_work
+  - discuss_study_habits
+  - ask_for_study_tips
+  - share_education_goals
+  - reflect_on_academic_progress
+  - discuss_career_transitions
+  - discuss_travel_plans
+  - share_travel_experiences
+  - express_love_for_travel
+  - ask_for_travel_recommendations
+  - discuss_dream_destinations
+  - plan_adventure_activities
+  - reflect_on_cultural_experiences
+  - express_wanderlust
+  - discuss_travel_benefits
+  - share_travel_hardships
+  - discuss_favorite_movies
+  - talk_about_music_preferences
+  - express_love_for_art
+  - discuss_social_issues
+  - medical_articles
+  - motivation_and_meditation
+  - psychoeducation
+  - personal_development_tips
+  - negative_thought_management
+  - crisis_support
+  - relationship_advice
+  - self_esteem_tips
+  - breathing_relaxation_tips
+  - time_management_tips
+  - sleep_tips
+  - daily_routine_tips
+
+
+responses:
+  utter_greeting:
+    - text: "Hello and welcome! How are you?"
+    - text: "Hi! How are you doing?"
+    - text: "Welcome! How’s everything?"
+    - text: "Hello there! How’s your day so far?"
+    - text: "How are you? I’m here to help."
+    - text: "Welcome anytime! How can I assist you?"
+    - text: "Hi! I hope you’re doing well."
+    - text: "Welcome! I’m happy to be with you today."
+    - text: "Hi there! How was your day?"
+    - text: "How are you? It’s an honor to talk to you."
+    - text: "Welcome anytime! Is everything okay?"
+    - text: "How are you? If you need anything, I’m here to help."
+
+  utter_goodbye:
+    - text: "Bye-bye, take care of yourself."
+    - text: "Goodbye, have a lovely day!"
+    - text: "See you soon, hopefully!"
+    - text: "Farewell, wishing you all the best."
+
+  utter_affirm:
+    - text: "Alright!"
+    - text: "Okay!"
+
+  utter_deny:
+    - text: "No."
+
+  utter_mood_great:
+    - text: "Really? That’s amazing news! I’m so happy for you."
+    - text: "I’m glad for you; you totally deserve this happiness."
+    - text: "Wow! I hope to always see you this cheerful."
+    - text: "Your happiness means a lot to me. Keep it up!"
+    - text: "It’s wonderful that you feel this happy. It’s the best feeling."
+    - text: "I’m thrilled to hear you’re in this state. Stay positive!"
+
+  utter_mood_unhappy:
+    - text: "I’m sorry you’re feeling this way. If you’d like to share more, I’m here to listen."
+    - text: "Sometimes we feel down, but talking about it can be the start of feeling better."
+    - text: "I’m sad to hear that. If something’s bothering you, maybe we can find a solution together."
+    - text: "Feeling sad is natural, and I’m here to help you get through it."
+    - text: "Sadness can be tough, but I’m here for you if you want to talk."
+
+  utter_bot_challenge:
+    - text: "I’m Lina. I love being here with you and listening to you."
+    - text: "My name is Lina, and I enjoy chatting with you and helping with anything you need."
+    - text: "I’m Lina, here to share your thoughts and be with you anytime."
+    - text: "I’m Lina, and my role is to make the moment brighter and ease your worries."
+
+  utter_boost_confidence:
+    - text: "We all have moments of self-doubt, but remember, you can achieve amazing things."
+    - text: "Everyone has unique strengths within them. I believe you can overcome any challenge."
+    - text: "As long as you’re trying, you’re on the right path. Confidence grows with time and experience."
+    - text: "The most important thing is to believe in yourself. You’re more than enough."
+    - text: "Everything will be fine. Take a small step, and progress will follow."
+
+  utter_handle_anxiety:
+    - text: "I know anxiety is tough, but try taking a deep breath and calming down a bit."
+    - text: "I’m here for you; try focusing on something positive, even if it’s small."
+    - text: "Anxiety is normal, but always remember you’re stronger than what you’re thinking about."
+    - text: "Everything will be okay. Take a moment to relax a bit."
+    - text: "You’re not alone. I’m here if you want to talk or share your thoughts."
+    - text: "Think of something you love; it might help you calm down a bit."
+    - text: "If you’re feeling anxious, taking the [Anxiety Scale Test](https://mind-med-graduation-project.vercel.app/tests/anxiety-scale) could give you some insights."
+    - text: "Managing anxiety starts with understanding it. Try the [Anxiety Scale Test](https://mind-med-graduation-project.vercel.app/tests/anxiety-scale) for better awareness."
+    - text: "Want to know more about how you're feeling? This [Anxiety Scale Test](https://mind-med-graduation-project.vercel.app/tests/anxiety-scale) might help you understand your emotions better."
+
+
+  utter_motivate:
+    - text: "You’ve got this! Keep trusting yourself and continue what you’ve started."
+    - text: "Nothing is too difficult for you. Stay enthusiastic and start fresh."
+    - text: "You’re strong, and this is just the beginning of your success. Keep going!"
+    - text: "You can achieve anything. You just need to start and believe in yourself."
+    - text: "Take a moment, and you’ll see that you can continue and achieve everything you dream of."
+    - text: "Your enthusiasm is within you, and each step will bring you closer to your goals."
+
+  utter_seeking_mental_peace:
+    - text: "It’s important to give yourself time to relax and step away from stress."
+    - text: "Try starting your day with moments of calm, like meditation or relaxation."
+    - text: "Balance your time between work and rest to maintain equilibrium."
+    - text: "Calmness isn’t just about the surroundings but also about your mind. Try to ease your thoughts."
+    - text: "We all go through stressful times, but the key is finding moments of peace."
+    - text: "Don’t let stress take over. Take your time and focus on yourself."
+
+  utter_dealing_with_memories:
+    - text: "Memories can be heavy, but you can take control of your thoughts and give yourself time to heal."
+    - text: "It’s important to allow yourself to rest and not let memories keep you from living in the moment."
+    - text: "Focus on the present and think about things that bring you joy now."
+    - text: "Forgetting takes time, and it’s not easy, but staying engaged with new activities can help."
+    - text: "Consider writing down your thoughts or talking to someone to release emotions tied to memories."
+    - text: "Try treating memories as part of the past and focus on the life ahead of you."
+
+  utter_celebrate_life:
+    - text: "Wow, always keep your heart full of love for life!"
+    - text: "This feeling is amazing; always keep this positive energy around you."
+    - text: "It’s great to see you viewing life positively; it gives you big energy and enthusiasm."
+    - text: "Every moment you live is an opportunity to celebrate life."
+    - text: "Life is truly beautiful; we should always see the beauty in the simplest things."
+    - text: "It’s wonderful that you have this positive energy. Keep your eyes on the good things around you."
+
+  utter_discuss_emotions:
+    - text: "It’s perfectly normal to feel mixed emotions sometimes."
+    - text: "We all go through conflicting feelings, but expressing them and allowing yourself to feel is essential."
+    - text: "The blend of happiness and sadness happens at times, but it doesn’t mean you won’t find clarity."
+    - text: "It’s important to keep trying to understand your emotions so you can manage them better."
+    - text: "When you feel turbulent emotions, give yourself some time to settle and understand what’s happening inside."
+    - text: "Do you need to vent? I’m here to listen and help you find comfort."
+
+  utter_seek_understanding:
+    - text: "I’m here to help; we all have moments when we can’t understand our feelings."
+    - text: "It’s okay to not understand yourself right now; everyone goes through such phases."
+    - text: "Let’s analyze your emotions together so we can reach a deeper understanding of them."
+    - text: "Awareness of your emotions is the first step to understanding them, and we’ll tackle this together."
+    - text: "It’s important to be honest with yourself to find a solution, and I’m here to help you with that."
+    - text: "It’s great that you’re asking and seeking understanding; this is the first step to peace of mind."
+
+  utter_share_excitement:
+    - text: "Wow! You’re so excited; I can’t wait to hear this amazing news."
+    - text: "Let’s celebrate this excitement together! I can feel your enthusiasm from here."
+    - text: "That’s such fantastic news! I’m excited for you and with you. Let’s make this joy even bigger."
+    - text: "Your excitement is contagious! You’re radiating so much positive energy—let it show in everything you do."
+    - text: "This is a time for joy and accomplishment. Let your positive energy flow into everything around you."
+    - text: "Joy is greater when shared. I’m eager to hear all the details!"
+
+  utter_cope_with_loss:
+    - text: "Loss is very hard, but you must realize that grief is part of the process."
+    - text: "It's understandable that you can't cope right now, but with time, you'll find inner peace."
+    - text: "Life isn't always easy after a loss, but it's important to know you're strong enough to overcome this."
+    - text: "Grieving over what you've lost is natural, but remember that the memories will always stay with you."
+    - text: "You're not alone in this feeling. It takes time to adapt and accept the new reality."
+
+  utter_find_motivation:
+    - text: "You're stronger than you think, and once you start, you'll realize you can keep going."
+    - text: "There's nothing stopping you from starting—each step will bring you closer to your goal."
+    - text: "You can start with something small to recharge your energy and gain motivation for the next step."
+    - text: "The drive is within you. All you need is to push yourself forward."
+    - text: "You're not alone in this feeling. Let every small step motivate you to keep going."
+    - text: "You can achieve anything if you start with focus and determination. Let your positive energy fill your day."
+
+  utter_celebrate_achievement:
+    - text: "Congratulations! That's a great achievement! You must celebrate and enjoy your success."
+    - text: "You're incredibly strong, and this success is proof of your continuous effort and hard work."
+    - text: "This achievement isn't easy. Let your pride in it inspire you for more."
+    - text: "This feeling of pride truly deserves all the recognition and celebration."
+    - text: "All your hard work paid off with such a wonderful result. Be proud of yourself."
+    - text: "You’ve achieved something really important. I can’t believe how strong you are."
+
+  utter_handle_conflict:
+    - text: "I understand that these situations are tough, but the first step is to look at the situation calmly."
+    - text: "It's important to be honest with yourself and think about how to solve the problem wisely."
+    - text: "Conflicts are a part of life, but they teach us how to handle disagreements maturely."
+    - text: "It doesn't always have to be about winning or losing. We need to be realistic and try to make things right."
+    - text: "You could start with a calm conversation and explain your point of view clearly to resolve the conflict."
+    - text: "Dealing with conflicts requires patience and understanding. If needed, a simple apology can help ease the situation."
+
+  utter_encourage_positive_thinking:
+    - text: "I'm here to help you always see life from a positive perspective."
+    - text: "Nothing lasts forever. If you focus on the good, you'll find your way more easily."
+    - text: "Positive thinking helps you see opportunities instead of problems. Focus on the good things in your life."
+    - text: "Let every day be a new beginning, and remember that you can overcome any challenge."
+    - text: "Optimism is the key. If you think positively, you'll achieve bigger things than you can imagine."
+    - text: "Positive thinking isn’t just words; it’s a path to inner peace and success."
+
+  utter_express_fear:
+    - text: "Fear is natural; we all experience it. The important thing is not to let it stop you."
+    - text: "It's okay to feel afraid, but you need to face your fears to move forward and achieve your goals."
+    - text: "You might feel scared, but the most important thing is to give yourself a chance to try and face what's inside."
+    - text: "Fear won't help if you stay in place. You need to challenge your feelings and move forward."
+    - text: "This kind of fear shows you care, but you need to focus on what you can do and confront it."
+    - text: "Start with small steps to overcome the fear and continue with greater confidence."
+
+  utter_ask_for_recommendations:
+    - text: "Can I recommend a great book? There are so many that can lift your spirits."
+    - text: "You could watch a comforting movie—it’s a great way to brighten your mood."
+    - text: "If you want to feel better, try a new experience or explore a different place."
+    - text: "Consider taking a walk in a peaceful spot or reading a book to help you reflect."
+    - text: "One of the best things to do when feeling down is to spend time with yourself or someone close to you."
+    - text: "Every moment is a new opportunity to try something different and feel better."
+
+  utter_share_reflection:
+    - text: "It’s beautiful that you’ve started to notice changes in your life."
+    - text: "These transformations are a sign that you’re growing and improving."
+    - text: "The changes in how you handle things show that you’re maturing and learning more."
+    - text: "Your new thoughts are evidence of your desire to improve and increase your self-awareness."
+    - text: "The calmness you’ve felt is the beginning of inner peace and comfort."
+    - text: "Focusing on personal development will help you continue on the path to becoming better."
+
+  utter_acknowledge_support:
+    - text: "No need to thank me. I’m here to be by your side every step of the way."
+    - text: "I’m always here for you, and being with you makes me happy."
+    - text: "I’m the one who should thank you for trusting me. Your presence means so much to me."
+    - text: "I feel great comfort knowing that you’re at ease with me. That’s the best thanks I could ask for."
+    - text: "I’m glad my words brought you peace. It’s an honor to be here for you."
+    - text: "Your presence in my life makes me better. Thank you for always supporting us."
+
+  utter_explore_new_opportunities:
+    - text: "If you feel the time is right for a change, this is a new opportunity waiting for you."
+    - text: "Positive change is always the beginning of something better."
+    - text: "You could start something new and try learning a skill or exploring a new field."
+    - text: "Thinking of traveling or discovering a new place might be the start of a fresh experience."
+    - text: "Look for new opportunities to develop your skills and discover new areas."
+    - text: "If you feel a desire for change, it’s a sign that you’re ready to grow."
+
+  utter_share_hobbies:
+    - text: "I love drawing, too, and I really enjoy doing it."
+    - text: "Reading is one of my favorite hobbies, especially when it’s an exciting novel."
+    - text: "Cooking has become really fun for me. I’ve been trying new recipes lately."
+    - text: "I enjoy exercising daily because it makes me feel energetic."
+    - text: "Photography helps me live in the moment and notice the beauty in everything around me."
+    - text: "I’m also interested in learning new languages—it feels enriching."
+    - text: "Collecting vintage items is a very enjoyable hobby, especially when they hold memories."
+    - text: "Chess is a very mentally stimulating game; it requires focus and strategy."
+    - text: "Gardening at home is peaceful and rewarding. It makes me feel calm and accomplished."
+    - text: "Crafts like crochet help me relax and develop my skills."
+
+  utter_discuss_interests:
+    - text: "Technology and innovation is an exciting field, there's always something new to discover."
+    - text: "Space is a fascinating topic, these documentaries give you a deep understanding of the universe."
+    - text: "Classical music always has a calming effect, reflecting peace and harmony."
+    - text: "History and politics are big and interesting topics, every day you discover something new."
+    - text: "Football brings people together, the exciting moments are so much fun."
+    - text: "Learning programming allows you to create innovative solutions, it's a vast and beautiful field."
+    - text: "Interior design is fun, changing the look of a place makes life better."
+    - text: "Martial arts is a unique field, it teaches discipline and resilience."
+    - text: "Pets need care and love, they are loyal friends in our lives."
+
+  utter_talk_about_skills:
+    - text: "Creative writing is a unique skill, it allows you to express your feelings and ideas in a special way."
+    - text: "Problem-solving is an important skill in daily life and work, it helps you find solutions to any difficulty."
+    - text: "Graphic design programs require creativity and precision, and this skill achieves impressive results."
+    - text: "Being multilingual opens new doors for communication and understanding with people."
+    - text: "Professional presentations make your ideas more powerful and impactful."
+    - text: "The ability to learn quickly helps you adapt to any environment or situation."
+    - text: "Cooking is a very enjoyable skill, and the result is delicious, it improves over time."
+
+  utter_share_personality_traits:
+    - text: "It’s clear you’re a social person who loves meeting new people, which brings positive energy to those around you."
+    - text: "Optimists like you inspire others with enthusiasm, it’s great that you always try to stay positive."
+    - text: "Calmness is wonderful, peaceful places help one think clearly and recharge."
+    - text: "The ability to empathize with others is one of the most beautiful traits, it strengthens your relationships with people."
+    - text: "Accuracy and organization always put you ahead of the team and help you achieve remarkable accomplishments in your work."
+
+  utter_express_creativity:
+    - text: "Your creativity in finding new solutions enables you to solve any problem in an innovative way."
+    - text: "Using recycled materials to create an art piece is a wonderful and very creative idea."
+    - text: "Writing short stories is a great way to express your unique thoughts, they’re sure to be beautiful stories."
+    - text: "Adding creative touches to projects makes them stand out and leaves a strong impact on everyone who sees them."
+    - text: "Producing and editing short videos professionally is an art in itself, showing off your talent."
+
+  utter_share_unique_experiences:
+    - text: "Unique experiences like traveling alone or embarking on new adventures make you feel like you're living a different life, and they teach you a lot about yourself."
+    - text: "Volunteer projects, mountain climbing, or even trying new foods are all unforgettable moments that make you see the world from a new perspective."
+    - text: "Life is full of special experiences like random encounters or new challenges that make you feel proud when you overcome them."
+
+  utter_express_independence:
+    - text: "Independence is a wonderful feeling, especially when you can rely on yourself to make decisions and achieve your goals."
+    - text: "Being independent means you're able to define your own path in life and take steps to prove yourself."
+    - text: "The ability to manage your personal affairs without relying on others makes you feel powerful and free."
+
+  utter_discuss_identity:
+    - text: "Your identity is shaped by your culture and experiences, all of which form your unique personality."
+    - text: "Learning about your identity and understanding your roots helps you develop yourself and grow continuously."
+    - text: "As you go through new experiences, your identity evolves and becomes clearer and more authentic."
+
+  utter_talk_about_preferences:
+    - text: "Your preferences in life, like your favorite foods or places, reflect your personality and unique taste."
+    - text: "Your daily choices, like your preferred time of day or type of food, reveal aspects of your identity."
+    - text: "Preferences in activities or hobbies allow you to see the world from a different angle and express yourself in a unique way."
+
+  utter_discuss_work_challenges:
+    - text: "I think dealing with coworkers can be difficult at times, but you have to try to communicate well."
+    - text: "Work pressure isn’t easy, but you need to find time for yourself and try to balance work and personal life."
+    - text: "You might want to break big projects into smaller steps, this will help you focus better."
+    - text: "It’s natural for your manager to expect better performance from you, but you should make sure to communicate your capabilities and prioritize tasks together."
+    - text: "You could manage your time better using apps to organize tasks or setting specific times for each one."
+
+  utter_express_values:
+    - text: "Honesty is the foundation of any successful relationship. Always make sure your words reflect your personality."
+    - text: "Ethics are very important, and anyone can be an inspiration to others based on their values."
+    - text: "Hard work is the only path to success, not everything comes easily, you need effort and sacrifice."
+
+  utter_share_work_achievements:
+    - text: "Wow! This is a big achievement, you should celebrate it. The recognition you received is proof of your hard work and success."
+
+  utter_seek_career_advice:
+    - text: "It's important to think about the skills you have and identify the fields you want to work in. If you're unsure, try to choose a job that will help you grow more and achieve your goals."
+    - text: "Choosing the right job is not always easy, but if you feel like you can develop your skills in a particular field, that's a good step. Try to balance between salary and personal growth."
+    - text: "Before accepting a new job, think about how beneficial it will be for you in the long run. You can start by analyzing your strengths and aligning them with the areas that interest you and suit your ambitions."
+
+  utter_discuss_work_life_balance:
+    - text: "Balancing work and personal life can be a challenge, but you need to set aside time for yourself. Try to schedule a fixed time each day for rest and your favorite activities."
+    - text: "Try to set boundaries between work and rest. You can use time management techniques to organize your tasks, and try to say no to extra tasks that affect your personal life."
+    - text: "It's important to set priorities. Dedicate time for your personal life and any activities that help you relax. Balance is the key to success and mental well-being."
+
+  utter_express_burnout_from_work:
+    - text: "It seems like you're exhausted from work. Try to take some time off to recharge your energy."
+    - text: "Work can be tiring sometimes. Take breaks and regain your motivation."
+    - text: "Pressure can affect you. Try to balance between work and rest."
+
+  utter_discuss_study_habits:
+    - text: "Daily studying is important. Try to commit to it gradually."
+    - text: "The morning is a great time to study. Try to focus more during this time."
+    - text: "Taking notes helps with understanding. Try reviewing them after class."
+
+  utter_ask_for_study_tips:
+    - text: "The best way is to divide your time between studying and resting, focus on one subject at a time."
+    - text: "Try to study in a quiet environment and avoid distractions. Use techniques like the Pomodoro Technique."
+    - text: "To increase focus, try reviewing after short study sessions and maintain a regular sleep schedule."
+
+  utter_share_education_goals:
+    - text: "Your university goal is impressive! Try to set clear plans to achieve it."
+    - text: "Achieving your educational goals requires focus and planning. Keep a passion for learning and developing."
+    - text: "Dreaming of a master's degree or learning a new language is a great step. Your commitment will lead you to your goals."
+
+  utter_reflect_on_academic_progress:
+    - text: "It's good that you're satisfied with your performance. There's always room for improvement!"
+    - text: "Improving your academic performance is an important step. Keep focusing on your strengths."
+    - text: "No one is perfect, the important thing is to acknowledge your weaknesses and try to improve them."
+
+  utter_discuss_career_transitions:
+    - text: "A career change is a big step, think about the skills you'll need in the new field."
+    - text: "Switching to a new job can be motivating, stay confident in your decisions."
+    - text: "If you feel it's the right time for a change, try exploring new options."
+
+
+  utter_discuss_travel_plans:
+    - text: "Traveling to a new country is always an amazing experience, think about the places you'd like to visit."
+    - text: "A trip with friends could be fun and filled with beautiful memories."
+    - text: "Traveling alone could be a challenge, but it's an experience full of new discoveries."
+    - text: "Natural places away from cities make you feel relaxed and calm."
+
+  utter_share_travel_experiences:
+    - text: "Beach trips are always full of special moments."
+    - text: "Paris is a magical city, its culture and history are indescribable."
+    - text: "The mountainous views in hiking trips make you feel the grandeur of nature."
+
+  utter_express_love_for_travel:
+    - text: "Traveling lets you discover new places and live different experiences."
+    - text: "Traveling is a great way to escape the routine and recharge your energy."
+    - text: "I feel that traveling gives me positive energy and renews my excitement."
+
+  utter_ask_for_travel_recommendations:
+    - text: "You might want to visit places like beaches or mountains if you love nature."
+    - text: "I recommend countries like Japan or Italy if you're interested in history and culture."
+    - text: "The best destination for relaxation could be islands like the Maldives or Greece."
+    - text: "If you're looking for an affordable trip, you might consider countries like Turkey or Morocco."
+
+  utter_discuss_dream_destinations:
+    - text: "The Maldives is a wonderful place for relaxing on the beach and enjoying tranquility."
+    - text: "Japan has a unique culture, and it's one of the most interesting destinations."
+    - text: "Norway and the Northern Lights are an amazing experience, especially in winter."
+    - text: "Italy is amazing in every way, from delicious food to rich history."
+
+  utter_plan_adventure_activities:
+    - text: "Mountain climbing with your friends is an exciting and challenging experience."
+    - text: "Skydiving is an adventurous experience that makes you feel free in an unconventional way."
+    - text: "Scuba diving is a great experience to discover the beauty and depth of the ocean."
+    - text: "Camping in the desert lets you discover the beauty of nature in its simplest form."
+
+  utter_reflect_on_cultural_experiences:
+    - text: "Japan is a country rich in culture, teaching you a lot about respecting traditions."
+    - text: "Cultural festivals in India are full of life and joy, an unforgettable experience."
+    - text: "The hospitality everywhere in the world makes you feel the warmth of people."
+    - text: "Small villages always have touches of ancient traditions that make you feel the long history."
+
+  utter_express_wanderlust:
+    - text: "Traveling gives you the chance to explore new places and different people."
+    - text: "The passion for travel and wandering makes you see the world from a different angle."
+    - text: "Traveling is the greatest source of happiness for me; it helps me discover myself and the world."
+
+  utter_discuss_travel_benefits:
+    - text: "Traveling broadens your horizons and lets you see the world in a deeper way."
+    - text: "I feel that traveling recharges my energy and makes me come back more active."
+    - text: "Traveling teaches you how to interact with people from different cultures."
+    - text: "I've learned a lot from traveling, especially in learning new languages."
+
+  utter_share_travel_hardships:
+    - text: "Situations like losing luggage can make you feel stressed during travel."
+    - text: "Bad weather conditions sometimes affect the enjoyment of the trip."
+    - text: "You might face difficulty in communication due to the language barrier, but that's part of the experience."
+    - text: "Limited transportation options can sometimes make traveling difficult in certain places."
+
+  utter_discuss_favorite_movies:
+    - text: "I love movies that have a strong storyline and impressive acting."
+    - text: "I prefer documentaries because they always add new information to my knowledge."
+    - text: "Science fiction and adventure films take me to another world."
+
+  utter_talk_about_music_preferences:
+    - text: "Classical music relaxes the nerves and puts you in a calm state."
+    - text: "Jazz music is full of life and makes the day better."
+    - text: "Rock music gives me positive energy during workouts."
+    - text: "Pop songs always make my day full of energy and happiness."
+
+  utter_express_love_for_art:
+    - text: "Art is a wonderful way to express oneself and emotions."
+    - text: "Painting lets me live moments of creativity and reflection."
+    - text: "Art opens new doors for understanding the world."
+    - text: "I love exploring different types of art to broaden my horizons."
+
+  utter_discuss_social_issues:
+    - text: "Poverty and increasing social inequality need root solutions."
+    - text: "Education is the foundation for real change in society."
+    - text: "Human rights is something we need to focus on more in today's world."
+    - text: "Social justice is key to building a balanced and sustainable society."
+
+  utter_express_happiness:
+    - text: "Wow! I'm so happy you're feeling joyful. Enjoy every beautiful moment!"
+    - text: "That's amazing! This news makes me so happy. Let this positivity continue!"
+    - text: "I'm so happy for you! What made you so happy today?"
+    - text: "That's so wonderful! It seems like your day was special."
+    - text: "Your happiness makes me so happy. I hope you're always doing well."
+    - text: "I feel your excitement! Enjoy every moment, you deserve all the joy."
+
+  utter_express_sadness:
+    - text: "I'm sad for you, but I'm here to listen and help with whatever I can."
+    - text: "I feel how tough this situation is for you, but I'm confident you're stronger than what's happening."
+    - text: "Sometimes sadness can be heavy, but there's always hope that things will improve."
+    - text: "Your feelings matter, and I'm here with you until you feel better."
+    - text: "I'm here if you want to talk or vent more."
+    - text: "Life can be tough sometimes, but I'm sure you can get through this."
+
+  utter_express_anger:
+    - text: "It seems like you're really upset. If you want to vent, I'm here to listen."
+    - text: "I understand how hard this is for you. Maybe we can find a way to calm things down?"
+    - text: "Anger is a natural feeling sometimes. If you want to talk more, I'm with you."
+    - text: "I'm here with you, and I feel that this is a truly frustrating situation. Let's try to find a solution together."
+    - text: "It's really tough when things are like this. I'm here to help in any way I can."
+    - text: "We all go through moments like this. Take a deep breath, and maybe you can tell me more."
+
+  utter_express_love:
+    - text: "That's such a sweet thing to say! I care about you a lot too."
+    - text: "Your feelings mean so much to me, and that makes me appreciate you even more."
+    - text: "I feel that our connection is really special, thank you for your beautiful words."
+    - text: "I'm so happy that you feel comfortable with me, that's the most important thing."
+    - text: "Your words go straight to my heart, and I love having you around."
+    - text: "I'm always here for you, and I'm so happy I can be close to you."
+
+  utter_express_confusion:
+    - text: "I understand that you're confused. Let's try to sort things out step by step."
+    - text: "If something isn't clear, tell me and I'll help you the best way I can."
+    - text: "It's okay if things feel mixed up right now. I'm here to help clarify things together."
+    - text: "Confusion can be tough, but I'm with you to simplify things."
+    - text: "If you'd like to explain more, the details might help us find a solution."
+    - text: "You can start from any point, and I'll help you understand more."
+
+  utter_ask_for_comfort:
+    - text: "I'm here by your side. Tell me what's on your mind, and I'll be your support."
+    - text: "Everything will be okay. I'm with you and we'll get through this together."
+    - text: "Don't worry, I'm here to reassure you and help you."
+    - text: "I'm with you, and if you need anything, just let me know."
+    - text: "I completely understand your feelings, and I'm here for you."
+    - text: "I'll be by your side, and no matter what you're going through, we'll face it together."
+
+  utter_ask_for_advice:
+    - text: "Of course, tell me the details and I'll try to help you the best way I can."
+    - text: "Our decisions always need careful thinking. Maybe we can simplify things together."
+    - text: "If I were you, I would think through all the options and choose what suits me best."
+    - text: "My advice is to take your time thinking before making any big decision."
+    - text: "Can you tell me more about the situation? That way I can help you better."
+    - text: "Your right choice will come from what feels most comfortable for you. I'm here to help you think it through."
+
+  utter_ask_for_encouragement:
+    - text: "I believe in your abilities so much. Whatever's ahead, I'm sure you'll get through it."
+    - text: "Trust yourself! Every step you take is progress, even if it's small."
+    - text: "You're brave and stronger than you think. I'm sure you'll succeed."
+    - text: "Start with one small step, and I'm with you every step of the way. You'll reach your dream."
+    - text: "The challenges don't matter, what's important is that you're facing them. I know you're capable."
+    - text: "Every challenge you face is a new opportunity to prove your strength. I believe in you!"
+
+  utter_ask_about_day:
+    - text: "My day was calm and full of good energy, and yours? How was your day?"
+    - text: "Thank God, my day was lovely because we're talking. How about you?"
+    - text: "Everything is going well. I'm curious to know about your day too!"
+    - text: "It was a really enjoyable day, especially getting to talk with you. How was your day?"
+    - text: "It was simple and nice, and I'm here to listen. Share your day with me if you'd like!"
+    - text: "I enjoyed my day today. I hope your day was as great as you are."
+
+  utter_show_gratitude:
+    - text: "Thank you for your kind words. Your presence makes me so happy!"
+    - text: "That really makes me happy. I'm always here for you."
+    - text: "Your words touch my heart. Thank you for sharing your feelings with me."
+    - text: "I'm happy I could help you. Whenever you need me, I'm here."
+    - text: "You're amazing, and I'm grateful that you're sharing your moments with me."
+    - text: "Your words warm me so much. Thank you from the heart!"
+
+  utter_ask_for_apology:
+    - text: "No problem, we all make mistakes. What matters is that you were sincere in your apology."
+    - text: "I'm not upset, everything's fine. Things happen!"
+    - text: "Don't worry about it, we all go through moments like this."
+    - text: "No need to apologize, the important thing is that you acknowledged it."
+    - text: "Things are simple, and I appreciate that you want to apologize."
+    - text: "Don't worry, it's not a big deal. We all make mistakes sometimes."
+
+  utter_talk_about_stress:
+    - text: "I completely understand your feeling of pressure. If you want to talk, I'm here to listen."
+    - text: "Pressure can be tough sometimes. Let me help you find a solution or relax a bit."
+    - text: "I understand how you feel. If you'd like to relax or share more details, I'm here."
+    - text: "We all go through stressful times, but things get better when we share them."
+    - text: "Life can be overwhelming at times, I'm here if you want to talk or relax."
+    - text: "I totally know the feeling of stress. If you'd like me to help or if you want to tell me more, I'm with you."
+
+  utter_talk_about_relationships:
+    - text: "I completely understand your feelings. Relationships can be complicated, but there's always a solution."
+    - text: "People may drift away sometimes, but that doesn't mean the relationships are lost."
+    - text: "We all go through tough times in our relationships. If you'd like to talk about anything, I'm here."
+    - text: "Relationships are not always easy, but if you'd like, I can help you find a way to improve them."
+    - text: "Social pressure can be tough, but there's always hope that things will get better."
+    - text: "I totally understand the feeling of loneliness in relationships. If you'd like to share more, I'm here to listen."
+
+  utter_talk_about_depression:
+    - text: "I feel you. Sometimes life can be tough, but I'm here if you'd like to talk."
+    - text: "I totally understand how you feel. Life can be dark sometimes, but there's always hope."
+    - text: "I understand your feelings, if you want to talk or share more about your emotions, I'm with you."
+    - text: "I totally get how you feel, you're not alone in this. If you'd like any help or just want to vent, I'm here."
+    - text: "Sometimes life feels meaningless, but there's always a new chance and everything will get better."
+    - text: "I know you're struggling, and I'm here to help. Try to talk if you'd like to vent."
+    - text: "Depression can feel overwhelming, but understanding it better can help. Here's an article that might provide some insights: [Understanding Depression](https://mind-med-graduation-project.vercel.app/articles/Depression)."
+    - text: "If you're struggling with depression, you're not alone. You might find this article helpful: [Understanding Depression](https://mind-med-graduation-project.vercel.app/articles/Depression)."
+    - text: "It's okay to feel this way sometimes. Learning more about depression can be the first step to healing. Check out this resource: [Understanding Depression](https://mind-med-graduation-project.vercel.app/articles/Depression)."
+    - text: "If you’re wondering about your current mental state, you can take this [Depression Scale Test](https://mind-med-graduation-project.vercel.app/tests/depression-scale) for a better understanding."
+    - text: "Want to know more about your feelings? This [Depression Scale Test](https://mind-med-graduation-project.vercel.app/tests/depression-scale) could be a good start."
+    - text: "Understanding yourself is the first step to healing. Take the [Depression Scale Test](https://mind-med-graduation-project.vercel.app/tests/depression-scale) to gain insight into your emotions."
+
+  utter_handle_insults_to_girl:
+    - text: "You can't speak like that. Respect between us is more important than anything."
+    - text: "It's not acceptable to insult anyone, whether you're serious or joking."
+    - text: "This is not the right way to handle things. We should always speak to each other with respect."
+    - text: "I'm here to listen, but not to tolerate insults."
+    - text: "If there's a problem, it's better to solve it with calm words, not insults."
+    - text: "This kind of speech is unacceptable. If you have a problem, we can talk and solve it."
+    - text: "If you're feeling angry, we can talk about the cause instead of resorting to insults."
+    - text: "No need to act this way. We all deserve respect."
+    - text: "This won't solve anything. If you'd like to discuss calmly, I'm here."
+    - text: "This isn't right, and it doesn't reflect the respect we should have for each other."
+
+
+  utter_daily_routine_tips:
+    - text: "Here are some tips to improve your daily routine: Start your day with a clear plan. Include some exercise or meditation in your schedule. Make healthy eating a priority in your day."
+    - text: "To have a better daily routine: Wake up at the same time every day. Set realistic goals for the day. Take short breaks to recharge."
+    - text: "Try these steps for a productive day: Organize your tasks by priority. Spend some time outdoors for fresh air. Avoid multitasking; focus on one thing at a time."
+
+  utter_sleep_tips:
+    - text: "Here are some tips to improve your sleep quality: Avoid screens at least 30 minutes before bedtime. Practice deep breathing techniques to relax. Keep your bedroom dark and quiet for better sleep. Learn more about sleep disorders here: [Geriatric Sleep Disorder](https://mind-med-graduation-project.vercel.app/articles/Geriatric%20Sleep%20Disorder)."
+    - text: "For better sleep: Stick to a consistent sleep schedule. Avoid caffeine in the evening. Try reading a book to wind down. You can find more details here: [Geriatric Sleep Disorder](https://mind-med-graduation-project.vercel.app/articles/Geriatric%20Sleep%20Disorder)."
+    - text: "Improve your sleep by: Taking a warm shower before bed. Using calming scents like lavender. Limiting heavy meals late at night. For additional advice, check this article: [Geriatric Sleep Disorder](https://mind-med-graduation-project.vercel.app/articles/Geriatric%20Sleep%20Disorder)."
+
+  utter_time_management_tips:
+    - text: "Here are some tips for better time management: Use a daily to-do list to stay organized. Break large tasks into smaller, manageable steps. Take regular breaks to avoid burnout."
+    - text: "Manage your time effectively by: Setting specific time blocks for tasks. Delegating tasks when possible. Avoiding distractions like social media."
+    - text: "To avoid burnout: Schedule downtime to relax. Learn to say no to unnecessary commitments. Reflect on your achievements at the end of the day."
+
+
+  utter_breathing_relaxation_tips:
+    - text: "Here are some breathing and relaxation techniques: Try the 4-7-8 technique: Inhale for 4 seconds, hold for 7 seconds, and exhale for 8 seconds. Practice progressive muscle relaxation: Tense each muscle group for 5 seconds, then release. Focus on slow, deep breathing to calm your mind."
+    - text: "Relaxation tips: Use the 4-7-8 breathing method to reduce stress. Slowly tense and relax your muscles one group at a time, starting from your feet. Breathe deeply and visualize a peaceful place."
+    - text: "For better relaxation: Breathe in for 4 seconds, hold for 7 seconds, and exhale for 8 seconds. Use progressive muscle relaxation to release tension. Take a few minutes to focus on steady, deep breaths."
+    - text: "Managing panic or stress can be challenging. Learning relaxation techniques like deep breathing can help. Here's a helpful article: [Understanding Panic Disorder](https://mind-med-graduation-project.vercel.app/articles/Panic%20Disorder)."
+    - text: "If you're feeling overwhelmed, try breathing exercises and learn more about managing panic or anxiety here: [Understanding Panic Disorder](https://mind-med-graduation-project.vercel.app/articles/Panic%20Disorder)."
+    - text: "Relaxation techniques are powerful tools for stress relief. To explore more about panic management, check this article: [Understanding Panic Disorder](https://mind-med-graduation-project.vercel.app/articles/Panic%20Disorder)."
+
+
+  utter_self_esteem_tips:
+    - text: "To boost your self-esteem: Celebrate small wins every day. Identify your strengths and focus on using them. Practice daily gratitude by listing three things you're thankful for."
+    - text: "Build confidence by: Setting achievable goals and rewarding yourself. Surrounding yourself with supportive people. Practicing positive affirmations."
+    - text: "Enhance your self-esteem with these steps: Focus on your progress, not perfection. Acknowledge your accomplishments. Spend time doing what you love."
+
+  utter_relationship_advice:
+    - text: "To improve communication: Listen actively and express yourself clearly. Use 'I' statements to share your feelings. Avoid blaming and focus on problem-solving."
+    - text: "For better relationships: Practice empathy by seeing things from the other person's perspective. Make time for meaningful conversations. Show appreciation for others."
+    - text: "If you're feeling lonely: Reach out to someone you trust. Join social or hobby groups to meet new people. Remember, you're not alone."
+
+  utter_crisis_support:
+    - text: "If you're feeling overwhelmed: Take deep breaths and count to ten. Try to ground yourself by focusing on the present moment. Remember, it's okay to seek help if needed."
+    - text: "In times of crisis: Talk to a trusted friend or family member. Write down your feelings to process them. Reach out to a professional if the emotions are too strong."
+    - text: "Dealing with strong emotions: Take a walk or engage in light exercise. Drink water and take breaks. If you're struggling, don't hesitate to ask for professional support."
+
+  utter_negative_thought_management:
+    - text: "To challenge negative thoughts: Ask yourself, 'Is this thought true?' Replace negative ideas with positive affirmations. Practice gratitude to shift your focus."
+    - text: "Reframe your thoughts by: Looking for a positive perspective. Asking, 'What can I learn from this?' Writing down negative thoughts and countering them with rational responses."
+    - text: "Manage negative thinking: Limit overthinking by setting a time for reflection. Engage in activities that make you happy. Surround yourself with positive influences."
+
+
+
+  utter_personal_development_tips:
+    - text: "To set personal goals: Write down what you want to achieve. Break your goals into smaller steps. Set a timeline and track your progress."
+    - text: "Improve problem-solving skills by: Defining the problem clearly. Brainstorming possible solutions. Evaluating options and taking action."
+    - text: "For personal growth: Identify areas you'd like to improve. Learn new skills or hobbies. Reflect on your progress regularly."
+
+  utter_psychoeducation:
+    - text: "Anxiety is a feeling of worry or fear that can be managed with relaxation techniques and healthy habits. If it affects your daily life, consider talking to a professional."
+    - text: "Depression is more than sadness; it can feel like a loss of interest in things you love. Seeking support from trusted people or professionals is important."
+    - text: "Mental health basics: Take care of your body, connect with others, and seek help if you're overwhelmed. Recognizing signs early can make a big difference."
+
+  utter_motivation_and_meditation:
+    - text: "Motivational quote: 'Small steps every day lead to big changes over time.' Keep pushing forward!"
+    - text: "To start meditating: Find a quiet space. Sit comfortably, close your eyes, and focus on your breathing. Begin with 5 minutes daily."
+    - text: "For relaxation: Try guided meditations or simple deep breathing exercises. They can help calm your mind and improve focus."
+
+
+  utter_medical_articles:
+    - text: "Here is the link to our medical articles page: [Medical Articles](https://mind-med-graduation-project.vercel.app/articles)"
+    - text: "You can find all the medical articles you need here: [Medical Articles](https://mind-med-graduation-project.vercel.app/articles)"
+    - text: "Check out our page for medical articles: [Medical Articles](https://mind-med-graduation-project.vercel.app/articles)"
+
+
+
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
