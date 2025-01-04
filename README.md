@@ -92,7 +92,7 @@ npm run dev
 ### Flutter Setup Instructions
 1. **Clone and Navigate to Mobile Directory**  
    ```bash
-   git clone (https://github.com/a7medk7aledak/VitaPsyche-Graduation-Project.git)
+   git clone https://github.com/a7medk7aledak/VitaPsyche-Graduation-Project.git
    cd mobile
    ```
 2. **Install Dependencies**  
