@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
-import 'package:flutter_mindmed_project/features/ai_service/service/lina_service.dart';
+
+
+import '../../data/lina_service.dart';
 
 class LinaScreen extends StatefulWidget {
-  const LinaScreen({Key? key, required this.title}) : super(key: key);
+  const LinaScreen({super.key, required this.title});
 
   final String title;
 
