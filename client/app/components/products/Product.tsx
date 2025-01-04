@@ -1,8 +1,8 @@
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
-import { useCartStore } from "@store/useCartStore";
 import Image from "next/image";
+import { useCart } from "@hooks/useCart";
 
 type TProductProps = {
   product: {
@@ -14,7 +14,11 @@ type TProductProps = {
 };
 
 const Product = ({ product }: TProductProps) => {
-  const addToCart = useCartStore((state) => state.addToCart); // Access the addToCart function from the store
+  const { addItem } = useCart();
+
+  const handleAddToCart = () => {
+    addItem(product.id, 1);
+  };
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 hover:shadow-xl transition-transform duration-300">
@@ -33,8 +37,8 @@ const Product = ({ product }: TProductProps) => {
         </h3>
         <p className="text-maintext font-medium mt-2">${product.price}</p>
         <button
-          onClick={() => addToCart()} // Pass the product to addToCart
-          className="flex items-center justify-center w-full px-4 py-3 mt-6 text-white bg-[#216862] rounded-full hover:bg-[#1a4c47] focus:outline-none focus:ring-4 focus:ring-[#3a7c8d] shadow-md transition-all duration-300"
+          onClick={handleAddToCart}
+          className="flex items-center justify-center w-full px-4 py-3 mt-6 text-white bg-[#216862] rounded-full hover:bg-[#205f5a]focus:outline-none focus:ring-4 focus:ring-[#3a7c8d] shadow-md transition-all duration-300"
         >
           <FaShoppingCart className="mr-2 text-lg" />
           Add to Cart

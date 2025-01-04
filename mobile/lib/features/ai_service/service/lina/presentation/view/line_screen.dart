@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindmed_project/core/theme/colors.dart';
-import 'package:flutter_mindmed_project/features/ai_service/service/lina/data/questions_and_answers.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
+import 'package:flutter_mindmed_project/features/ai_service/service/lina_service.dart';
 
 class LinaScreen extends StatefulWidget {
-  const LinaScreen({super.key, required this.title});
-
-  static const String id = 'LynaScreen';
+  const LinaScreen({Key? key, required this.title}) : super(key: key);
 
   final String title;
 
@@ -20,15 +17,14 @@ class LinaScreen extends StatefulWidget {
 class _LinaScreenState extends State<LinaScreen> {
   late stt.SpeechToText _speechToText;
   late FlutterTts _flutterTts;
+  final ChatService _chatService = ChatService();
 
   bool _isListening = false;
   String _userInput = '';
-  String _response = '';
-  String _displayedResponse = '';
-  bool _showResponse = false;
+  List<Map<String, String>> messages = [];
   String _cameraOrbit = "90deg 90deg auto";
   final TextEditingController _textController = TextEditingController();
-  String _selectedLanguage = 'en'; // Default language is English
+  String _selectedLanguage = 'en';
 
   @override
   void initState() {
@@ -52,9 +48,13 @@ class _LinaScreenState extends State<LinaScreen> {
 
   Future<void> _speakWelcomeMessage() async {
     try {
-      await _flutterTts.setLanguage("en-US"); // Set language
-      await _flutterTts.speak(
-          "Hi, I am Lina. I am here to help you at any time. Let's get started.");
+      await _flutterTts.setLanguage("en-US");
+      const welcomeMessage =
+          "Hi, I am Lina. I am here to help you at any time. Let's get started.";
+      await _flutterTts.speak(welcomeMessage);
+      setState(() {
+        messages.add({'type': 'bot', 'message': welcomeMessage});
+      });
     } catch (e) {
       print("TTS Speak Error: $e");
     }
@@ -95,118 +95,31 @@ class _LinaScreenState extends State<LinaScreen> {
     }
   }
 
-  double calculateJaccardSimilarity(String a, String b) {
-    var setA = a.toLowerCase().split(" ").toSet();
-    var setB = b.toLowerCase().split(" ").toSet();
-
-    var intersection = setA.intersection(setB).length;
-    var union = setA.union(setB).length;
-
-    return intersection / union;
-  }
-
-  Future<void> _generateResponse() async {
-    try {
-      String matchedResponse =
-          "Sorry, I don't have an answer for that."; // Default response
-
-      // Declare and initialize the variable for the highest match score
-      int highestMatchScore = 0;
-
-      // Preprocess user input
-      List<String> userInputWords = _preprocessInput(_userInput);
-
-      for (var qa in qaData) {
-        // Preprocess the question
-        List<String> questionWords = _preprocessInput(qa['question']!);
-
-        // Calculate the number of matching words
-        int matchScore =
-            userInputWords.where((word) => questionWords.contains(word)).length;
-
-        // Update the response if this question has a higher match score
-        if (matchScore > highestMatchScore) {
-          highestMatchScore = matchScore;
-          matchedResponse = qa['answer']!;
-        }
-      }
-
+  Future<void> _sendMessage() async {
+    if (_textController.text.isNotEmpty) {
+      final userMessage = _textController.text;
       setState(() {
-        _response = matchedResponse;
-        _showResponse = true;
-        _displayedResponse = '';
+        messages.add({'type': 'user', 'message': userMessage});
         _cameraOrbit = "90deg 90deg 1m";
       });
 
-      _animateResponseText();
-      await _speakResponse();
-    } catch (e) {
-      print("Error generating response: $e");
+      // Get response from ChatService
+      String response = await _chatService.sendMessage(userMessage);
+
+      setState(() {
+        messages.add({'type': 'bot', 'message': response});
+      });
+
+      await _speakResponse(response);
+      _textController.clear();
     }
   }
 
-  // Helper method to preprocess input
-  List<String> _preprocessInput(String input) {
-    // Remove punctuation and convert to lowercase
-    String cleanedInput =
-        input.replaceAll(RegExp(r'[?.,!;]'), '').toLowerCase();
-    // Split into words and filter out non-keywords
-    Set<String> ignoreWords = {
-      'what',
-      'how',
-      'when',
-      'where',
-      'why',
-      'who',
-      'is',
-      'are',
-      'am',
-      'he',
-      'she',
-      'they',
-      'i',
-      'we',
-      'you',
-      'it',
-      'a',
-      'an',
-      'the',
-      'of',
-      'and',
-      'or',
-      'to',
-      'in',
-      'on',
-      'with',
-      'tell',
-      'me',
-      'about'
-    };
-    return cleanedInput
-        .split(' ')
-        .where((word) => !ignoreWords.contains(word) && word.isNotEmpty)
-        .toList();
-  }
-
-  void _animateResponseText() {
-    int index = 0;
-    Timer.periodic(const Duration(milliseconds: 50), (Timer timer) {
-      if (index < _response.length) {
-        setState(() {
-          _displayedResponse += _response[index];
-          index++;
-        });
-      } else {
-        timer.cancel();
-      }
-    });
-  }
-
-  Future<void> _speakResponse() async {
+  Future<void> _speakResponse(String response) async {
     try {
       await _flutterTts
           .setLanguage(_selectedLanguage == 'en' ? "en-US" : "ar-SA");
-      await _flutterTts.speak(_response);
+      await _flutterTts.speak(response);
     } catch (e) {
       print("TTS Speak Error: $e");
     }
@@ -218,42 +131,10 @@ class _LinaScreenState extends State<LinaScreen> {
     );
   }
 
-  // Method to show the popup menu
-  void _showResponseMenu(BuildContext context) {
-    showMenu(
-      context: context,
-      position: RelativeRect.fromLTRB(
-          100, 100, 100, 100), // Adjust position as needed
-      items: [
-        PopupMenuItem<String>(
-          value: 'Option 1',
-          child: Text('Option 1: ${_displayedResponse}'),
-        ),
-        PopupMenuItem<String>(
-          value: 'Option 2',
-          child: Text('Option 2: Another response'),
-        ),
-        // Add more options as needed
-      ],
-    ).then((value) {
-      if (value != null) {
-        // Handle the selected option
-        print('Selected: $value');
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
-      // appBar: AppBar(
-      //   // title: Text(widget.title),
-      //   backgroundColor: Colors.blueGrey[50],
-      //   centerTitle: true,
-      //   elevation: 0,
-      //   automaticallyImplyLeading: false,
-      // ),
       body: Stack(
         children: [
           Padding(
@@ -263,80 +144,96 @@ class _LinaScreenState extends State<LinaScreen> {
               cameraOrbit: _cameraOrbit,
               fieldOfView: "100deg",
               ar: true,
-              // autoRotate: true,
               backgroundColor: Colors.transparent,
             ),
           ),
-          if (_showResponse)
-            Positioned(
-              left: 20,
-              top: 50,
-              right: 20,
-              child: AnimatedOpacity(
-                opacity: _showResponse ? 1.0 : 0.0,
-                duration: const Duration(seconds: 3),
-                child: GestureDetector(
-                  onTap: () =>
-                      _showResponseMenu(context), // Show popup menu on tap
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.7),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: primaryColor, width: 2),
-                    ),
-                    child: Text(
-                      _displayedResponse,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 14, // Decreased font size
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        shadows: [
-                          Shadow(
-                            blurRadius: 5.0,
-                            color: Colors.black,
-                            offset: Offset(2.0, 2.0),
+          Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: messages.length,
+                  padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
+                  itemBuilder: (context, index) {
+                    final message = messages[index];
+                    final isUser = message['type'] == 'user';
+
+                    return Align(
+                      alignment:
+                          isUser ? Alignment.centerRight : Alignment.centerLeft,
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 10),
+                        decoration: BoxDecoration(
+                          color: isUser ? Colors.blue : Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 5,
+                            ),
+                          ],
+                        ),
+                        child: Text(
+                          message['message']!,
+                          style: TextStyle(
+                            color: isUser ? Colors.white : Colors.black87,
                           ),
-                        ],
+                        ),
                       ),
+                    );
+                  },
+                ),
+              ),
+              _buildBottomInput(),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildBottomInput() {
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _buildLanguageSelector(),
+          const SizedBox(height: 8),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _textController,
+                  decoration: InputDecoration(
+                    hintText: 'Type your message...',
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                   ),
                 ),
               ),
-            ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              margin: const EdgeInsets.all(16),
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.9),
-                borderRadius: BorderRadius.circular(30),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.3),
-                    blurRadius: 15,
-                  ),
-                ],
+              const SizedBox(width: 8),
+              _buildMicButton(),
+              IconButton(
+                icon: const Icon(Icons.send),
+                color: Colors.blue,
+                onPressed: _sendMessage,
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _buildLanguageSelector(),
-                  const SizedBox(height: 5),
-                  _buildTextInputField(),
-                  const SizedBox(height: 10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _buildMicButton(),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            ],
           ),
         ],
       ),
@@ -367,63 +264,11 @@ class _LinaScreenState extends State<LinaScreen> {
     );
   }
 
-  Widget _buildTextInputField() {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
-      ),
-      child: TextField(
-        controller: _textController,
-        onChanged: (value) {
-          _userInput = value;
-        },
-        decoration: InputDecoration(
-          hintText: "Type your input or use the mic...",
-          border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-          suffixIcon: IconButton(
-            icon: Icon(Icons.send, color: primaryColor),
-            onPressed: () {
-              if (_textController.text.isNotEmpty) {
-                _userInput = _textController.text;
-                _generateResponse();
-              } else {
-                _showSnackBar("Please enter some text or use the mic.");
-              }
-            },
-          ),
-        ),
-        style: TextStyle(
-          color: Colors.blueGrey[900],
-          fontWeight: FontWeight.w500,
-        ),
-      ),
-    );
-  }
-
   Widget _buildMicButton() {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
       decoration: BoxDecoration(
-        color: primaryColor,
+        color: Colors.blue,
         borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            blurRadius: 10,
-            offset: const Offset(0, 5),
-          ),
-        ],
       ),
       child: IconButton(
         onPressed: _isListening ? _stopListening : _startListening,
@@ -431,7 +276,6 @@ class _LinaScreenState extends State<LinaScreen> {
           _isListening ? Icons.mic : Icons.mic_off,
           color: Colors.white,
         ),
-        iconSize: 30,
       ),
     );
   }

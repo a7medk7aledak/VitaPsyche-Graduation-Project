@@ -1,293 +1,135 @@
 export const tests = [
   {
-    testTitle: "ADHD and Impulsivity Diagnosis Scale",
-    testSlug: "adhd-self-report-scale", // URL-friendly slug
+    testTitle: "Rosenberg Self-Esteem Scale (RSES)",
+    testSlug: "rosenberg-self-esteem-scale-(rses)",
     questions: [
       {
         questionId: 1,
-        questionText:
-          "Have you experienced recurring thoughts or memories of the event?",
+        questionText: "On the whole, I am satisfied with myself",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
       {
         questionId: 2,
-        questionText:
-          "Does the child need extra effort to pay attention to the teacher’s instructions?",
+        questionText: "At times, I think I am no good at all",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 3,
-        questionText: "Does the child appear confused or disoriented?",
+        questionText: "I feel that I have a number of good qualities",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
       {
         questionId: 4,
-        questionText:
-          "Does the child fail to complete tasks or activities they start?",
+        questionText: "I am able to do things as well as most other people",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
       {
         questionId: 5,
-        questionText:
-          "Does the child frequently switch between activities or tasks?",
+        questionText: "I feel I do not have much to be proud of",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 6,
-        questionText: "Does the child not listen or pay attention to others?",
+        questionText: "I certainly feel useless at times",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 7,
-        questionText: "Does the child struggle to follow details?",
+        questionText:
+          "I feel that I'm a person of worth, at least on an equal plane with others",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
       {
         questionId: 8,
-        questionText:
-          "Does the child have difficulty understanding and comprehending relationships?",
+        questionText: "I wish I could have more respect for myself",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 9,
-        questionText: "Does the child struggle to focus?",
+        questionText: "All in all, I am inclined to feel that I am a failure",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 3 },
+          { optionId: 2, optionText: "Disagree", score: 2 },
+          { optionId: 3, optionText: "Agree", score: 1 },
+          { optionId: 4, optionText: "Strongly Agree", score: 0 },
         ],
       },
       {
         questionId: 10,
-        questionText:
-          "Does the child experience academic difficulties or challenges in learning?",
+        questionText: "I take a positive attitude toward myself",
         options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 11,
-        questionText: "Does the child frequently daydream?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 12,
-        questionText: "Is the child easily distracted by external stimuli?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 13,
-        questionText: "Does the child forget important tasks?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 14,
-        questionText: "Does the child struggle to organize tasks?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 15,
-        questionText: "Does the child fail to follow through on instructions?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 16,
-        questionText:
-          "Does the child frequently leave their seat without permission?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 17,
-        questionText:
-          "Does the child frequently engage in disruptive behaviors?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 18,
-        questionText:
-          "Does the child show restlessness and squirming during seated activities?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 19,
-        questionText: "Does the child cause noise and distraction in class?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 20,
-        questionText: "Does the child disrupt others in class?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 21,
-        questionText: "Does the child struggle to control their actions?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 22,
-        questionText: "Does the child struggle to control their behavior?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 23,
-        questionText: "Does the child show explosive mood swings?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 24,
-        questionText: "Is the child overly sensitive to criticism?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
-        ],
-      },
-      {
-        questionId: 25,
-        questionText: "Does the child cry easily?",
-        options: [
-          { optionId: 1, optionText: "Rarely", score: 1 },
-          { optionId: 2, optionText: "Sometimes", score: 2 },
-          { optionId: 3, optionText: "Often", score: 3 },
-          { optionId: 4, optionText: "Always", score: 4 },
+          { optionId: 1, optionText: "Strongly Disagree", score: 0 },
+          { optionId: 2, optionText: "Disagree", score: 1 },
+          { optionId: 3, optionText: "Agree", score: 2 },
+          { optionId: 4, optionText: "Strongly Agree", score: 3 },
         ],
       },
     ],
     scoring: {
       instruction:
-        "Rate each item based on frequency (1=Rarely, 2=Sometimes, 3=Often, 4=Always). Add up the total score to assess ADHD and impulsivity symptoms.",
+        "Sum up the scores for all 10 items. Items 2, 5, 6, 8, and 9 are reverse scored.",
       scoreRanges: [
         {
-          range: "0-49",
-          description: "Mild symptoms.",
-          color: "bg-green-600",
-          info: "ADHD symptoms are minimal and have little impact on daily life and functioning.",
-        },
-        {
-          range: "50-79",
-          description: "Moderate symptoms.",
-          color: "bg-yellow-500",
-          info: "ADHD symptoms are more noticeable and have a moderate impact on daily life, requiring some intervention or adjustments.",
-        },
-        {
-          range: "80-100",
-          description: "Severe symptoms.",
+          range: "0-10",
+          description: "Low self-esteem",
           color: "bg-red-600",
-          info: "ADHD symptoms are intense and pervasive, causing significant disruptions in multiple areas of life, including academic, social, and professional functioning.",
+          info: "Indicates significant concerns with self-esteem that may require professional support.",
+        },
+        {
+          range: "11-20",
+          description: "Moderate self-esteem",
+          color: "bg-yellow-500",
+          info: "Shows average levels of self-esteem with room for improvement.",
+        },
+        {
+          range: "21-30",
+          description: "High self-esteem",
+          color: "bg-green-600",
+          info: "Demonstrates healthy levels of self-esteem and positive self-regard.",
         },
       ],
     },
-    maxscoring: 100,
+    maxscoring: 30,
   },
   {
     testTitle: "Yale-Brown Obsessive Compulsive Scale (Y-BOCS)",
@@ -1125,8 +967,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1136,8 +978,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1148,8 +990,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1159,8 +1001,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1171,8 +1013,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 25 },
-          { optionId: 5, optionText: "Always", score: 25 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
 
@@ -1184,8 +1026,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 25 },
-          { optionId: 5, optionText: "Always", score: 25 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1195,8 +1037,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 25 },
-          { optionId: 5, optionText: "Always", score: 25 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1206,8 +1048,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 25 },
-          { optionId: 5, optionText: "Always", score: 25 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1217,8 +1059,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 25 },
-          { optionId: 5, optionText: "Always", score: 25 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1229,8 +1071,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 25 },
-          { optionId: 5, optionText: "Always", score: 25 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1241,8 +1083,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 25 },
-          { optionId: 5, optionText: "Always", score: 25 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1252,8 +1094,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1263,8 +1105,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1274,8 +1116,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1285,8 +1127,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1296,8 +1138,8 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
       {
@@ -1308,21 +1150,21 @@ export const tests = [
           { optionId: 1, optionText: "Never", score: 0 },
           { optionId: 2, optionText: "Rarely", score: 0 },
           { optionId: 3, optionText: "Sometimes", score: 0 },
-          { optionId: 4, optionText: "Often", score: 75 },
-          { optionId: 5, optionText: "Always", score: 75 },
+          { optionId: 4, optionText: "Often", score: 1 },
+          { optionId: 5, optionText: "Always", score: 1 },
         ],
       },
     ],
     scoring: {
       scoreRanges: [
         {
-          range: "0-75",
+          range: "0-4",
           description: "You dont have ptsd",
           color: "bg-green-400",
           info: "You are experiencing no symptoms of Post-Traumatic Stress Disorder (PTSD).",
         },
         {
-          range: "75-925",
+          range: "5-17",
           description: "You have ptsd.",
           color: "bg-red-600",
           info: " You are experiencing symptoms consistent with Post-Traumatic Stress Disorder (PTSD), which significantly affect your mental and emotional well-being.",
@@ -1986,6 +1828,55 @@ export const tests = [
           { optionId: 2, optionText: "No", score: 1 },
         ],
       },
+      {
+        questionId: 45,
+        questionText: "I don't cry easily.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 0 },
+          { optionId: 2, optionText: "No", score: 1 },
+        ],
+      },
+      {
+        questionId: 46,
+        questionText: "I feared things or people I know can't hurt me.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 47,
+        questionText: "I am highly susceptible to being affected by events.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 48,
+        questionText: "I often get headaches.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 49,
+        questionText:
+          "I must admit that I felt anxious about things that have no value.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 50,
+        questionText: "I can't focus my thoughts on one thing.",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
     ],
     scoring: {
       scoreRanges: [
@@ -1996,25 +1887,25 @@ export const tests = [
           info: "This refers to a state where feelings of anxiety are minimal and do not significantly impact daily functioning or emotional well-being.",
         },
         {
-          range: "17-21",
+          range: "17-19",
           description: "Low Anxiety",
           color: "bg-green-500",
           info: "Low anxiety involves mild feelings of worry or unease that may arise occasionally in stressful situations but are manageable and not overwhelming.",
         },
         {
-          range: "22-26",
+          range: "20-24",
           description: "Moderate Anxiety",
           color: "bg-yellow-500",
           info: "Moderate anxiety presents more frequent and noticeable symptoms that may impact daily activities and emotional health, though still manageable with support or intervention.",
         },
         {
-          range: "27-31",
+          range: "25-29",
           description: "High Anxiety",
           color: "bg-orange-600",
           info: "High anxiety involves frequent, intense feelings of unease and stress that significantly interfere with daily life, often impairing emotional and physical well-being.",
         },
         {
-          range: "32-50",
+          range: "30-50",
           description: "Very High Anxiety",
           color: "bg-red-600",
           info: "very high anxiety is overwhelming and pervasive, often leading to severe emotional distress, disruptions in daily activities, and a high likelihood of physical and psychological symptoms.",

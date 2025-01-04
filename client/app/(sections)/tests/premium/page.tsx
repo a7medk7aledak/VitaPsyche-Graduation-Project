@@ -64,6 +64,7 @@ const PremiumTestsPage: React.FC = () => {
                 testSlug={test.testSlug}
                 questions={test.questions.length}
                 isPurchased={false} // This should be dynamic based on user's purchases
+                price={99}
               />
             ))}
           </div>

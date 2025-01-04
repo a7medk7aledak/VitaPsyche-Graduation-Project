@@ -36,4 +36,11 @@ export const services: TServices = [
     buttonLink: "FAQ",
     alt: "askQuestion.png",
   },
+  {
+    title: "Choose your specialty Dr",
+    img: "/images/Home/doctorSpecialty.png",
+    buttonTitle: "Show more ",
+    buttonLink: "categories",
+    alt: "doctorSpecialty.png",
+  },
 ];

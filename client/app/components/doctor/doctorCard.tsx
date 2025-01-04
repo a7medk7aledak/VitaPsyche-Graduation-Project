@@ -65,16 +65,18 @@ const DoctorCard = () => {
       <div className="mt-4 flex items-center text-base text-gray-800">
         <FaRegClock className="text-gray-500 mr-2" />
         <p>
-          <span className="font-bold">950 EGP</span> / 60 Min
+          <span className="font-bold">950 EGP</span> / 60 Min &bull;
           <span className="ml-2 font-bold">600 EGP</span> / 30 Min
         </p>
       </div>
 
       {/* Actions */}
       <div className="mt-6 flex justify-center items-center gap-x-6">
-        <button className="text-lg font-medium text-subheading hover:underline">
-          View Profile
-        </button>
+        <Link href={"/view-profile"}>
+          <button className="text-lg font-medium text-subheading hover:underline">
+            View Profile
+          </button>
+        </Link>
         <Link href={"/doctorList/booking"}>
           <button className="btn-secondary rounded-full text-white py-2 px-4 shadow-md hover:shadow-lg font-medium">
             Book Now

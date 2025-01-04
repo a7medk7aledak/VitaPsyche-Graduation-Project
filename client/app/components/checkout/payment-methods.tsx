@@ -5,6 +5,7 @@ import Image from "next/image";
 
 type PaymentMethodsProps = {
   setShowModal: (value: boolean) => void;
+  price: number;
 };
 
 const paymentOptions = [
@@ -43,11 +44,11 @@ const paymentOptions = [
   },
 ];
 
-export function PaymentMethods({ setShowModal }: PaymentMethodsProps) {
+export function PaymentMethods({ setShowModal, price }: PaymentMethodsProps) {
   const [selectedMethod, setSelectedMethod] = useState("credit");
 
   return (
-    <div className="bg-white rounded-3xl p-8 shadow-sm">
+    <div className="bg-white rounded-3xl p-8 shadow-md">
       <h2 className="text-2xl font-bold text-[#1a1a3f] mb-6">Payment Method</h2>
 
       <div className="space-y-4">
@@ -76,8 +77,8 @@ export function PaymentMethods({ setShowModal }: PaymentMethodsProps) {
                     key={index}
                     src={icon}
                     alt=""
-                    width={36}
-                    height={24}
+                    width={30}
+                    height={30}
                     className="h-6 object-contain"
                   />
                 ))
@@ -85,8 +86,8 @@ export function PaymentMethods({ setShowModal }: PaymentMethodsProps) {
                 <Image
                   src={option.icon}
                   alt=""
-                  width={24}
-                  height={24}
+                  width={30}
+                  height={30}
                   className="h-6 w-6 object-contain"
                 />
               )}
@@ -98,7 +99,7 @@ export function PaymentMethods({ setShowModal }: PaymentMethodsProps) {
         onClick={() => setShowModal(true)}
         className="w-full white rounded-xl py-4 mt-6 font-semibold transition-colors text-white bg-subbutton hover:bg-hoversubbutton "
       >
-        Continue 800 EGP
+        Continue {price} EGP
       </button>
     </div>
   );

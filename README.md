@@ -77,7 +77,9 @@ npm run dev
 2-Flutter mobile app:
 ```
 cd mobile
+flutter clean
 flutter pub get
+flutter run
 ```
 3.5-Django back-end all project:
 ```bash

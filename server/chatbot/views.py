@@ -65,7 +65,7 @@ def route_lina(request):
     if request.method == "POST":
         try:
             # Check if the request content type is JSON
-            if request.content_type != "application/json":
+            if not request.content_type or 'application/json' not in request.content_type:
                 return JsonResponse({"response": "Content-Type must be application/json."}, status=400)
 
             # Log the incoming request
@@ -78,20 +78,24 @@ def route_lina(request):
             # Send the user's message to Rasa (Lina's instance) if it's not empty
             if user_message:
                 rasa_url = "http://localhost:5006/webhooks/rest/webhook"
-                response = requests.post(rasa_url, json={"sender": "user", "message": user_message}, timeout=10)
+                try:
+                    response = requests.post(rasa_url, json={"sender": "user", "message": user_message}, timeout=10)
+                except requests.Timeout:
+                    return JsonResponse({"response": "The request to Rasa timed out."}, status=504)
 
                 # Log the response from Rasa
                 logger.info("Response from Lina: %s", response.text)
 
                 # Check if the response from Rasa was successful
-                if response.status_code == 200:
-                    rasa_responses = response.json()
-                    if rasa_responses and len(rasa_responses) > 0:
-                        bot_message = rasa_responses[0].get("text", "Lina didn't understand your message.")
-                    else:
-                        bot_message = "No valid response from Lina."
+                if response.status_code != 200:
+                    logger.error(f"Rasa returned an error: {response.status_code} - {response.text}")
+                    return JsonResponse({"response": "Problem connecting to Lina."}, status=response.status_code)
+
+                rasa_responses = response.json()
+                if not rasa_responses or len(rasa_responses) == 0 or "text" not in rasa_responses[0]:
+                    bot_message = "Lina didn't understand your message."
                 else:
-                    bot_message = "Problem connecting to Lina."
+                    bot_message = rasa_responses[0].get("text", "No valid response from Lina.")
 
                 # Return Lina's response as JSON
                 return JsonResponse({"response": bot_message})
@@ -101,7 +105,7 @@ def route_lina(request):
             logger.error("JSON decode error: %s", str(e))
             return JsonResponse({"response": "Invalid data format."}, status=400)
         except Exception as e:
-            logger.error("Unexpected error: %s", str(e))
-            return JsonResponse({"response": f"Error: {str(e)}"}, status=500)
+            logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+            return JsonResponse({"response": "An unexpected error occurred. Please try again later."}, status=500)
     else:
-        return JsonResponse({"response": "Method not allowed."}, status=405)
+        return HttpResponseNotAllowed(["POST"], "Method not allowed.")

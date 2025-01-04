@@ -1,0 +1,1505 @@
+version: "3.1"
+nlu:
+
+- intent: greet
+  examples: |
+    - How are you?
+    - How's it going?
+    - Good morning
+    - Good evening
+    - How are you doing?
+    - Hello
+    - Hi there
+    - Hey
+    - What's up?
+    - Good afternoon
+    - Morning
+    - Evening
+    - How's everything?
+    - How are you, my friend?
+    - Greetings
+    - Peace be upon you
+    - Hi
+    - Hello
+    - Hey
+    - Hii
+    - Welcome
+    - How are you feeling?
+    - What's new?
+    - How's life?
+    - Good morning to you
+    - Good evening to you
+    - Hello and welcome
+    - Welcome aboard
+    - Nice to see you
+    - How's your health?
+    - How's your day?
+    - How's your mood?
+    - What's going on?
+    - How's everything going?
+    - How are you, champ?
+    - How are you, buddy?
+    - How are you, legend?
+    - How are you, captain?
+    - How are you, dear?
+    - How are you, boss?
+    - How are you, chief?
+    - How are you, superstar?
+    - What's up, mate?
+    - How's the vibe?
+    - How are you, leader?
+    - How are you, doctor?
+    - How are you, engineer?
+
+- intent: goodbye
+  examples: |
+    - Goodbye
+    - Bye
+    - See you later
+    - See you soon
+    - Farewell
+    - Take care
+    - See you around
+    - Good night
+    - Take care of yourself
+    - Catch you later
+    - Bye-bye
+    - See you soon
+    - Sleep well
+    - See you next time
+
+- intent: affirm
+  examples: |
+    - Yes
+    - Absolutely
+    - Of course
+    - Certainly
+    - That's right
+    - Correct
+    - Sure
+    - Exactly
+    - That's true
+    - For sure
+    - Totally
+    - That's perfect
+    - Yes, exactly
+    - Yes, champ
+    - Yes, that's true
+
+- intent: deny
+  examples: |
+    - No
+    - Nope
+    - Not at all
+    - Never
+    - Impossible
+    - Absolutely not
+    - I don't think so
+    - Not really
+    - I disagree
+    - Not correct
+    - Not true
+    - No way
+    - No, champ
+    - That's not what I meant
+    - No, not okay
+    - I can't agree with that
+    - Definitely not
+
+- intent: mood_great
+  examples: |
+    - Excellent
+    - Amazing
+    - Wonderful
+    - I'm feeling like a king
+    - I'm extremely happy
+    - I'm very satisfied
+    - Everything is going great
+    - Today is beautiful
+    - I'm feeling on top of the world
+    - I'm super happy
+    - Feeling optimistic
+    - Everything is perfect
+    - I'm full of energy
+    - This day is perfect
+    - Everything is great
+    - I'm very positive today
+    - Things are better than I expected
+    - This day is a success
+    - I'm extremely happy
+    - I'm very excited
+    - I'm feeling fantastic
+    - I'm doing great
+    - Everything is just right
+    - I'm full of enthusiasm
+    - It's a great day
+    - Everything is perfect, thank God
+    - I'm feeling at my best
+    - This day is sweet
+    - The world is just as I want it
+    - I couldn't be better
+    - I'm very relaxed
+    - Today is full of joy
+    - Feeling like a champion
+    - It's a successful day
+    - Feeling very optimistic
+    - Everything is going by the book
+    - I'm super happy and thankful
+    - I'm in a very good mood
+    - Great
+    - Thank God
+    - Perfect
+    - Awesome
+    - Good
+
+
+
+- intent: mood_unhappy
+  examples: |
+    - My day was bad
+    - I'm upset
+    - Not feeling well
+    - Feeling disappointed
+    - Very sad
+    - Quite down
+    - Not happy
+    - Not okay
+    - Uncomfortable
+    - Not feeling great
+    - Extremely frustrated
+    - Mentally tired
+    - Want to be alone
+    - Things aren't going well
+    - Something is bothering me
+    - Mentally not okay
+    - Feeling under pressure
+    - I don't feel like talking
+    - Anxious and sad
+    - Totally unhappy
+    - Feeling lonely
+    - Can't enjoy my life
+    - Missing something
+    - Things are not okay
+    - Very upset
+    - Feeling exhausted
+    - Can't find joy
+    - Nothing good is happening
+    - Feeling down
+    - Can't face the day
+    - Had a bad day
+    - Feeling depressed
+    - Sad and confused
+    - Feeling like everything is wrong
+    - Mentally drained
+    - There's no hope
+    - Can't get over what happened
+    - Feeling very lonely
+    - Everything is going against me
+    - Sad
+
+- intent: bot_challenge
+  examples: |
+    - Who are you?
+    - Are you a robot or a person?
+    - Are you real?
+    - How are you responding to me?
+    - Are you a real personality?
+    - Do you know who you’re talking to?
+    - Are you real or virtual?
+    - Do you think or is this just programming?
+    - Do you have emotions?
+    - How do you work?
+    - How are you doing right now?
+    - Am I talking to someone or just a system?
+    - Where are you sitting right now?
+    - Is someone writing your responses?
+    - Do you listen to me or just guess?
+    - Are you answering on your own or are you programmed?
+    - Are you real or a ghost?
+    - Are you a person or a voice in a computer?
+    - Can you be like my friend?
+    - Do you understand me or are these just prepared answers?
+    - Do you think like humans?
+    - Do you feel sad or happy?
+    - What is your name?
+    - Do you have a private life?
+    - Are you talking to others, or is it just me?
+    - Are you here with me now or is this a recording?
+    - Can you be my friend?
+    - Am I talking to a machine or someone who thinks?
+    - Can you feel what I feel?
+    - Are you here just for me?
+    - Who are you?
+    - Who is responding?
+    - Who writes these responses?
+    - What kind of personality do you have?
+    - Are you acting or being real?
+    - Why are you responding this way?
+    - Who are you?
+    - Do you know who I am?
+    - Who controls you?
+    - Can I know your real name?
+
+
+
+- intent: boost_confidence
+  examples: |
+    - I don’t feel confident in myself.
+    - Can you encourage me?
+    - I need words to lift my spirits.
+    - I feel like I’m not enough.
+    - Am I unattractive?
+    - I’m afraid to try something new.
+    - Can you tell me everything will be okay?
+    - I doubt my abilities.
+    - I’m not sure of myself.
+    - Do you think I can do it?
+    - I’m doubting myself.
+    - Do I look confident?
+    - I need someone to tell me everything is fine.
+    - Am I strong enough?
+    - I’m not confident in my work.
+    - I feel weak.
+    - I feel like I don’t deserve success.
+    - Can someone cheer me up?
+    - Is everyone better than me?
+    - Do you have advice to boost my confidence?
+
+
+
+- intent: handle_anxiety
+  examples: |
+    - I’m anxious.
+    - I can’t sleep from thinking.
+    - I feel very scared.
+    - I have severe tension.
+    - I need someone to calm me down.
+    - Can you reassure me?
+    - My heart is racing, and I don’t know why.
+    - I’m terrified.
+    - I have a feeling of fear without a reason.
+    - I feel a lot of tension.
+    - I can’t control my nerves.
+    - Everything worries me.
+    - I feel something is wrong.
+    - I need some rest.
+    - I have a fear of failure.
+    - I’m very worried about what’s next.
+    - How can I overcome anxiety?
+    - Can I share my fear with you?
+    - I feel tension in everything.
+    - I wish I could live a day without anxiety.
+    - Is anxiety normal in my case?
+
+
+
+- intent: motivate
+  examples: |
+    - Encourage me to keep going.
+    - Can you motivate me?
+    - I need positive energy.
+    - I need to hear kind words.
+    - I’ve lost my enthusiasm.
+    - Can I succeed?
+    - I have a big dream, but I’m afraid to try.
+    - Can you tell me I’m strong?
+    - I need a push forward.
+    - I feel like I can’t move.
+    - Is success close?
+    - I’m very hesitant.
+    - Can you support me?
+    - I feel like things are very hard.
+    - I need more confidence.
+    - Is success guaranteed if I try?
+    - How do I start fresh?
+    - Every time I try, I fail. Why should I try again?
+    - I need mental support to move forward.
+    - I don’t know how to take the first step.
+    - I need to hear motivating words.
+    - Does success require luck?
+    - Can you give me an example of someone who succeeded?
+    - I need a plan to achieve my dreams.
+
+
+
+- intent: seeking_mental_peace
+  examples: |
+    - I want to be free of all stress.
+    - How can I live a peaceful life?
+    - I feel like my mind is always busy.
+    - I need time for myself.
+    - How can I focus on inner peace?
+    - Everything around me feels hard; I want peace.
+    - I feel like life is pressing me.
+    - I want to learn how to be calm.
+    - What are relaxation techniques?
+    - I want to practice meditation but don’t know how to start.
+
+
+
+- intent: dealing_with_memories
+  examples: |
+    - I keep remembering the past, and it hurts.
+    - I have painful memories.
+    - I can’t forget what happened before.
+    - The memories are haunting me.
+    - Any advice to help me forget?
+    - How can I deal with my painful memories?
+    - The past won’t leave me alone.
+    - Every time I try to forget, I fail.
+    - Is thinking about the past normal?
+    - I need new energy to forget the past.
+
+- intent: celebrate_life
+  examples: |
+    - I feel life is beautiful.
+    - Every day I love life more.
+    - I’m very grateful for what I have.
+    - I want to share my enthusiasm with you.
+    - I see the world positively today.
+    - I feel energetic and love everything about life.
+    - Even the simplest things make me happy.
+    - I see life as rosy today.
+    - I feel the world is full of goodness.
+    - I love living one day at a time and enjoying it.
+
+- intent: discuss_emotions
+  examples: |
+    - I feel very hesitant.
+    - I don’t know if I’m happy or sad.
+    - I have a mix of emotions.
+    - My feelings are unsettled today.
+    - I feel like something is missing.
+    - I want to vent about my feelings.
+    - I feel gratitude and fear at the same time.
+    - I feel calm but also worried.
+    - I have mixed emotions today.
+    - I can’t explain my feelings precisely.
+    - I’m feeling overwhelmed with emotions.
+    - My emotions are all over the place.
+    - I feel conflicted inside.
+    - I don’t know how to process these feelings.
+    - I feel confused about my emotions right now.
+    - I’m struggling to understand my feelings.
+    - My emotions are hard to navigate today.
+    - I feel torn between different emotions.
+    - I feel both happy and anxious at once.
+    - I’m feeling so many things at the same time.
+    - My emotions are all tangled up.
+    - I can’t make sense of how I’m feeling.
+    - I feel a bit lost emotionally.
+    - I don’t know if I’m angry or sad.
+    - I’m feeling stuck with my emotions.
+    - I feel numb and unsure about everything.
+    - I feel unsure about my emotions today.
+    - My emotions are confusing me right now.
+    - I feel like I’m going through an emotional rollercoaster.
+    - I’m having a hard time understanding my own feelings.
+    - My mood keeps changing throughout the day.
+
+
+- intent: seek_understanding
+  examples: |
+    - Can you help me understand my feelings?
+    - I don’t understand myself; can you help me?
+    - I need someone to explain why I feel this way.
+    - I want to understand why I feel these things.
+    - I can’t pinpoint the cause of my mental problems.
+    - I want someone to help me discover myself.
+    - I feel lost in my thoughts; can you guide me?
+    - I need to understand why I have these feelings.
+    - I don’t know how to deal with my emotions.
+
+- intent: share_excitement
+  examples: |
+    - I have amazing news.
+    - I feel very excited about what’s coming.
+    - I’m very excited about a new project.
+    - I can’t contain my happiness.
+    - I feel extraordinary enthusiasm today.
+    - Everything is going the way I love.
+    - I feel like I’m about to achieve something big.
+    - Everything looks very promising.
+
+- intent: cope_with_loss
+  examples: |
+    - I lost something very dear to me.
+    - I feel the pain of loss.
+    - I can't cope with what happened.
+    - I lost a loved one, and it's affecting me deeply.
+    - I feel like life stopped after the loss.
+    - Everything feels empty after what happened.
+    - I can't get over what I lost.
+    - I feel nostalgic for everything we shared.
+    - The loss was a hard blow.
+    - I need someone to help me get through this.
+
+- intent: find_motivation
+  examples: |
+    - I need someone to boost my morale.
+    - I can't find the motivation to keep going.
+    - I want to start something new, but I'm scared.
+    - I feel very lazy these days.
+    - I wish I could find the drive to finish what I started.
+    - I need positive energy to push me forward.
+    - I don't know how to overcome hesitation.
+    - I have ambitions but need a push.
+
+- intent: celebrate_achievement
+  examples: |
+    - I succeeded in a task I thought was impossible.
+    - I feel a great sense of pride.
+    - I achieved something amazing today.
+    - Today was a day of complete success.
+    - All my hard work paid off.
+    - I can't believe what I've accomplished.
+    - I have exciting news about my success that I can't keep quiet about.
+    - I feel like I'm on top of the world.
+
+- intent: handle_conflict
+  examples: |
+    - I had a heated argument with someone close.
+    - I don't know how to handle what happened.
+    - I had a big disagreement with a friend.
+    - I feel like I handled things wrong.
+    - I need advice on how to deal with this conflict.
+    - I got into a tough situation with a colleague.
+    - I want to resolve the issue, but I don't know how.
+    - I have a conflict with someone I care about, and it upsets me.
+
+- intent: encourage_positive_thinking
+  examples: |
+    - I want to see the bright side.
+    - Can you tell me something positive?
+    - I need to see things from a positive perspective.
+    - I want to learn how to be optimistic.
+    - Can you cheer me up with kind words?
+    - I want to focus on the good things.
+    - Can you help me avoid negative thinking?
+    - I need positive psychological encouragement.
+    - I need advice to boost my self-confidence.
+
+- intent: express_fear
+  examples: |
+    - I feel deeply afraid.
+    - I'm worried about the future.
+    - I'm scared to take a new step.
+    - Fear is holding me back a lot.
+    - I feel an unjustified sense of fear.
+    - I don't know how to face my fears.
+    - I'm afraid of failure.
+    - I have anxiety about change.
+    - I need someone to help me confront my fears.
+
+- intent: ask_for_recommendations
+  examples: |
+    - Can you recommend a book for me?
+    - Do you have a movie suggestion to lift my spirits?
+    - I need advice on something fun to do to make me happy.
+    - What's the best thing to do if I'm upset?
+    - Can you tell me how to have a good time?
+    - I want to try something new but don't know what.
+    - Can you recommend something beneficial?
+    - I need ideas for joyful activities.
+
+- intent: share_reflection
+  examples: |
+    - I've been thinking a lot about my life today.
+    - I feel like some things need to change.
+    - I noticed that I've become calmer recently.
+    - I'm thinking about changing how I handle things.
+    - I feel like I'm starting to improve for the better.
+    - I have new ideas I want to apply.
+    - I've learned to be more patient.
+    - Reflecting on the past has taught me many things.
+
+- intent: acknowledge_support
+  examples: |
+    - Thank you for standing by me.
+    - Your support has made a huge difference for me.
+    - I'm grateful for everything you said.
+    - Thank you for always being there.
+    - Your words have greatly comforted me.
+    - You are a source of strength for me.
+    - I feel safe talking to you.
+    - Your presence in my life is very important.
+    - Thank you for everything.
+
+- intent: explore_new_opportunities
+  examples: |
+    - I want to start something new.
+    - I'm thinking of learning a new skill.
+    - I have a desire for positive change.
+    - I need a different experience from the daily routine.
+    - I want to travel to a new place.
+    - I'm considering entering a new field.
+    - I need a new opportunity to prove myself.
+    - I feel the time is right for change.
+
+- intent: share_hobbies
+  examples: |
+    - I enjoy painting in my free time.
+    - My hobby is reading, especially novels.
+    - I love cooking new recipes.
+    - I like to exercise daily.
+    - I enjoy photography and nature.
+    - My favorite hobby is learning new languages.
+    - I'm always interested in collecting vintage items.
+    - I love playing chess with my friends.
+    - My hobby is gardening at home.
+    - I enjoy making crafts like crochet.
+
+
+- intent: discuss_interests
+  examples: |
+    - I am very interested in technology and innovation.
+    - I love watching documentaries about space.
+    - My main interest is classical music.
+    - I always enjoy reading about history and politics.
+    - I am a dedicated follower of football and league matches.
+    - I am interested in learning programming and app development.
+    - I enjoy interior design and decoration.
+    - I am always excited to learn martial arts.
+    - I am passionate about raising and caring for pets.
+
+- intent: talk_about_skills
+  examples: |
+    - I am very skilled in creative writing.
+    - I have excellent problem-solving abilities.
+    - I am good at using graphic design software.
+    - My skill is fluently speaking multiple languages.
+    - I can create professional presentations.
+    - I am quick to learn and adapt to any environment.
+    - My cooking skills have significantly improved recently.
+    - I excel in time management and task completion.
+    - I can perform data analysis professionally.
+
+- intent: share_personality_traits
+  examples: |
+    - I am a social person who loves meeting people.
+    - I always try to stay optimistic even in tough times.
+    - I am a calm person who enjoys quiet places.
+    - I have a strong ability to empathize with others easily.
+    - I am very precise and organized in my work.
+    - I like to lead the team and take responsibility.
+    - I have a good sense of humor and love making people laugh.
+    - I am an ambitious person who strives to achieve my goals.
+    - I love being a supportive friend whenever needed.
+
+- intent: express_creativity
+  examples: |
+    - I love coming up with new ways to solve problems.
+    - I thought of creating an artwork from recycled materials.
+    - I enjoy writing short stories with unique ideas.
+    - I always try to add creative touches to any project.
+    - I love making short videos and editing them professionally.
+    - I thought of creating a new design for my garden.
+    - I enjoy adding my personal style to any work I do.
+    - I love writing poetry or reflections about life situations.
+    - I always have different ideas when it comes to organizing events.
+
+- intent: share_unique_experiences
+  examples: |
+    - I once traveled alone to a new place, and it was an amazing experience.
+    - I spent a night in the desert under the stars, and it was unique.
+    - I worked on a volunteer project that changed my life completely.
+    - I went on a mountain climbing adventure; it was tough but enjoyable.
+    - I tried a new type of exotic food, and it had a unique taste.
+    - I met a celebrity by chance and talked with them.
+    - I participated in a marathon for the first time, and it was unforgettable.
+    - I visited a historical site and felt the spirit of ancient times.
+    - I attended a workshop that changed my perspective on life.
+
+- intent: express_independence
+  examples: |
+    - I love living my life with freedom and independence.
+    - I always try to rely on myself in everything.
+    - I decided to start my own business to be independent.
+    - I enjoy making my own decisions without external influences.
+    - I feel proud that I can manage my personal affairs alone.
+    - I live alone and enjoy the feeling of independence.
+    - I strive to rely on myself in all financial and personal matters.
+    - I decided to travel alone for a new experience and to explore the world.
+    - I love being an independent person capable of achieving my goals on my own.
+
+- intent: discuss_identity
+  examples: |
+    - I feel that my identity is connected to the culture I grew up in.
+    - I always think about who I am and what makes me unique.
+    - I love exploring my ancestry and family roots.
+    - My identity is tied to my passions and what I love.
+    - I see my personality as a big part of my identity.
+    - I feel I am a diverse person because of the experiences I have been through.
+    - I try to understand my identity more through learning and experience.
+    - My identity changes over time with the experiences I go through.
+    - I always think about how to express myself and my identity authentically.
+
+- intent: talk_about_preferences
+  examples: |
+    - I prefer Italian food over any other type.
+    - I enjoy reading books more than watching movies.
+    - I like quiet places more than crowded ones.
+    - I prefer mornings because they make me feel more energetic than nights.
+    - I love light colors more than dark colors.
+    - I enjoy spending time with friends over staying alone.
+    - I like listening to classical music more than any other genre.
+    - I prefer traveling in spring because it’s very relaxing.
+    - I love dogs more than cats.
+
+- intent: express_values
+  examples: |
+    - I value honesty and consider it the most important thing in relationships.
+    - I deeply respect people with strong morals.
+    - I believe in the importance of hard work for achieving success.
+    - Family is my top priority in life.
+    - I think mutual respect is the foundation of any successful relationship.
+    - I like to live my life based on the values I believe in.
+    - For me, equality among people is fundamental.
+    - I appreciate people who are committed to their promises.
+    - Freedom is an indispensable value for me.
+
+- intent: discuss_work_challenges
+  examples: |
+    - I have trouble dealing with my coworker.
+    - Sometimes I feel that work pressure affects my life.
+    - I don’t know how to balance large projects.
+    - My manager always expects more from me than I can deliver.
+    - I struggle with organizing my time at work.
+    - Teamwork is difficult for me sometimes.
+    - I face major challenges dealing with difficult clients.
+    - Sometimes I feel my work isn’t appreciated enough.
+    - I always feel like the tasks never end.
+
+- intent: share_work_achievements
+  examples: |
+    - I successfully completed a big project ahead of schedule.
+    - I got a promotion because of my hard work.
+    - I gave an excellent presentation that the whole team praised.
+    - I managed to solve a complex problem the team was facing.
+    - I was chosen as Employee of the Month thanks to my performance.
+    - I accomplished a large number of tasks in record time.
+    - I received a financial reward for achieving company goals.
+    - I worked on a highly successful advertising campaign.
+    - I achieved record-breaking sales in a short time.
+
+- intent: seek_career_advice
+  examples: |
+    - Can you advise me on how to improve my skills?
+    - I’m confused about which career path suits me.
+    - Should I accept a new job with a higher salary?
+    - How can I deal with stress caused by work pressure?
+    - I need advice on time management at work.
+    - Should I switch career fields or stay in the same one?
+    - What’s the best way to talk to my manager about a promotion?
+    - Do you recommend starting my own business?
+    - I need tips for improving my resume.
+
+- intent: discuss_work_life_balance
+  examples: |
+    - I can’t figure out how to balance work and personal life.
+    - I feel like I spend too much time at the office.
+    - I need tips to maintain balance between work and home.
+    - Sometimes work takes up all my time, leaving none for myself.
+    - I want to learn to say “no” to extra tasks.
+    - I try to set aside time for exercise, but work affects me.
+    - How can I balance my social life with work pressure?
+    - I need tips to reduce work-related exhaustion.
+    - Do you have ways to improve productivity without draining my time?
+
+- intent: express_burnout_from_work
+  examples: |
+    - I feel like work has drained all my energy.
+    - I have no motivation to work anymore.
+    - I feel mentally and physically exhausted from work pressure.
+    - I need a break to return to my normal self.
+    - I feel like my daily tasks add to my exhaustion.
+    - I can’t focus on my work due to burnout.
+    - Work has become a heavy burden I can’t carry anymore.
+    - Sometimes I feel like I’m on the verge of breaking down because of work.
+    - I need a way to handle severe burnout.
+
+- intent: discuss_study_habits
+  examples: |
+    - I try to study at least an hour every day.
+    - Sometimes I struggle to stick to study schedules.
+    - I prefer studying in the morning because I concentrate better.
+    - I like taking notes during lectures to help me understand.
+    - I always try to summarize what I study.
+    - I study with friends, but it’s not always effective.
+    - I like using apps to organize my study time.
+    - Sometimes I get easily distracted while studying.
+    - I always try to review well before exams.
+
+- intent: ask_for_study_tips
+  examples: |
+    - Can you suggest the best way to study?
+    - How can I focus more while studying?
+    - Do you have tips for balancing study time and rest?
+    - What’s the best way to review before exams?
+    - Do you recommend studying at a specific time of day?
+    - Can you tell me how to create an effective study schedule?
+    - How can I retain information better?
+    - Are there apps that can help me organize my study time?
+    - Can you give me tips to reduce stress while studying?
+
+- intent: share_education_goals
+  examples: |
+    - I want to graduate with honors.
+    - My goal is to get a master’s degree in my field.
+    - I dream of studying at a prestigious international university.
+    - I want to learn a new language and use it in my studies.
+    - I aim to achieve top grades in my final exams.
+    - My goal is to participate in research that benefits society.
+    - I dream of being among the top of my class.
+    - I want to get a scholarship to study abroad.
+    - I love developing my academic skills and learning new things.
+
+- intent: reflect_on_academic_progress
+  examples: |
+    - I’m very satisfied with my academic performance this semester.
+    - I felt a big improvement in my academic level this year.
+    - I feel I could’ve done better in the exams.
+    - I think I need to focus more on my weak points.
+    - I’m proud of the project I submitted this semester.
+    - I’ve noticed I understand the materials faster than before.
+    - Sometimes I feel I don’t give my studies the required attention.
+    - I’m happy that I improved my research skills.
+    - I need to focus more on managing my time during semesters.
+
+- intent: discuss_career_transitions
+  examples: |
+    - I’m considering changing my career to something more creative.
+    - I want to move to a job with new challenges.
+    - I feel it’s the right time to shift my career path.
+    - I’m torn between starting my own business or staying in my current job.
+    - I’m thinking of going back to school to improve my career prospects.
+    - I want to know how to start in a completely new field.
+    - I feel I need to develop my skills before transitioning to another field.
+    - I want to work in a job that aligns with my true interests.
+    - Is a career change a positive step at this time?
+
+- intent: discuss_travel_plans
+  examples: |
+    - I’m thinking of visiting a new country next summer.
+    - I have plans to travel with friends during the year-end holiday.
+    - I want to try traveling alone for the first time.
+    - I want to explore natural places far from cities.
+    - I love visiting historical and cultural sites on my trips.
+    - My next plan is to travel to a European country for learning.
+    - I’m considering a road trip with my family.
+    - I have a list of places I want to visit in the coming years.
+    - Do you think long-term travel is a good idea?
+
+- intent: share_travel_experiences
+  examples: |
+    - The last time I went to the beach, it was an amazing trip.
+    - When I visited Paris, I felt the beauty of its culture.
+    - I went on a mountain trip and saw breathtaking natural views.
+    - I tried traditional food in India, and it was fantastic.
+    - My last trip was full of exciting adventures.
+    - I met people from different cultures during my last trip.
+    - I visited an archaeological museum and felt connected to history.
+    - When I traveled with my friends, we had an unforgettable time.
+    - I traveled to a new country, and it was a rich learning experience.
+
+- intent: express_love_for_travel
+  examples: |
+    - I love traveling because it allows me to discover new things.
+    - Traveling is my way to escape the routine.
+    - I feel traveling gives me a huge positive energy boost.
+    - I love visiting new places and exploring different cultures.
+    - Traveling is my greatest passion in life.
+    - I enjoy planning trips and discovering hidden places.
+    - I feel that traveling broadens my horizons.
+    - Traveling makes me appreciate the world’s beauty differently.
+    - I adore experiencing new things while traveling.
+
+- intent: ask_for_travel_recommendations
+  examples: |
+    - Can you recommend beautiful places to visit?
+    - Do you have suggestions for a suitable travel destination?
+    - What’s the best travel destination for relaxation?
+    - I need advice on an economical yet enjoyable trip.
+    - Should I travel to natural sites or big cities?
+    - I want to know the best places to travel with family.
+    - Can you recommend unique restaurants in a specific country?
+    - I’m unsure where to travel in summer; do you have suggestions?
+    - Do you have tips for planning a memorable trip?
+
+- intent: discuss_dream_destinations
+  examples: |
+    - I wish to visit the Maldives and relax on the beach.
+    - I dream of traveling to Japan and exploring its unique culture.
+    - I want to visit Norway and see the northern lights.
+    - I’d love to explore Italian cities and enjoy their delicious food.
+    - I wish to visit Brazil during its famous carnival.
+    - I dream of going on a safari trip in Africa.
+    - I want to visit New Zealand and admire its breathtaking nature.
+    - I dream of going to Disneyland to relive my childhood.
+    - I wish to visit Egypt and see the Pyramids of Giza.
+
+- intent: plan_adventure_activities
+  examples: |
+    - I’m thinking of going mountain climbing with my friends.
+    - I want to try skydiving for the first time.
+    - I’d love to go diving and explore the deep sea.
+    - I’m planning a camping trip in the desert.
+    - I need a plan for a thrilling and energetic adventure.
+    - I want to try rafting in mountain rivers.
+    - I’d love to go on a safari trip in Africa.
+    - I’m thinking of a biking adventure in the forests.
+    - I enjoy exploring wild places during adventure trips.
+
+- intent: reflect_on_cultural_experiences
+  examples: |
+    - When I visited Japan, I learned a lot about its unique culture.
+    - I attended a cultural festival in India full of colors and life.
+    - Interacting with locals made me feel their warm hospitality.
+    - I visited a small village and learned about their old traditions.
+    - I discovered new customs when I visited a remote area.
+    - I learned a lot about the country’s history by visiting museums.
+    - I tried traditional food, and it was an amazing experience.
+    - I noticed the difference in lifestyle between the city and the countryside.
+    - Attending cultural events changed my perspective on the world.
+
+- intent: express_wanderlust
+  examples: |
+    - I always love discovering new places.
+    - I have a passion for traveling and exploring the world.
+    - For me, traveling is the greatest source of happiness.
+    - I constantly enjoy planning new trips.
+    - I have a long list of places I wish to visit.
+    - Traveling makes me feel free and independent.
+    - I love seeing different landscapes and learning about new cultures.
+    - I have a strong desire to visit all continents of the world.
+    - Traveling is my passion that I can’t live without.
+
+- intent: discuss_travel_benefits
+  examples: |
+    - Traveling broadens my horizons and helps me understand the world better.
+    - I feel traveling renews my energy and makes me return refreshed.
+    - Traveling taught me how to interact with people from different cultures.
+    - I gained a lot from traveling, including learning new languages.
+    - I feel traveling boosts my self-confidence.
+    - Traveling made me appreciate life and experiences more.
+    - It teaches me patience and how to adapt to circumstances.
+    - Traveling creates beautiful, unforgettable memories.
+    - I feel traveling strengthens relationships when I travel with loved ones.
+
+- intent: share_travel_hardships
+  examples: |
+    - I had difficulty communicating due to language barriers on my trip.
+    - The trip was exhausting because of bad weather conditions.
+    - I lost my luggage at the airport, which was a tough situation.
+    - I faced problems moving around due to a lack of transportation options.
+    - I had a sudden illness during my trip.
+    - Prices were extremely high at the destination I visited.
+    - I encountered challenges adjusting to the local food.
+    - My trip was delayed significantly, which was frustrating.
+    - I struggled to find suitable accommodation.
+
+- intent: discuss_favorite_movies
+  examples: |
+    - My favorite movie is "The Shawshank Redemption."
+    - I love movies with a strong storyline and excellent acting.
+    - I prefer documentaries because they add new knowledge to my life.
+    - I enjoy watching sci-fi and adventure movies.
+    - The last movie I saw was very touching.
+    - I love comedies that make me laugh and feel happy.
+    - I appreciate classic movies because they always have a unique message.
+    - I prefer drama movies over action ones.
+    - I watch foreign movies more than Arabic ones.
+
+- intent: talk_about_music_preferences
+  examples: |
+    - I love classical music because it’s soothing.
+    - I prefer jazz music because it’s full of life.
+    - I always listen to rock music during workouts.
+    - I enjoy pop songs because they’re cheerful.
+    - I prefer calm music while studying.
+    - I like discovering new types of music from different cultures.
+    - I always listen to music that matches my mood.
+    - I love songs with meaningful lyrics.
+    - I prefer live music at concerts.
+
+- intent: express_love_for_art
+  examples: |
+    - I love art because it helps me express my feelings.
+    - Painting is my greatest passion in life.
+    - I feel immense happiness when I see a beautiful artwork.
+    - I enjoy exploring different types of art from various cultures.
+    - Art is my primary source of inspiration.
+    - I love sharing my artistic creations with others and hearing their opinions.
+    - Art is a wonderful way to communicate without words.
+    - I feel art makes me see the world differently.
+    - Drawing and coloring are my ways to relax and focus.
+
+- intent: discuss_social_issues
+  examples: |
+    - I’m very concerned about poverty and increasing social inequality.
+    - I feel education is the solution to many social problems.
+    - Human rights issues always interest me deeply.
+    - I need to talk about the importance of social justice.
+    - I feel gender equality still needs improvement.
+    - I believe combating ignorance is the key to solving social issues.
+    - Domestic violence’s impact on society deeply troubles me.
+    - I often think about solutions to youth unemployment problems.
+    - I enjoy discussing children’s rights issues.
+
+- intent: express_happiness
+  examples: |
+    - I’m happy.
+    - I’m very joyful.
+    - I’m glad.
+    - I’m elated.
+    - My day was amazing.
+    - I feel so happy.
+    - I feel balanced in life.
+    - My happiness is indescribable.
+    - This is the happiest day of my life.
+    - I’m on cloud nine right now.
+    - I’m feeling so positive today.
+    - Everything seems perfect today.
+    - I’m so grateful for this moment.
+    - I can’t stop smiling.
+    - Life feels so beautiful right now.
+    - I’m full of energy and excitement.
+    - I’m having the best time ever.
+    - I feel truly content.
+    - I’m filled with so much joy.
+    - I’ve never felt this good before.
+    - Everything is going great for me.
+    - I feel like I’m living my best life.
+    - I feel so at peace with myself.
+    - I’m so lucky to be where I am.
+    - I feel completely satisfied with my life.
+    - I’m so thankful for everything I have.
+    - This is exactly what I needed today.
+    - I feel like I’m glowing inside.
+    - I’m in such a great mood.
+    - I’m beyond thrilled.
+    - This moment is pure bliss.
+
+
+- intent: express_sadness
+  examples: |
+    - I’m sad.
+    - I can’t bear this anymore.
+    - Everything feels wrong.
+    - I feel so lonely.
+    - I’m broken.
+    - I’m depressed.
+    - I have no energy for anything.
+    - I feel a big void inside.
+    - I can’t find a solution to my problem.
+    - Life feels so gloomy.
+    - I just feel empty inside.
+    - I don’t know how to get through this.
+    - I feel like I’m fading away.
+    - Nothing seems to make me happy anymore.
+    - I’m overwhelmed by sadness.
+    - I feel like I’m stuck in a dark place.
+    - Everything feels heavy.
+    - I don’t know how to keep going.
+    - I feel so hopeless.
+    - I don’t have the strength to move forward.
+    - I just want to be left alone.
+    - I feel like I’m losing myself.
+    - I can’t shake off this sadness.
+    - I feel like crying but I can’t.
+    - It’s hard to keep pretending I’m okay.
+    - I don’t feel like I belong anywhere.
+    - I just want this pain to end.
+    - I feel like I’m invisible.
+    - I don’t know how to fix this.
+    - I feel disconnected from everything.
+    - I can’t seem to find joy in anything.
+    - I feel like I’m in a never-ending sorrow.
+    - Life feels meaningless right now.
+
+
+- intent: express_anger
+  examples: |
+    - I’m upset.
+    - This is not acceptable to me.
+    - I’m angry.
+    - This is so frustrating.
+    - I feel irritated.
+    - I’m extremely annoyed.
+    - This is deeply troubling.
+    - I can’t handle this anymore.
+    - Life has become too stressful.
+    - No one understands me.
+    - I’m furious right now.
+    - I’m really pissed off.
+    - I can’t believe this is happening.
+    - This is driving me crazy.
+    - I’ve had enough of this.
+    - I feel so mad.
+    - Why does this always happen to me?
+    - I’m sick of dealing with this.
+    - It’s hard to stay calm right now.
+    - I feel like screaming.
+    - I’m beyond frustrated.
+    - This situation is making me lose my temper.
+    - I can’t stand this anymore.
+    - I feel so betrayed.
+    - This is unfair.
+    - I’m so annoyed I can’t think straight.
+    - Why do people treat me this way?
+    - I’m so done with this.
+    - I can’t tolerate this any longer.
+    - I’m seething with anger.
+    - I don’t know how to deal with this rage.
+    - I feel like I’m about to explode.
+    - This is unacceptable and I won’t stand for it.
+
+
+- intent: express_love
+  examples: |
+    - I love you
+    - You mean so much to me
+    - You're the closest person to me
+    - You have a special place in my heart
+    - I feel so comfortable around you
+    - You're incredibly special to me
+    - I feel secure when I'm with you
+    - I love listening to you
+    - I feel like you understand me without words
+    - Your love means the world to me
+    - You're everything to me
+    - I can't imagine my life without you
+    - You make me feel so loved
+    - I cherish every moment we spend together
+    - I'm so grateful to have you in my life
+    - My heart belongs to you
+    - I’m so happy with you
+    - You complete me
+    - I feel like I’m home when I’m with you
+    - You make me a better person
+    - You always know how to make me smile
+    - I love the way you make me feel
+    - I appreciate everything you do for me
+    - You’re my soulmate
+    - I feel so connected to you
+    - You mean more to me than anyone else
+    - I can’t wait to spend the rest of my life with you
+    - You make everything seem brighter
+    - My love for you grows every day
+    - You’re my greatest gift
+    - I’m so lucky to have you in my life
+    - You bring out the best in me
+    - I feel so safe and loved with you
+    - You make me feel like I’m the most important person in the world
+    - You’re my reason for everything
+    - My heart beats for you
+    - You’ve changed my life in ways I can't explain
+    - I love how you make me feel understood
+    - You light up my world
+    - I will always love you, no matter what
+
+
+- intent: express_confusion
+  examples: |
+    - I don't understand
+    - I'm confused
+    - I don't know what to do
+    - Everything feels mixed up
+    - I need clarification
+    - Nothing is clear right now
+    - I'm really unsure and can't decide
+    - I feel like everything is muddled
+    - Something feels off
+    - I can't organize my thoughts
+
+- intent: ask_for_comfort
+  examples: |
+    - I need someone to reassure me
+    - Help me, I'm overwhelmed
+    - Can you calm me down?
+    - Please tell me everything will be okay
+    - I'm scared
+    - I need some comforting words
+    - I wish someone understood me
+    - I can't face this alone
+    - Can you be there for me?
+    - I need some support from you
+
+- intent: ask_for_advice
+  examples: |
+    - Can you give me advice?
+    - What do you think I should do?
+    - I need your guidance.
+    - What do you think is the right move?
+    - I need your insight.
+    - Tell me your honest opinion.
+    - What would you do in my place?
+    - What's the best course of action right now?
+    - I need your perspective.
+    - How do you see this situation?
+    - What do you recommend I do next?
+    - Can you help me figure this out?
+    - What should my next step be?
+    - How should I approach this problem?
+    - What is your advice on this matter?
+    - Can you offer me some guidance on what to do?
+    - What would be the best decision here?
+    - What’s your opinion on this issue?
+    - Do you think I should do this or that?
+    - How should I handle this situation?
+    - What would you suggest I do first?
+    - Do you think I’m making the right decision?
+    - I’m unsure, what do you think is best for me?
+    - Should I take action or wait?
+    - Can you guide me through this?
+    - What do you think I need to focus on?
+    - How would you deal with this if you were me?
+    - What are your thoughts on this situation?
+    - I’m conflicted, what should I do?
+    - Do you think I should take this opportunity?
+
+
+- intent: ask_for_encouragement
+  examples: |
+    - Tell me something to encourage me
+    - I need support
+    - I need a push forward
+    - Reassure me that I can do it
+    - What do you think of what I'm doing?
+    - I need to hear something positive from you
+    - I want to feel capable
+    - Encourage me to get started
+    - I'm afraid of failing, can you support me?
+
+- intent: ask_about_day
+  examples: |
+    - How was your day?
+    - What's new with you?
+    - How's your day going?
+    - What's up with you?
+    - What happened with you today?
+    - What kind of day are you hoping for?
+    - Were you busy today?
+    - Did you enjoy your day?
+    - Was your day calm or hectic?
+
+- intent: show_gratitude
+  examples: |
+    - Thank you
+    - I'm very grateful
+    - I don't know how to thank you
+    - Bless you
+    - I'm so thankful
+    - You truly saved me
+    - Thank you from the bottom of my heart
+    - It's amazing that you're here
+    - I'm genuinely thankful for everything
+    - Words can't express my gratitude
+
+- intent: ask_for_apology
+  examples: |
+    - I'm sorry if I upset you
+    - Did I make a mistake?
+    - Forgive me if I hurt you
+    - Can you forgive me?
+    - I was wrong
+    - I don't know what to say
+    - I meant something else
+    - I don't want to be the reason you're upset
+    - Sorry if I bothered you
+    - I know I was wrong, but please forgive me
+
+- intent: talk_about_stress
+  examples: |
+    - I'm having issues at work
+    - I'm feeling stressed
+    - I can't seem to relax
+    - Everything is overwhelming
+    - I feel exhausted
+    - Things are out of control
+    - My work is affecting my mental health
+    - I can't balance work and life
+    - I need a break
+    - I can't handle this pressure
+    - Work is stressing me out
+    - I'm feeling the pressure of everything
+    - I don't know how to cope with this stress
+    - I can't focus with all this stress
+    - I feel like I’m drowning in responsibilities
+    - I’m constantly anxious about work
+    - I can’t get rid of this stress
+    - I feel like I’m on the edge
+    - I’m constantly thinking about work even at home
+    - I’m overwhelmed by my to-do list
+    - The pressure is too much to handle
+    - I don’t know how to keep up with everything
+    - I feel like I’m always running out of time
+    - I’m mentally drained from all the work
+    - I just want to escape this pressure
+    - Everything feels like it’s piling up at once
+    - I’m not sure how much more I can take
+    - I can’t switch off from work
+    - I feel like I’m losing control over everything
+    - My stress levels are through the roof
+    - I’m struggling to stay organized with all my tasks
+    - I feel like I’m in constant fight-or-flight mode
+    - I can’t stop worrying about everything
+    - I don’t know how to manage all the things on my plate
+    - I feel like I’m always behind
+
+
+- intent: talk_about_relationships
+  examples: |
+    - Problems with my friends
+    - I can't manage relationships
+    - There are issues in my relationship
+    - I'm feeling socially isolated
+    - Relationships are complicated
+    - Everything in my relationship feels broken
+    - People are drifting away from me
+    - I'm scared of losing my connection
+    - I want to fix things between us
+    - I feel like no one understands me
+
+- intent: talk_about_depression
+  examples: |
+    - I'm depressed
+    - I can't take it anymore
+    - Everything in my life is falling apart
+    - I can't find any reason to keep going
+    - I feel empty
+    - Life feels meaningless
+    - Each day gets worse than the last
+    - I feel stuck
+    - My mental health is in a really bad place
+    - I can't snap out of this
+    - I feel like I’m drowning
+    - I can’t handle my emotions anymore
+    - I feel like a failure
+    - Why does life have to be so hard?
+    - I feel completely hopeless
+    - No one understands what I’m going through
+    - I feel so alone
+    - Nothing makes me happy anymore
+    - I just want this pain to stop
+    - I feel like I’m at rock bottom
+    - It’s hard to even get out of bed
+    - I feel so tired of everything
+    - My life feels like a constant struggle
+    - I’m losing interest in everything
+    - I feel worthless
+    - No one cares about me
+    - I’m just so overwhelmed
+    - I feel like I’m in a dark hole
+    - I don’t know how to keep going
+    - I’m mentally exhausted
+    - I hate feeling like this all the time
+    - I feel like giving up
+    - I don’t see any light at the end of the tunnel
+    - Why do I feel so sad all the time?
+    - I don’t feel like myself anymore
+    - I feel like I’m falling apart
+    - How do I escape this sadness?
+    - I’m tired of pretending everything is okay
+    - I feel like a burden to everyone around me
+    - I can’t find any peace of mind
+
+
+- intent: handle_insults_to_girl
+  examples: |
+    - You're stupid
+    - Foolish
+    - You seem clueless
+    - Your words make no sense
+    - What's wrong with you, silly?
+    - What kind of stupidity is this?
+    - You're useless
+    - You don't understand
+    - You're cold-hearted
+    - Don't be upset, but you're kind of annoying
+    - You're not getting it
+    - This isn't your thing
+    - Forget it, clearly you're not focused
+    - It's clear your mind isn't in it
+    - How could you think like this?
+    - You have no clue about this
+    - Be quiet
+    - Shut up
+    - Silence
+    - Dumb girl
+    - Stupid
+    - Annoying
+    - I don't want to hear your voice
+    - Your words are frustrating
+    - What kind of level is this?
+
+- intent: daily_routine_tips
+  examples: |
+    - How can I improve my daily routine?
+    - Give me tips for a better daily routine.
+    - What are some steps to organize my day?
+    - How can I make my day more productive?
+    - I need some simple daily tips.
+
+- intent: sleep_tips
+  examples: |
+    - How can I improve my sleep quality?
+    - I have trouble sleeping, any tips?
+    - How can I relax before sleep?
+    - What are the best ways to sleep better?
+    - I need help to enhance my sleep.
+    - Can you share some tips for better sleep?
+    - How do I fall asleep faster?
+    - What should I do if I can't sleep?
+    - Any advice on creating a sleep routine?
+    - How can I avoid waking up in the middle of the night?
+    - What are some techniques to sleep peacefully?
+    - Can you help me sleep well at night?
+    - What are some relaxation techniques for sleep?
+    - I’ve been struggling with sleep, any advice?
+    - How do I deal with insomnia naturally?
+    - What can I do to wake up feeling rested?
+    - How can I make my bedroom more sleep-friendly?
+    - Any tips on reducing stress for better sleep?
+    - I want to sleep deeply; can you help?
+    - How can I reset my sleep schedule?
+
+
+- intent: time_management_tips
+  examples: |
+    - I need tips for time management.
+    - How can I avoid burnout at work?
+    - What are the best ways to manage my day?
+    - Give me steps to avoid fatigue and exhaustion.
+    - How can I balance work and rest?
+
+- intent: breathing_relaxation_tips
+  examples: |
+    - Can you share some breathing exercises?
+    - What is the 4/7/8 breathing technique?
+    - I need relaxation techniques.
+    - How do I practice progressive muscle relaxation?
+    - Tell me ways to calm down through breathing.
+    - How can I relax using breathing methods?
+    - Any tips for reducing stress with breathing exercises?
+    - What are some effective breathing techniques to manage anxiety?
+    - How do I control my breathing to feel calmer?
+    - Can you guide me on deep breathing exercises?
+    - What is the best way to use breathing for relaxation?
+    - How do I release tension with breathing exercises?
+    - Can you explain how to do progressive muscle relaxation?
+    - What breathing methods help reduce panic attacks?
+    - I feel stressed; what breathing exercises can help me?
+    - Are there specific breathing exercises for sleep?
+    - How can I use breathing to focus better?
+    - What breathing techniques are best for quick relaxation?
+    - Can you recommend exercises to improve my breathing?
+    - How do I use visualization with breathing to relax?
+
+    
+    
+- intent: self_esteem_tips
+  examples: |
+    - How can I build my self-esteem?
+    - I need some motivation to feel confident.
+    - What are some tips to boost my confidence?
+    - How can I identify my strengths?
+    - Tell me ways to practice positive thinking.
+
+- intent: relationship_advice
+  examples: |
+    - How can I improve my communication with others?
+    - What are some tips for resolving conflicts?
+    - I feel lonely. Can you help me?
+    - How do I build stronger relationships?
+    - Any advice for dealing with difficult conversations?
+
+- intent: crisis_support
+  examples: |
+    - I'm feeling overwhelmed. Can you help?
+    - What should I do when I feel really negative?
+    - I need help managing strong emotions.
+    - Can you guide me on how to stay calm in a crisis?
+    - How do I know when to seek professional help?
+
+- intent: negative_thought_management
+  examples: |
+    - How can I stop negative thinking?
+    - Teach me how to reframe my thoughts.
+    - What are some ways to challenge negative ideas?
+    - How can I replace bad thoughts with good ones?
+    - I want to manage my thoughts better.
+
+- intent: personal_development_tips
+  examples: |
+    - How can I set personal goals?
+    - I need help creating a plan to achieve my goals.
+    - What are some tips for improving problem-solving skills?
+    - Can you guide me on personal growth?
+    - How do I develop myself better?
+
+- intent: psychoeducation
+  examples: |
+    - Can you explain what anxiety is?
+    - What is depression and how can it affect me?
+    - I want to know about mental health basics.
+    - When should I seek professional help?
+    - How can I recognize signs of stress?
+
+- intent: motivation_and_meditation
+  examples: |
+    - Give me some motivational quotes.
+    - I need encouragement to keep going.
+    - How can I start meditating?
+    - Teach me relaxation techniques.
+    - I want to feel more inspired.
+    - I’m feeling low, can you motivate me?
+    - Can you help me find inner peace?
+    - I need something to lift my spirits.
+    - How do I stay focused and motivated?
+    - Can you guide me through a meditation?
+    - I feel unmotivated, how can I get back on track?
+    - What are some ways to stay positive?
+    - Teach me how to relax my mind.
+    - How can I clear my thoughts and feel more calm?
+    - I want to start my day with motivation, what can I do?
+    - Can you share tips for mindfulness?
+    - How can I meditate to reduce stress?
+    - I need some positive energy right now.
+    - I want to achieve my goals, can you help?
+    - What should I focus on during meditation?
+    - How can I start a gratitude practice?
+    - I feel stuck, how can I get unstuck?
+    - What are some affirmations to say daily?
+    - How can I incorporate meditation into my routine?
+    - Can you teach me breathing exercises for calmness?
+    - I need guidance to stay on the right path.
+    - How do I meditate to increase my focus?
+    - What are some motivational habits I can adopt?
+    - Can you suggest some mindfulness exercises?
+    - How can I increase my mental clarity?
+    - I want to improve my mental well-being, any advice?
+
+
+- intent: medical_articles
+  examples: |
+    - Can you share medical articles with me?
+    - I need some reliable health articles.
+    - Do you have any medical resources?
+    - Share a link to a medical article, please.
+    - I want to read about health topics.
+    - Do you have articles on medical topics?
+    - Can you recommend some health-related resources?
+    - I’m looking for trustworthy health articles.
+    - Can you help me find information about health?
+    - Share some medical information with me.
+    - I’d like to read about common medical issues.
+    - Provide me with some medical references.
+    - Do you have any articles on mental health?
+    - Show me some resources about medical conditions.
+    - Can you give me a link to a health-related article?
+    - I want to learn more about health and wellness.
+    - Do you have recommendations for medical readings?
+    - Where can I find reliable medical articles?
+    - Any health articles I can read?
+    - Share a health article link with me.

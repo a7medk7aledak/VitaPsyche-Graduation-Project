@@ -1,11 +1,13 @@
 // app/store/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface UserData {
+export interface UserData {
+  id: string;
+  email: string;
+  role: string;
   username: string;
   first_name: string;
   last_name: string;
-  email: string;
   phone_number: string;
   birth_date: string;
   gender: string;
@@ -16,8 +18,8 @@ interface UserData {
 
 interface AuthState {
   user: UserData | null;
-  isAuthenticated: boolean;
   token: string | null;
+  isAuthenticated: boolean;
 }
 
 const initialState: AuthState = {

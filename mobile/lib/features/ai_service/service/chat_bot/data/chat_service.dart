@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 
 class ChatService {
   static const String backendUrl = 'http://10.0.2.2:8000/chatbot/';  //'http://<your-computer-ip>:8000/chatbot/'
+  // http://10.0.2.2:8000/chatbot/ work in android emulator only
 
   Future<String> sendMessage(String message) async {
     try {
