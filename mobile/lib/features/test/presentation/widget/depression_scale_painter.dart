@@ -63,30 +63,11 @@ class DepressionScalePainter extends CustomPainter {
       textPainter.paint(canvas, textOffset);
     }
 
-    final pointerAngle = startAngle + (sweepAngle * (score / 20));
-    final pointerLength = size.width * 0.4;
-    final center = Offset(size.width / 2, size.height);
-    final pointerEnd = Offset(
-      center.dx + cos(pointerAngle) * pointerLength,
-      center.dy + sin(pointerAngle) * pointerLength,
-    );
+   
 
-    final pointerCirclePaint = Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.fill;
-    canvas.drawCircle(center, 8, pointerCirclePaint);
+    
 
-    final pointerPaint = Paint()
-      ..color = Colors.black
-      ..strokeWidth = 3
-      ..style = PaintingStyle.stroke;
-    canvas.drawLine(center, pointerEnd, pointerPaint);
-
-    final pointerBorderPaint = Paint()
-      ..color = Colors.black
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-    canvas.drawCircle(center, 8, pointerBorderPaint);
+   
   }
 
   @override

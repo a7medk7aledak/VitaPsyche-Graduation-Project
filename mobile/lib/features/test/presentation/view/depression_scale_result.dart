@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindmed_project/features/test/data/test.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/theme/colors.dart';
 import '../widget/depression_scale_painter.dart';
-import 'depression_scoring.dart';
 
 class DepressionScaleResult extends StatelessWidget {
-  const DepressionScaleResult({super.key});
-
+  const DepressionScaleResult({
+    super.key,
+    required this.test,
+    required this.totalSorce,
+  });
+  final Test test;
+  final int totalSorce;
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
-            {};
-    final score = args['totalScore'] as int? ?? 0;
+    ScoreRange _getScoreRange(int totalScore, List<ScoreRange> scoreRanges) {
+      return scoreRanges.firstWhere(
+        (range) => totalScore >= range.range[0] && totalScore <= range.range[1],
+      );
+    }
 
-    // Get depression result
-    final DepressionResult result =
-        DepressionScoring.getDepressionResult(score);
-
+    final ScoreRange scoreRange = _getScoreRange(totalSorce, test.scoreRanges);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: secoundryColor,
@@ -43,7 +46,7 @@ class DepressionScaleResult extends StatelessWidget {
                   children: [
                     // Score display
                     Text(
-                      'Your Score: $score',
+                      'Your Score: $totalSorce',
                       style: TextStyle(
                         fontSize: 24.sp,
                         fontWeight: FontWeight.bold,
@@ -57,9 +60,20 @@ class DepressionScaleResult extends StatelessWidget {
                         const SizedBox(height: 20),
                         CustomPaint(
                           size: const Size(300, 150), // Adjust size as needed
-                          painter: DepressionScalePainter(score),
+                          painter: DepressionScalePainter(totalSorce),
                         ),
                         const SizedBox(height: 30),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            scoreRange.description,
+                            style: const TextStyle(
+                              fontSize: 21,
+                              color: primaryColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
                         const Align(
                           alignment: Alignment.topLeft,
                           child: Text(
@@ -74,9 +88,9 @@ class DepressionScaleResult extends StatelessWidget {
                         const SizedBox(height: 10),
                         Padding(
                           padding:
-                              const EdgeInsets.symmetric(horizontal: 20.0).w,
+                              const EdgeInsets.symmetric(horizontal: 10.0).w,
                           child: Text(
-                            result.description,
+                            scoreRange.info,
                             style: TextStyle(fontSize: 16.sp),
                           ),
                         ),

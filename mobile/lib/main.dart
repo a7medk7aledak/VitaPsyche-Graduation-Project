@@ -11,8 +11,8 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => ChatProvider()),
-        BlocProvider(create: (context) => CartCubit()),
         Provider<ChatService>(create: (_) => ChatService()),
+        BlocProvider<CartCubit>(create: (context) => CartCubit()),
       ],
       child: const MyApp(),
     ),

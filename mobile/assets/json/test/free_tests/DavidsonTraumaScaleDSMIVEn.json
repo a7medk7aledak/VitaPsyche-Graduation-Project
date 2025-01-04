@@ -1,5 +1,6 @@
 {
   "testTitle": "Davidson Trauma Scale - DSM-IV",
+  "payment":false,
   "questions": [
     {
       "id": 1,
@@ -112,13 +113,31 @@
       ]
     }
   ],
-  "scoring": {
-    "instruction": "Each response is rated on a scale from 1 (Not at all) to 5 (Extremely). The total score is the sum of the values for all questions.",
-    "scoreRanges": [
-      { "range": "0-20", "description": "No significant trauma symptoms" },
-      { "range": "21-40", "description": "Mild trauma symptoms" },
-      { "range": "41-60", "description": "Moderate trauma symptoms" },
-      { "range": "61-85", "description": "Severe trauma symptoms" }
-    ]
-  }
+  "scoreRanges": [
+      {
+        "range": [0,20],
+        "description": "No significant trauma symptoms",
+        "color": "green",
+        "info": "You are experiencing minimal or no symptoms of trauma."
+      },
+      {
+        "range": [21,40],
+        "description": "Mild trauma symptoms",
+        "color": "yellow",
+        "info": "You may be experiencing some mild trauma symptoms. It is recommended to monitor and consider seeking support if necessary."
+      },
+      {
+        "range": [41,60],
+        "description": "Moderate trauma symptoms",
+        "color": "orange",
+        "info": "You are experiencing moderate trauma symptoms. Seeking professional help may be beneficial."
+      },
+      {
+        "range": [61,85],
+        "description": "Severe trauma symptoms",
+        "color": "red",
+        "info": "You are experiencing severe trauma symptoms. It is strongly recommended to seek professional help immediately."
+      }
+    ],
+    "MAX":85
 }

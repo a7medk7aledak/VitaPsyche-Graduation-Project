@@ -1,5 +1,6 @@
 {
   "testTitle": "Beck Depression Inventory",
+  "payment":false,
   "questions": [
     {
       "id": 1,
@@ -212,10 +213,31 @@
       ]
     }
   ],
-  "scoring": {
-    "noDepression": { "min": 0, "max": 9 },
-    "mildDepression": { "min": 10, "max": 16 },
-    "moderateDepression": { "min": 17, "max": 29 },
-    "severeDepression": { "min": 30, "max": 63 }
-  }
+  "scoreRanges": [
+    {
+      "range": [0,9],
+      "description": "no Depression.",
+      "color": "bg-heading",
+      "info": "This state refers to the absence of clinically significant symptoms of depression. Individuals experience normal emotional fluctuations but can generally manage daily activities and maintain healthy relationships"
+    },
+    {
+      "range": [10,16],
+      "description": "mild Depression.",
+      "color": "bg-yellow-400",
+      "info": "A less severe form of depression that involves some symptoms of sadness, fatigue, or low energy. While it can affect daily functioning, it does not usually incapacitate the individual."
+    },
+    {
+      "range": [17,29],
+      "description": "moderate Depression.",
+      "color": "bg-orange-500",
+      "info": "A more pronounced form of depression with symptoms that start interfering significantly with daily life, including work, social relationships, and self-care."
+    },
+    {
+      "range": [30,63],
+      "description": "Severe Depression.",
+      "color": "bg-red-500",
+      "info": "This is a debilitating form of depression where symptoms are intense and pervasive, severely impacting all areas of life. Individuals may feel unable to function and experience a sense of despair"
+    }
+  ],
+    "MAX":63
 }

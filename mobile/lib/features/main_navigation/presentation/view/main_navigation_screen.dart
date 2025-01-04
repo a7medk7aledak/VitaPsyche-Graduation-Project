@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/core/theme/colors.dart';
-import 'package:flutter_mindmed_project/features/doctor/data/doctor_model.dart';
+import 'package:flutter_mindmed_project/features/ai_service/service/chat_bot/presentation/view/chat_screen.dart';
 import 'package:flutter_mindmed_project/features/home/presentation/view/home_screen.dart';
 import 'package:flutter_mindmed_project/features/more/presentation/view/more.dart';
 import '../../../../core/const/image_app.dart';
 import '../../../../core/routes/app_routes.dart';
-import '../../../ai_service/view/ai_service_screen.dart';
+import '../../../doctor/presentation/view/doctor_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
-  static const id = 'custemButtonBar';
+  
 
   @override
   State<MainNavigationScreen> createState() => _MainNavigationScreenState();
@@ -22,8 +22,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    Doctor(),
-    const AiServiceScreen(),
+    DoctorScreen(),
+    ChatScreen(),
     const More(),
   ];
 
@@ -93,7 +93,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
         onTap: (int newValue) {
           if (newValue == 2) {
             // If the AI button is tapped
-           Navigator.pushNamed(context, AppRoutes.aiServiceScreen);
+            Navigator.pushNamed(context, AppRoutes.chatScreen);
           } else {
             setState(() {
               _currentIndex = newValue;
@@ -108,8 +108,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen>
         onPageChanged: (int index) {
           if (index == 2) {
             // If the AI button is tapped
-           Navigator.pushNamed(context, AppRoutes.aiServiceScreen);
-
+            Navigator.pushNamed(context, AppRoutes.chatScreen);
           } else {
             setState(() {
               _currentIndex = index;

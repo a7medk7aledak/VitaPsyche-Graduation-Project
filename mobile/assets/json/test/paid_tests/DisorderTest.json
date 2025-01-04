@@ -1,255 +1,595 @@
 {
   "testTitle": "Depression Test",
+  "payment": true,
   "questions": [
     {
       "id": 1,
       "question": "Is the child often upset or angry?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 2,
       "question": "Does the child have difficulty completing homework?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 3,
       "question": "Does the child seem restless or act as if driven by a motor?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 4,
       "question": "Is the child easily frightened or shy?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 5,
       "question": "Does everything need to be perfect or exact?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 6,
       "question": "Does the child have no friends?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 7,
       "question": "Does the child suffer from stomachaches?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 8,
       "question": "Does the child get into fights or arguments?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 9,
       "question": "Does the child avoid tasks that require mental effort?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 10,
       "question": "Does the child have trouble concentrating for long periods?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 11,
       "question": "Does the child argue with adults?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 12,
       "question": "Does the child fail to finish their tasks?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 13,
       "question": "Is the child difficult to control in public places?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 14,
       "question": "Is the child afraid of people?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 15,
       "question": "Does the child repeatedly check things?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 16,
       "question": "Does the child lose friends quickly?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 17,
       "question": "Does the child complain of aches or pains?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 18,
       "question": "Is the child constantly moving or unable to sit still?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 19,
       "question": "Does the child have trouble concentrating in class?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 20,
       "question": "Does the child not listen to instructions?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 21,
       "question": "Does the child lose their temper quickly?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 22,
       "question": "Does the child need constant supervision to finish tasks?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 23,
       "question": "Does the child run or climb in inappropriate situations?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 24,
       "question": "Is the child afraid of new situations?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     },
     {
       "id": 25,
       "question": "Is the child overly concerned with cleanliness?",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Rarely", "score": 1 },
-        { "text": "Sometimes", "score": 2 },
-        { "text": "Often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Rarely",
+          "score": 1
+        },
+        {
+          "text": "Sometimes",
+          "score": 2
+        },
+        {
+          "text": "Often",
+          "score": 3
+        }
       ]
     }
-  ]
+  ],
+  "scoreRanges": [
+    {
+      "range": [
+        0,
+        10
+      ],
+      "description": "Minimal or no signs of depression",
+      "color": "#4CAF50",
+      "info": "The child shows minimal signs of depression and may not need immediate intervention."
+    },
+    {
+      "range": [
+        11,
+        20
+      ],
+      "description": "Mild depression",
+      "color": "#FFEB3B",
+      "info": "The child exhibits mild signs of depression. Monitoring and a supportive environment may help."
+    },
+    {
+      "range": [
+        21,
+        30
+      ],
+      "description": "Moderate depression",
+      "color": "#FF9800",
+      "info": "Moderate depression is present. Professional consultation is recommended to assess the child’s mental health."
+    },
+    {
+      "range": [
+        31,
+        40
+      ],
+      "description": "Severe depression",
+      "color": "#F44336",
+      "info": "The child shows severe signs of depression. Immediate professional intervention is strongly advised."
+    }
+  ],
+  "MAX": 40
 }

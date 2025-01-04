@@ -1,61 +1,26 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
+import 'package:flutter_mindmed_project/features/products/data/product_model.dart';
 import '../../../../core/theme/colors.dart';
-import '../../../../core/const/image_app.dart';
-import 'cart_screen.dart';
-import 'cart_item_data.dart';
-import '../cubit/cart_cubit.dart';
-
-// Custom button widget
-class CustomButtonCard extends StatelessWidget {
-  final String title;
-  final double price;
-  final String image;
-
-  const CustomButtonCard({
-    Key? key,
-    required this.title,
-    required this.price,
-    required this.image,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      onPressed: () {
-        context.read<CartCubit>().addToCart(
-              CartItemData(
-                image: image,
-                title: title,
-                seller: '@store',
-                value: price,
-                count: 1,
-              ),
-            );
-
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Added to cart successfully!'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-      },
-      icon: const Icon(Icons.shopping_cart_outlined),
-      label: const Text('Add to Cart'),
-      style: ElevatedButton.styleFrom(
-        backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-      ),
-    );
-  }
-}
+import '../widget/custem_button_card.dart';
 
 class DetailsProduct extends StatefulWidget {
-  static String id = 'ProductDetails';
+  const DetailsProduct({
+    super.key,
+    required this.title,
+    required this.about,
+    required this.image,
+    required this.price,
+  });
 
-  const DetailsProduct({super.key});
+  final String title;
+  final List<String> about;
+  final List<ImageData> image;
+  final double price;
 
   @override
   State<DetailsProduct> createState() => _DetailsProductState();
@@ -65,7 +30,7 @@ class _DetailsProductState extends State<DetailsProduct> {
   int _currentImageIndex = 0;
   final PageController _pageController = PageController();
   Timer? _autoPageTimer;
-  List<String> _images = []; // Initialize with an empty list
+  late List<ImageData> _images; // Initialize with an empty list
 
   @override
   void initState() {
@@ -73,19 +38,9 @@ class _DetailsProductState extends State<DetailsProduct> {
 
     // Use a Future.delayed to wait until context is available
     Future.delayed(Duration.zero, () {
-      final args =
-          ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
-              {};
-      final image = args['image'];
-
       // Initialize _images and start the timer
       setState(() {
-        _images = [
-          image ?? ImageApp.blog,
-          ImageApp.fqas,
-          ImageApp.sadIdea,
-          ImageApp.test,
-        ];
+        _images = widget.image;
       });
 
       _startAutoPageChange();
@@ -123,11 +78,9 @@ class _DetailsProductState extends State<DetailsProduct> {
 
   @override
   Widget build(BuildContext context) {
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>? ??
-            {};
-    final title = args['title'] ?? 'Product Details';
-    final price = args['price'] ?? 60.00;
+    String title = widget.title;
+    List<String> about = widget.about;
+    double price = widget.price;
 
     return Scaffold(
       backgroundColor: secoundryColor,
@@ -145,7 +98,8 @@ class _DetailsProductState extends State<DetailsProduct> {
         ),
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).pushNamed(CartScreen.id),
+            onPressed: () =>
+                Navigator.of(context).pushNamed(AppRoutes.cartScreen),
             icon: const Icon(Icons.shopping_bag_outlined),
           ),
         ],
@@ -180,7 +134,7 @@ class _DetailsProductState extends State<DetailsProduct> {
                       },
                       itemBuilder: (context, index) {
                         return Image.asset(
-                          _images[index],
+                          _images[index].url,
                           fit: BoxFit.cover,
                         );
                       },
@@ -198,16 +152,20 @@ class _DetailsProductState extends State<DetailsProduct> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  const Text(
-                    '- Easy to use\n'
-                    '- Provides endless hours of fun and entertainment\n'
-                    '- Improves imagination and creativity\n'
-                    '- Perfect for developing imagination and manual dexterity\n'
-                    '- Enhances motor skills and hand-eye coordination',
-                    style: TextStyle(
-                      color: grayColor,
-                      fontSize: 16,
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: about.map((item) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: Text(
+                          '- $item',
+                          style: const TextStyle(
+                            color: grayColor,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   ),
                   const SizedBox(height: 20),
                   Row(
@@ -222,9 +180,10 @@ class _DetailsProductState extends State<DetailsProduct> {
                       ),
                       const Spacer(),
                       CustomButtonCard(
+                        about: about,
                         title: title,
                         price: price,
-                        image: _images.first,
+                        image: _images,
                       ),
                     ],
                   ),
@@ -261,7 +220,7 @@ class _DetailsProductState extends State<DetailsProduct> {
               borderRadius: BorderRadius.circular(8),
             ),
             child: Image.asset(
-              entry.value,
+              entry.value.url,
               width: 60,
               height: 60,
               fit: BoxFit.cover,

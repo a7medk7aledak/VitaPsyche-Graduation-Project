@@ -4,7 +4,6 @@ import 'cart_body.dart'; // Import your CartBody widget
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
-  static String id = 'cartScreen';
 
   @override
   Widget build(BuildContext context) {

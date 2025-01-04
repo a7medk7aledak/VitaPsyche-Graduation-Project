@@ -3,8 +3,9 @@
     {
       "id": "1",
       "title": "Herbal Mood Sleep Collection",
+      "category": "herbal",
       "subTitle": "Top 4 Aromatherapy Oils | Gift Box | Incl. Lavender, Peppermint, Geranium, Lemon |Sweet Dreams, Relax, & Stress Relief Oils",
-      "price": "EGP899.00",
+      "price": 899.00,
       "about": [
         "Natural healing powers! Sleep Collection Essential oil set is a calming, skin-soothing, relaxing, Essential oil.",
         "Sleep better safely and naturally with premium Essential oils.",
@@ -16,13 +17,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/herbalMoodSleep/mainHerbal.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/herbalMoodSleep/herbal1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/herbalMoodSleep/herbal2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/herbalMoodSleep/herbal3.png",
           "type": "secondary"
         }
       ]
@@ -30,8 +41,10 @@
     {
       "id": "2",
       "title": "Stress And Anxiety Relief Cube Fidget Toys for Kids",
+      "category": "general",
+
       "subTitle": "",
-      "price": "EGP 60.00",
+      "price": 60.00,
 
       "about": [
         "Easy to use",
@@ -42,13 +55,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/reliefCube/mainRelief.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/reliefCube/relief1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/reliefCube/relief2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/reliefCube/relief3.png",
           "type": "secondary"
         }
       ]
@@ -56,8 +79,10 @@
     {
       "id": "3",
       "title": "1Pcs Colored Soft Grape Mesh Pressure Balls Squeeze",
+      "category": "general",
+
       "subTitle": " Change Color Balls Stress Relieve Sensory Squishy Balls Hand Exercise Bouncy Balls. (Blue)",
-      "price": "EGP 65.00",
+      "price": 65.00,
 
       "about": [
         "Magic happens when you squeeze the ball - each ball will show 3 beautiful colors: yellow turns blue, pink and light yellow! Blue turns green, white and blue! Pink turns green, white and yellow! Purple turns pink, white and light purple!",
@@ -67,13 +92,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/pressureBall/mainPressure.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/pressureBall/pressure1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/pressureBall/pressure2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/pressureBall/pressure3.png",
           "type": "secondary"
         }
       ]
@@ -81,8 +116,10 @@
     {
       "id": "4",
       "title": "Stress Relief Gift Basket",
+      "category": "general",
+
       "subTitle": "Mental Health Self Care Package for Her - Stress Relief Gift - Care Package for Her - Friendship Gift - Self Care Box For Women- send a gift.",
-      "price": "EGP 3,151.20",
+      "price": 3151.20,
 
       "about": [
         "1 Scented candle 3.5oz in the steel golden container, made with soy-bees wax, organic wooden wick, rose and peony fragrance oils added.",
@@ -94,13 +131,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/giftBasket/mainBasket.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/giftBasket/basket1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/giftBasket/basket2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/giftBasket/basket3.png",
           "type": "secondary"
         }
       ]
@@ -109,8 +156,10 @@
     {
       "id": "5",
       "title": "LIGHTBULB IDEAS",
+      "category": "general",
+
       "subTitle": "Yogi Stress Balls - Stress Ball with Finger Grip Strap, Stress Balls for Adults and Kids, Grip Strength Trainer Squeeze Balls, Anxiety Stress Relief, Fidget Handball, Squish Ball - 3 Pack",
-      "price": "EGP 675.00",
+      "price": 675.00,
 
       "about": [
         "Our squeeze ball for hand strength helps you stay focused, calm, uplift your mood while strengthening your hand grip. The stress balls for adults and kids are perfect for squishing and squeezing as a sensory toy.",
@@ -120,18 +169,23 @@
       ],
       "images": [
         {
-          "id": "img-1",
-          "url": "path/to/main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/lightBulb/mainLight.png",
           "type": "main"
         },
         {
+          "id": "img-1",
+          "url": "assets/products/lightBulb/light1.png",
+          "type": "secondary"
+        },
+        {
           "id": "img-2",
-          "url": "path/to/image_2.jpg",
+          "url": "assets/products/lightBulb/light2.png",
           "type": "secondary"
         },
         {
           "id": "img-3",
-          "url": "path/to/image_3.jpg",
+          "url": "assets/products/lightBulb/light3.png",
           "type": "secondary"
         }
       ]
@@ -139,8 +193,10 @@
     {
       "id": "6",
       "title": "Anti Stress Punch",
+
+      "category": "general",
       "subTitle": "Me Guy Suction Cup For Office Desk Coworker Boss Gift Green",
-      "price": "EGP 122.00",
+      "price": 122.00,
 
       "about": [
         "Used for stress reliever.",
@@ -150,13 +206,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/Punch/mainPunch.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/Punch/punch1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/Punch/punch2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/Punch/punch3.png",
           "type": "secondary"
         }
       ]
@@ -164,8 +230,10 @@
     {
       "id": "7",
       "title": "Head Scalp Massager",
+      "category": "general",
+
       "subTitle": "",
-      "price": "EGP 300.00",
+      "price": 300.00,
 
       "about": [
         "Head Scalp Massager for Headache Relief, Scalp Stress Relax, Hair Stimulation Head Massager, Massager Pain Relief And Hair Growth, Neck Massager (Multi Color).",
@@ -175,13 +243,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/headMassage/mainHead.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/headMassage/head1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/headMassage/head2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/headMassage/head3.png",
           "type": "secondary"
         }
       ]
@@ -189,8 +267,10 @@
     {
       "id": "8",
       "title": "Sleep Headphones",
+      "category": "general",
+
       "subTitle": "Headband Wireless V5.0 Bluetooth Headphones, Eye mask Headphones, Built-in ultra-thin HD stereo speakers, Suitable for Side sleep/Sports/Yoga/Fitness/Relaxation",
-      "price": "EGP 400.00",
+      "price": 400.00,
 
       "about": [
         "【2 in 1 Multifunctional】: Sleep Headphones & Sports Headband 2 in 1. Our wireless Bluetooth sleep headset uses a headband design and protects you from being disturbed by your messy hair and sweat. Best Sleeping Headphones for Side Sleepers. It can also be used to eliminate environmental noise. Very suitable for fitness, sleeping, yoga, and other activities.",
@@ -199,13 +279,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/headphone/mainHeadphone.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/headphone/headphone1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/headphone/headphone2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/headphone/headphone3.png",
           "type": "secondary"
         }
       ]
@@ -213,8 +303,10 @@
     {
       "id": "9",
       "title": "Massage Seat Cushion",
+      "category": "general",
+
       "subTitle": "with Heat Back Massager Heated Seat Cover with 5 Vibrating Massage Nodes & 2 Heat Levels Massage Chair Pad for Pain Relief Home Office Use",
-      "price": "EGP 120000",
+      "price": 120000.00,
 
       "about": [
         "ULTIMATE COMFORT: The heated massage seat cushion has 5 vibration motors providing ultimate comfort for long trips and extended sitting with home and car adapters. (Note: This is Vibrating massage, not Shiatsu Massage with Rolling Balls)",
@@ -224,13 +316,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/massageSeat/mainSeat.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/massageSeat/seat1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/massageSeat/seat2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/massageSeat/seat3.png",
           "type": "secondary"
         }
       ]
@@ -238,8 +340,9 @@
     {
       "id": "10",
       "title": "Mindsight 'Breathing Buddha'",
+      "category": "general",
       "subTitle": "Guided Visual Meditation Tool for Mindfulness",
-      "price": "EGP 587.00",
+      "price": 587.00,
 
       "about": [
         "WHAT IT'S FOR: Daily guided breathing to help calm and focus your mind during the day or promote a peaceful night's sleep, improving overall wellness. Continued practice can help manage or reduce stress and anxiety in all ages and can help improve symptoms of depression. A simple and fun meditation tool that can also cultivate mindfulness to help you live in the present moment.",
@@ -248,13 +351,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/Buddha/mainBuddha.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/Buddha/buddha1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/Buddha/buddha2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/Buddha/buddha3.png",
           "type": "secondary"
         }
       ]
@@ -262,8 +375,10 @@
     {
       "id": "11",
       "title": "experiment Dot Journaling",
+
+      "category": "general",
       "subTitle": "A Practical Guide: How to Start and Keep the Planner, To-Do List, and Diary That'll Actually Help You Get Your Life Together",
-      "price": "EGP 240.00",
+      "price": 240.00,
 
       "about": [
         "Anyone who needs a practical resource for getting his or her life in order will fit it with Miller's step-by-step guide to Dot Journaling. -- 'Atlanta Journal-Constitution'",
@@ -273,13 +388,23 @@
       ],
       "images": [
         {
-          "id": "img-4",
-          "url": "path/to/another_main_image.jpg",
+          "id": "img-main",
+          "url": "assets/products/dotJournaling/mainJournaling.png",
           "type": "main"
         },
         {
-          "id": "img-5",
-          "url": "path/to/another_image_2.jpg",
+          "id": "img-1",
+          "url": "assets/products/dotJournaling/journaling1.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-2",
+          "url": "assets/products/dotJournaling/journaling2.png",
+          "type": "secondary"
+        },
+        {
+          "id": "img-3",
+          "url": "assets/products/dotJournaling/journaling3.png",
           "type": "secondary"
         }
       ]
