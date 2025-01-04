@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/core/theme/colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/const/image_app.dart';
-import '../widget/custem_button_back.dart';
 import '../../data/model_blog.dart';
 
 class DetailsBlog extends StatelessWidget {
@@ -15,47 +13,13 @@ class DetailsBlog extends StatelessWidget {
     required List<String> causes,
     required String treatment,
     required String title,
+    required String dec,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Stack(
-          children: [
-            Container(
-              width: double.infinity,
-              height: 200.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.r),
-                image: DecorationImage(
-                  image: NetworkImage(imagesBlog),
-                  fit: BoxFit.cover,
-                  onError: (error, stackTrace) {
-                    // Placeholder if the image fails to load
-                  },
-                ),
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 200.h,
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.4),
-                borderRadius: BorderRadius.circular(16.r),
-              ),
-              child: Center(
-                child: Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 28.sp,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-          ],
-        ),
+        _blogImage(imagesBlog),
+        _buildInfoCard("Description", dec),
         SizedBox(height: 24.h),
         _sectionCard("Symptoms", symptoms),
         SizedBox(height: 16.h),
@@ -66,10 +30,41 @@ class DetailsBlog extends StatelessWidget {
     );
   }
 
+  Widget _blogImage(String imagesBlog) {
+    return Hero(
+      tag: imagesBlog, // Use the same tag here
+      child: Image.network(
+        imagesBlog,
+        height: 200.h,
+        width: double.infinity,
+        fit: BoxFit.cover,
+        loadingBuilder: (context, child, loadingProgress) {
+          if (loadingProgress == null) {
+            return child;
+          }
+          return Center(
+            child: CircularProgressIndicator(
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      (loadingProgress.expectedTotalBytes ?? 1)
+                  : null,
+            ),
+          );
+        },
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(
+            child: Icon(Icons.error, color: Colors.red),
+          );
+        },
+      ),
+    );
+  }
+
   Widget _sectionCard(String title, List<String> items) {
     return Card(
+      color: secoundryColor,
       margin: EdgeInsets.symmetric(horizontal: 16.w),
-      elevation: 4,
+      elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       child: Padding(
         padding: EdgeInsets.all(16.w),
@@ -86,32 +81,25 @@ class DetailsBlog extends StatelessWidget {
             ),
             SizedBox(height: 12.h),
             Column(
-              children: items.map((item) => _listItem(item)).toList(),
-            ),
+              children: items.asMap().entries.map((entry) {
+                return _listItem(entry.value, entry.key);
+              }).toList(),
+            )
           ],
         ),
       ),
     );
   }
 
-  Widget _listItem(String text) {
+  Widget _listItem(String text, int index) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 6.h),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            padding: EdgeInsets.all(6.w),
-            decoration: BoxDecoration(
-              color: secoundryColor,
-              shape: BoxShape.circle,
-            ),
-            child: Icon(Icons.check, color: Colors.white, size: 18.sp),
-          ),
-          SizedBox(width: 10.w),
           Expanded(
             child: Text(
-              text,
+              '${index + 1}- $text',
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 18.sp,
@@ -124,10 +112,11 @@ class DetailsBlog extends StatelessWidget {
     );
   }
 
-  Widget _treatmentSection(String treatment) {
+  Widget _buildInfoCard(String title, String content) {
     return Card(
+      color: secoundryColor,
       margin: EdgeInsets.symmetric(horizontal: 16.w),
-      elevation: 4,
+      elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.r)),
       child: Padding(
         padding: EdgeInsets.all(16.w),
@@ -135,7 +124,7 @@ class DetailsBlog extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Treatment",
+              title,
               style: TextStyle(
                 color: textMainColor,
                 fontSize: 22.sp,
@@ -144,7 +133,7 @@ class DetailsBlog extends StatelessWidget {
             ),
             SizedBox(height: 12.h),
             Text(
-              treatment,
+              content,
               style: TextStyle(
                 color: Colors.black87,
                 fontSize: 18.sp,
@@ -157,59 +146,36 @@ class DetailsBlog extends StatelessWidget {
     );
   }
 
+  Widget _treatmentSection(String treatment) {
+    return _buildInfoCard("Treatment", treatment);
+  }
+
   @override
   Widget build(BuildContext context) {
     final ModelBlog blog =
         ModalRoute.of(context)!.settings.arguments as ModelBlog;
-    // Based on all bugs requery proper check => adujts ()lcode .
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: primaryColor,
+      backgroundColor: secoundryColor,
       appBar: AppBar(
-        leading: custemButtonBack(context),
-        titleSpacing: 0,
-        backgroundColor: Colors.transparent,
+        backgroundColor: secoundryColor.withOpacity(0.9),
         elevation: 0,
-        title: Row(
-          children: [
-            Image.asset(
-              logoApp,
-              height: 50.h,
-              width: 40.w,
-              fit: BoxFit.cover,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 4).w,
-              child: Text(
-                'Article Details',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24.sp,
-                ),
-              ),
-            ),
-          ],
+        foregroundColor: primaryColor,
+        title: Text(
+          blog.title,
+          style: TextStyle(
+            color: primaryColor,
+            fontSize: 24.sp,
+          ),
         ),
       ),
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [primaryColor, secoundryColor],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 24.h),
-            child: _detailsBlog(
-              imagesBlog: blog.images,
-              causes: blog.causes,
-              title: blog.title,
-              symptoms: blog.symptoms,
-              treatment: blog.treatment,
-            ),
-          ),
+      body: SingleChildScrollView(
+        child: _detailsBlog(
+          dec: blog.description,
+          imagesBlog: blog.images,
+          causes: blog.causes,
+          title: blog.title,
+          symptoms: blog.symptoms,
+          treatment: blog.treatment,
         ),
       ),
     );

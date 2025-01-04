@@ -1,238 +1,593 @@
 {
   "testTitle": "Conners' Test",
+  "payment": true,
   "questions": [
     {
+      "id": 1,
       "question": "Is often angry or resentful.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 2,
       "question": "Has difficulty following through on instructions.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 3,
       "question": "Is always restless or acts as if driven by a motor.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 4,
       "question": "Is easily scared – shy.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 5,
       "question": "Has no friends.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 6,
       "question": "Complains of stomachaches.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 7,
       "question": "Gets into fights or arguments.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 8,
       "question": "Has trouble focusing on tasks like homework.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 9,
       "question": "Struggles to concentrate on tasks or games.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 10,
       "question": "Argues with adults.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
-    {
+    {"id": 11,
       "question": "Fails to complete tasks or homework.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 12,
       "question": "Is difficult to control at home or in public.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 13,
       "question": "Is afraid of people.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 14,
       "question": "Checks things repeatedly (ritualistic behavior).",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 15,
       "question": "Loses friends quickly.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 16,
       "question": "Complains of aches and pains.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 17,
       "question": "Is hyperactive or restless.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
-    {
+    {"id": 18,
       "question": "Has trouble concentrating in class.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 19,
       "question": "Does not listen when spoken to directly.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 20,
       "question": "Loses temper easily.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 21,
       "question": "Needs constant supervision to complete tasks.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 23,
       "question": "Runs or climbs excessively in inappropriate situations.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 24,
       "question": "Is afraid of new situations.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 25,
       "question": "Obsessed with cleanliness.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     },
     {
+      "id": 26,
       "question": "Has difficulty making friends.",
       "choices": [
-        { "text": "Never", "score": 0 },
-        { "text": "Occasionally", "score": 1 },
-        { "text": "Often", "score": 2 },
-        { "text": "Very often", "score": 3 }
+        {
+          "text": "Never",
+          "score": 0
+        },
+        {
+          "text": "Occasionally",
+          "score": 1
+        },
+        {
+          "text": "Often",
+          "score": 2
+        },
+        {
+          "text": "Very often",
+          "score": 3
+        }
       ]
     }
   ],
-  "scoring": {
-    "belowAverage": { "min": 0, "max": 30 },
-    "slightlyBelowAverage": { "min": 31, "max": 34 },
-    "average": { "min": 35, "max": 44 },
-    "slightlyAboveAverage": { "min": 45, "max": 55 },
-    "aboveAverage": { "min": 56, "max": 65 },
-    "veryAboveAverage": { "min": 66, "max": 70 }
-  }
+  "scoreRanges": [
+    {
+      "range": [
+        0,
+        15
+      ],
+      "description": "Low Risk",
+      "color": "#4CAF50",
+      "info": "The individual exhibits minimal or no signs of the conditions assessed."
+    },
+    {
+      "range": [
+        16,
+        30
+      ],
+      "description": "Moderate Risk",
+      "color": "#FFC107",
+      "info": "The individual may show some signs of the conditions assessed and could benefit from further evaluation."
+    },
+    {
+      "range": [
+        31,
+        45
+      ],
+      "description": "High Risk",
+      "color": "#FF5722",
+      "info": "The individual exhibits significant signs of the conditions assessed and should seek professional help."
+    },
+    {
+      "range": [
+        46,
+        60
+      ],
+      "description": "Severe Risk",
+      "color": "#F44336",
+      "info": "The individual shows severe signs and should receive immediate professional attention."
+    }
+  ],
+  "MAX": 60
 }

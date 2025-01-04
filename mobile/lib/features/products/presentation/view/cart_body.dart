@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mindmed_project/core/routes/app_routes.dart';
 import 'package:flutter_mindmed_project/core/theme/colors.dart';
-import 'cart_item.dart';
+import '../widget/cart_item.dart';
 import '../cubit/cart_cubit.dart';
 
 class CartBody extends StatelessWidget {
@@ -28,6 +29,12 @@ class CartBody extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final item = state.cartItems[index];
                   return CartItem(
+                    onDelete: () {
+                      print('Deleting item: ${item.title}');
+                      context
+                          .read<CartCubit>()
+                          .removeFromCart(state.cartItems[index]);
+                    },
                     data: item,
                     onUpdateCount: (newCount) {
                       context.read<CartCubit>().updateItemCount(item, newCount);
@@ -87,6 +94,8 @@ class CartBody extends StatelessWidget {
             ),
             onPressed: () {
               // Handle checkout
+              Navigator.of(context).pushNamed(AppRoutes.paymentScreen,
+                  arguments: state.totalValue);
             },
             child: const Text(
               'Buy Now',

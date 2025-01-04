@@ -1,9 +1,7 @@
 {
   "testTitle": "ADHD and Impulsivity Diagnosis Scale",
-  "sections": [
-    {
-    
-      "questions": [
+  "payment":false,
+    "questions": [
         {
           "id": 1,
           "question": "Does the child have difficulty paying attention?",
@@ -257,14 +255,26 @@
           ]
         }
       ]
-    }
-  ],
-  "scoring": {
-    "instruction": "Rate each item based on frequency (1=Rarely, 2=Sometimes, 3=Often, 4=Always). Add up the total score to assess ADHD and impulsivity symptoms.",
-    "ranges": [
-      { "range": "0-49", "description": "Mild symptoms" },
-      { "range": "50-79", "description": "Moderate symptoms" },
-      { "range": "80-100", "description": "Severe symptoms" }
-    ]
-  }
+    ,  
+    "scoreRanges": [
+      {
+        "range": [0,49],
+        "description": "Mild symptoms.",
+        "color": "bg-green-300",
+        "info": "ADHD symptoms are minimal and have little impact on daily life and functioning."
+      },
+      {
+        "range": [50,79],
+        "description": "Moderate symptoms.",
+        "color": "bg-yellow-300",
+        "info": "ADHD symptoms are more noticeable and have a moderate impact on daily life, requiring some intervention or adjustments."
+      },
+      {
+        "range": [80,100],
+        "description": "Severe symptoms.",
+        "color": "bg-red-300",
+        "info": "ADHD symptoms are intense and pervasive, causing significant disruptions in multiple areas of life, including academic, social, and professional functioning."
+      }
+    ],
+    "MAX":100
 }

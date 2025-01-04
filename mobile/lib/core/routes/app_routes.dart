@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindmed_project/features/On_Board/on_boarding.dart';
 import 'package:flutter_mindmed_project/features/ai_service/service/lina/presentation/view/line_screen.dart';
 import 'package:flutter_mindmed_project/features/doctor/presentation/view/ask_doctor_service.dart';
-import 'package:flutter_mindmed_project/features/products/presentation/view/all_products_screen.dart';
+import 'package:flutter_mindmed_project/features/doctor/presentation/view/doctor_book_screen.dart';
+import 'package:flutter_mindmed_project/features/payment/presentation/view/payment_screen.dart';
+import 'package:flutter_mindmed_project/features/products/presentation/view/products_screen.dart';
 import 'package:flutter_mindmed_project/features/products/presentation/view/cart_screen.dart';
 import 'package:flutter_mindmed_project/features/products/presentation/view/product_details_screen.dart';
 import 'package:flutter_mindmed_project/features/splash_screen/presentation/view/splash_screen.dart';
+import 'package:flutter_mindmed_project/features/test/data/test.dart';
 import 'package:flutter_mindmed_project/features/test/presentation/view/depression_scale_result.dart';
-
 import '../../features/ai_service/service/chat_bot/presentation/view/chat_screen.dart';
 import '../../features/ai_service/view/ai_service_screen.dart';
 import '../../features/artical/data/model_blog.dart';
@@ -17,7 +19,7 @@ import '../../features/artical/presentation/view/details_blog.dart';
 import '../../features/authentication/presentation/view/authentication.dart';
 import '../../features/authentication/presentation/view/signin_screen.dart';
 import '../../features/authentication/presentation/view/signup_screen.dart';
-import '../../features/doctor/data/doctor_model.dart';
+import '../../features/doctor/presentation/view/doctor_screen.dart';
 import '../../features/fqas/presentation/view/fqas_service.dart';
 import '../../features/home/presentation/view/home_screen.dart';
 import '../../features/main_navigation/presentation/view/main_navigation_screen.dart';
@@ -27,9 +29,8 @@ import '../../features/more/presentation/view/contact_us.dart';
 import '../../features/more/presentation/view/language.dart';
 import '../../features/more/presentation/view/more.dart';
 import '../../features/profile_user/presentation/view/profile.dart';
-import '../../features/test/controller/test_route_agruments.dart';
 import '../../features/test/presentation/view/do_test.dart';
-import '../../features/test/presentation/view/test_service.dart';
+import '../../features/test/presentation/view/test_screen.dart';
 
 class AppRoutes {
   static const String splashScreen = '/splashScreen';
@@ -51,26 +52,18 @@ class AppRoutes {
   static const String contactUs = '/contactUs';
   static const String sendToGmail = '/sendToGmail';
   static const String language = '/language';
-  static const String doctor = '/doctor';
   static const String testScreen = '/testScreen';
   static const String doTest = '/doTest';
   static const String depressionScaleResult = '/depressionScaleResult';
   static const String productsScreen = '/productsScreen';
   static const String detailsProduct = '/detailsProduct';
   static const String cartScreen = '/cartScreen';
+  static const String doctor = '/doctor';
   static const String askDoctor = '/askDoctor';
+  static const String doctorBookingScreen = '/DoctorBookingScreen';
+  static const String paymentScreen = '/paymentScreen';
 
   static Route<dynamic>? generateRoute(RouteSettings settings) {
-    TestRouteArguments? getArguments(RouteSettings settings) {
-      if (settings.arguments != null) {
-        if (settings.arguments is Map<String, dynamic>) {
-          return TestRouteArguments.fromMap(
-              settings.arguments as Map<String, dynamic>);
-        }
-      }
-      return null;
-    }
-
     switch (settings.name) {
       case splashScreen:
         return MaterialPageRoute(builder: (_) => const SplachScreen());
@@ -114,44 +107,55 @@ class AppRoutes {
       case language:
         return MaterialPageRoute(builder: (_) => const Language());
       case doctor:
-        return MaterialPageRoute(builder: (_) => Doctor());
+        return MaterialPageRoute(builder: (_) => DoctorScreen());
       case testScreen:
         return MaterialPageRoute(builder: (_) => const TestScreen());
       case doTest:
-        print("Route DoTest Called");
-        final args = getArguments(settings);
-        if (args?.model == null) {
-          return MaterialPageRoute(
-            builder: (_) => const Scaffold(
-              body: Center(child: Text('Error: Missing test model!')),
-            ),
-          );
-        }
+        final Test doTest = settings.arguments as Test;
         return MaterialPageRoute(
-            builder: (_) {
-               print("Building DoTest Screen");
-             return const DoTest();
-            },
-            settings: settings);
+          builder: (_) {
+            print("Building DoTest Screen");
+            return DoTest(
+              test: doTest,
+            );
+          },
+        );
       case depressionScaleResult:
-        final args = getArguments(settings);
-        if (args?.score == null) {
-          return MaterialPageRoute(
-            builder: (_) => const Scaffold(
-              body: Center(child: Text('Error: Missing score data!')),
-            ),
-          );
-        }
+        final Map doTest = settings.arguments as Map ;
+
         return MaterialPageRoute(
-            builder: (_) => const DepressionScaleResult(), settings: settings);
+          builder: (_) => DepressionScaleResult(test: doTest['test'],totalSorce: doTest['totalScore'],),
+        );
       case productsScreen:
-        return MaterialPageRoute(builder: (_) => const ProductsScreen());
+        return MaterialPageRoute(
+          builder: (_) => const ProductsScreen(),
+        );
       case detailsProduct:
-        return MaterialPageRoute(builder: (_) => const DetailsProduct());
+        final dataDetailsProduct = settings.arguments as Map;
+
+        return MaterialPageRoute(
+            builder: (_) => DetailsProduct(
+                  title: dataDetailsProduct['title'],
+                  about: dataDetailsProduct['about'],
+                  image: dataDetailsProduct['image'],
+                  price: dataDetailsProduct['price'],
+                ));
+
       case cartScreen:
         return MaterialPageRoute(builder: (_) => const CartScreen());
       case askDoctor:
         return MaterialPageRoute(builder: (_) => const AskDoctor());
+      case paymentScreen:
+        final dataPrice = settings.arguments as double;
+        return MaterialPageRoute(
+            builder: (_) => PaymentScreen(
+                  price: dataPrice,
+                ));
+
+      case doctorBookingScreen:
+        return MaterialPageRoute(
+          builder: (_) => const DoctorBookingScreen(),
+        );
       default:
         return MaterialPageRoute(
           builder: (_) => Scaffold(

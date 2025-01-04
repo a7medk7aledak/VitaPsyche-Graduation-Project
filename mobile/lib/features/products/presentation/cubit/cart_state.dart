@@ -1,4 +1,4 @@
-import '../view/cart_item_data.dart';
+import '../../data/cart_item_data.dart';
 
 class CartState {
   final List<CartItemData> cartItems;
