@@ -74,7 +74,7 @@ cd client
 npm install
 npm run dev
 ```
-2-Flutter mobile app:
+Flutter mobile app:
 ---
 
 ### Flutter Mobile App Features
