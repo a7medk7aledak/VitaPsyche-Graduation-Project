@@ -1,4 +1,6 @@
 "use client";
+import ScheduleManagement from "@components/doctor/profileDoctor/ScheduleMangment";
+import ServicesManagment from "@components/doctor/profileDoctor/ServicesManagment";
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
@@ -79,7 +81,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   });
 
   const [editing, setEditing] = useState(false);
-  const [activeTab, setActiveTab] = useState("personal");
+  const [activeTab, setActiveTab] = useState("Personal");
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -217,7 +219,8 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
 
   const renderCareerInfo = () => (
     <div className="mt-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Career</h2>
+      {" "}
+      <h2 className="text-3xl font-semibold text-gray-800 mb-6">Career</h2>
       <ul className="timeline">
         <li className="mb-4">
           <span className=" font-semibold  text-lg text-gray-600">
@@ -260,7 +263,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
 
   const renderDocuments = () => (
     <div className="mt-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-4">Documents</h2>
+      <h2 className="text-3xl font-semibold text-gray-800 mb-6">Documents</h2>
       <div className="space-x-6 ">
         <a href="/path-to-cv" className="text-blue-500 hover:underline">
           View CV
@@ -276,7 +279,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 p-8 flex justify-center items-center">
+    <div className="min-h-screen bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 p-8 flex justify-center items-center ">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-2xl">
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 space-y-4 md:space-y-0">
           <div className="flex flex-col md:flex-row items-center relative w-full">
@@ -324,13 +327,20 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
         </div>
 
         <div className="tabs flex justify-between flex-wrap gap-y-4 mb-6">
-          {["personal", "payment", "career", "documents"].map((tab) => (
+          {[
+            "Personal",
+            "Payment",
+            "Career",
+            "Documents",
+            "Services",
+            "Schedule",
+          ].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`tab ${
                 activeTab === tab
-                  ? "bg-[#00bfa5]  text-white"
+                  ? "bg-subbutton  text-white"
                   : "bg-gray-200 text-gray-700"
               } py-2 px-4 rounded-t-lg transition`}
             >
@@ -340,10 +350,12 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
         </div>
 
         <div className=" mt-8 bg-gray-100 p-6 rounded-lg">
-          {activeTab === "personal" && renderPersonalInfo()}
-          {activeTab === "payment" && renderPaymentInfo()}
-          {activeTab === "career" && renderCareerInfo()}
-          {activeTab === "documents" && renderDocuments()}
+          {activeTab === "Personal" && renderPersonalInfo()}
+          {activeTab === "Payment" && renderPaymentInfo()}
+          {activeTab === "Career" && renderCareerInfo()}
+          {activeTab === "Documents" && renderDocuments()}
+          {activeTab === "Services" && <ServicesManagment />}
+          {activeTab === "Schedule" && <ScheduleManagement />}
         </div>
       </div>
     </div>
