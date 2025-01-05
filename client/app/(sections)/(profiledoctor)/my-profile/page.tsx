@@ -279,7 +279,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 p-8 flex justify-center items-center ">
+    <div className=" p-8 flex justify-center items-center ">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-2xl">
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 space-y-4 md:space-y-0">
           <div className="flex flex-col md:flex-row items-center relative w-full">

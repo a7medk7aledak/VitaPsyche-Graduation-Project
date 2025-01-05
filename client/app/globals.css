@@ -6,6 +6,12 @@
   @apply transition duration-300 ease-in;
 }
 
+
+/* to overwrite the margin top comes from fixed in my-profile when popup appear
+.fixed {
+  @apply mt-0 !important ;
+} */
+
 section {
   padding: 4rem 0;
 }
@@ -87,7 +93,6 @@ canvas {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }
-
 
 @keyframes spin-smooth {
   0% {
