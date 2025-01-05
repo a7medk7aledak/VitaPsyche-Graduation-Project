@@ -1,6 +1,9 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { FaCrown, FaCheck } from "react-icons/fa";
 import { useRouter } from "next/navigation";
+import { RootState } from "@store/store";
+import { useSelector } from "react-redux";
 
 interface PremiumTestCardProps {
   title: string;
@@ -23,16 +26,31 @@ const PremiumTestCard: React.FC<PremiumTestCardProps> = ({
 }) => {
   const router = useRouter();
 
-  const handlePurchase = () => {
-    // Construct the query string manually
-    const query = new URLSearchParams({
-      title,
-      testSlug,
-      price: price.toString(),
-    }).toString();
+  const purchasedTests = useSelector(
+    (state: RootState) => state.auth.purchasedTests
+  );
 
-    // Push the full URL with the query string
-    router.push(`/tests/premium/checkoutPremiumTest?${query}`);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const isTestPurchased = isMounted
+    ? purchasedTests.includes(testSlug)
+    : isPurchased;
+
+  const handleButtonClick = () => {
+    if (isTestPurchased) {
+      router.push(`/tests/premium/${testSlug}`);
+    } else {
+      const query = new URLSearchParams({
+        title,
+        testSlug,
+        price: price.toString(),
+      }).toString();
+      router.push(`/tests/premium/checkoutPremiumTest?${query}`);
+    }
   };
 
   return (
@@ -81,14 +99,14 @@ const PremiumTestCard: React.FC<PremiumTestCardProps> = ({
 
       {/* Action Button */}
       <button
-        onClick={handlePurchase}
+        onClick={handleButtonClick}
         className={`w-full mt-4 block ${
           isPurchased
             ? "bg-purple-600 hover:bg-purple-700"
             : "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
         } text-white text-sm font-semibold rounded-lg px-4 py-3 transform transition-all duration-300 hover:scale-[1.02] flex items-center justify-center`}
       >
-        {isPurchased ? (
+        {isTestPurchased ? (
           <>
             Take Test
             <FaCheck className="ml-2" />

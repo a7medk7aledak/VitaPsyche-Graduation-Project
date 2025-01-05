@@ -7,9 +7,12 @@ import { CustomerSupport } from "@components/checkout/customer-support";
 import { PaymentMethods } from "@components/checkout/payment-methods";
 import Heading from "@components/common/Heading";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
+import { addPurchasedTest } from "@store/authSlice";
+import { useDispatch } from "react-redux";
 
 // Main CheckoutPage component
 function CheckoutPage() {
+  const dispatch = useDispatch();
   const router = useRouter();
   const searchParams = useSearchParams(); // Use useSearchParams for App Router
   const [showModal, setShowModal] = useState(false);
@@ -20,8 +23,13 @@ function CheckoutPage() {
   const price = parseInt(searchParams?.get("price") || "0");
 
   const closeModalHandler = () => {
+    if (testSlug) {
+      dispatch(addPurchasedTest(testSlug));
+    }
+
     setShowModal(false);
-    router.push(`/tests/premium/${testSlug}`); // Redirect to the test
+    // إعادة التوجيه إلى صفحة الاختبار
+    router.push(`/tests/premium/${testSlug}`);
   };
 
   return (

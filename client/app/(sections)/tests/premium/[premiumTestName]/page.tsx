@@ -41,10 +41,10 @@ interface Test {
 const TestPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
-  const testName = params?.testName as string;
+  const premiumTestName = params?.premiumTestName as string;
 
   // تصحيح استخدام find
-  const test = paidtests.find((t) => t.testSlug === testName) as
+  const test = paidtests.find((t) => t.testSlug === premiumTestName) as
     | Test
     | undefined;
 
@@ -122,7 +122,7 @@ const TestPage: React.FC = () => {
       const answersStr = JSON.stringify(answers);
       const url = `/result?score=${score}&answers=${encodeURIComponent(
         answersStr
-      )}&testSlug=${encodeURIComponent(testName)}&isPremium=true`;
+      )}&testSlug=${encodeURIComponent(premiumTestName)}&isPremium=true`;
 
       router.push(url);
     }
