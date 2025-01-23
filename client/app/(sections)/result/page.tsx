@@ -71,7 +71,6 @@ function calculatePTSDScore(answers: number[], questions: Question[]): string {
 
   return hasPTSD ? "You have PTSD." : "You don't have PTSD.";
 }
-
 function calculatePersonalityDisorders(
   answers: number[],
   questions: Question[]
@@ -192,7 +191,6 @@ function calculatePersonalityDisorders(
     details: details || "No results available",
   };
 }
-
 const ClientSideResult: React.FC = () => {
   const [test, setTest] = useState<Test | null>(null);
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
@@ -336,7 +334,6 @@ const ClientSideResult: React.FC = () => {
       </div>
     );
   };
-
   return (
     <>
       <Navbar />
@@ -392,12 +389,12 @@ const ClientSideResult: React.FC = () => {
                     </h3>
                     <ul className="list-disc list-inside text-sm text-gray-600 space-y-2">
                       <li>
-                        "Present" indicates that responses meet the threshold
-                        for further evaluation
+                        &ldquo;Present&rdquo; indicates that responses meet the
+                        threshold for further evaluation
                       </li>
                       <li>
-                        "Not Present" suggests symptoms may not be clinically
-                        significant
+                        &ldquo;Not Present&rdquo; suggests symptoms may not be
+                        clinically significant
                       </li>
                       <li>
                         Multiple indicators may suggest overlapping traits or
