@@ -80,7 +80,7 @@ const Services = () => {
                 {service.title}
               </p>
               <Link href={service.buttonLink} className="mx-auto">
-                <Button variant="secondary" size="small" roundedValue="full">
+                <Button variant="secondary" size="medium" roundedValue="full">
                   {service.buttonTitle}
                 </Button>
               </Link>

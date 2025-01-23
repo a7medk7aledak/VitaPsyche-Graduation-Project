@@ -22,7 +22,7 @@ export const services: TServices = [
     alt: "askQuestion.png",
   },
   {
-    title: "Mental health medications and products",
+    title: "Mental health  products",
     img: "/images/Home/products.png",
     buttonTitle: "Show more ",
     buttonLink: "products",
