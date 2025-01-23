@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Button from "@components/common/Button";
 import { Star } from "lucide-react";
 import Image from "next/image";
@@ -6,10 +9,15 @@ import { FaRegClock } from "react-icons/fa6";
 import { GiTimeSynchronization } from "react-icons/gi";
 import { GrLanguage } from "react-icons/gr";
 import { FaGlobe } from "react-icons/fa";
+import ReviewForm from "./reviewForm";
+import Link from "next/link";
 
 export function ProfileCard() {
+  const [isReviewOpen, setIsReviewOpen] = useState(false);
+
   return (
-    <div className=" w-[500px] bg-white rounded-lg p-6 shadow-md">
+    <div className="relative w-[500px] bg-white rounded-lg p-6 shadow-md">
+      {/* Profile Card */}
       <div className="flex items-start gap-4">
         <Image
           src="/images/about-us/me.jpg"
@@ -45,7 +53,6 @@ export function ProfileCard() {
         </div>
         <div className="flex items-center space-x-3">
           <FaRegCalendarAlt />
-
           <span className="text-gray-600">Joining Date: 2 years ago</span>
         </div>
         <div className="flex items-center space-x-3">
@@ -64,13 +71,36 @@ export function ProfileCard() {
       </div>
 
       <div className="mt-6 flex justify-center space-x-8">
-        <button className="text-lg font-medium text-subheading hover:underline">
+        <button
+          className="text-lg font-medium text-subheading hover:underline"
+          onClick={() => setIsReviewOpen(true)}
+        >
           Write a review
         </button>
-        <Button variant="secondary" size="large" roundedValue="md">
-          Select Time Slot
-        </Button>
+        <Link href={"doctorList/booking"}>
+          <Button variant="secondary" size="large" roundedValue="md">
+            Select Time Slot
+          </Button>
+        </Link>
       </div>
+
+      {/* Modal for Review Form */}
+      {isReviewOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="relative bg-white rounded-lg p-6 shadow-lg w-[90%] max-w-md">
+            <button
+              className="absolute top-3 right-3 text-3xl text-gray-600 hover:text-gray-800"
+              onClick={() => setIsReviewOpen(false)}
+            >
+              ✕
+            </button>
+            <ReviewForm
+              doctorName="Dalal Radwan"
+              setIsReviewOpen={setIsReviewOpen}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

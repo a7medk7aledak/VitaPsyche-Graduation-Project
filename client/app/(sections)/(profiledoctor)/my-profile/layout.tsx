@@ -7,11 +7,11 @@ interface layoutProps {
 
 const layout: FC<layoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      {/* Main Content */}
-      <main className="flex-grow">{children}</main>
-      {/* Footer */}
+    <div className="min-h-screen bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200">
+      <div className="bg-[#dce9e6]">
+        <Navbar />
+      </div>
+      {children}
     </div>
   );
 };

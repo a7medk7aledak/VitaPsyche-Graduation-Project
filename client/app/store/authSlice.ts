@@ -20,6 +20,7 @@ interface AuthState {
   user: UserData | null;
   token: string | null;
   isAuthenticated: boolean;
+  purchasedTests: string[];
 }
 
 const initialState: AuthState = {
@@ -33,6 +34,10 @@ const initialState: AuthState = {
     typeof window !== "undefined"
       ? !!localStorage.getItem("access_token")
       : false,
+  purchasedTests:
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("purchasedTests") || "[]")
+      : [],
 };
 
 const authSlice = createSlice({
@@ -53,17 +58,31 @@ const authSlice = createSlice({
         localStorage.setItem("access_token", action.payload);
       }
     },
+    addPurchasedTest: (state, action: PayloadAction<string>) => {
+      if (!state.purchasedTests.includes(action.payload)) {
+        state.purchasedTests.push(action.payload);
+        if (typeof window !== "undefined") {
+          localStorage.setItem(
+            "purchasedTests",
+            JSON.stringify(state.purchasedTests)
+          );
+        }
+      }
+    },
     logout: (state) => {
       state.user = null;
       state.token = null;
       state.isAuthenticated = false;
+      state.purchasedTests = [];
       if (typeof window !== "undefined") {
         localStorage.removeItem("access_token");
         localStorage.removeItem("user");
+        localStorage.removeItem("purchasedTests");
       }
     },
   },
 });
 
-export const { setUser, setToken, logout } = authSlice.actions;
+export const { setUser, setToken, addPurchasedTest, logout } =
+  authSlice.actions;
 export default authSlice.reducer;

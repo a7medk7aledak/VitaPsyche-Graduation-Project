@@ -15,7 +15,7 @@ interface ICategory {
 
 export function Category({ category }: ICategory) {
   return (
-    <div className=" flex flex-col justify-between items-center space-y-2 border-2 p-5 text-center rounded-2xl shadow-sm hover:shadow-md transition  bg-backgroundcolor hover:scale-105 duration-200">
+    <div className=" flex flex-col justify-between items-center space-y-2 border-2 p-5 text-center rounded-2xl shadow-sm hover:shadow-md transition  bg-backgroundcolor hover:scale-105 duration-200 mx-6 md:mx-0">
       <div className="space-y-2">
         <Image
           src={category.icon}
