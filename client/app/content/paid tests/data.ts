@@ -1205,7 +1205,8 @@ export const paidtests = [
       },
       {
         questionId: 5,
-        questionText: "I don't confide in others to avoid being exploited.",
+        questionText:
+          "I don't share my secrets with others so they won't be used against me.",
         options: [
           { optionId: 1, optionText: "Yes", score: 1 },
           { optionId: 2, optionText: "No", score: 0 },
@@ -1790,7 +1791,7 @@ export const paidtests = [
       {
         questionId: 76,
         questionText:
-          "I don't openly disagree with others to avoid upsetting them.",
+          "I do not disagree with others openly for fear of arousing their anger ",
         options: [
           { optionId: 1, optionText: "Yes", score: 1 },
           { optionId: 2, optionText: "No", score: 0 },
@@ -1907,7 +1908,15 @@ export const paidtests = [
       },
       {
         questionId: 90,
-        questionText: "I feel worthless and insignificant.",
+        questionText: "I feel hopeless and hopeless about the future",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 90,
+        questionText: " I feel so worthless and bad.",
         options: [
           { optionId: 1, optionText: "Yes", score: 1 },
           { optionId: 2, optionText: "No", score: 0 },
@@ -2134,8 +2143,24 @@ export const paidtests = [
       },
       {
         questionId: 117,
+        questionText: "I don't mind being a victim.'",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 118,
         questionText:
-          "I don't mind being a victim, as the saying goes 'better to be oppressed than to be an oppressor.'",
+          " As the saying goes 'better to be oppressed than to be an oppressor.'",
+        options: [
+          { optionId: 1, optionText: "Yes", score: 1 },
+          { optionId: 2, optionText: "No", score: 0 },
+        ],
+      },
+      {
+        questionId: 119,
+        questionText: " The beloved’s blow feels as sweet as eating raisins'",
         options: [
           { optionId: 1, optionText: "Yes", score: 1 },
           { optionId: 2, optionText: "No", score: 0 },
