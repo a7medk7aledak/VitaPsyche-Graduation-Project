@@ -92,16 +92,69 @@ function calculatePersonalityDisorders(
     },
     {
       name: "Schizotypal Personality",
-      range: [21, 22, 23, 24, 25],
+      range: [17, 18, 19, 20, 21, 22, 23, 24],
+      threshold: 5,
+    },
+    {
+      name: "Antisocial Personality",
+      range: [25, 26, 27, 28, 29, 30, 31, 32],
       threshold: 3,
     },
-    { name: "Antisocial Personality", range: [32, 33, 34, 35], threshold: 3 },
-    { name: "Borderline Personality", range: [40, 41, 42, 43], threshold: 3 },
-    { name: "Histrionic Personality", range: [51, 52, 53, 54], threshold: 3 },
-    { name: "Narcissistic Personality", range: [57, 58, 59, 60], threshold: 3 },
-    { name: "Avoidant Personality", range: [71, 72, 73, 74], threshold: 3 },
-    { name: "Dependent Personality", range: [80, 81, 82, 83], threshold: 3 },
-    { name: "Obsessive Personality", range: [89, 90, 91, 92], threshold: 3 },
+    {
+      name: "Borderline Personality",
+      range: [33, 34, 35, 36, 37, 38, 39, 40],
+      threshold: 5,
+    },
+    {
+      name: "Histrionic Personality",
+      range: [41, 42, 43, 44, 45, 46, 47, 48],
+      threshold: 5,
+    },
+    {
+      name: "Narcissistic Personality",
+      range: [49, 50, 51, 52, 52, 53, 54, 55, 56],
+      threshold: 5,
+    },
+    {
+      name: "Obsessive-Compulsive Personality",
+      range: [57, 58, 59, 60, 61, 62, 63, 64],
+      threshold: 4,
+    },
+    {
+      name: "Dependent Personality",
+      range: [65, 66, 67, 68, 69, 70, 71, 72],
+      threshold: 4,
+    },
+    {
+      name: "Multiple Dependent Personality",
+      range: [73, 74, 78, 79, 79, 80],
+      threshold: 4,
+    },
+    {
+      name: "Passive-Aggressive Personality",
+      range: [81, 82, 83, 84, 85, 86, 87, 88],
+      threshold: 4,
+    },
+    {
+      name: "Depressive Personality",
+      range: [89, 90, 91, 92, 93, 94, 95, 96],
+      threshold: 5,
+    },
+    {
+      name: "Self-Defeating Personality",
+      range: [97, 98, 99, 100, 101, 102, 103, 104],
+      threshold: 5,
+    },
+    {
+      name: "Sadistic Personality",
+      range: [105, 106, 107, 108, 109, 110, 111, 112],
+      threshold: 4,
+    },
+    {
+      name: "Masochistic Personality",
+      range: [113, 114, 115, 116, 117, 118, 119, 120],
+      threshold: 4,
+    },
   ];
 
   const results = disorderRanges.map((disorder) => {
@@ -131,11 +184,12 @@ function calculatePersonalityDisorders(
           r.hasDisorder ? "Present" : "Not Present"
         })`
     )
+    .filter(Boolean)
     .join("\n");
 
   return {
     disorders: detectedDisorders,
-    details: details,
+    details: details || "No results available",
   };
 }
 
@@ -238,6 +292,51 @@ const ClientSideResult: React.FC = () => {
     return <div>Loading...</div>;
   }
 
+  const renderPersonalityDisorderResults = () => {
+    if (!detailedInfo) {
+      return (
+        <div className="text-center text-gray-600">
+          No detailed information available
+        </div>
+      );
+    }
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {detailedInfo.split("\n").map((line, index) => {
+          if (!line) return null;
+
+          const parts = line.split(":");
+          if (parts.length < 2) return null;
+
+          const name = parts[0];
+          const scoreInfo = parts[1];
+          const isPresent = scoreInfo?.includes("Present") || false;
+
+          return (
+            <div
+              key={index}
+              className={`p-4 rounded-lg border ${
+                isPresent
+                  ? "border-red-200 bg-red-50"
+                  : "border-green-200 bg-green-50"
+              }`}
+            >
+              <h3 className="font-semibold text-gray-800">{name}</h3>
+              <p
+                className={`text-sm mt-1 ${
+                  isPresent ? "text-red-600" : "text-green-600"
+                }`}
+              >
+                {scoreInfo}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    );
+  };
+
   return (
     <>
       <Navbar />
@@ -258,73 +357,146 @@ const ClientSideResult: React.FC = () => {
         </header>
 
         <main className="flex-grow container mx-auto px-4 py-8 max-w-4xl">
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-4">
-              Your Result
-            </h2>
-            <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
-              <div className="flex items-baseline">
-                <span
-                  className={`text-4xl md:text-5xl font-bold ${
-                    test.isPremium ? "text-purple-600" : "text-blue-600"
-                  }`}
-                >
-                  {test.testSlug === "personality-disorders-test" ? "" : score}
-                </span>
-                {test.testSlug !== "ptsd-scale" &&
-                  test.testSlug !== "personality-disorders-test" && (
-                    <span className="text-4xl md:text-5xl text-black ml-1">
-                      /{maxScore}
-                    </span>
-                  )}
-              </div>
-              <div
-                className={`text-xl md:text-2xl font-semibold ${
-                  test.isPremium ? "text-purple-600" : "text-green-600"
-                } text-center md:text-left`}
-              >
-                {feedback}
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-            <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-              What does this mean?
-            </h2>
-            {test.testSlug === "personality-disorders-test" ? (
-              <div className="space-y-2">
-                {detailedInfo.split("\n").map((line, index) => (
-                  <p key={index} className="text-gray-600">
-                    {line}
+          {test.testSlug === "personality-disorders-test" ? (
+            <>
+              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-6">
+                  Test Results Summary
+                </h2>
+                <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                  <p className="text-lg text-center text-gray-700">
+                    {feedback}
                   </p>
-                ))}
+                </div>
+                {renderPersonalityDisorderResults()}
               </div>
-            ) : (
-              <p className="text-gray-600 leading-relaxed text-center md:text-left">
-                {detailedInfo}
-              </p>
-            )}
-          </div>
 
-          {test.testSlug !== "personality-disorders-test" && (
-            <div className="bg-white rounded-xl shadow-lg p-6 mb-8 overflow-x-auto">
-              <div className="flex flex-col md:flex-row justify-center gap-2 min-w-max md:min-w-0">
-                {test.scoring.scoreRanges?.map((range, index) => (
-                  <div
-                    key={index}
-                    className={`${range.color} p-3 rounded-lg text-white text-center flex-1`}
-                  >
-                    <span className="text-sm md:text-base font-medium block">
-                      {range.description}
-                    </span>
-                    <span className="text-xs opacity-90 block">
-                      {range.range} points
-                    </span>
+              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                  Understanding Your Results
+                </h2>
+                <div className="space-y-4">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-blue-800 mb-2">
+                      Important Note
+                    </h3>
+                    <p className="text-blue-600 text-sm">
+                      This screening tool provides initial insights but is not a
+                      diagnostic instrument. A proper diagnosis can only be made
+                      by a qualified mental health professional.
+                    </p>
                   </div>
-                ))}
+                  <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-gray-800 mb-2">
+                      Score Interpretation
+                    </h3>
+                    <ul className="list-disc list-inside text-sm text-gray-600 space-y-2">
+                      <li>
+                        "Present" indicates that responses meet the threshold
+                        for further evaluation
+                      </li>
+                      <li>
+                        "Not Present" suggests symptoms may not be clinically
+                        significant
+                      </li>
+                      <li>
+                        Multiple indicators may suggest overlapping traits or
+                        complex presentations
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
+
+              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                  Next Steps
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-purple-800 mb-2">
+                      Professional Consultation
+                    </h3>
+                    <p className="text-purple-600 text-sm">
+                      If your results indicate any concerns, consider scheduling
+                      an appointment with a mental health professional for a
+                      comprehensive evaluation.
+                    </p>
+                  </div>
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-green-800 mb-2">
+                      Self-Care Steps
+                    </h3>
+                    <p className="text-green-600 text-sm">
+                      Regardless of your results, maintaining good mental health
+                      through regular self-care, stress management, and healthy
+                      relationships is important.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : (
+            // Original UI for other tests
+            <>
+              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-4">
+                  Your Result
+                </h2>
+                <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
+                  <div className="flex items-baseline">
+                    <span
+                      className={`text-4xl md:text-5xl font-bold ${
+                        test.isPremium ? "text-purple-600" : "text-blue-600"
+                      }`}
+                    >
+                      {score}
+                    </span>
+                    {test.testSlug !== "ptsd-scale" && (
+                      <span className="text-4xl md:text-5xl text-black ml-1">
+                        /{maxScore}
+                      </span>
+                    )}
+                  </div>
+                  <div
+                    className={`text-xl md:text-2xl font-semibold ${
+                      test.isPremium ? "text-purple-600" : "text-green-600"
+                    } text-center md:text-left`}
+                  >
+                    {feedback}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                  What does this mean?
+                </h2>
+                <p className="text-gray-600 leading-relaxed text-center md:text-left">
+                  {detailedInfo}
+                </p>
+              </div>
+
+              {test.scoring.scoreRanges && (
+                <div className="bg-white rounded-xl shadow-lg p-6 mb-8 overflow-x-auto">
+                  <div className="flex flex-col md:flex-row justify-center gap-2 min-w-max md:min-w-0">
+                    {test.scoring.scoreRanges.map((range, index) => (
+                      <div
+                        key={index}
+                        className={`${range.color} p-3 rounded-lg text-white text-center flex-1`}
+                      >
+                        <span className="text-sm md:text-base font-medium block">
+                          {range.description}
+                        </span>
+                        <span className="text-xs opacity-90 block">
+                          {range.range} points
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
           <div className="text-center space-y-6">
