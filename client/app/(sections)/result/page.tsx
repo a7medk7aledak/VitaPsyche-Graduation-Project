@@ -72,6 +72,73 @@ function calculatePTSDScore(answers: number[], questions: Question[]): string {
   return hasPTSD ? "You have PTSD." : "You don't have PTSD.";
 }
 
+function calculatePersonalityDisorders(
+  answers: number[],
+  questions: Question[]
+): {
+  disorders: string[];
+  details: string;
+} {
+  const disorderRanges = [
+    {
+      name: "Paranoid Personality",
+      range: [1, 2, 3, 4, 5, 6, 7, 8],
+      threshold: 4,
+    },
+    {
+      name: "Schizoid Personality",
+      range: [9, 10, 11, 12, 13, 14, 15, 16],
+      threshold: 4,
+    },
+    {
+      name: "Schizotypal Personality",
+      range: [21, 22, 23, 24, 25],
+      threshold: 3,
+    },
+    { name: "Antisocial Personality", range: [32, 33, 34, 35], threshold: 3 },
+    { name: "Borderline Personality", range: [40, 41, 42, 43], threshold: 3 },
+    { name: "Histrionic Personality", range: [51, 52, 53, 54], threshold: 3 },
+    { name: "Narcissistic Personality", range: [57, 58, 59, 60], threshold: 3 },
+    { name: "Avoidant Personality", range: [71, 72, 73, 74], threshold: 3 },
+    { name: "Dependent Personality", range: [80, 81, 82, 83], threshold: 3 },
+    { name: "Obsessive Personality", range: [89, 90, 91, 92], threshold: 3 },
+  ];
+
+  const results = disorderRanges.map((disorder) => {
+    const score = disorder.range.reduce((count, qIndex) => {
+      const answer = answers[qIndex - 1];
+      const option = questions[qIndex - 1]?.options.find(
+        (opt) => opt.optionId === answer
+      );
+      return count + ((option?.score ?? 0) >= 1 ? 1 : 0);
+    }, 0);
+
+    return {
+      name: disorder.name,
+      score: score,
+      hasDisorder: score >= disorder.threshold,
+      threshold: disorder.threshold,
+    };
+  });
+
+  const detectedDisorders = results
+    .filter((r) => r.hasDisorder)
+    .map((r) => r.name);
+  const details = results
+    .map(
+      (r) =>
+        `${r.name}: ${r.score}/${r.threshold} (${
+          r.hasDisorder ? "Present" : "Not Present"
+        })`
+    )
+    .join("\n");
+
+  return {
+    disorders: detectedDisorders,
+    details: details,
+  };
+}
+
 const ClientSideResult: React.FC = () => {
   const [test, setTest] = useState<Test | null>(null);
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
@@ -103,6 +170,22 @@ const ClientSideResult: React.FC = () => {
       if (test.testSlug === "ptsd-scale") {
         const feedbackText = calculatePTSDScore(userAnswers, test.questions);
         setFeedback(feedbackText);
+      } else if (test.testSlug === "personality-disorders-test") {
+        const result = calculatePersonalityDisorders(
+          userAnswers,
+          test.questions
+        );
+
+        if (result.disorders.length > 0) {
+          setFeedback(
+            `Potential indicators found for: ${result.disorders.join(", ")}`
+          );
+        } else {
+          setFeedback("No significant personality disorder indicators found");
+        }
+
+        setDetailedInfo(result.details);
+        setScore(result.disorders.length);
       } else {
         let totalScore = 0;
         test.questions.forEach((question, index) => {
@@ -186,13 +269,14 @@ const ClientSideResult: React.FC = () => {
                     test.isPremium ? "text-purple-600" : "text-blue-600"
                   }`}
                 >
-                  {test.testSlug === "ptsd-scale" ? score : score}
+                  {test.testSlug === "personality-disorders-test" ? "" : score}
                 </span>
-                {test.testSlug !== "ptsd-scale" && (
-                  <span className="text-4xl md:text-5xl text-black ml-1">
-                    /{maxScore}
-                  </span>
-                )}
+                {test.testSlug !== "ptsd-scale" &&
+                  test.testSlug !== "personality-disorders-test" && (
+                    <span className="text-4xl md:text-5xl text-black ml-1">
+                      /{maxScore}
+                    </span>
+                  )}
               </div>
               <div
                 className={`text-xl md:text-2xl font-semibold ${
@@ -208,28 +292,40 @@ const ClientSideResult: React.FC = () => {
             <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
               What does this mean?
             </h2>
-            <p className="text-gray-600 leading-relaxed text-center md:text-left">
-              {detailedInfo}
-            </p>
+            {test.testSlug === "personality-disorders-test" ? (
+              <div className="space-y-2">
+                {detailedInfo.split("\n").map((line, index) => (
+                  <p key={index} className="text-gray-600">
+                    {line}
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p className="text-gray-600 leading-relaxed text-center md:text-left">
+                {detailedInfo}
+              </p>
+            )}
           </div>
 
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-8 overflow-x-auto">
-            <div className="flex flex-col md:flex-row justify-center gap-2 min-w-max md:min-w-0">
-              {test.scoring.scoreRanges?.map((range, index) => (
-                <div
-                  key={index}
-                  className={`${range.color} p-3 rounded-lg text-white text-center flex-1`}
-                >
-                  <span className="text-sm md:text-base font-medium block">
-                    {range.description}
-                  </span>
-                  <span className="text-xs opacity-90 block">
-                    {range.range} points
-                  </span>
-                </div>
-              ))}
+          {test.testSlug !== "personality-disorders-test" && (
+            <div className="bg-white rounded-xl shadow-lg p-6 mb-8 overflow-x-auto">
+              <div className="flex flex-col md:flex-row justify-center gap-2 min-w-max md:min-w-0">
+                {test.scoring.scoreRanges?.map((range, index) => (
+                  <div
+                    key={index}
+                    className={`${range.color} p-3 rounded-lg text-white text-center flex-1`}
+                  >
+                    <span className="text-sm md:text-base font-medium block">
+                      {range.description}
+                    </span>
+                    <span className="text-xs opacity-90 block">
+                      {range.range} points
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="text-center space-y-6">
             <p
