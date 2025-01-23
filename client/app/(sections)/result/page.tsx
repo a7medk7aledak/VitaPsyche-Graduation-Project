@@ -437,7 +437,6 @@ const ClientSideResult: React.FC = () => {
               </div>
             </>
           ) : (
-            // Original UI for other tests
             <>
               <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
                 <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-4">
