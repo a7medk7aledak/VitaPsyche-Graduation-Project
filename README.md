@@ -271,6 +271,10 @@ pip install cryptography==3.4.8
 rasa train
 rasa run -m models --enable-api --cors "*"
 ```
+to Run action and api
+```
+rasa run actions
+```
 5-rasa lina:
 ```bash
 cd lina model
