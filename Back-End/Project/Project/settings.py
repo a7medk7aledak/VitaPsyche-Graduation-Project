@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-g0kyaweh%k5(86ga=&v$0@n_b29m##&&89j1ylz_f=k_n++fch
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '10.0.2.2']
 
 
 # Application definition
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'rest_framework_simplejwt',
     'chatbot_api',
+    'chatbot',
+    'corsheaders',
     
 ]
 
@@ -159,3 +161,9 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# to allow Next.js req like (http://localhost:3000)
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000", ##front-end
+    "http://127.0.0.1:3000",
+    "http://10.0.2.2:3000", ##android emulator
+]
