@@ -290,6 +290,7 @@ note:
 To test the Rasa Chatbot and Lina by terminal:
 ```bash
 rasa train
+rasa data validate  #track files in rasa
 rasa shell
 ```
 API Testing
