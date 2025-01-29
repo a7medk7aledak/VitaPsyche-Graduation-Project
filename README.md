@@ -215,40 +215,28 @@ This project utilizes the following libraries to enhance functionality and strea
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
 py -3.9 -m venv .venv
 .\.venv\Scripts\activate
-cd Back-End
+cd server
 cd Project
 pip install django
 py -m pip install --upgrade pip
 pip install requests
-pip install djangorestframework
 pip install django-cors-headers
 pip install drf-yasg
 pip install djangorestframework-simplejwt
+pip install -r requirements.txt
+py -m pip install --upgrade pip
+pip install djangorestframework
+pip install django-cors-headers
+pip install drf-yasg
 pip install coverage
 
-or 
-pip install -r requirements.txt
 #to run the server
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
+python manage.py runserver
 
-python manage.py runserver 5000
-```
-3-Django back-end for chatbot:
-```bash
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
-py -3.9 -m venv .venv
-.\.venv\Scripts\activate
-cd server
-pip install django
-py -m pip install --upgrade pip
-pip install requests
-pip install django-cors-headers
-pip install drf-yasg
-pip install djangorestframework-simplejwt
-pip install -r requirements.txt
-#to run the server
+#to run the server chatbot
 python manage.py runserver
 ```
 to make backend tastes:
