@@ -28,7 +28,7 @@ def chatbot(request):
             # Send the user's message to Rasa if it's not empty
             if user_message:
                 rasa_url = "http://localhost:5005/webhooks/rest/webhook"
-                response = requests.post(rasa_url, json={"sender": "user", "message": user_message}, timeout=10)
+                response = requests.post(rasa_url, json={"sender": "user", "message": user_message}, timeout=1000)
 
                 # Log the response from Rasa
                 logger.info("Response from Rasa: %s", response.text)
