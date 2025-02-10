@@ -227,8 +227,8 @@ responses:
 #- utter_ask_age
 
 
-# actions:
-#   - action_ask_core_model
+actions:
+  - action_ask_core_model
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
