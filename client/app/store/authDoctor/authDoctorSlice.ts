@@ -6,7 +6,7 @@ import { isString } from "@app/types/types";
 
 type TInitialState = {
   formData: TFormData;
-  loading: TLoading;
+  status: TLoading;
   error: string | null;
   showModal: boolean;
 };
@@ -51,7 +51,7 @@ const formData = {
 // Define the initial state with proper typing
 const initialState: TInitialState = {
   formData: formData,
-  loading: "idle",
+  status: "idle",
   error: null as string | null,
   showModal: false,
 };
@@ -73,15 +73,15 @@ const doctorFormSlice = createSlice({
   extraReducers: (builder) => {
     //register of doctor
     builder.addCase(actAuthDoctorRegister.pending, (state) => {
-      state.loading = "pending";
+      state.status = "pending";
       state.error = null;
     });
     builder.addCase(actAuthDoctorRegister.fulfilled, (state) => {
-      state.loading = "succedded";
+      state.status = "succedded";
       state.showModal = true;
     });
     builder.addCase(actAuthDoctorRegister.rejected, (state, action) => {
-      state.loading = "failed";
+      state.status = "failed";
       if (isString(action.payload)) {
         state.error = action.payload;
       }

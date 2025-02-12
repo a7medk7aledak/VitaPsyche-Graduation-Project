@@ -7,11 +7,13 @@ interface ServiceProps {
     category: string;
     price: number;
     duration: string;
+    description?: string;
+    is_active?: boolean;
+    doctors?: string[];
   };
   onEdit: (id: number) => void;
   onRemove: (id: number) => void;
 }
-
 
 const Service: React.FC<ServiceProps> = ({ service, onEdit, onRemove }) => {
   return (
@@ -24,6 +26,12 @@ const Service: React.FC<ServiceProps> = ({ service, onEdit, onRemove }) => {
           <p className="text-gray-600">
             <span className="font-semibold">Category:</span> {service.category}
           </p>
+          {service.description && (
+            <p className="text-gray-600">
+              <span className="font-semibold">Description:</span>{" "}
+              {service.description}
+            </p>
+          )}
           <p className="text-gray-600">
             <span className="font-semibold">Price:</span> ${service.price}
           </p>

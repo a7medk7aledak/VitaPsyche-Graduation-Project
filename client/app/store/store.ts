@@ -5,6 +5,7 @@ import authReducer from "./authSlice";
 import chatReducer from "./chatSlice";
 import doctorFormReducer from "./authDoctor/authDoctorSlice";
 import cartReducer from "./cartSlice"; // تأكد من صحة مسار الاستيراد
+import categoriesReducer from "./categories/categoriesSlice"; // تأكد من صحة مسار الاستيراد
 
 export const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
     chat: chatReducer,
     doctorForm: doctorFormReducer,
     cart: cartReducer, // إضافة cart reducer
+    categories: categoriesReducer, // Add the categories reducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,6 +1,23 @@
 // app/store/authSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+interface DoctorDetails {
+  id: number;
+  specialization: string;
+  phone: string;
+  country_of_residence: string;
+  fluent_languages: string[];
+  highest_degree: string;
+  institution_name: string;
+  graduation_year: number | null;
+  years_of_experience: number;
+  license_number: string;
+  licensing_organization: string;
+  working_in_clinic: string;
+  clinic_name: string;
+  availability_for_sessions: boolean;
+}
+
 export interface UserData {
   id: string;
   email: string;
@@ -14,6 +31,8 @@ export interface UserData {
   nationality: string;
   fluent_languages: string;
   current_residence: string;
+  //for doctor
+  doctor_details?: DoctorDetails;
 }
 
 interface AuthState {

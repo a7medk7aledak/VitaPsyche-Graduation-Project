@@ -13,7 +13,7 @@ export const categories: TCategories = [
     description:
       "Depression is a mental health disorder characterized by deep sadness, loss of interest or pleasure, and impaired thinking, mood, and behavior, affecting daily life.",
     icon: "/images/Home/categories/depression.png",
-    buttonLink: "/doctorList?title=depression",
+    buttonLink: "/doctorList?specialization=Depression",
     buttonTitle: "Go now",
     alt: "depression.png",
   },
@@ -22,7 +22,7 @@ export const categories: TCategories = [
     description:
       "Addiction is a chronic condition in which a person compulsively uses a substance or engages in a specific behavior, often driven by physical or psychological dependency. ",
     icon: "/images/Home/categories/addiction.png",
-    buttonLink: "/doctorList?title=addiction",
+    buttonLink: "/doctorList?specialization=Addiction",
     buttonTitle: "Go now",
     alt: "addiction.png",
   },
@@ -31,7 +31,7 @@ export const categories: TCategories = [
     description:
       "psychosis is a mental disorder that causes a loss of touch with reality, involving hallucinations and delusions. It requires both medication and psychological support for recovery. ",
     icon: "/images/Home/categories/Psychosis.png",
-    buttonLink: "/doctorList?title=Psychosis",
+    buttonLink: "/doctorList?specialization=Psychosis",
     buttonTitle: "Go now",
     alt: "Psychosis.png",
   },
@@ -40,7 +40,7 @@ export const categories: TCategories = [
     description:
       "Personality disorders are conditions where long-term patterns of behavior and thinking deviate from societal norms, affecting relationships and daily functioning.",
     icon: "/images/Home/categories/PersonalityDisorders.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent(
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
       "Personality disorders"
     )}`,
     buttonTitle: "Go now",
@@ -51,7 +51,7 @@ export const categories: TCategories = [
     description:
       "Adjustment disorders are mental health conditions that occur when a person has difficulty coping with a significant life change or stressor, leading to emotional or behavioral symptoms.",
     icon: "/images/Home/categories/AdjustmentDisorders.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent(
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
       "Adjustment disorders"
     )}`,
     buttonTitle: "Go now",
@@ -62,7 +62,7 @@ export const categories: TCategories = [
     description:
       "Anxiety disorders are mental health conditions where excessive fear or worry disrupts daily life, often leading to physical symptoms like rapid heartbeat.",
     icon: "/images/Home/categories/anxiety.png",
-    buttonLink: "/doctorList?title=anxiety",
+    buttonLink: "/doctorList?specialization=anxiety",
     buttonTitle: "Go now",
     alt: "anxiety.png",
   },
@@ -71,7 +71,9 @@ export const categories: TCategories = [
     description:
       "Eating disorders are mental health conditions characterized by abnormal eating habits, such as extreme food restriction or overeating, often linked to emotional and psychological factors.",
     icon: "/images/Home/categories/eating.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent("Eating disorders")}`,
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
+      "Eating disorders"
+    )}`,
     buttonTitle: "Go now",
     alt: "Eating disorders.png",
   },
@@ -80,7 +82,9 @@ export const categories: TCategories = [
     description:
       "Sexual disorders are conditions that affect a person's sexual health or behavior, causing distress or difficulty in sexual functioning, often linked to psychological or physical factors.",
     icon: "/images/Home/categories/sexual.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent("Sexual disorders")}`,
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
+      "Sexual disorders"
+    )}`,
     buttonTitle: "Go now",
     alt: "Sexual disorders.png",
   },
@@ -89,7 +93,7 @@ export const categories: TCategories = [
     description:
       "Posttraumatic Stress Disorder (PTSD) is a mental health condition triggered by traumatic events. It causes symptoms like flashbacks, nightmares, and intense anxiety, impacting daily functioning.",
     icon: "/images/Home/categories/PosttraumaticStressDisorder.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent(
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
       "Posttraumatic stress disorder"
     )}`,
     buttonTitle: "Go now",
@@ -100,7 +104,9 @@ export const categories: TCategories = [
     description:
       "Bipolar disorder is a mental health condition characterized by extreme mood swings, including manic highs and depressive lows, which can affect a person's behavior, energy, and ability to function.",
     icon: "/images/Home/categories/Bipolar.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent("Bipolar disorder")}`,
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
+      "Bipolar disorder"
+    )}`,
     buttonTitle: "Go now",
     alt: "Bipolar disorder.png",
   },
@@ -109,7 +115,7 @@ export const categories: TCategories = [
     description:
       "Attention Deficit Hyperactivity Disorder (ADHD) is a neurodevelopmental condition marked by symptoms of inattention, hyperactivity, and impulsivity, affecting focus and daily functioning.",
     icon: "/images/Home/categories/AttentionDeficitHyperactivity.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent(
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
       "Attention deficit hyperactivity"
     )}`,
     buttonTitle: "Go now",
@@ -120,7 +126,7 @@ export const categories: TCategories = [
     description:
       "Obsessive-Compulsive Disorder (OCD) is marked by recurring, unwanted thoughts (obsessions) and repetitive actions (compulsions). These behaviors are performed to reduce anxiety but can interfere with daily life.",
     icon: "/images/Home/categories/Obsessive-compulsive .png",
-    buttonLink: `/doctorList?title=${encodeURIComponent(
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
       "Obsessive-compulsive"
     )}`,
     buttonTitle: "Go now",
@@ -131,7 +137,7 @@ export const categories: TCategories = [
     description:
       "Schizophrenia is a severe mental disorder that affects thinking, emotions, and behavior, often leading to symptoms like hallucinations, delusions, and disorganized speech or behavior.",
     icon: "/images/Home/categories/schizophrenia.png",
-    buttonLink: "/doctorList?title=schizophrenia",
+    buttonLink: "/doctorList?specialization=schizophrenia",
     buttonTitle: "Go now",
     alt: "schizophrenia.png",
   },
@@ -140,7 +146,7 @@ export const categories: TCategories = [
     description:
       "Marriage counseling helps couples address relationship issues like communication problems, trust, and conflict. It aims to improve emotional connection and resolve conflicts for a healthier relationship.",
     icon: "/images/Home/categories/marriageCounseling.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent(
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
       "Marriage counseling"
     )}`,
     buttonTitle: "Go now",
@@ -151,7 +157,7 @@ export const categories: TCategories = [
     description:
       "Behavioral and emotional disorders in children include issues like anxiety, depression, and conduct problems. These disorders affect their ability to function well in school, at home, and in social situations.",
     icon: "/images/Home/categories/BehavioralAndEmotionalDisordersInChildren.png",
-    buttonLink: `/doctorList?title=${encodeURIComponent(
+    buttonLink: `/doctorList?specialization=${encodeURIComponent(
       "Behavioral and emotional disorders in children"
     )}`,
     buttonTitle: "Go now",

@@ -183,7 +183,7 @@ const ChatBotPage: React.FC = () => {
             language={language}
             setIsHistoryVisible={setIsHistoryVisible}
             onMessageSent={handleMessageSent}
-          />
+          /> 
         </div>
       </div>
     </div>

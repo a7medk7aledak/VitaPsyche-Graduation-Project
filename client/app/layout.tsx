@@ -2,6 +2,10 @@ import localFont from "next/font/local";
 import "./globals.css";
 import AlertBox from "@components/AlertBox";
 import { Providers } from "./providers";
+// import { useEffect } from "react";
+// import { fetchCategories } from "@store/categories/act/actCategories";
+// import { useSelector } from "react-redux";
+// import { RootState, useAppDispatch } from "@store/store";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,6 +29,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // console.log("reduring from layout of home page");
+  // const { status, categories } = useSelector(
+  //   (state: RootState) => state.categories
+  // );
+  // const dispatch = useAppDispatch();
+
+  // useEffect(() => {
+  //   // Dispatch the fetchCategories action only if categories are not already loaded
+  //   if (status === "idle" && !categories.length) {
+  //     dispatch(fetchCategories());
+  //   }
+  // }, [dispatch, status, categories]);
+
   return (
     <html lang="en">
       <head>

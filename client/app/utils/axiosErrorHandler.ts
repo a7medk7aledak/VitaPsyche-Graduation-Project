@@ -21,4 +21,5 @@ const axiosErrorHandler = function (error: unknown) {
   }
 };
 
+
 export default axiosErrorHandler;

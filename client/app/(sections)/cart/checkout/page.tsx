@@ -7,14 +7,20 @@ import Heading from "@components/common/Heading";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
 import { useState } from "react";
 import { useCart } from "@hooks/useCart";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 
 export default function CheckoutPage() {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [showModal, setShowModal] = useState(false); // Modal visibility state
-  const { totalPrice } = useCart();
+  const { totalPrice, resetCart } = useCart();
 
   const closeModalHandler = () => {
     setShowModal(false);
-    window.location.href = "/products";
+    // window.location.href = "/products";
+    dispatch(resetCart());
+    router.push("/products");
   };
   return (
     <main className="py-16 min-h-screen">

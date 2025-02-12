@@ -41,6 +41,20 @@ const ServicesManagment = () => {
     duration: "",
   });
 
+  // useEffect(() => {
+  //   fetchServices();
+  // }, []);
+
+  // const fetchServices = async () => {
+  //   try {
+  //     const response = await fetch("/api/services");
+  //     const data = await response.json();
+  //     setServices(data);
+  //   } catch (error) {
+  //     console.error("Failed to fetch services:", error);
+  //   }
+  // };
+
   const handleServiceChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
@@ -66,6 +80,33 @@ const ServicesManagment = () => {
     setIsPopupVisible(false);
   };
 
+  //  const handleSaveService = async () => {
+  //    if (!validateService()) return; // Don't proceed if validation fails
+
+  //    const endpoint = editingServiceId
+  //      ? `/api/services/${editingServiceId}`
+  //      : "/api/services";
+  //    const method = editingServiceId ? "PUT" : "POST";
+
+  //    try {
+  //      const response = await fetch(endpoint, {
+  //        method: method,
+  //        headers: {
+  //          "Content-Type": "application/json",
+  //        },
+  //        body: JSON.stringify(newService),
+  //      });
+
+  //      if (!response.ok) throw new Error("Failed to save service");
+
+  //      fetchServices(); // Refresh the list
+  //      resetForm();
+  //      setIsPopupVisible(false);
+  //    } catch (error) {
+  //      console.error("Error saving service:", error);
+  //    }
+  //  };
+
   const handleEditService = (id: number) => {
     setEditingServiceId(id);
     const serviceToEdit = services.find((service) => service.id === id);
@@ -81,6 +122,20 @@ const ServicesManagment = () => {
     resetForm();
     setIsPopupVisible(false);
   };
+
+  //  const handleRemoveService = async (id: number) => {
+  //    try {
+  //      const response = await fetch(`/api/services/${id}`, {
+  //        method: "DELETE",
+  //      });
+
+  //      if (!response.ok) throw new Error("Failed to delete service");
+
+  //      fetchServices(); // Refresh the list
+  //    } catch (error) {
+  //      console.error("Error deleting service:", error);
+  //    }
+  //  };
 
   const resetForm = () => {
     setEditingServiceId(null);

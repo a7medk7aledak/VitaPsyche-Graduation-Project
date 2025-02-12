@@ -1,9 +1,10 @@
 "use client";
+import { Suspense } from "react";
 import DoctorCard from "@components/doctor/doctorCard";
 import { countries } from "@constants/countries";
 import { languageOptions } from "@constants/doctorLanguages";
-import { specializations } from "@constants/specializations";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   FaCalendarAlt,
   FaUserMd,
@@ -15,6 +16,7 @@ import {
 } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { BiMoney } from "react-icons/bi";
+import { categories } from "@constants/categories";
 
 // Define the types for the filters
 type Filters = {
@@ -30,22 +32,37 @@ type Filters = {
   promocodeAccepted: string;
 };
 
-export default function DoctorList() {
-  // Initialize the filter state with the Filters type
-  const [filters, setFilters] = useState<Filters>({
+function DoctorList() {
+  const searchParams = useSearchParams();
+
+  const specializationFromURL = decodeURIComponent(
+    searchParams?.get("specialization") || ""
+  );
+  const countryFromURL = decodeURIComponent(searchParams?.get("country") || "");
+
+  const defaultFilters: Filters = {
     availability: [],
     specificDate: null,
-    specialization: "",
+    specialization: specializationFromURL,
     sessionDuration: [],
     gender: "",
     rating: 0,
     language: "",
-    country: "",
+    country: countryFromURL,
     sessionRange: "",
     promocodeAccepted: "",
-  });
+  };
 
-  // Generic handler for updating filters
+  const [filters, setFilters] = useState<Filters>(defaultFilters);
+
+  useEffect(() => {
+    setFilters((prev) => ({
+      ...prev,
+      specialization: specializationFromURL,
+      country: countryFromURL,
+    }));
+  }, [specializationFromURL, countryFromURL]);
+
   const handleFilterChange = (key: keyof Filters, value: unknown) => {
     setFilters((prev) => ({
       ...prev,
@@ -53,39 +70,23 @@ export default function DoctorList() {
     }));
   };
 
-  // Handle checkbox state change
   const handleCheckboxChange = (key: keyof Filters, option: string) => {
     setFilters((prev) => {
       const current = prev[key] as string[];
       return {
         ...prev,
         [key]: current.includes(option)
-          ? current.filter((item) => item !== option) // Remove if already selected
-          : [...current, option], // Add if not selected
+          ? current.filter((item) => item !== option)
+          : [...current, option],
       };
     });
   };
 
-  // Handle star rating filter
   const handleRating = (rate: number) => {
     setFilters((prev) => ({ ...prev, rating: rate }));
   };
 
-  // Reset filters to default values
-  const resetFilters = () => {
-    setFilters({
-      availability: [],
-      specificDate: null,
-      specialization: "",
-      sessionDuration: [],
-      gender: "",
-      rating: 0,
-      language: "",
-      country: "",
-      sessionRange: "",
-      promocodeAccepted: "",
-    });
-  };
+  const resetFilters = () => setFilters(defaultFilters);
 
   const applyFilters = () => {
     console.log(filters);
@@ -164,11 +165,12 @@ export default function DoctorList() {
                     handleFilterChange("specialization", e.target.value)
                   }
                   value={filters.specialization}
+                  disabled={!!specializationFromURL} // Disable if value is from URL
                 >
                   <option value="">Select Specialization</option>
-                  {specializations.map((spec, index) => (
-                    <option key={index} value={spec}>
-                      {spec}
+                  {categories.map((cat, index) => (
+                    <option key={index} value={cat.title}>
+                      {cat.title}
                     </option>
                   ))}
                 </select>
@@ -270,6 +272,7 @@ export default function DoctorList() {
                     handleFilterChange("country", e.target.value)
                   }
                   value={filters.country}
+                  disabled={!!countryFromURL} // Disable if value is from URL
                 >
                   <option value="">Select Country</option>
                   {countries.map((country, index) => (
@@ -342,17 +345,23 @@ export default function DoctorList() {
 
           {/* list of doctor cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
-            <DoctorCard />
-            <DoctorCard />
-            <DoctorCard />
-            <DoctorCard />
-            <DoctorCard />
-            <DoctorCard />
-            <DoctorCard />
+            {Array.from({ length: 7 }).map((_, index) => (
+              <div key={index}>
+                <DoctorCard />
+              </div>
+            ))}{" "}
           </div>
           {/* list of doctor cards */}
         </div>
       </main>
     </>
+  );
+}
+
+export default function DoctorListPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <DoctorList />
+    </Suspense>
   );
 }

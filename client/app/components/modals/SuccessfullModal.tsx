@@ -7,7 +7,7 @@ interface SuccessfullModalProps {
   isOpen: boolean;
   onClose: () => void;
   img: string;
-  message?: string;
+  message?: string | React.ReactNode;
   isTransaction?: boolean;
 }
 

@@ -1,26 +1,29 @@
+// creating the endpoint to communicate with the external api to be as a mediator between frontend and the external backend
+
 import { NextApiRequest, NextApiResponse } from "next";
 import formidable from "formidable";
 import axios from "axios";
-import FormData from "form-data"; // Import FormData for creating multipart data
+import FormData from "form-data"; // Import FormData for creating multipart data to handle data that contain files
 import fs from "fs";
 
 export const config = {
   api: {
-    bodyParser: false, // Disable default body parser
+    bodyParser: false, // Disable default body parser because formidable will handle data itself
   },
 };
 
 export default async function handler(
-  req: NextApiRequest,
+  req: NextApiRequest, //receiving the request from frontend
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
     const form = formidable({
-      multiples: true,
+      multiples: true, // allow multiple files
       keepExtensions: true, // Keeps file extensions
     });
 
     form.parse(req, async (err, fields, files) => {
+      // processing the data and dividing it into files and fields and provide error if error happen when handling
       console.log(fields);
       if (err) {
         console.error("Error parsing form data:", err);
@@ -41,8 +44,10 @@ export default async function handler(
             }
           }
         }
+
+        // Loop through the files and append them to FormData
         for (const [key, file] of Object.entries(files)) {
-          const fileArray = Array.isArray(file) ? file : [file];
+          const fileArray = Array.isArray(file) ? file : [file]; // check if any file is an array of files like images and if not , put it inside an array alone to avoid error when handling it
           fileArray.forEach((f) => {
             if (f && f.filepath) {
               formData.append(key, fs.createReadStream(f.filepath), {
@@ -57,7 +62,9 @@ export default async function handler(
         const response = await axios.post(
           "https://abdokh.pythonanywhere.com/api/register/doctor/",
           formData,
-          { headers: formData.getHeaders() }
+          {
+            headers: formData.getHeaders(), // the result of this is  'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'  the unique string used to separate the different parts of the form data
+          }
         );
 
         res.status(200).json(response.data);

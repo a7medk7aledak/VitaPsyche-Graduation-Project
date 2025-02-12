@@ -6,6 +6,9 @@ import Services from "./components/Services";
 import AboutVitapsyche from "./components/AboutVitapsyche";
 import Footer from "@components/common/Footer";
 import ScrollToTopButton from "@components/scrollButton";
+import DoctorCard from "@components/doctor/doctorCard";
+import Button from "@components/common/Button";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -27,25 +30,18 @@ export default function Home() {
       <section id="recommandations" className="relative">
         <div className="container mx-auto px-3">
           <Heading variant="secondary">The most famous psychiatrists</Heading>
-          <div className="flex justify-center items-center gap-4 flex-wrap">
-            {/* box */}
-            <div className="w-[300px] h-[300px] border-2 p-10 text-center text-3xl">
-              <h2>To Do...</h2>
-            </div>
-            {/* box */}
-
-            {/* box */}
-            <div className="w-[300px] h-[300px] border-2 p-10 text-center text-3xl">
-              <h2>To Do...</h2>
-            </div>
-            {/* box */}
-
-            {/* box */}
-            <div className="w-[300px] h-[300px] border-2 p-10 text-center text-3xl">
-              <h2>To Do...</h2>
-            </div>
-            {/* box */}
+          <div className="flex flex-wrap justify-center gap-8">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div key={index}>
+                <DoctorCard />
+              </div>
+            ))}
           </div>
+          <Link href={"/doctorList"} className="flex justify-center mt-8">
+            <Button variant="secondary" size="small" roundedValue="full">
+              Show more
+            </Button>
+          </Link>
         </div>
       </section>
       {/* Psychiatrists recommandations */}

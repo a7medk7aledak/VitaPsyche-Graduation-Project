@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@store/store";
-import { removeFromCart, addToCart } from "@store/cartSlice";
+import { removeFromCart, addToCart, resetCart } from "@store/cartSlice";
 import productsData from "../content/products.json";
 import { useMemo } from "react";
 
@@ -38,5 +38,5 @@ export const useCart = () => {
     dispatch(removeFromCart(id));
   };
 
-  return { cartItems, totalPrice, products, removeItem, addItem };
+  return { cartItems, totalPrice, products, removeItem, addItem, resetCart };
 };

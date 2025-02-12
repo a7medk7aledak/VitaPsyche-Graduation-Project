@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Button from "./common/Button";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ICategory {
   category: {
@@ -14,6 +14,15 @@ interface ICategory {
 }
 
 export function Category({ category }: ICategory) {
+  const router = useRouter();
+
+  const handlePath = () => {
+    const queryParams = new URLSearchParams({
+      specialization: encodeURIComponent(category.title),
+    }).toString();
+    
+    router.push(`/doctorList?${queryParams}`);
+  };
   return (
     <div className=" flex flex-col justify-between items-center space-y-2 border-2 p-5 text-center rounded-2xl shadow-sm hover:shadow-md transition  bg-backgroundcolor hover:scale-105 duration-200 mx-6 md:mx-0">
       <div className="space-y-2">
@@ -31,11 +40,11 @@ export function Category({ category }: ICategory) {
           {category.description}
         </p>
       </div>
-      <Link href={category.buttonLink} className="mx-auto">
+      <div onClick={handlePath} className="mx-auto">
         <Button variant="secondary" size="small" roundedValue="full">
           {category.buttonTitle}
         </Button>
-      </Link>
+      </div>
     </div>
   );
 }

@@ -5,7 +5,6 @@ import { useState } from "react";
 import Button from "@components/common/Button";
 import { FileUpload } from "@components/FileUpload";
 import React from "react";
-import { specializations } from "@constants/specializations";
 import { TFormErrors } from "@app/types/FormDoctor";
 import { useRouter } from "next/navigation";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
@@ -13,12 +12,13 @@ import { setFormData, setShowModal } from "@store/authDoctor/authDoctorSlice"; /
 import { RootState, useAppDispatch } from "@store/store";
 import { actAuthDoctorRegister } from "@store/authDoctor/act/actAuthDoctorRegister";
 import { useSelector } from "react-redux";
+import { categories } from "@constants/categories";
 
 const DoctorForm3 = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const formData = useSelector((state: RootState) => state.doctorForm.formData); // Get the current form data from Redux
-  const { loading, error, showModal } = useSelector(
+  const { status, error, showModal } = useSelector(
     (state: RootState) => state.doctorForm
   );
 
@@ -142,7 +142,8 @@ const DoctorForm3 = () => {
 
   const closeModalHandler = () => {
     dispatch(setShowModal(false));
-    router.push("/");
+
+    router.push("/signin");
   };
 
   const formVariants = {
@@ -236,9 +237,9 @@ const DoctorForm3 = () => {
                 <option value="" disabled>
                   Select Specialization
                 </option>
-                {specializations.map((spec, index) => (
-                  <option value={spec} key={index}>
-                    {spec}
+                {categories.map((cat, index) => (
+                  <option value={cat.title} key={index}>
+                    {cat.title}
                   </option>
                 ))}
               </select>
@@ -246,7 +247,6 @@ const DoctorForm3 = () => {
                 <p className="text-red-500 text-sm">{errors.specialization}</p>
               )}
             </motion.div>
-
             {/* Total Years Of Professional Experience Field */}
             <motion.div
               className="flex flex-col space-y-2 w-full"
@@ -500,7 +500,7 @@ const DoctorForm3 = () => {
                 onClick={handleSubmit}
               >
                 <Button variant="secondary" size="large" roundedValue="full">
-                  {loading == "pending" ? "loading..." : "submit"}
+                  {status == "pending" ? "loading..." : "submit"}
                 </Button>
               </motion.div>
             </div>
@@ -513,7 +513,14 @@ const DoctorForm3 = () => {
         isOpen={showModal}
         onClose={closeModalHandler}
         img="/images/signup-doctor/submissionModal.png"
-        message="Registration completed successfully! Welcome aboard!"
+        message={
+          <>
+            Registration completed successfully! 🎉
+            <br />
+            You can now sign in using your credentials to access your doctor
+            dashboard.
+          </>
+        }
         isTransaction={false}
       />
     </>

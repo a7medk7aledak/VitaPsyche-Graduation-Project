@@ -60,6 +60,8 @@ export default async function handler(
         user: userResponse.data,
       };
 
+      console.log("User logged in:", result);
+
       return res.status(200).json(result);
     } catch (error) {
       if (axios.isAxiosError(error)) {

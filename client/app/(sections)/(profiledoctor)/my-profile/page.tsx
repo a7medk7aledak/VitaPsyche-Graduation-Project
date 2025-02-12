@@ -4,6 +4,8 @@ import ServicesManagment from "@components/doctor/profileDoctor/ServicesManagmen
 import Image from "next/image";
 import React, { useState } from "react";
 import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
 
 interface DoctorProfileProps {
   profileImageUrl?: string;
@@ -21,7 +23,6 @@ interface DoctorProfileProps {
 interface DoctorData {
   profileImageUrl: string;
   fullNameEn: string;
-  fullNameAr: string;
   specialization: string;
   clinicName: string;
   email: string;
@@ -43,41 +44,33 @@ interface DoctorData {
   totalExperience: number;
 }
 
-const DoctorProfile: React.FC<DoctorProfileProps> = ({
-  profileImageUrl,
-  fullNameEn,
-  fullNameAr,
-  specialization,
-  clinicName,
-}) => {
+const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
+  const { user } = useSelector((state: RootState) => state.auth);
+  const doctorDetails = user?.doctor_details;
+
   const [doctorData, setDoctorData] = useState<DoctorData>({
     profileImageUrl: profileImageUrl || "/images/default-avatar.png",
-    fullNameEn: fullNameEn || "Dr. John Doe",
-    fullNameAr: fullNameAr || "د. جون دو",
-    specialization: specialization || "Psychiatry",
-    clinicName: clinicName || "Unknown Clinic",
-    email: "johndoe@example.com",
-    phoneNumber: "+1234567890",
-    username: "johndoe",
+    fullNameEn: user ? `Dr.${user?.first_name} ${user?.last_name}` : "N/A",
+    specialization: doctorDetails?.specialization || "N/A",
+    clinicName: doctorDetails?.clinic_name || "N/A" || "N/A",
+    email: user?.email || "N/A",
+    phoneNumber: user?.phone_number || "N/A",
+    username: user?.username || "N/A",
     password: "********",
-    dateOfBirth: "1980-01-01",
-    gender: "Male",
-    nationality: "American",
-    countryOfResidence: "USA",
-    fluentLanguages: "English, Arabic",
+    dateOfBirth: user?.birth_date || "N/A",
+    gender: user?.gender || "N/A",
+    nationality: user?.nationality || "N/A",
+    countryOfResidence: user?.current_residence || "N/A",
+    fluentLanguages: Array.isArray(user?.fluent_languages)
+      ? user?.fluent_languages.join(", ")
+      : user?.fluent_languages.replace(/[\[\]']/g, "") || "N/A",
     paymentMethod: "Credit Card",
     cardType: "Visa",
     cardNumber: "**** **** **** 1234",
     paypalConnected: false,
-    // careerTimeline: [
-    //   { year: "2009", event: "Completed Psychiatry Residency" },
-    //   { year: "2010", event: "Joined New York Psychiatry Clinic" },
-    //   { year: "2015", event: "Specialized in Child Psychology" },
-    //   { year: "2020", event: "Became Head of Child Psychiatry Department" },
-    // ],
-    highestDegree: "Doctor of Medicine (MD)",
-    institutionName: "Harvard Medical School",
-    totalExperience: 15,
+    highestDegree: doctorDetails?.highest_degree || "N/A",
+    institutionName: doctorDetails?.institution_name || "N/A",
+    totalExperience: doctorDetails?.years_of_experience || 0,
   });
 
   const [editing, setEditing] = useState(false);
@@ -112,7 +105,6 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {[
         { label: "Full Name (English)", key: "fullNameEn" },
-        { label: "Full Name (Arabic)", key: "fullNameAr" },
         { label: "Email", key: "email", locked: true },
         { label: "Phone Number", key: "phoneNumber", locked: true },
         { label: "Username", key: "username", locked: true },
@@ -307,12 +299,12 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
               )}
             </div>
             <div className="text-center md:text-left">
-              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 capitalize">
                 {doctorData.fullNameEn}
               </h1>
-              <p className="text-lg sm:text-xl lg:text-2xl text-gray-600">
+              {/* <p className="text-lg sm:text-xl lg:text-2xl text-gray-600">
                 {doctorData.fullNameAr}
-              </p>
+              </p> */}
               <p className="text-sm sm:text-base lg:text-lg text-gray-600">
                 {doctorData.specialization} | {doctorData.clinicName}
               </p>
@@ -363,13 +355,5 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({
 };
 
 export default function DoctorProfilePage() {
-  return (
-    <DoctorProfile
-      profileImageUrl="/images/doctor-profile.jpg"
-      fullNameEn="Dr. Ahmed Mohamed"
-      fullNameAr="د. أحمد محمد"
-      specialization="Cardiology"
-      clinicName="Heart Care Clinic"
-    />
-  );
+  return <DoctorProfile profileImageUrl="/images/doctor-profile.jpg" />;
 }

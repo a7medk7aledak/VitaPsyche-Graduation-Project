@@ -6,24 +6,42 @@ import { countriesData } from "../constants/countriesData";
 import { CiLocationOn, CiStethoscope, CiSearch } from "react-icons/ci";
 import { PiMapPinArea } from "react-icons/pi";
 import { motion } from "framer-motion";
+import { categories } from "@constants/categories";
+import { useRouter } from "next/navigation";
 
 const FindPsychiatrists = () => {
-  const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const [selectedGovernorate, setSelectedGovernorate] = useState<string>("");
+  const [filters, setFilters] = useState({
+    specialization: "",
+    country: "",
+    governorate: "",
+  });
 
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const country = e.target.value;
-    setSelectedCountry(country);
+  const router = useRouter();
 
-    if (country && countriesData[country]) {
-      setSelectedGovernorate(countriesData[country][0]);
-    } else {
-      setSelectedGovernorate("");
-    }
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+      ...(name === "country" && {
+        governorate: countriesData[value]?.[0] || "",
+      }),
+    }));
   };
 
-  const handleGovernorateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedGovernorate(e.target.value);
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!filters.specialization) return;
+
+    // Encode query parameters
+    const queryParams = new URLSearchParams({
+      specialization: encodeURIComponent(filters.specialization),
+      country: encodeURIComponent(filters.country),
+      governorate: encodeURIComponent(filters.governorate),
+    }).toString();
+
+    router.push(`/doctorList?${queryParams}`);
   };
 
   return (
@@ -55,7 +73,8 @@ const FindPsychiatrists = () => {
         />
 
         {/* search box */}
-        <motion.div
+        <motion.form
+          onSubmit={handleSearch}
           className="border-2 border-[#babfc3] rounded-md w-5/6 lg:w-fit mx-auto z-10 bg-white"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -74,13 +93,19 @@ const FindPsychiatrists = () => {
               </label>
               <div className="flex space-x-2">
                 <CiStethoscope className="text-3xl" />
-                <select className="outline-none px-3 py-2 text-maintext lg:max-w-32 bg-slate-100">
+                <select
+                  name="specialization"
+                  className="outline-none px-3 py-2 text-maintext w-64 lg:w-32 bg-slate-100"
+                  value={filters.specialization}
+                  onChange={handleChange}
+                  required
+                >
                   <option value="">--Select Specialization--</option>
-                  <option value="relationShips">Relationships</option>
-                  <option value="addiction">Addiction</option>
-                  <option value="pre-postpartum">Pre/Postpartum</option>
-                  <option value="parenting">Parenting</option>
-                  <option value="cancer">Cancer</option>
+                  {categories.map((category, index) => (
+                    <option key={index} value={category.title}>
+                      {category.title}
+                    </option>
+                  ))}
                 </select>
               </div>
             </motion.div>
@@ -99,9 +124,10 @@ const FindPsychiatrists = () => {
               <div className="flex space-x-2">
                 <PiMapPinArea className="text-3xl text-[#454141]" />
                 <select
-                  className="outline-none px-3 py-2 text-maintext bg-slate-100"
-                  value={selectedCountry}
-                  onChange={handleCountryChange}
+                  name="country"
+                  className="outline-none px-3 py-2 text-maintext w-64 lg:w-32 bg-slate-100"
+                  value={filters.country}
+                  onChange={handleChange}
                 >
                   <option value="">--Select the area--</option>
                   {Object.keys(countriesData).map((country) => (
@@ -127,12 +153,13 @@ const FindPsychiatrists = () => {
               <div className="flex space-x-2">
                 <CiLocationOn className="text-3xl" />
                 <select
-                  className="outline-none px-3 py-2 text-maintext bg-slate-100"
-                  value={selectedGovernorate}
-                  onChange={handleGovernorateChange}
+                  name="governorate"
+                  className="outline-none px-3 py-2 text-maintext w-64 lg:w-32 bg-slate-100"
+                  value={filters.governorate}
+                  onChange={handleChange}
                 >
                   <option value="">-- Select Governorate -- </option>
-                  {countriesData[selectedCountry]?.map((governorate) => (
+                  {countriesData[filters.country]?.map((governorate) => (
                     <option key={governorate} value={governorate}>
                       {governorate}
                     </option>
@@ -152,15 +179,15 @@ const FindPsychiatrists = () => {
               <label className="p-2 text-lg text-paragraphtext">
                 Search by name
               </label>
-              <div className="flex space-x-2">
+              <div className="flex space-x-3">
                 <Image
                   src={"/images/Home/doctorIcon.png"}
                   alt="doctor"
-                  width={20}
-                  height={20}
-                  className="w-full"
+                  width={24}
+                  height={24}
+                  className=""
                 />
-                <select className="outline-none px-3 py-2 text-maintext bg-slate-100">
+                <select className="outline-none px-3 py-2 text-maintext w-64 lg:w-32 bg-slate-100">
                   <option value="">--Select name--</option>
                 </select>
               </div>
@@ -169,7 +196,8 @@ const FindPsychiatrists = () => {
           </div>
 
           {/* search button */}
-          <motion.div
+          <motion.button
+            type="submit"
             className="flex px-4 py-2 w-fit rounded-lg my-4 hover:bg-heading bg-[#20C0AC] cursor-pointer mx-auto shadow-md hover:shadow-lg transition-all duration-200"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -177,9 +205,9 @@ const FindPsychiatrists = () => {
           >
             <CiSearch className="text-4xl text-white mx-auto" />
             <h4 className="text-white text-3xl">Search</h4>
-          </motion.div>
+          </motion.button>
           {/* search button */}
-        </motion.div>
+        </motion.form>
         {/* search box */}
       </div>
     </section>
