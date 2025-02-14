@@ -46,7 +46,7 @@ export default async function handler(
 
       // 2. إرسال طلب للحصول على بيانات المستخدم
       const userResponse = await axios.get<UserDetails>(
-        "https://abdokh.pythonanywhere.com/api/api/user/details/",
+        "https://abdokh.pythonanywhere.com/api/user/details/",
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
