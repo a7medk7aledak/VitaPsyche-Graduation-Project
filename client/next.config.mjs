@@ -8,6 +8,12 @@ const nextConfig = {
         port: "",
         pathname: "/**", // Allows all images from this domain
       },
+      {
+        protocol: "https",
+        hostname: "abdokh.pythonanywhere.com", // Add this domain
+        port: "",
+        pathname: "/**", // Allows all images from this domain
+      },
     ],
   },
   async redirects() {

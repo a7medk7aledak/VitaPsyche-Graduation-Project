@@ -28,25 +28,21 @@ export default function Categories() {
       animate="visible"
     >
       <Heading variant="secondary">Comprehensive Psychiatry Categories</Heading>
-      <motion.div
-        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6"
-        variants={containerVariants}
-      >
-        {status === "pending" ? (
-          <p className="text-center">Loading categories...</p>
-        ) : status === "failed" ? (
-          <p className="text-center text-red-500">Failed to load categories.</p>
-        ) : (
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6"
-            variants={containerVariants}
-          >
-            {categories.map((category, index) => (
-              <Category key={index} category={category} />
-            ))}
-          </motion.div>
-        )}
-      </motion.div>
+
+      {status === "pending" ? (
+        <p className="text-center">Loading categories...</p>
+      ) : status === "failed" ? (
+        <p className="text-center text-red-500">Failed to load categories.</p>
+      ) : (
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6"
+          variants={containerVariants}
+        >
+          {categories.map((category, index) => (
+            <Category key={index} category={category} />
+          ))}
+        </motion.div>
+      )}
     </motion.div>
   );
 }

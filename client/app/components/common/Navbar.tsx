@@ -22,6 +22,7 @@ interface User {
   last_name: string;
   email: string;
   username?: string;
+  role?: "doctor" | "patient";
 }
 
 interface UserDropdownProps {
@@ -31,6 +32,7 @@ interface UserDropdownProps {
 
 // UserDropdown Component
 const UserDropdown: React.FC<UserDropdownProps> = ({ user, handleLogout }) => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -48,6 +50,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user, handleLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleProfileLink = (): void => {
+    if (user.role === "doctor") {
+      router.push("/my-profile");
+    } else {
+      router.push("/profile");
+    }
+  };
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -93,13 +102,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user, handleLogout }) => {
             </div>
 
             {/* Menu Items */}
-            <Link
-              href="/profile"
+            <button
+              onClick={handleProfileLink}
               className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
             >
               <FiUser className="w-4 h-4 mr-3" />
               Profile
-            </Link>
+            </button>
 
             <Link
               href="/help"
