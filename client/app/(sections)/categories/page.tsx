@@ -1,19 +1,24 @@
 "use client";
 import { Category } from "@components/category";
 import Heading from "@components/common/Heading";
-import { categories } from "@constants/categories";
 import { motion } from "framer-motion";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2, // Delay between each child animation
+    },
+  },
+};
 
 export default function Categories() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2, // Delay between each child animation
-      },
-    },
-  };
+  const { categories, status } = useSelector(
+    (state: RootState) => state.categories
+  );
 
   return (
     <motion.div
@@ -27,9 +32,20 @@ export default function Categories() {
         className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6"
         variants={containerVariants}
       >
-        {categories.map((category, index) => (
-          <Category key={index} category={category} />
-        ))}
+        {status === "pending" ? (
+          <p className="text-center">Loading categories...</p>
+        ) : status === "failed" ? (
+          <p className="text-center text-red-500">Failed to load categories.</p>
+        ) : (
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6"
+            variants={containerVariants}
+          >
+            {categories.map((category, index) => (
+              <Category key={index} category={category} />
+            ))}
+          </motion.div>
+        )}
       </motion.div>
     </motion.div>
   );

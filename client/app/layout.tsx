@@ -1,11 +1,9 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import AlertBox from "@components/AlertBox";
-import { Providers } from "./providers";
-// import { useEffect } from "react";
-// import { fetchCategories } from "@store/categories/act/actCategories";
-// import { useSelector } from "react-redux";
-// import { RootState, useAppDispatch } from "@store/store";
+import { Providers } from "./providers/providers";
+
+import { metaData } from "./metadata";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -19,29 +17,13 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata = {
-  title: "Vitapsyche",
-  description: "Your description here",
-};
+export const metadata = metaData;
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // console.log("reduring from layout of home page");
-  // const { status, categories } = useSelector(
-  //   (state: RootState) => state.categories
-  // );
-  // const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   // Dispatch the fetchCategories action only if categories are not already loaded
-  //   if (status === "idle" && !categories.length) {
-  //     dispatch(fetchCategories());
-  //   }
-  // }, [dispatch, status, categories]);
-
   return (
     <html lang="en">
       <head>

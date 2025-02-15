@@ -6,10 +6,13 @@ import { countriesData } from "../constants/countriesData";
 import { CiLocationOn, CiStethoscope, CiSearch } from "react-icons/ci";
 import { PiMapPinArea } from "react-icons/pi";
 import { motion } from "framer-motion";
-import { categories } from "@constants/categories";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
 import { useRouter } from "next/navigation";
 
 const FindPsychiatrists = () => {
+  const { categories } = useSelector((state: RootState) => state.categories);
+
   const [filters, setFilters] = useState({
     specialization: "",
     country: "",

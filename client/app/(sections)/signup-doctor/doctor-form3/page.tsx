@@ -12,7 +12,6 @@ import { setFormData, setShowModal } from "@store/authDoctor/authDoctorSlice"; /
 import { RootState, useAppDispatch } from "@store/store";
 import { actAuthDoctorRegister } from "@store/authDoctor/act/actAuthDoctorRegister";
 import { useSelector } from "react-redux";
-import { categories } from "@constants/categories";
 
 const DoctorForm3 = () => {
   const router = useRouter();
@@ -21,6 +20,7 @@ const DoctorForm3 = () => {
   const { status, error, showModal } = useSelector(
     (state: RootState) => state.doctorForm
   );
+  const { categories } = useSelector((state: RootState) => state.categories);
 
   const [workingInClinic, setWorkingInClinic] = useState(
     formData.workingInClinic

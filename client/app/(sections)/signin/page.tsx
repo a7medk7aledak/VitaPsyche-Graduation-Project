@@ -82,6 +82,8 @@ const LoginPage: React.FC = () => {
 
       const { access_token, user } = response.data;
 
+      // Set token in an HTTP-only cookie
+
       dispatch(setToken(access_token));
       localStorage.setItem("access_token", access_token);
 

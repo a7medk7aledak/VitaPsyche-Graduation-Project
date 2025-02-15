@@ -1,45 +1,38 @@
 "use client";
 import React, { useState } from "react";
 import Service from "./Service";
-import { categories } from "@constants/categories";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
 
 interface Service {
   id: number;
   name: string;
-  category: string;
+  description?: string;
   price: number;
   duration: string;
+  is_active?: boolean;
+  category: string;
+  doctors?: string[];
 }
 
-const categoriesTitles = categories.map((category) => category.title);
-
 const ServicesManagment = () => {
+  const { categories } = useSelector((state: RootState) => state.categories);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [services, setServices] = useState<Service[]>([
-    {
-      id: 1,
-      name: "Service 1",
-      category: "Psychology",
-      price: 50,
-      duration: "30",
-    },
-    {
-      id: 2,
-      name: "Service 2",
-      category: "Consultation",
-      price: 75,
-      duration: "60",
-    },
-  ]);
+  const [services, setServices] = useState<Service[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [editingServiceId, setEditingServiceId] = useState<number | null>(null);
   const [newService, setNewService] = useState<Service>({
     id: 0,
     name: "",
+    description: "",
     category: "",
     price: 0,
     duration: "",
+    is_active: true,
+    doctors: [],
   });
+
+  const categoriesTitles = categories.map((category) => category.title);
 
   // useEffect(() => {
   //   fetchServices();
@@ -139,7 +132,16 @@ const ServicesManagment = () => {
 
   const resetForm = () => {
     setEditingServiceId(null);
-    setNewService({ id: 0, name: "", category: "", price: 0, duration: "" });
+    setNewService({
+      id: 0,
+      name: "",
+      description: "",
+      category: "",
+      price: 0,
+      duration: "",
+      is_active: true,
+      doctors: [],
+    });
     setErrors({});
   };
 
@@ -205,7 +207,22 @@ const ServicesManagment = () => {
                   <p className="text-red-500 text-sm mt-1">{errors.name}</p>
                 )}
               </div>
-
+              <div>
+                <label
+                  htmlFor="description"
+                  className="block text-gray-700 mb-1"
+                >
+                  Description
+                </label>
+                <input
+                  type="text"
+                  name="description"
+                  value={newService.description}
+                  onChange={handleServiceChange}
+                  id="description"
+                  className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
+                />
+              </div>
               <div>
                 <label htmlFor="category" className="block text-gray-700">
                   Category

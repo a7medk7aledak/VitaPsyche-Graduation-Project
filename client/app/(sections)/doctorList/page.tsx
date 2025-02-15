@@ -16,7 +16,8 @@ import {
 } from "react-icons/fa";
 import { MdDateRange } from "react-icons/md";
 import { BiMoney } from "react-icons/bi";
-import { categories } from "@constants/categories";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
 
 // Define the types for the filters
 type Filters = {
@@ -34,6 +35,7 @@ type Filters = {
 
 function DoctorList() {
   const searchParams = useSearchParams();
+  const { categories } = useSelector((state: RootState) => state.categories);
 
   const specializationFromURL = decodeURIComponent(
     searchParams?.get("specialization") || ""

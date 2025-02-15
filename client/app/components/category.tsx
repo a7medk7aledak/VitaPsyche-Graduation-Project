@@ -6,10 +6,7 @@ interface ICategory {
   category: {
     title: string;
     description: string;
-    icon: string;
-    buttonTitle: string;
-    buttonLink: string;
-    alt: string;
+    image: string;
   };
 }
 
@@ -20,15 +17,15 @@ export function Category({ category }: ICategory) {
     const queryParams = new URLSearchParams({
       specialization: encodeURIComponent(category.title),
     }).toString();
-    
+
     router.push(`/doctorList?${queryParams}`);
   };
   return (
     <div className=" flex flex-col justify-between items-center space-y-2 border-2 p-5 text-center rounded-2xl shadow-sm hover:shadow-md transition  bg-backgroundcolor hover:scale-105 duration-200 mx-6 md:mx-0">
       <div className="space-y-2">
         <Image
-          src={category.icon}
-          alt={category.alt}
+          src={category.image}
+          alt={category.title}
           width={100}
           height={100}
           className="mx-auto"
@@ -42,7 +39,7 @@ export function Category({ category }: ICategory) {
       </div>
       <div onClick={handlePath} className="mx-auto">
         <Button variant="secondary" size="small" roundedValue="full">
-          {category.buttonTitle}
+          Go Now{" "}
         </Button>
       </div>
     </div>

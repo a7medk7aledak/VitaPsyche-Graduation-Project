@@ -68,8 +68,8 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
     cardType: "Visa",
     cardNumber: "**** **** **** 1234",
     paypalConnected: false,
-    highestDegree: doctorDetails?.highest_degree || "N/A",
-    institutionName: doctorDetails?.institution_name || "N/A",
+    highestDegree: doctorDetails?.highest_degree || "Doctoral degree",
+    institutionName: doctorDetails?.institution_name || "Harvard University",
     totalExperience: doctorDetails?.years_of_experience || 0,
   });
 
@@ -277,7 +277,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
           <div className="flex flex-col md:flex-row items-center relative w-full">
             <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-4">
               <Image
-                src={"/images/about-us/me.jpg"}
+                src={"/images/doctorProfile.png"}
                 alt={`Dr. ${doctorData.fullNameEn}`}
                 layout="fill"
                 objectFit="cover"
