@@ -1,296 +1,5 @@
 export const paidtests = [
   {
-    testTitle: "depression test",
-    testSlug: "depression-test",
-    questions: [
-      {
-        questionId: 1,
-        questionText: "Is the child often upset or angry?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 2,
-        questionText: "Does the child have difficulty completing homework?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 3,
-        questionText:
-          "Does the child seem restless or act as if driven by a motor?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 4,
-        questionText: "Is the child easily frightened or shy?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 5,
-        questionText: "Does everything need to be perfect or exact?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 6,
-        questionText: "Does the child have no friends?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 7,
-        questionText: "Does the child suffer from stomachaches?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 8,
-        questionText: "Does the child get into fights or arguments?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 9,
-        questionText: "Does the child avoid tasks that require mental effort?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 10,
-        questionText:
-          "Does the child have trouble concentrating for long periods?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 11,
-        questionText: "Does the child argue with adults?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 12,
-        questionText: "Does the child fail to finish their tasks?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 13,
-        questionText: "Is the child difficult to control in public places?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 14,
-        questionText: "Is the child afraid of people?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 15,
-        questionText: "Does the child repeatedly check things?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 16,
-        questionText: "Does the child lose friends quickly?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 17,
-        questionText: "Does the child complain of aches or pains?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 18,
-        questionText: "Is the child constantly moving or unable to sit still?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 19,
-        questionText: "Does the child have trouble concentrating in class?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 20,
-        questionText: "Does the child not listen to instructions?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 21,
-        questionText: "Does the child lose their temper quickly?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 22,
-        questionText:
-          "Does the child need constant supervision to finish tasks?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 23,
-        questionText:
-          "Does the child run or climb in inappropriate situations?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 24,
-        questionText: "Is the child afraid of new situations?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-      {
-        questionId: 25,
-        questionText: "Is the child overly concerned with cleanliness?",
-        options: [
-          { optionId: 1, optionText: "Never", score: 0 },
-          { optionId: 2, optionText: "Rarely", score: 1 },
-          { optionId: 3, optionText: "Sometimes", score: 2 },
-          { optionId: 4, optionText: "Often", score: 3 },
-        ],
-      },
-    ],
-    scoring: {
-      instruction:
-        "Rate each item based on frequency (0=Never, 1=Rarely, 2=Sometimes, 3=Often). Add up the total score to assess depression symptoms.",
-      scoreRanges: [
-        {
-          range: "0-24",
-          description: "Minimal depression symptoms",
-          color: "bg-green-600",
-          info: "The child shows minimal signs of depression. Continue monitoring and maintaining supportive environment.",
-        },
-        {
-          range: "25-49",
-          description: "Mild depression symptoms",
-          color: "bg-yellow-500",
-          info: "The child shows some signs of depression. Consider consulting with a mental health professional for evaluation.",
-        },
-        {
-          range: "50-74",
-          description: "Moderate depression symptoms",
-          color: "bg-orange-500",
-          info: "The child shows significant signs of depression. Professional intervention is recommended.",
-        },
-        {
-          range: "75",
-          description: "Severe depression symptoms",
-          color: "bg-red-600",
-          info: "The child shows severe signs of depression. Immediate professional intervention is strongly recommended.",
-        },
-      ],
-    },
-    maxScoring: 75,
-  },
-  {
     testTitle: "Conners' Test",
     testSlug: "conners-test",
     questions: [
@@ -2198,5 +1907,1447 @@ export const paidtests = [
       ],
     },
     maxScoring: 117, // 117 questions × 1 point each
+  },
+
+  {
+    testTitle: "Cognitive Distortions and Beliefs Assessment",
+    testSlug: "cognitive-distortions-assessment",
+    questions: [
+      // ====== Group 1: Emotional Reactivity and Self-Perception ======
+      {
+        questionId: 1,
+        questionText: "I get angry and emotional quickly",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 2,
+        questionText:
+          "Many think I'm exaggerating and make mountains out of molehills",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 3,
+        questionText: "I know things won't go well",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 4,
+        questionText: "I feel I have a weak personality",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 5,
+        questionText:
+          "I get very upset when someone finds fault with me or any work I do",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 6,
+        questionText:
+          "I never have and never will succeed in making true friends",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 7,
+        questionText:
+          "No matter how hard you try, people won't be satisfied with you",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 8,
+        questionText: "Things have gotten so bad that nothing works anymore",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 9,
+        questionText: "I can't remember anything that brings joy or happiness",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 10,
+        questionText:
+          "I think it's my nature to exaggerate and blow things out of proportion",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+
+      // ====== Group 2: Social Perception and Judgment ======
+      {
+        questionId: 11,
+        questionText:
+          "I know well who harbors hostility towards me at work (or school)",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 12,
+        questionText: "I can accurately judge what others think of me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 13,
+        questionText:
+          "It's important to know who your enemies are and prevent them from succeeding against you",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 14,
+        questionText: "Your loved ones should know what you're thinking",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 15,
+        questionText: "I'm skilled at judging others at first sight",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 16,
+        questionText:
+          "When hearts meet, people can easily know what's on their loved ones' minds",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 17,
+        questionText:
+          "If you live with someone for a long time, you can easily read their thoughts",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 18,
+        questionText: "I easily know what others are thinking",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 19,
+        questionText:
+          "I get very upset if I think I know what someone is thinking and then discover I was wrong",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 20,
+        questionText:
+          "I can easily tell when someone is attacking me even without mentioning my name or details",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+
+      // ====== Group 3: Future Outlook and Personal Worth ======
+      {
+        questionId: 21,
+        questionText: "I will end up living alone and isolated",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 22,
+        questionText: "Nothing works anymore",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 23,
+        questionText: "There's no hope for the future",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 24,
+        questionText:
+          "I'm afraid to imagine what my life will be like in ten years",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 25,
+        questionText: "My life is going to waste",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 26,
+        questionText: "Things will get worse and worse",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 27,
+        questionText: "I think people speak ill of me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 28,
+        questionText: "I'm afraid of the future",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+
+      // ====== Group 4: Personal Responsibility and Blame ======
+      {
+        questionId: 29,
+        questionText: "Everything happens because of my mistake",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 30,
+        questionText: "My behavior with people is foolish",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 31,
+        questionText: "Many misfortunes happen specifically to me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 32,
+        questionText:
+          "I get into many problems because of my inability to make important decisions",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 33,
+        questionText: "I'm the cause of misfortunes, disasters, or conflicts",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 34,
+        questionText:
+          "I believe in my personal responsibility for making my loved ones happy",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 35,
+        questionText:
+          "When things go wrong with someone, I immediately feel I'm the cause",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 36,
+        questionText: "I always find I'm more subject to criticism than others",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 37,
+        questionText:
+          "I sometimes feel others blame me unfairly for things I'm not responsible for",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 38,
+        questionText:
+          "I discovered my social troubles are because I don't handle difficult situations well",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+
+      // ====== Group 5: Life Views and Self-Worth ======
+      {
+        questionId: 39,
+        questionText: "Life is all about personal interests",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 40,
+        questionText: "There's no love in this world",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 41,
+        questionText: "No one loves me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 42,
+        questionText: "No one cares about friendship these days",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 43,
+        questionText: "No one understands me (or will understand me)",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 44,
+        questionText: "I lose confidence in social situations",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 45,
+        questionText:
+          "If I fail in a social situation, I can't return to my normal self",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 46,
+        questionText: "I think I'm a failure",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 47,
+        questionText: "Whoever isn't with me is against me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 48,
+        questionText: "I'm not attractive enough",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 49,
+        questionText: "My life is trivial and boring",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 50,
+        questionText: "I feel oppressed",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      }, // ====== Group 6: Beliefs and Tolerance ======
+      {
+        questionId: 51,
+        questionText: "Those who disagree with me don't like me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 52,
+        questionText: "There is only one true religion",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 53,
+        questionText:
+          "I'm not comfortable with people who differ from me in opinion or belief",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 54,
+        questionText: "I don't feel comfortable in any mixed-gender gathering",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 55,
+        questionText:
+          "It's impossible for someone who loves you to find any fault or defect in you",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 56,
+        questionText: "People are either good or evil",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 57,
+        questionText: "Life won't be right until we get rid of all evil people",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+
+      // ====== Group 7: Perfectionism and Achievement ======
+      {
+        questionId: 58,
+        questionText:
+          "I avoid doing anything that might cause rejection or disapproval",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 59,
+        questionText:
+          "I have no value if I don't achieve the big goals I set for my life",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 60,
+        questionText: "I get annoyed by trivial matters and excessive joking",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 61,
+        questionText: "I have no capacity for patience",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 62,
+        questionText:
+          "I try not to make mistakes in any work, even if it's small",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 63,
+        questionText:
+          "A person will lose others' respect if they make a mistake",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 64,
+        questionText: "I don't care to ask others about my weaknesses",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 65,
+        questionText:
+          "My life is too short to waste on emptiness and trivialities",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 66,
+        questionText: "It bothers me to do incomplete work",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 67,
+        questionText:
+          "I consider it an insult if someone describes me as an average person",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 68,
+        questionText:
+          "It's important that others see me as someone who doesn't make mistakes and maintains perfection",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 69,
+        questionText:
+          "Discovering one mistake in me or my work could destroy my life",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 70,
+        questionText:
+          "It's important that others see me as someone who doesn't make mistakes and never compromises perfection",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      }, // ====== Group 8: Past Experiences and Social Anxiety ======
+      {
+        questionId: 71,
+        questionText:
+          "When I enter any new place, I get nervous because all eyes are on me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 72,
+        questionText: "I can tell from one look who likes or hates me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 73,
+        questionText:
+          "During this past week, I only noticed things that caused me anger and disgust",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 74,
+        questionText:
+          "My performance in any activity deteriorates when others watch me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 75,
+        questionText:
+          "These days I'm apprehensive about increasing feelings of fear and anxiety",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 76,
+        questionText: "Staying away from people is a blessing",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 77,
+        questionText: "I lived an unhappy childhood",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 78,
+        questionText:
+          "I discovered that the love and appreciation of those closest to me is only out of pity",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 79,
+        questionText:
+          "During childhood, I never found a strong person to rely on and protect me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 80,
+        questionText:
+          "In the past, I experienced many strange and painful experiences",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 81,
+        questionText: "Poor is the one who has no protector",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 82,
+        questionText:
+          "I can't remember anything that brings happiness or joy from the past",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 83,
+        questionText: "My father was very cruel and controlling",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 84,
+        questionText:
+          "I grew up in a family full of daily quarrels and conflicts",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 85,
+        questionText: "I feel I've lost many opportunities in the past",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 86,
+        questionText:
+          "When I look at my past life, I find there was more failure than success",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+
+      // ====== Group 9: Sensitivity to Criticism ======
+      {
+        questionId: 87,
+        questionText:
+          "People have their twisted ways of provoking and annoying me",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 88,
+        questionText:
+          "I'm very sensitive to criticism, even if it's just a hint",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 89,
+        questionText:
+          "Any negative comment or criticism directed at me provokes my anger and preoccupation",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 90,
+        questionText:
+          "After any meeting, I remember the negative comments and criticism about what I did",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 91,
+        questionText:
+          "I pay attention to criticism more than praise and compliments for my ideas or actions",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 92,
+        questionText:
+          "We must respond strongly to others' criticism so they stop criticizing us",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+
+      // ====== Group 10: Self-Confidence and Success ======
+      {
+        questionId: 93,
+        questionText: "My excessive self-confidence gets me into many problems",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 94,
+        questionText:
+          "Others think I'm arrogant because of my strong self-confidence",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 95,
+        questionText:
+          "I believe my past success guarantees continuous success in everything I do",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 96,
+        questionText:
+          "If I succeed, it's due to my effort; if I fail, it's due to external obstacles and others' plotting",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 97,
+        questionText:
+          "If you succeed in something, you'll definitely succeed in everything else",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 98,
+        questionText:
+          "I found it's better to ignore problems until they solve themselves",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 99,
+        questionText:
+          "If you make any mistake, it might cause the collapse of your reputation and status",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 100,
+        questionText:
+          "It's not important to know everything, but it's important to appear knowledgeable about everything",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      }, // ====== Group 11: Competition and Social Comparison ======
+      {
+        questionId: 101,
+        questionText: "I tend to compete and compare myself with others",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 102,
+        questionText:
+          "I get very upset when a colleague achieves professional or social success, no matter how hard I try to control my feelings",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 103,
+        questionText:
+          "I must keep others' success in mind if I want to achieve similar success",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 104,
+        questionText:
+          "I feel depressed because I haven't achieved the success and fame my colleagues have",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 105,
+        questionText:
+          "I'm not successful enough compared to those my age and position",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 106,
+        questionText: "I'm not as handsome/beautiful as others",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 107,
+        questionText:
+          "I feel inadequate and inferior when I find someone getting attention and attraction at social occasions",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 108,
+        questionText:
+          "Despite my family's intelligence, we don't achieve the same success as others",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      // ====== Group 12: Social Values and Self-Standards ======
+
+      // ====== Group 12: Social Values and Self-Standards ======
+      {
+        questionId: 109,
+        questionText:
+          "I believe in respecting social rules and customs regardless of the outcome",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 110,
+        questionText:
+          "Ideal parents are those who sacrifice everything for their children's happiness",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 111,
+        questionText:
+          "True success is being in harmony with religious principles and beliefs",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 112,
+        questionText:
+          "I severely hold myself accountable for any inappropriate behavior",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 113,
+        questionText: "I blame myself heavily for mistakes I made in the past",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 114,
+        questionText:
+          "I care about others' opinions and consider their approval a sign of my success in life",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 115,
+        questionText:
+          "I wish others would give me as much time, effort, and money as I give them",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 116,
+        questionText: "I wish my father was more giving and aware of my needs",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 117,
+        questionText:
+          "I get blamed by my spouse for my tendency toward social courtesies",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 118,
+        questionText: "Social courtesies consume most of my time",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 119,
+        questionText:
+          "I don't miss an opportunity or time to share others' joys or sorrows, even if it comes at the expense of my personal comfort",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+      {
+        questionId: 120,
+        questionText:
+          "My house and time are open to others at any time, day or night",
+        options: [
+          { optionId: 1, optionText: "Completely reject this idea", score: 1 },
+          { optionId: 2, optionText: "Don't believe in that", score: 2 },
+          { optionId: 3, optionText: "Not sure of my belief", score: 3 },
+          { optionId: 4, optionText: "Strongly believe", score: 4 },
+          { optionId: 5, optionText: "Very strongly believe", score: 5 },
+        ],
+      },
+    ],
+    scoring: {
+      instruction:
+        "Rate each item based on your level of agreement. Add up the total score to assess cognitive patterns and beliefs.",
+      scoreRanges: [
+        {
+          range: "110-220",
+          description: "Minimal cognitive distortions",
+          color: "bg-green-600",
+          info: "You show very few cognitive distortions. Your thought patterns are generally adaptive.",
+        },
+        {
+          range: "221-330",
+          description: "Moderate cognitive distortions",
+          color: "bg-yellow-500",
+          info: "You show some cognitive distortions. Consider working on thought restructuring.",
+        },
+        {
+          range: "331-440",
+          description: "Significant cognitive distortions",
+          color: "bg-orange-500",
+          info: "You show notable cognitive distortions. Professional consultation recommended.",
+        },
+        {
+          range: "441-550",
+          description: "Severe cognitive distortions",
+          color: "bg-red-600",
+          info: "You show significant cognitive distortions. Professional intervention is strongly recommended.",
+        },
+      ],
+    },
   },
 ];

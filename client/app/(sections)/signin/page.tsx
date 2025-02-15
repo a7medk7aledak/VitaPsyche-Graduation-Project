@@ -275,12 +275,53 @@ const LoginPage: React.FC = () => {
       </div>
 
       {/* Right Section */}
-      <div className="hidden md:block w-1/2 bg-teal-50">
-        <img
-          src="https://readymadeui.com/signin-image.webp"
-          alt="login-image"
-          className="lg:max-w-[85%] w-full h-full object-contain block mx-auto"
-        />
+      <div className="hidden md:block w-1/2 bg-teal-50 relative overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="w-full h-full flex items-center justify-center"
+          >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+              style={{
+                filter: "brightness(0.95)", // Slightly dim the video
+                opacity: 0.9, // Make it slightly transparent
+              }}
+            >
+              <source src="/recap.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            {/* Optional overlay to ensure text readability */}
+            <div className="absolute inset-0 bg-teal-50/30 backdrop-blur-[2px]" />
+
+            {/* Optional content over video */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="text-3xl font-bold text-heading text-center mb-4 z-10"
+              >
+                Welcome Back
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="text-maintext text-center max-w-md z-10"
+              >
+                Your mental health journey continues here
+              </motion.p>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </div>
   );

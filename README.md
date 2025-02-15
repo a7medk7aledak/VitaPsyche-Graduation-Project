@@ -212,7 +212,7 @@ This project utilizes the following libraries to enhance functionality and strea
 
 3.5-Django back-end all project:
 ```bash
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process\
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope Process
 py -3.9 -m venv .venv
 .\.venv\Scripts\activate
 cd server
@@ -230,7 +230,7 @@ pip install django-cors-headers
 pip install drf-yasg
 pip install coverage
 
-#to run the server
+#don't run that if you want run chatbot
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser

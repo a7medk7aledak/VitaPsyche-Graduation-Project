@@ -6,7 +6,6 @@
   @apply transition duration-300 ease-in;
 }
 
-
 /* to overwrite the margin top comes from fixed in my-profile when popup appear
 .fixed {
   @apply mt-0 !important ;
@@ -105,4 +104,19 @@ canvas {
 
 .animate-spin-smooth {
   animation: spin-smooth 2s cubic-bezier(0.25, 0.8, 0.25, 1) infinite;
+}
+
+video {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.98) 50%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.95) 0%,
+    rgba(0, 0, 0, 0.98) 50%,
+    rgba(0, 0, 0, 0.95) 100%
+  );
 }

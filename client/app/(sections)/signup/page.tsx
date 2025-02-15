@@ -491,14 +491,24 @@ const SignUpPage: React.FC = () => {
             </p>
           </form>
         </motion.div>
-
         <div className="hidden md:flex items-center justify-center bg-teal-50 h-full">
-          <img
-            src="https://readymadeui.com/signin-image.webp"
-            className="lg:max-w-[85%] w-full h-auto object-contain mx-auto"
-            alt="login-image"
-          />
-        </div>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="lg:max-w-[85%] w-full h-auto object-contain mx-auto transition-opacity duration-300"
+            style={{ opacity: 0.95 }}
+            onLoadedData={(e) => {
+              // Optional: Add animation when video loads
+              const video = e.target as HTMLVideoElement;
+              video.style.opacity = "1";
+            }}
+          >
+            <source src="/recap.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>{" "}
       </div>
     </div>
   );
