@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { logout } from "@/app/store/authSlice";
 import { motion } from "framer-motion";
 import Navbar from "@components/common/Navbar";
+import withAuth from "@components/auth/WithAuth";
 
 interface ProfileData {
   username: string;
@@ -324,4 +325,4 @@ const ProfilePage: React.FC = () => {
   );
 };
 
-export default ProfilePage;
+export default withAuth(ProfilePage, { allowedRoles: ["patient"] });

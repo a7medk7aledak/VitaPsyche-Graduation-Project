@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
+import withAuth from "@components/auth/WithAuth";
 
 interface DoctorProfileProps {
   profileImageUrl?: string;
@@ -354,6 +355,8 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
   );
 };
 
-export default function DoctorProfilePage() {
+const DoctorProfilePage = () => {
   return <DoctorProfile profileImageUrl="/images/doctor-profile.jpg" />;
-}
+};
+
+export default withAuth(DoctorProfilePage, { allowedRoles: ["doctor"] });

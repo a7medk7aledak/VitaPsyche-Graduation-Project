@@ -4,6 +4,7 @@ import Heading from "@components/common/Heading";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
+import withAuth from "@components/auth/WithAuth";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -15,7 +16,7 @@ const containerVariants = {
   },
 };
 
-export default function Categories() {
+const Categories = () => {
   const { categories, status } = useSelector(
     (state: RootState) => state.categories
   );
@@ -45,4 +46,6 @@ export default function Categories() {
       )}
     </motion.div>
   );
-}
+};
+
+export default withAuth(Categories);

@@ -1,0 +1,48 @@
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+
+interface WithAuthProps {
+  allowedRoles?: string[];
+}
+
+export default function withAuth<T extends object>(
+  WrappedComponent: React.ComponentType<T>,
+  { allowedRoles = [] }: WithAuthProps = {}
+) {
+  return function ProtectedRoute(props: T) {
+    const { isAuthenticated, user, token } = useSelector(
+      (state: RootState) => state.auth
+    );
+    const router = useRouter();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      if (!token) {
+        router.replace("/signin"); // Redirect to sign-in if no token
+      } else if (!isAuthenticated || !user) {
+        setLoading(true); // Wait until auth state is confirmed
+      } else if (allowedRoles.length && !allowedRoles.includes(user.role)) {
+        router.replace("/unauthorized"); // Redirect if user role is invalid
+      } else {
+        setLoading(false); // Authentication confirmed
+      }
+    }, [isAuthenticated, user, token, router]);
+
+    if (loading) {
+      return (
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+          <div className="flex flex-col items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-[#0f766e] border-solid"></div>
+            <p className="mt-4 text-gray-700 text-lg font-medium">
+              Preparing your experience...
+            </p>
+          </div>
+        </div>
+      );
+    }
+
+    return <WrappedComponent {...props} />;
+  };
+}
