@@ -49,6 +49,7 @@ const ChatBotPage: React.FC = () => {
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined" && "webkitSpeechRecognition" in window) {
@@ -94,7 +95,9 @@ const ChatBotPage: React.FC = () => {
         }));
 
         setMessages(formattedMessages);
-      } catch {
+        setTimeout(() => scrollToBottom(), 100);
+      } catch (error) {
+        console.error("Failed to load messages:", error);
         setMessages([]);
       }
     };
@@ -102,10 +105,18 @@ const ChatBotPage: React.FC = () => {
     loadMessages();
   }, [currentSession, token, language]);
 
+  // Scroll handling
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    scrollToBottom();
   }, [messages]);
 
+  // Auth check
   useEffect(() => {
     if (!token) {
       router.push("/signin");
@@ -130,7 +141,7 @@ const ChatBotPage: React.FC = () => {
 
   const handleMessageSent = (message: Message) => {
     setMessages((prev) => [...prev, message]);
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    setTimeout(() => scrollToBottom(), 100);
   };
 
   const handleLogout = () => {
@@ -139,17 +150,17 @@ const ChatBotPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-[#dce9e6] relative">
+    <div className="flex flex-col h-screen bg-[#dce9e6]">
       <Navbar />
 
       {isHistoryVisible && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-30 backdrop-blur-sm z-30 lg:hidden"
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-30 lg:hidden"
           onClick={() => setIsHistoryVisible(false)}
-        ></div>
+        />
       )}
 
-      <div className="flex flex-1">
+      <div className="flex flex-1 overflow-hidden">
         <ChatSidebar
           isHistoryVisible={isHistoryVisible}
           setIsHistoryVisible={setIsHistoryVisible}
@@ -161,8 +172,8 @@ const ChatBotPage: React.FC = () => {
           onSettingsClick={() => router.push("/settings")}
         />
 
-        <div className="flex-1 flex flex-col lg:w-3/4 bg-white rounded-md shadow-md">
-          <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex-1 flex flex-col lg:w-3/4 bg-white rounded-xl shadow-lg m-4 overflow-hidden">
+          <div className="flex items-center justify-between p-4 border-b bg-white/80 backdrop-blur-sm">
             <h3 className="text-xl font-semibold text-gray-700">
               {currentSession
                 ? `Chat ${currentSession.displayId || 1}`
@@ -170,9 +181,12 @@ const ChatBotPage: React.FC = () => {
             </h3>
           </div>
 
-          <div className="flex-1 overflow-y-auto">
+          <div
+            ref={messagesContainerRef}
+            className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
+          >
             <ChatMessages messages={messages} language={language} />
-            <div ref={messagesEndRef} />
+            <div ref={messagesEndRef} className="h-4" />
           </div>
 
           <ChatInput
@@ -183,7 +197,7 @@ const ChatBotPage: React.FC = () => {
             language={language}
             setIsHistoryVisible={setIsHistoryVisible}
             onMessageSent={handleMessageSent}
-          /> 
+          />
         </div>
       </div>
     </div>
