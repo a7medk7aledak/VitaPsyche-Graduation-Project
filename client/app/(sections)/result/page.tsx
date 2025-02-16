@@ -37,6 +37,22 @@ interface Test {
   isPremium?: boolean;
 }
 
+interface DistortionResult {
+  groupId: number;
+  groupName: string;
+  score: number;
+  maxH: number;
+  maxL: number;
+  severity: "Low" | "Moderate" | "High";
+  details: string;
+}
+
+interface CognitiveDistortionsResult {
+  totalScore: number;
+  groupResults: DistortionResult[];
+  maxTotalScore: number;
+}
+
 const cognitiveDistortionGroups = [
   {
     id: 1,
@@ -123,7 +139,6 @@ const cognitiveDistortionGroups = [
     maxL: 35,
   },
 ];
-
 function calculateMaxScore(questions: Question[]): number {
   return questions.reduce((max, question) => {
     const maxOptionScore = Math.max(
@@ -132,6 +147,7 @@ function calculateMaxScore(questions: Question[]): number {
     return max + maxOptionScore;
   }, 0);
 }
+
 function calculatePTSDScore(answers: number[], questions: Question[]): string {
   let reexperienceCount = 0;
   let avoidanceCount = 0;
@@ -282,11 +298,7 @@ function calculatePersonalityDisorders(
 function calculateCognitiveDistortions(
   answers: number[],
   questions: Question[]
-): {
-  totalScore: number;
-  groupResults: any[];
-  maxTotalScore: number;
-} {
+): CognitiveDistortionsResult {
   const groupResults = cognitiveDistortionGroups.map((group) => {
     const groupScores = group.questions.map((qIndex) => {
       const answer = answers[qIndex];
@@ -298,7 +310,7 @@ function calculateCognitiveDistortions(
 
     const groupScore = groupScores.reduce((sum, score) => sum + score, 0);
 
-    let severity: string;
+    let severity: "Low" | "Moderate" | "High";
     if (groupScore <= group.maxL) {
       severity = "Low";
     } else if (groupScore <= (group.maxH + group.maxL) / 2) {
@@ -337,7 +349,9 @@ const ClientSideResult: React.FC = () => {
   const [feedback, setFeedback] = useState("");
   const [detailedInfo, setDetailedInfo] = useState("");
   const [maxScore, setMaxScore] = useState(0);
-  const [distortionResults, setDistortionResults] = useState<any[]>([]);
+  const [distortionResults, setDistortionResults] = useState<
+    DistortionResult[]
+  >([]);
 
   const searchParams = useSearchParams();
   const testSlug = searchParams?.get("testSlug");
@@ -648,12 +662,12 @@ const ClientSideResult: React.FC = () => {
                     </h3>
                     <ul className="list-disc list-inside text-sm text-gray-600 space-y-2">
                       <li>
-                        "Present" indicates that responses meet the threshold
-                        for further evaluation
+                        &quot;Present&quot; indicates that responses meet the
+                        threshold for further evaluation
                       </li>
                       <li>
-                        "Not Present" suggests symptoms may not be clinically
-                        significant
+                        &quot;Not Present&quot; suggests symptoms may not be
+                        clinically significant
                       </li>
                       <li>
                         Multiple indicators may suggest overlapping traits or
@@ -734,7 +748,8 @@ const ClientSideResult: React.FC = () => {
                 test.isPremium ? "text-purple-600" : "text-blue-600"
               } font-semibold text-lg px-4`}
             >
-              Don't face your challenges alone. Professional help is available!
+              Don&apos;t face your challenges alone. Professional help is
+              available!
             </p>
             <button
               className={`${

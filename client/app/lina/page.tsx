@@ -30,7 +30,7 @@ interface Message {
 }
 
 const VirtualSupportAgent: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
   const [isListening, setIsListening] = useState<boolean>(false);
   const [language, setLanguage] = useState<string>("en-US");
@@ -38,7 +38,7 @@ const VirtualSupportAgent: React.FC = () => {
     null
   );
   const [showSuggestions, setShowSuggestions] = useState<boolean>(true);
-  const [isTyping, setIsTyping] = useState<boolean>(false);
+  const [, setIsTyping] = useState<boolean>(false);
   const [agentMessage, setAgentMessage] = useState<string>("");
 
   const suggestions: { [key: string]: string[] } = {
