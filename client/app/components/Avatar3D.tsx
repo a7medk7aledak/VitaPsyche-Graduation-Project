@@ -83,7 +83,7 @@ const getRandomInRange = (min: number, max: number) => {
 };
 const ELEVENLABS_API_URL = "https://api.elevenlabs.io/v1/text-to-speech";
 const ELEVENLABS_API_KEY =
-  "sk_63385b7f36aa405ffcf380178c7370c066746da5be191fb0";
+  "sk_fe5b03109f981aa1cdf33d27741c704dcdccc6053acf4584";
 
 // Avatar Model Component
 const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
@@ -346,10 +346,10 @@ const AvatarMessage: React.FC<{
   const fetchSpeech = async (text: string) => {
     try {
       const response = await axios.post(
-        `${ELEVENLABS_API_URL}/EXAVITQu4vr4xnSDxMaL`,
+        `${ELEVENLABS_API_URL}/u0TsaWvt0v8migutHM3M`,
         {
           text: text,
-          model_id: "eleven_monolingual_v1",
+          model_id: "eleven_multilingual_v2",
           voice_settings: {
             stability: 0.5,
             similarity_boost: 0.5,
