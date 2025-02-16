@@ -11,7 +11,7 @@ interface Service {
   price: string;
   duration: string;
   is_active?: boolean;
-  category: number;
+  category: string; //when connecting make it number
   doctors?: string[];
 }
 
@@ -25,7 +25,7 @@ const ServicesManagment = () => {
     id: 0,
     name: "",
     description: "",
-    category: 0,
+    category: "", //when connecting make it 0
     price: "",
     duration: "",
     is_active: true,
@@ -134,7 +134,7 @@ const ServicesManagment = () => {
       id: 0,
       name: "",
       description: "",
-      category: 0,
+      category: "", //when connecting make it 0
       price: "",
       duration: "",
       is_active: true,
@@ -162,18 +162,18 @@ const ServicesManagment = () => {
       <h2 className="text-3xl font-semibold text-gray-800">Services</h2>
       <div className="space-y-6">
         {services.map((service) => {
-          const categoryObj = categories.find(
-            (cat) => cat.id === service.category
-          );
+          // const categoryObj = categories.find(
+          //   (cat) => cat.id === service.category
+          // );
 
-          const categoryName = categoryObj
-            ? categoryObj.name
-            : "Unknown Category";
+          // const categoryName = categoryObj
+          //   ? categoryObj.name
+          //   : "Unknown Category";
 
           return (
             <Service
               key={service.id}
-              categoryName={categoryName}
+              // categoryName={categoryName}
               service={service}
               onEdit={handleEditService}
               onRemove={handleRemoveService}
@@ -233,7 +233,7 @@ const ServicesManagment = () => {
                 />
               </div>
               <div>
-                <label htmlFor="category" className="block text-gray-700">
+                <label htmlFor="category" className="block text-gray-700 mb-1">
                   Category
                 </label>
                 <select
@@ -241,7 +241,7 @@ const ServicesManagment = () => {
                   value={newService.category}
                   onChange={handleServiceChange}
                   id="category"
-                  className="mt-1 p-2 border border-gray-300 rounded w-full"
+                  className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 >
                   <option value="">Select Category</option>
                   {categories.map((category) => (
@@ -273,14 +273,14 @@ const ServicesManagment = () => {
               </div>
 
               <div>
-                <label htmlFor="duration" className="block text-gray-700">
+                <label htmlFor="duration" className="block text-gray-700 mb-1">
                   Duration
                 </label>
                 <select
                   name="duration"
                   value={newService.duration}
                   onChange={handleServiceChange}
-                  className="w-full p-3 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
+                  className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 >
                   <option value="">select</option>
                   <option value="30">30 min</option>

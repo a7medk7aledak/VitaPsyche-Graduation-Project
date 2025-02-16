@@ -4,14 +4,14 @@ interface ServiceProps {
   service: {
     id: number;
     name: string;
-    category: number;
+    category: string; //when connecting make it number
     price: string;
     duration: string;
     description?: string;
     is_active?: boolean;
     doctors?: string[];
   };
-  categoryName: string;
+  // categoryName: string;
   onEdit: (id: number) => void;
   onRemove: (id: number) => void;
 }
@@ -20,7 +20,7 @@ const Service: React.FC<ServiceProps> = ({
   service,
   onEdit,
   onRemove,
-  categoryName,
+  // categoryName,
 }) => {
   return (
     <div className="p-6 border rounded-lg shadow-md bg-white hover:bg-gray-50 transition-colors">
@@ -30,7 +30,7 @@ const Service: React.FC<ServiceProps> = ({
             {service.name}
           </h3>
           <p className="text-gray-600">
-            <span className="font-semibold">Category:</span> {categoryName}
+            <span className="font-semibold">Category:</span> {service.category}
           </p>
           {service.description && (
             <p className="text-gray-600">
