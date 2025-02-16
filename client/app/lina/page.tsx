@@ -142,37 +142,6 @@ const VirtualSupportAgent: React.FC = () => {
   return (
     <div className="flex flex-col h-screen relative bg-gradient-to-b from-blue-100 via-purple-100 to-indigo-200">
       {/* Messages Display */}
-      <div className="flex-1 overflow-y-auto p-4">
-        {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`mb-4 ${
-              message.sender === "user" ? "text-right" : "text-left"
-            }`}
-          >
-            <div
-              className={`inline-block p-3 rounded-lg max-w-[70%] ${
-                message.sender === "user"
-                  ? "bg-blue-500 text-white"
-                  : "bg-white text-gray-800"
-              }`}
-            >
-              {message.text}
-            </div>
-          </div>
-        ))}
-        {isTyping && (
-          <div className="text-left">
-            <div className="inline-block p-3 bg-gray-200 rounded-lg">
-              <div className="flex space-x-2">
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-100"></div>
-                <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce delay-200"></div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
 
       <Avatar3D message={agentMessage} />
 
