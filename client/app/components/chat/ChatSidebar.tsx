@@ -110,8 +110,8 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
   return (
     <div
       ref={sidebarRef}
-      className={`fixed md:relative z-40 top-0 left-0 h-screen w-[280px] bg-slate-800 
-        border-r border-gray-700/50 transition-transform duration-300
+      className={`fixed md:relative z-40 top-0 left-0 h-100vh w-[280px] bg-slate-800 
+        border-r border-gray-700/50 transition-transform duration-300 rounded-md
         ${
           isHistoryVisible || window.innerWidth >= 768
             ? "translate-x-0"
@@ -120,7 +120,7 @@ export const ChatSidebar: React.FC<ChatSidebarProps> = ({
     >
       <div className="flex flex-col h-full">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-gray-700/50">
+        <div className="px-6 py-4 border-b   border-gray-700/50">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
               <FaHistory className="text-[#46e4dc] text-lg" />
