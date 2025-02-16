@@ -104,9 +104,9 @@ const FindPsychiatrists = () => {
                   required
                 >
                   <option value="">--Select Specialization--</option>
-                  {categories.map((category, index) => (
-                    <option key={index} value={category.title}>
-                      {category.title}
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
                     </option>
                   ))}
                 </select>

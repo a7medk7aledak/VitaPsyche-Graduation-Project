@@ -3,17 +3,23 @@
 import { useRouter } from "next/navigation";
 import { FaLock } from "react-icons/fa";
 import { motion } from "framer-motion";
+import Logo from "@components/common/Logo"; // Ensure the correct import path
 
 const UnauthorizedPage = () => {
   const router = useRouter();
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+      {/* Logo and Project Name */}
+      <div className="absolute scale-125 top-8  flex items-center space-x-2">
+        <Logo />
+      </div>
+
       <motion.div
         initial={{ scale: 0.9 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="flex flex-col items-center text-center space-y-6"
+        className="flex flex-col items-center text-center space-y-6 mt-16"
       >
         {/* Animated Lock Icon */}
         <motion.div

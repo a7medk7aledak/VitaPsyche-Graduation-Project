@@ -8,10 +8,12 @@ import { navLinks } from "@app/constants/nav-links";
 import { BsPersonAdd } from "react-icons/bs";
 import { CiLogin } from "react-icons/ci";
 import { FiLogOut, FiUser } from "react-icons/fi";
+import { getProfileRoute } from "@utils/profileRoute";
 
 interface MobileNavProps {
   isAuthenticated: boolean;
   username?: string;
+  role?: string;
   onLogout: () => void;
 }
 
@@ -19,6 +21,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
   isAuthenticated,
   username,
   onLogout,
+  role,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [language, setLanguage] = useState<string>("en");
@@ -94,7 +97,7 @@ const MobileNav: React.FC<MobileNavProps> = ({
                   <FiUser className="text-white" />
                   <span className="text-white">{username}</span>
                 </div>
-                <Link href="/profile">
+                <Link href={getProfileRoute(role)}>
                   <button className="w-full flex items-center justify-center bg-subbutton text-white rounded-md px-4 py-2 hover:bg-hoversubbutton">
                     <span>Profile</span>
                     <FiUser className="ml-2" />

@@ -4,18 +4,24 @@ interface ServiceProps {
   service: {
     id: number;
     name: string;
-    category: string;
-    price: number;
+    category: number;
+    price: string;
     duration: string;
     description?: string;
     is_active?: boolean;
     doctors?: string[];
   };
+  categoryName: string;
   onEdit: (id: number) => void;
   onRemove: (id: number) => void;
 }
 
-const Service: React.FC<ServiceProps> = ({ service, onEdit, onRemove }) => {
+const Service: React.FC<ServiceProps> = ({
+  service,
+  onEdit,
+  onRemove,
+  categoryName,
+}) => {
   return (
     <div className="p-6 border rounded-lg shadow-md bg-white hover:bg-gray-50 transition-colors">
       <div className="flex flex-col md:flex-row justify-between gap-6 items-center">
@@ -24,7 +30,7 @@ const Service: React.FC<ServiceProps> = ({ service, onEdit, onRemove }) => {
             {service.name}
           </h3>
           <p className="text-gray-600">
-            <span className="font-semibold">Category:</span> {service.category}
+            <span className="font-semibold">Category:</span> {categoryName}
           </p>
           {service.description && (
             <p className="text-gray-600">

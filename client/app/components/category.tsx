@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 interface ICategory {
   category: {
-    title: string;
+    name: string;
     description: string;
     image: string;
   };
@@ -15,7 +15,7 @@ export function Category({ category }: ICategory) {
 
   const handlePath = () => {
     const queryParams = new URLSearchParams({
-      specialization: encodeURIComponent(category.title),
+      specialization: encodeURIComponent(category.name),
     }).toString();
 
     router.push(`/doctorList?${queryParams}`);
@@ -25,13 +25,13 @@ export function Category({ category }: ICategory) {
       <div className="space-y-2">
         <Image
           src={category.image}
-          alt={category.title}
+          alt={category.name}
           width={100}
           height={100}
           className="mx-auto"
         />
         <h3 className="text-xl font-semibold text-center mb-2">
-          {category.title}
+          {category.name}
         </h3>
         <p className=" text-gray-600 text-center text-md">
           {category.description}

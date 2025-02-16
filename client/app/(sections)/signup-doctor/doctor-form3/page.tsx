@@ -237,9 +237,9 @@ const DoctorForm3 = () => {
                 <option value="" disabled>
                   Select Specialization
                 </option>
-                {categories.map((cat, index) => (
-                  <option value={cat.title} key={index}>
-                    {cat.title}
+                {categories.map((cat) => (
+                  <option value={cat.name} key={cat.id}>
+                    {cat.name}
                   </option>
                 ))}
               </select>

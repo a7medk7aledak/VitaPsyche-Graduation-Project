@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/app/store/store";
 import { logout } from "@/app/store/authSlice";
 import { useRouter } from "next/navigation";
+import { getProfileRoute } from "@utils/profileRoute";
 
 // Interfaces
 interface User {
@@ -32,7 +33,6 @@ interface UserDropdownProps {
 
 // UserDropdown Component
 const UserDropdown: React.FC<UserDropdownProps> = ({ user, handleLogout }) => {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -50,13 +50,6 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user, handleLogout }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const handleProfileLink = (): void => {
-    if (user.role === "doctor") {
-      router.push("/my-profile");
-    } else {
-      router.push("/profile");
-    }
-  };
   return (
     <div className="relative" ref={dropdownRef}>
       <button
@@ -102,13 +95,13 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user, handleLogout }) => {
             </div>
 
             {/* Menu Items */}
-            <button
-              onClick={handleProfileLink}
+            <Link
+              href={getProfileRoute(user.role as string)}
               className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors duration-200"
             >
               <FiUser className="w-4 h-4 mr-3" />
               Profile
-            </button>
+            </Link>
 
             <Link
               href="/help"
@@ -227,6 +220,7 @@ const Navbar: React.FC = () => {
               isAuthenticated={isAuthenticated}
               username={user?.username}
               onLogout={handleLogout}
+              role={user?.role}
             />
           </div>
         </div>

@@ -9,6 +9,16 @@ interface Schedule {
   endTime: string;
 }
 
+const daysOfWeek = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday",
+];
+
 const ScheduleManagement = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [schedules, setSchedules] = useState<Schedule[]>([
@@ -136,14 +146,20 @@ const ScheduleManagement = () => {
                 <label htmlFor="day" className="block text-gray-700 mb-1">
                   Day
                 </label>
-                <input
-                  type="date"
+                <select
                   name="day"
                   value={newSchedule.day}
                   onChange={handleScheduleChange}
                   id="day"
                   className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
-                />
+                >
+                  <option value="">Select a day</option>
+                  {daysOfWeek.map((day) => (
+                    <option key={day} value={day}>
+                      {day}
+                    </option>
+                  ))}
+                </select>
                 {errors.day && (
                   <p className="text-red-500 text-sm">{errors.day}</p>
                 )}

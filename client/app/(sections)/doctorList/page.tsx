@@ -170,9 +170,9 @@ function DoctorList() {
                   disabled={!!specializationFromURL} // Disable if value is from URL
                 >
                   <option value="">Select Specialization</option>
-                  {categories.map((cat, index) => (
-                    <option key={index} value={cat.title}>
-                      {cat.title}
+                  {categories.map((cat) => (
+                    <option key={cat.id} value={cat.name}>
+                      {cat.name}
                     </option>
                   ))}
                 </select>

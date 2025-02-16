@@ -21,6 +21,8 @@ const Categories = () => {
     (state: RootState) => state.categories
   );
 
+  console.log(categories);
+
   return (
     <motion.div
       className="container mx-auto pt-8 pb-20"

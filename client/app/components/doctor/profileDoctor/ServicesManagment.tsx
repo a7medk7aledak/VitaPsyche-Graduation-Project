@@ -8,10 +8,10 @@ interface Service {
   id: number;
   name: string;
   description?: string;
-  price: number;
+  price: string;
   duration: string;
   is_active?: boolean;
-  category: string;
+  category: number;
   doctors?: string[];
 }
 
@@ -25,14 +25,12 @@ const ServicesManagment = () => {
     id: 0,
     name: "",
     description: "",
-    category: "",
-    price: 0,
+    category: 0,
+    price: "",
     duration: "",
     is_active: true,
     doctors: [],
   });
-
-  const categoriesTitles = categories.map((category) => category.title);
 
   // useEffect(() => {
   //   fetchServices();
@@ -136,8 +134,8 @@ const ServicesManagment = () => {
       id: 0,
       name: "",
       description: "",
-      category: "",
-      price: 0,
+      category: 0,
+      price: "",
       duration: "",
       is_active: true,
       doctors: [],
@@ -151,7 +149,7 @@ const ServicesManagment = () => {
     if (!newService.category) formErrors.category = "Category is required.";
     if (!newService.price) {
       formErrors.price = "Price is required";
-    } else if (newService.price <= 0) {
+    } else if (parseInt(newService.price) <= 0) {
       formErrors.price = "Price must be a positive number.";
     }
     if (!newService.duration) formErrors.duration = "Duration is required.";
@@ -163,14 +161,25 @@ const ServicesManagment = () => {
     <div className="space-y-6 relative">
       <h2 className="text-3xl font-semibold text-gray-800">Services</h2>
       <div className="space-y-6">
-        {services.map((service) => (
-          <Service
-            key={service.id}
-            service={service}
-            onEdit={handleEditService}
-            onRemove={handleRemoveService}
-          />
-        ))}
+        {services.map((service) => {
+          const categoryObj = categories.find(
+            (cat) => cat.id === service.category
+          );
+
+          const categoryName = categoryObj
+            ? categoryObj.name
+            : "Unknown Category";
+
+          return (
+            <Service
+              key={service.id}
+              categoryName={categoryName}
+              service={service}
+              onEdit={handleEditService}
+              onRemove={handleRemoveService}
+            />
+          );
+        })}
         <button
           onClick={() => setIsPopupVisible(true)}
           className="mt-4 px-6 py-2 bg-[#00bfa5] hover:bg-[#139485] transition text-white rounded"
@@ -235,9 +244,9 @@ const ServicesManagment = () => {
                   className="mt-1 p-2 border border-gray-300 rounded w-full"
                 >
                   <option value="">Select Category</option>
-                  {categoriesTitles.map((category: string, index) => (
-                    <option key={index} value={category}>
-                      {category}
+                  {categories.map((category) => (
+                    <option key={category.id} value={category.name}>
+                      {category.name}
                     </option>
                   ))}
                 </select>

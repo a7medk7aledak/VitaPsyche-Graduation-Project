@@ -8,7 +8,7 @@ import { TLoading } from "@app/types/shared.types";
 // Define Category type
 interface Category {
   id: number;
-  title: string;
+  name: string;
   description: string;
   image: string;
 }
