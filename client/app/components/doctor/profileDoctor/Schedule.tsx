@@ -1,15 +1,25 @@
 import React from "react";
+import { capitalizeFirstLetter } from "./ScheduleMangment";
 
 interface ScheduleProps {
   schedule: {
     id: number;
-    day: string;
-    startTime: string;
-    endTime: string;
+    day_of_week: string;
+    start_time: string;
+    end_time: string;
+    max_patients_per_slot?: number;
+    notes?: string;
   };
   onEdit: (id: number) => void;
   onRemove: (id: number) => void;
 }
+
+export const formatTo12Hour = (time: string) => {
+  const [hours, minutes] = time.split(":").map(Number);
+  const ampm = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12;
+  return `${formattedHours}:${minutes.toString().padStart(2, "0")} ${ampm}`;
+};
 
 const Schedule: React.FC<ScheduleProps> = ({ schedule, onEdit, onRemove }) => {
   return (
@@ -17,16 +27,30 @@ const Schedule: React.FC<ScheduleProps> = ({ schedule, onEdit, onRemove }) => {
       <div className="flex flex-col md:flex-row justify-between gap-6 items-center">
         <div className="flex-1">
           <h3 className="text-2xl font-semibold text-gray-800">
-            {schedule.day}
+            {capitalizeFirstLetter(schedule.day_of_week)}
           </h3>
           <p className="text-gray-600">
             <span className="font-semibold">Start Time:</span>{" "}
-            {schedule.startTime}
+            {formatTo12Hour(schedule.start_time)}
           </p>
           <p className="text-gray-600">
-            <span className="font-semibold">End Time:</span> {schedule.endTime}
+            <span className="font-semibold">End Time:</span>{" "}
+            {formatTo12Hour(schedule.end_time)}
           </p>
+          {schedule.max_patients_per_slot && (
+            <p className="text-gray-600">
+              <span className="font-semibold">Max Patients: </span>
+              {schedule.max_patients_per_slot}
+            </p>
+          )}
+          {schedule.notes && (
+            <p className="text-gray-600 capitalize">
+              <span className="font-semibold ">Notes: </span>
+              {schedule.notes}
+            </p>
+          )}
         </div>
+
         <div className="flex items-center gap-4">
           <button
             onClick={() => onEdit(schedule.id)}

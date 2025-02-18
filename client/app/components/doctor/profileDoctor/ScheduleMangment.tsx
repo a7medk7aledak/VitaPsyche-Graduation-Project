@@ -1,66 +1,92 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Schedule from "./Schedule";
+import useAxios from "@hooks/useAxios";
 
 interface Schedule {
   id: number;
-  day: string;
-  startTime: string;
-  endTime: string;
+  day_of_week: string;
+  start_time: string;
+  end_time: string;
+  max_patients_per_slot?: number;
+  notes?: string;
 }
 
 const daysOfWeek = [
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-  "Sunday",
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
 ];
+
+const API_URL = "/api/availabilities";
+
+export const capitalizeFirstLetter = (str: string) =>
+  str.charAt(0).toUpperCase() + str.slice(1);
 
 const ScheduleManagement = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [schedules, setSchedules] = useState<Schedule[]>([
-    { id: 1, day: "2025-01-01", startTime: "09:00", endTime: "17:00" },
-    { id: 2, day: "2025-01-02", startTime: "10:00", endTime: "18:00" },
-  ]);
+  const [schedules, setSchedules] = useState<Schedule[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [editingScheduleId, setEditingScheduleId] = useState<number | null>(
     null
   );
   const [newSchedule, setNewSchedule] = useState<Schedule>({
     id: 0,
-    day: "",
-    startTime: "",
-    endTime: "",
+    day_of_week: "",
+    start_time: "",
+    end_time: "",
+    max_patients_per_slot: 0,
+    notes: "",
   });
 
+  const axiosInstance = useAxios();
+
+  const fetchSchedules = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get(API_URL);
+      setSchedules(response.data);
+    } catch (error) {
+      console.error("Failed to fetch schedules:", error);
+    }
+  }, [axiosInstance]);
+
+  useEffect(() => {
+    fetchSchedules();
+  }, [fetchSchedules]);
+
   const handleScheduleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLTextAreaElement | HTMLInputElement | HTMLSelectElement
+    >
   ) => {
     const { name, value } = e.target;
+    if (name === "start_time") {
+      console.log("start_time", value);
+    }
     setNewSchedule((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSaveSchedule = () => {
+  const handleSaveSchedule = async () => {
     if (!validateSchedule()) return;
-    if (editingScheduleId) {
-      setSchedules((prev) =>
-        prev.map((schedule) =>
-          schedule.id === editingScheduleId
-            ? { ...schedule, ...newSchedule }
-            : schedule
-        )
-      );
-    } else {
-      setSchedules((prev) => [
-        ...prev,
-        { ...newSchedule, id: prev.length + 1 },
-      ]);
+    try {
+      if (editingScheduleId) {
+        await axiosInstance.put(
+          `${API_URL}?id=${editingScheduleId}`,
+          newSchedule
+        );
+      } else {
+        await axiosInstance.post(API_URL, newSchedule);
+      }
+      fetchSchedules();
+      resetForm();
+      setIsPopupVisible(false);
+    } catch (error) {
+      console.error("Error saving schedule:", error);
     }
-    resetForm();
-    setIsPopupVisible(false);
   };
 
   const handleEditSchedule = (id: number) => {
@@ -70,8 +96,13 @@ const ScheduleManagement = () => {
     setIsPopupVisible(true);
   };
 
-  const handleRemoveSchedule = (id: number) => {
-    setSchedules((prev) => prev.filter((schedule) => schedule.id !== id));
+  const handleRemoveSchedule = async (id: number) => {
+    try {
+      await axiosInstance.delete(`${API_URL}?id=${id}`);
+      fetchSchedules();
+    } catch (error) {
+      console.error("Error deleting schedule:", error);
+    }
   };
 
   const handleCancel = () => {
@@ -81,35 +112,49 @@ const ScheduleManagement = () => {
 
   const resetForm = () => {
     setEditingScheduleId(null);
-    setNewSchedule({ id: 0, day: "", startTime: "", endTime: "" });
+    setNewSchedule({
+      id: 0,
+      day_of_week: "",
+      start_time: "",
+      end_time: "",
+      notes: "",
+      max_patients_per_slot: 0,
+    });
     setErrors({});
   };
 
   const validateSchedule = () => {
     const formErrors: { [key: string]: string } = {};
     const today = new Date().setHours(0, 0, 0, 0); // Timestamp for today's date at midnight
-    const selectedDate = new Date(newSchedule.day).getTime(); // Convert selected date to timestamp
+    const selectedDate = new Date(newSchedule.day_of_week).getTime(); // Convert selected date to timestamp
 
-    if (!newSchedule.day) {
-      formErrors.day = "Day is required.";
+    if (!newSchedule.day_of_week) {
+      formErrors.day_of_week = "Day is required.";
     } else if (selectedDate < today) {
-      formErrors.day = "Invalid date. Please select a future date.";
+      formErrors.day_of_week = "Invalid date. Please select a future date.";
     }
 
-    if (!newSchedule.startTime) {
-      formErrors.startTime = "Start time is required.";
+    if (!newSchedule.start_time) {
+      formErrors.start_time = "Start time is required.";
     }
 
-    if (!newSchedule.endTime) {
-      formErrors.endTime = "End time is required.";
-    } else if (newSchedule.startTime && newSchedule.endTime) {
-      // Compare times as strings in HH:MM format
-      const startTime = newSchedule.startTime;
-      const endTime = newSchedule.endTime;
+    if (!newSchedule.end_time) {
+      formErrors.end_time = "End time is required.";
+    } else if (newSchedule.start_time && newSchedule.end_time) {
+      const startTime = newSchedule.start_time;
+      const endTime = newSchedule.end_time;
       if (startTime >= endTime) {
-        formErrors.startTime =
+        formErrors.start_time =
           "Start time cannot be later than or equal to end time.";
       }
+    }
+
+    if (
+      newSchedule.max_patients_per_slot &&
+      (newSchedule.max_patients_per_slot < 0 ||
+        newSchedule.max_patients_per_slot > 1000)
+    ) {
+      formErrors.max_patients_per_slot = "Invalid number of patients per slot.";
     }
 
     setErrors(formErrors);
@@ -147,21 +192,21 @@ const ScheduleManagement = () => {
                   Day
                 </label>
                 <select
-                  name="day"
-                  value={newSchedule.day}
+                  name="day_of_week"
+                  value={newSchedule.day_of_week}
                   onChange={handleScheduleChange}
                   id="day"
-                  className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
+                  className="w-full  p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
                 >
                   <option value="">Select a day</option>
                   {daysOfWeek.map((day) => (
                     <option key={day} value={day}>
-                      {day}
+                      {capitalizeFirstLetter(day)}
                     </option>
                   ))}
                 </select>
-                {errors.day && (
-                  <p className="text-red-500 text-sm">{errors.day}</p>
+                {errors.day_of_week && (
+                  <p className="text-red-500 text-sm">{errors.day_of_week}</p>
                 )}
               </div>
               <div>
@@ -170,14 +215,14 @@ const ScheduleManagement = () => {
                 </label>
                 <input
                   type="time"
-                  name="startTime"
-                  value={newSchedule.startTime}
+                  name="start_time"
+                  value={newSchedule.start_time}
                   onChange={handleScheduleChange}
                   id="startTime"
                   className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
                 />
-                {errors.startTime && (
-                  <p className="text-red-500 text-sm">{errors.startTime}</p>
+                {errors.start_time && (
+                  <p className="text-red-500 text-sm">{errors.start_time}</p>
                 )}
               </div>
               <div>
@@ -186,15 +231,50 @@ const ScheduleManagement = () => {
                 </label>
                 <input
                   type="time"
-                  name="endTime"
-                  value={newSchedule.endTime}
+                  name="end_time"
+                  value={newSchedule.end_time}
                   onChange={handleScheduleChange}
                   id="endTime"
                   className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
                 />
-                {errors.endTime && (
-                  <p className="text-red-500 text-sm">{errors.endTime}</p>
+                {errors.end_time && (
+                  <p className="text-red-500 text-sm">{errors.end_time}</p>
                 )}
+              </div>
+
+              <div>
+                <label
+                  htmlFor="max_patients_per_slot"
+                  className="block text-gray-700 mb-1"
+                >
+                  Max Patients per Slot
+                </label>
+                <input
+                  type="number"
+                  name="max_patients_per_slot"
+                  value={newSchedule.max_patients_per_slot}
+                  onChange={handleScheduleChange}
+                  min="0"
+                  max="9223372036854776000"
+                  className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
+                />
+                {errors.max_patients_per_slot && (
+                  <p className="text-red-500 text-sm">
+                    {errors.max_patients_per_slot}
+                  </p>
+                )}
+              </div>
+              <div>
+                <label htmlFor="notes" className="block text-gray-700 mb-1">
+                  Notes
+                </label>
+                <textarea
+                  name="notes"
+                  value={newSchedule.notes || ""}
+                  onChange={handleScheduleChange}
+                  className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
+                  rows={3}
+                />
               </div>
               <div className="flex justify-end space-x-4 mt-6">
                 <button

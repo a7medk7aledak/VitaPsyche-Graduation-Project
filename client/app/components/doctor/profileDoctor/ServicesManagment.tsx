@@ -1,8 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Service from "./Service";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
+import useAxios from "@hooks/useAxios";
 
 interface Service {
   id: number;
@@ -11,9 +12,11 @@ interface Service {
   price: string;
   duration: string;
   is_active?: boolean;
-  category: string; //when connecting make it number
+  category: number; //when connecting make it number
   doctors?: string[];
 }
+
+const API_URL = "/api/services";
 
 const ServicesManagment = () => {
   const { categories } = useSelector((state: RootState) => state.categories);
@@ -25,26 +28,27 @@ const ServicesManagment = () => {
     id: 0,
     name: "",
     description: "",
-    category: "", //when connecting make it 0
+    category: 0, //when connecting make it 0
     price: "",
     duration: "",
     is_active: true,
     doctors: [],
   });
 
-  // useEffect(() => {
-  //   fetchServices();
-  // }, []);
+  const axiosInstance = useAxios(); 
+  
+  const fetchServices = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get(API_URL);
+      setServices(response.data);
+    } catch (error) {
+      console.error("Failed to fetch services:", error);
+    }
+  }, [axiosInstance]);
 
-  // const fetchServices = async () => {
-  //   try {
-  //     const response = await fetch("/api/services");
-  //     const data = await response.json();
-  //     setServices(data);
-  //   } catch (error) {
-  //     console.error("Failed to fetch services:", error);
-  //   }
-  // };
+  useEffect(() => {
+    fetchServices();
+  }, [fetchServices]);
 
   const handleServiceChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -53,50 +57,27 @@ const ServicesManagment = () => {
     setNewService((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSaveService = () => {
+  const handleSaveService = async () => {
     if (!validateService()) return; // Don't proceed if validation fails
-    if (editingServiceId) {
-      //to check if it will be for editing or adding anew service
-      setServices((prev) =>
-        prev.map((service) =>
-          service.id === editingServiceId
-            ? { ...service, ...newService }
-            : service
-        )
-      );
-    } else {
-      setServices((prev) => [...prev, { ...newService, id: prev.length + 1 }]);
+    try {
+      if (editingServiceId) {
+        // Update service
+        await axiosInstance.put(
+          `/api/services?id=${editingServiceId}`,
+          newService
+        );
+      } else {
+        // Add new service
+        await axiosInstance.post(API_URL, newService);
+      }
+
+      fetchServices();
+      resetForm();
+      setIsPopupVisible(false);
+    } catch (error) {
+      console.error("Error saving service:", error);
     }
-    resetForm();
-    setIsPopupVisible(false);
   };
-
-  //  const handleSaveService = async () => {
-  //    if (!validateService()) return; // Don't proceed if validation fails
-
-  //    const endpoint = editingServiceId
-  //      ? `/api/services/${editingServiceId}`
-  //      : "/api/services";
-  //    const method = editingServiceId ? "PUT" : "POST";
-
-  //    try {
-  //      const response = await fetch(endpoint, {
-  //        method: method,
-  //        headers: {
-  //          "Content-Type": "application/json",
-  //        },
-  //        body: JSON.stringify(newService),
-  //      });
-
-  //      if (!response.ok) throw new Error("Failed to save service");
-
-  //      fetchServices(); // Refresh the list
-  //      resetForm();
-  //      setIsPopupVisible(false);
-  //    } catch (error) {
-  //      console.error("Error saving service:", error);
-  //    }
-  //  };
 
   const handleEditService = (id: number) => {
     setEditingServiceId(id);
@@ -105,8 +86,13 @@ const ServicesManagment = () => {
     setIsPopupVisible(true);
   };
 
-  const handleRemoveService = (id: number) => {
-    setServices((prev) => prev.filter((service) => service.id !== id));
+  const handleRemoveService = async (id: number) => {
+    try {
+      await axiosInstance.delete(`/api/services?id=${id}`);
+      fetchServices();
+    } catch (error) {
+      console.error("Error deleting service:", error);
+    }
   };
 
   const handleCancel = () => {
@@ -114,27 +100,13 @@ const ServicesManagment = () => {
     setIsPopupVisible(false);
   };
 
-  //  const handleRemoveService = async (id: number) => {
-  //    try {
-  //      const response = await fetch(`/api/services/${id}`, {
-  //        method: "DELETE",
-  //      });
-
-  //      if (!response.ok) throw new Error("Failed to delete service");
-
-  //      fetchServices(); // Refresh the list
-  //    } catch (error) {
-  //      console.error("Error deleting service:", error);
-  //    }
-  //  };
-
   const resetForm = () => {
     setEditingServiceId(null);
     setNewService({
       id: 0,
       name: "",
       description: "",
-      category: "", //when connecting make it 0
+      category: 0, //when connecting make it 0
       price: "",
       duration: "",
       is_active: true,
@@ -162,18 +134,18 @@ const ServicesManagment = () => {
       <h2 className="text-3xl font-semibold text-gray-800">Services</h2>
       <div className="space-y-6">
         {services.map((service) => {
-          // const categoryObj = categories.find(
-          //   (cat) => cat.id === service.category
-          // );
+          const categoryObj = categories.find(
+            (cat) => cat.id === service.category
+          );
 
-          // const categoryName = categoryObj
-          //   ? categoryObj.name
-          //   : "Unknown Category";
+          const categoryName = categoryObj
+            ? categoryObj.name
+            : "Unknown Category";
 
           return (
             <Service
               key={service.id}
-              // categoryName={categoryName}
+              categoryName={categoryName}
               service={service}
               onEdit={handleEditService}
               onRemove={handleRemoveService}
@@ -245,7 +217,7 @@ const ServicesManagment = () => {
                 >
                   <option value="">Select Category</option>
                   {categories.map((category) => (
-                    <option key={category.id} value={category.name}>
+                    <option key={category.id} value={category.id}>
                       {category.name}
                     </option>
                   ))}
