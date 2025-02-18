@@ -37,6 +37,108 @@ interface Test {
   isPremium?: boolean;
 }
 
+interface DistortionResult {
+  groupId: number;
+  groupName: string;
+  score: number;
+  maxH: number;
+  maxL: number;
+  severity: "Low" | "Moderate" | "High";
+  details: string;
+}
+
+interface CognitiveDistortionsResult {
+  totalScore: number;
+  groupResults: DistortionResult[];
+  maxTotalScore: number;
+}
+
+const cognitiveDistortionGroups = [
+  {
+    id: 1,
+    name: "Magnification and Minimization",
+    questions: Array.from({ length: 10 }, (_, i) => i),
+    maxH: 50,
+    maxL: 30,
+  },
+  {
+    id: 2,
+    name: "Mind Reading",
+    questions: Array.from({ length: 10 }, (_, i) => i + 10),
+    maxH: 50,
+    maxL: 30,
+  },
+  {
+    id: 3,
+    name: "Negative Expectations",
+    questions: Array.from({ length: 8 }, (_, i) => i + 20),
+    maxH: 40,
+    maxL: 25,
+  },
+  {
+    id: 4,
+    name: "Self-Attribution",
+    questions: Array.from({ length: 10 }, (_, i) => i + 28),
+    maxH: 50,
+    maxL: 30,
+  },
+  {
+    id: 5,
+    name: "Overgeneralization",
+    questions: Array.from({ length: 12 }, (_, i) => i + 38),
+    maxH: 60,
+    maxL: 35,
+  },
+  {
+    id: 6,
+    name: "All-or-Nothing Thinking",
+    questions: Array.from({ length: 7 }, (_, i) => i + 50),
+    maxH: 35,
+    maxL: 22,
+  },
+  {
+    id: 7,
+    name: "Perfectionism",
+    questions: Array.from({ length: 13 }, (_, i) => i + 57),
+    maxH: 65,
+    maxL: 37,
+  },
+  {
+    id: 8,
+    name: "Negative Past Focus",
+    questions: Array.from({ length: 16 }, (_, i) => i + 70),
+    maxH: 80,
+    maxL: 45,
+  },
+  {
+    id: 9,
+    name: "Criticism Sensitivity",
+    questions: Array.from({ length: 6 }, (_, i) => i + 86),
+    maxH: 30,
+    maxL: 20,
+  },
+  {
+    id: 10,
+    name: "Positive Overthinking",
+    questions: Array.from({ length: 8 }, (_, i) => i + 92),
+    maxH: 40,
+    maxL: 25,
+  },
+  {
+    id: 11,
+    name: "Comparative Thinking",
+    questions: Array.from({ length: 8 }, (_, i) => i + 100),
+    maxH: 40,
+    maxL: 25,
+  },
+  {
+    id: 12,
+    name: "Rigid Should Statements",
+    questions: Array.from({ length: 12 }, (_, i) => i + 108),
+    maxH: 60,
+    maxL: 35,
+  },
+];
 function calculateMaxScore(questions: Question[]): number {
   return questions.reduce((max, question) => {
     const maxOptionScore = Math.max(
@@ -71,6 +173,7 @@ function calculatePTSDScore(answers: number[], questions: Question[]): string {
 
   return hasPTSD ? "You have PTSD." : "You don't have PTSD.";
 }
+
 function calculatePersonalityDisorders(
   answers: number[],
   questions: Question[]
@@ -191,6 +294,54 @@ function calculatePersonalityDisorders(
     details: details || "No results available",
   };
 }
+
+function calculateCognitiveDistortions(
+  answers: number[],
+  questions: Question[]
+): CognitiveDistortionsResult {
+  const groupResults = cognitiveDistortionGroups.map((group) => {
+    const groupScores = group.questions.map((qIndex) => {
+      const answer = answers[qIndex];
+      const option = questions[qIndex]?.options.find(
+        (opt) => opt.optionId === answer
+      );
+      return option?.score || 0;
+    });
+
+    const groupScore = groupScores.reduce((sum, score) => sum + score, 0);
+
+    let severity: "Low" | "Moderate" | "High";
+    if (groupScore <= group.maxL) {
+      severity = "Low";
+    } else if (groupScore <= (group.maxH + group.maxL) / 2) {
+      severity = "Moderate";
+    } else {
+      severity = "High";
+    }
+
+    return {
+      groupId: group.id,
+      groupName: group.name,
+      score: groupScore,
+      maxH: group.maxH,
+      maxL: group.maxL,
+      severity,
+      details: `${groupScore}/${group.maxH}`,
+    };
+  });
+
+  const totalScore = groupResults.reduce((sum, group) => sum + group.score, 0);
+  const maxTotalScore = groupResults.reduce(
+    (sum, group) => sum + group.maxH,
+    0
+  );
+
+  return {
+    totalScore,
+    groupResults,
+    maxTotalScore,
+  };
+}
 const ClientSideResult: React.FC = () => {
   const [test, setTest] = useState<Test | null>(null);
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
@@ -198,6 +349,9 @@ const ClientSideResult: React.FC = () => {
   const [feedback, setFeedback] = useState("");
   const [detailedInfo, setDetailedInfo] = useState("");
   const [maxScore, setMaxScore] = useState(0);
+  const [distortionResults, setDistortionResults] = useState<
+    DistortionResult[]
+  >([]);
 
   const searchParams = useSearchParams();
   const testSlug = searchParams?.get("testSlug");
@@ -219,7 +373,20 @@ const ClientSideResult: React.FC = () => {
 
   useEffect(() => {
     if (test && userAnswers.length > 0) {
-      if (test.testSlug === "ptsd-scale") {
+      if (test.testSlug === "cognitive-distortions-assessment") {
+        const results = calculateCognitiveDistortions(
+          userAnswers,
+          test.questions
+        );
+        setScore(results.totalScore);
+        setDetailedInfo(
+          `Total Score: ${results.totalScore}/${results.maxTotalScore}`
+        );
+        setDistortionResults(results.groupResults);
+        setFeedback(
+          `Analyzed ${results.groupResults.length} cognitive distortion groups`
+        );
+      } else if (test.testSlug === "ptsd-scale") {
         const feedbackText = calculatePTSDScore(userAnswers, test.questions);
         setFeedback(feedbackText);
       } else if (test.testSlug === "personality-disorders-test") {
@@ -286,10 +453,6 @@ const ClientSideResult: React.FC = () => {
     return { feedbackText: "Score out of range.", detailedExplanation: "" };
   };
 
-  if (!test) {
-    return <div>Loading...</div>;
-  }
-
   const renderPersonalityDisorderResults = () => {
     if (!detailedInfo) {
       return (
@@ -334,6 +497,57 @@ const ClientSideResult: React.FC = () => {
       </div>
     );
   };
+
+  const renderCognitiveDistortionsResults = () => {
+    if (!distortionResults.length) {
+      return (
+        <div className="text-center text-gray-600">
+          No detailed information available
+        </div>
+      );
+    }
+
+    return (
+      <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {distortionResults.map((result) => (
+            <div
+              key={result.groupId}
+              className={`p-4 rounded-lg border ${
+                result.severity === "High"
+                  ? "border-red-200 bg-red-50"
+                  : result.severity === "Moderate"
+                  ? "border-yellow-200 bg-yellow-50"
+                  : "border-green-200 bg-green-50"
+              }`}
+            >
+              <h3 className="font-semibold text-gray-800">
+                {result.groupName}
+              </h3>
+              <div className="mt-2 space-y-1">
+                <p className="text-sm">Score: {result.details}</p>
+                <p
+                  className={`text-sm font-medium ${
+                    result.severity === "High"
+                      ? "text-red-600"
+                      : result.severity === "Moderate"
+                      ? "text-yellow-600"
+                      : "text-green-600"
+                  }`}
+                >
+                  Severity: {result.severity}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+  if (!test) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
       <Navbar />
@@ -354,7 +568,66 @@ const ClientSideResult: React.FC = () => {
         </header>
 
         <main className="flex-grow container mx-auto px-4 py-8 max-w-4xl">
-          {test.testSlug === "personality-disorders-test" ? (
+          {test.testSlug === "cognitive-distortions-assessment" ? (
+            <>
+              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-6">
+                  Cognitive Distortions Test Results
+                </h2>
+                <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                  <p className="text-lg text-center text-gray-700">
+                    {detailedInfo}
+                  </p>
+                </div>
+                {renderCognitiveDistortionsResults()}
+              </div>
+
+              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <h2 className="text-xl font-semibold text-gray-800 mb-4">
+                  Understanding Your Results
+                </h2>
+                <div className="space-y-4">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 className="font-semibold text-blue-800 mb-2">
+                      Important Note
+                    </h3>
+                    <p className="text-blue-600 text-sm">
+                      This assessment evaluates 12 different types of cognitive
+                      distortions. Each score indicates the strength of that
+                      particular thinking pattern. This is a screening tool and
+                      not a diagnostic instrument.
+                    </p>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                      <h3 className="font-semibold text-green-800">
+                        Low Severity
+                      </h3>
+                      <p className="text-green-600 text-sm">
+                        Indicates healthy thinking patterns
+                      </p>
+                    </div>
+                    <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                      <h3 className="font-semibold text-yellow-800">
+                        Moderate Severity
+                      </h3>
+                      <p className="text-yellow-600 text-sm">
+                        May benefit from awareness and monitoring
+                      </p>
+                    </div>
+                    <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                      <h3 className="font-semibold text-red-800">
+                        High Severity
+                      </h3>
+                      <p className="text-red-600 text-sm">
+                        Consider professional support
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : test.testSlug === "personality-disorders-test" ? (
             <>
               <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
                 <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-6">
@@ -389,11 +662,11 @@ const ClientSideResult: React.FC = () => {
                     </h3>
                     <ul className="list-disc list-inside text-sm text-gray-600 space-y-2">
                       <li>
-                        &ldquo;Present&rdquo; indicates that responses meet the
+                        &quot;Present&quot; indicates that responses meet the
                         threshold for further evaluation
                       </li>
                       <li>
-                        &ldquo;Not Present&rdquo; suggests symptoms may not be
+                        &quot;Not Present&quot; suggests symptoms may not be
                         clinically significant
                       </li>
                       <li>
@@ -401,34 +674,6 @@ const ClientSideResult: React.FC = () => {
                         complex presentations
                       </li>
                     </ul>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                  Next Steps
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                    <h3 className="font-semibold text-purple-800 mb-2">
-                      Professional Consultation
-                    </h3>
-                    <p className="text-purple-600 text-sm">
-                      If your results indicate any concerns, consider scheduling
-                      an appointment with a mental health professional for a
-                      comprehensive evaluation.
-                    </p>
-                  </div>
-                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                    <h3 className="font-semibold text-green-800 mb-2">
-                      Self-Care Steps
-                    </h3>
-                    <p className="text-green-600 text-sm">
-                      Regardless of your results, maintaining good mental health
-                      through regular self-care, stress management, and healthy
-                      relationships is important.
-                    </p>
                   </div>
                 </div>
               </div>
@@ -464,14 +709,16 @@ const ClientSideResult: React.FC = () => {
                 </div>
               </div>
 
-              <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
-                <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-                  What does this mean?
-                </h2>
-                <p className="text-gray-600 leading-relaxed text-center md:text-left">
-                  {detailedInfo}
-                </p>
-              </div>
+              {detailedInfo && (
+                <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
+                  <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
+                    What does this mean?
+                  </h2>
+                  <p className="text-gray-600 leading-relaxed text-center md:text-left">
+                    {detailedInfo}
+                  </p>
+                </div>
+              )}
 
               {test.scoring.scoreRanges && (
                 <div className="bg-white rounded-xl shadow-lg p-6 mb-8 overflow-x-auto">

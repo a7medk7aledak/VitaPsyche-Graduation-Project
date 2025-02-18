@@ -465,7 +465,7 @@ const Avatar3D: React.FC<{ message: string }> = ({ message }) => {
   return (
     <Canvas
       shadows
-      camera={{ position: [0, 1, 4], fov: 60 }}
+      camera={{ position: [0, 0.5, 2], fov: 60 }}
       style={{ width: "100%", height: "100vh" }}
     >
       {/* Enhanced lighting setup */}
@@ -490,22 +490,20 @@ const Avatar3D: React.FC<{ message: string }> = ({ message }) => {
         color="#ffdab9"
         castShadow
       />
-
       {/* Scene components */}
       <RoomModel />
       <ChairModel />
       <AvatarModel message={message} />
-
       {/* Camera controls */}
       <OrbitControls
-        enablePan={true}
-        enableZoom={true}
-        enableRotate={true}
+        enablePan={false}
+        enableZoom={false}
+        enableRotate={false}
         maxPolarAngle={Math.PI / 1.5}
-        minDistance={0.5} // تقليل المسافة للسماح بزوم أقرب
-        maxDistance={15} // زيادة المسافة للسماح بزوم أبعد
+        minDistance={0.5}
+        maxDistance={4}
         target={new THREE.Vector3(0, 0, 0)}
-      />
+      />{" "}
     </Canvas>
   );
 };
