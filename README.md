@@ -261,6 +261,7 @@ rasa run -m models --enable-api --cors "*"
 ```
 to Run action and api
 ```
+cd chatbot
 rasa run actions
 ```
 5-rasa lina:
