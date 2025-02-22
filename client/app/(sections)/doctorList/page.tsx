@@ -60,6 +60,26 @@ function DoctorList() {
   );
   const countryFromURL = decodeURIComponent(searchParams?.get("country") || "");
 
+  const defaultFilters: Filters = {
+    availability: [],
+    specificDate: null,
+    specialization: specializationFromURL,
+    sessionDuration: [],
+    gender: "",
+    rating: 0,
+    language: "",
+    country: countryFromURL,
+    sessionRange: "",
+    promocodeAccepted: "",
+    is_active: true, // Default value
+  };
+
+  const [filters, setFilters] = useState<Filters>(defaultFilters);
+  const [services, setServices] = useState<Service[]>([]); // State to store services
+  const [loading, setLoading] = useState<boolean>(true); // Loading state
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const axiosInstance = useAxios();
+
   const buildFilterQuery = (filters: Filters): string => {
     const queryParams = new URLSearchParams();
 
@@ -130,31 +150,11 @@ function DoctorList() {
     // if (filters.promocodeAccepted) {
     //   queryParams.append("accepts_promocode", filters.promocodeAccepted);
     // }
-
-    queryParams.append("is_active", filters.is_active.toString());
-
+    if (filters.is_active) {
+      queryParams.append("is_active", filters.is_active.toString());
+    }
     return queryParams.toString();
   };
-
-  const defaultFilters: Filters = {
-    availability: [],
-    specificDate: null,
-    specialization: specializationFromURL,
-    sessionDuration: [],
-    gender: "",
-    rating: 0,
-    language: "",
-    country: countryFromURL,
-    sessionRange: "",
-    promocodeAccepted: "",
-    is_active: true, // Default value
-  };
-
-  const [filters, setFilters] = useState<Filters>(defaultFilters);
-  const [services, setServices] = useState<Service[]>([]); // State to store services
-  const [loading, setLoading] = useState<boolean>(true); // Loading state
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const axiosInstance = useAxios();
 
   const fetchServices = useCallback(
     async (currentFilters: Filters) => {
