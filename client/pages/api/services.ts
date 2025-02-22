@@ -32,8 +32,9 @@ export default async function handler(
   try {
     switch (req.method) {
       case "GET": {
+        const { doctorId } = req.query;
         const servicesResponse = await axios.get<Service[]>(
-          `${BASE_URL}/services/`,
+          `${BASE_URL}/services/?doctor_id=${doctorId}`,
           {
             headers: { Authorization: authHeader },
           }

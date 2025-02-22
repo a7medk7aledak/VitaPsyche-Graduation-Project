@@ -2,6 +2,8 @@
 import React, { useCallback, useEffect, useState } from "react";
 import Schedule from "./Schedule";
 import useAxios from "@hooks/useAxios";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
 
 interface Schedule {
   id: number;
@@ -43,16 +45,22 @@ const ScheduleManagement = () => {
     notes: "",
   });
 
+  const doctorId = useSelector(
+    (state: RootState) => state.auth.user?.doctor_details?.id
+  );
+
   const axiosInstance = useAxios();
 
   const fetchSchedules = useCallback(async () => {
     try {
-      const response = await axiosInstance.get(API_URL);
+      const response = await axiosInstance.get(
+        `${API_URL}?doctorId=${doctorId}`
+      );
       setSchedules(response.data);
     } catch (error) {
       console.error("Failed to fetch schedules:", error);
     }
-  }, [axiosInstance]);
+  }, [axiosInstance, doctorId]);
 
   useEffect(() => {
     fetchSchedules();
@@ -150,11 +158,16 @@ const ScheduleManagement = () => {
     }
 
     if (
-      newSchedule.max_patients_per_slot &&
-      (newSchedule.max_patients_per_slot < 0 ||
-        newSchedule.max_patients_per_slot > 1000)
+      newSchedule.max_patients_per_slot === undefined ||
+      newSchedule.max_patients_per_slot === null
     ) {
-      formErrors.max_patients_per_slot = "Invalid number of patients per slot.";
+      formErrors.max_patients_per_slot = "Max patients per slot is required.";
+    } else if (
+      newSchedule.max_patients_per_slot < 1 ||
+      newSchedule.max_patients_per_slot > 1000
+    ) {
+      formErrors.max_patients_per_slot =
+        "Please specify an appropriate number of patients per slot to ensure optimal scheduling.";
     }
 
     setErrors(formErrors);

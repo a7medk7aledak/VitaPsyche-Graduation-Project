@@ -21,8 +21,8 @@ const Categories = () => {
     (state: RootState) => state.categories
   );
 
-  console.log(categories);
-
+  const categoriesTitles = categories.map((category) => category.name);
+  console.log(categoriesTitles);
   return (
     <motion.div
       className="container mx-auto pt-8 pb-20"
@@ -33,7 +33,9 @@ const Categories = () => {
       <Heading variant="secondary">Comprehensive Psychiatry Categories</Heading>
 
       {status === "pending" ? (
-        <p className="text-center">Loading categories...</p>
+        <div className="min-h-screen">
+          <p className="text-center">Loading categories...</p>
+        </div>
       ) : status === "failed" ? (
         <p className="text-center text-red-500">Failed to load categories.</p>
       ) : (

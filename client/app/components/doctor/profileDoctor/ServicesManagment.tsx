@@ -4,8 +4,9 @@ import Service from "./Service";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import useAxios from "@hooks/useAxios";
+import { formatDuration } from "@utils/formatDuration";
 
-interface Service {
+interface IService {
   id: number;
   name: string;
   description?: string;
@@ -21,10 +22,10 @@ const API_URL = "/api/services";
 const ServicesManagment = () => {
   const { categories } = useSelector((state: RootState) => state.categories);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [services, setServices] = useState<Service[]>([]);
+  const [services, setServices] = useState<IService[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [editingServiceId, setEditingServiceId] = useState<number | null>(null);
-  const [newService, setNewService] = useState<Service>({
+  const [newService, setNewService] = useState<IService>({
     id: 0,
     name: "",
     description: "",
@@ -35,16 +36,26 @@ const ServicesManagment = () => {
     doctors: [],
   });
 
-  const axiosInstance = useAxios(); 
-  
+  const doctorId = useSelector(
+    (state: RootState) => state.auth.user?.doctor_details?.id
+  );
+
+  const axiosInstance = useAxios();
+
   const fetchServices = useCallback(async () => {
     try {
-      const response = await axiosInstance.get(API_URL);
-      setServices(response.data);
+      const response = await axiosInstance.get(
+        `/api/services?doctorId=${doctorId}`
+      );
+      const formattedServices = response.data.map((service: IService) => ({
+        ...service,
+        duration: formatDuration(service.duration),
+      }));
+      setServices(formattedServices);
     } catch (error) {
       console.error("Failed to fetch services:", error);
     }
-  }, [axiosInstance]);
+  }, [axiosInstance, doctorId]);
 
   useEffect(() => {
     fetchServices();
@@ -53,8 +64,13 @@ const ServicesManagment = () => {
   const handleServiceChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.target;
-    setNewService((prev) => ({ ...prev, [name]: value }));
+    const target = e.target as HTMLInputElement; // Cast the target
+
+    const { name, value, type } = target;
+    setNewService((prev: IService) => ({
+      ...prev,
+      [name]: type === "checkbox" ? target.checked : value,
+    }));
   };
 
   const handleSaveService = async () => {
@@ -134,18 +150,9 @@ const ServicesManagment = () => {
       <h2 className="text-3xl font-semibold text-gray-800">Services</h2>
       <div className="space-y-6">
         {services.map((service) => {
-          const categoryObj = categories.find(
-            (cat) => cat.id === service.category
-          );
-
-          const categoryName = categoryObj
-            ? categoryObj.name
-            : "Unknown Category";
-
           return (
             <Service
               key={service.id}
-              categoryName={categoryName}
               service={service}
               onEdit={handleEditService}
               onRemove={handleRemoveService}
@@ -261,6 +268,25 @@ const ServicesManagment = () => {
                 {errors.duration && (
                   <p className="text-red-500 text-sm">{errors.duration}</p>
                 )}
+              </div>
+
+              <div className="flex items-center">
+                <label htmlFor="is_active" className="text-gray-700 mr-2">
+                  Active
+                </label>
+                <input
+                  type="checkbox"
+                  name="is_active"
+                  id="is_active"
+                  checked={newService.is_active}
+                  onChange={(e) =>
+                    setNewService((prev) => ({
+                      ...prev,
+                      is_active: e.target.checked,
+                    }))
+                  }
+                  className="w-5 h-5"
+                />
               </div>
 
               <div className="flex justify-end space-x-4 mt-6">

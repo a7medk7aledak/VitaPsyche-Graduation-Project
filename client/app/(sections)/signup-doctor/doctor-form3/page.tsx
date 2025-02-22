@@ -13,6 +13,24 @@ import { RootState, useAppDispatch } from "@store/store";
 import { actAuthDoctorRegister } from "@store/authDoctor/act/actAuthDoctorRegister";
 import { useSelector } from "react-redux";
 
+const categories = [
+  "Depression",
+  "Addiction",
+  "Psychosis",
+  "Personality disorders",
+  "Adjustment disorders",
+  "Anxiety",
+  "Eating disorders",
+  "Sexual disorders",
+  "Posttraumatic stress disorder",
+  "Bipolar disorder",
+  "Attention deficit hyperactivity",
+  "Obsessive-compulsive",
+  "schizophrenia",
+  "Marriage counseling",
+  "Behavioral and emotional disorders in children",
+];
+
 const DoctorForm3 = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -20,7 +38,6 @@ const DoctorForm3 = () => {
   const { status, error, showModal } = useSelector(
     (state: RootState) => state.doctorForm
   );
-  const { categories } = useSelector((state: RootState) => state.categories);
 
   const [workingInClinic, setWorkingInClinic] = useState(
     formData.workingInClinic
@@ -237,9 +254,9 @@ const DoctorForm3 = () => {
                 <option value="" disabled>
                   Select Specialization
                 </option>
-                {categories.map((cat) => (
-                  <option value={cat.name} key={cat.id}>
-                    {cat.name}
+                {categories.map((cat, index) => (
+                  <option value={cat} key={index}>
+                    {cat}
                   </option>
                 ))}
               </select>

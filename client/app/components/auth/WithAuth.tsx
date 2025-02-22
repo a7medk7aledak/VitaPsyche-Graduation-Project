@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import SpinnerLoading from "@components/loading/SpinnerLoading";
 
 interface WithAuthProps {
   allowedRoles?: string[];
@@ -31,16 +32,7 @@ export default function withAuth<T extends object>(
     }, [isAuthenticated, user, token, router]);
 
     if (loading) {
-      return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
-          <div className="flex flex-col items-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-[#0f766e] border-solid"></div>
-            <p className="mt-4 text-gray-700 text-lg font-medium">
-              Preparing your experience...
-            </p>
-          </div>
-        </div>
-      );
+      return <SpinnerLoading message="Preparing your experience..." />;
     }
 
     return <WrappedComponent {...props} />;

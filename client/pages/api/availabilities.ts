@@ -28,8 +28,10 @@ export default async function handler(
   try {
     switch (req.method) {
       case "GET": {
+        const { doctorId } = req.query;
         const schedulesResponse = await axios.get<Schedule[]>(
-          `${BASE_URL}/availabilities/`,
+          `${BASE_URL}/availabilities${doctorId ? `?doctor=${doctorId}` : "/"}`,
+
           {
             headers: { Authorization: authHeader },
           }
