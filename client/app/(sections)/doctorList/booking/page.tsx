@@ -240,6 +240,7 @@ const SessionBooking = () => {
   useEffect(() => {
     if (!doctorId) {
       setError("Doctor ID is required");
+      router.push("/doctorList");
       setLoading(false);
       return;
     }

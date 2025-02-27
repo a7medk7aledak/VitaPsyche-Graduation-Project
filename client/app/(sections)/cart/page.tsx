@@ -3,6 +3,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image"; // Import Image component
 import { useCart } from "@hooks/useCart";
+import withAuth from "@components/auth/WithAuth";
 
 const CartPage: React.FC = () => {
   const { cartItems, totalPrice, products, removeItem, addItem } = useCart();
@@ -100,4 +101,4 @@ const CartPage: React.FC = () => {
   );
 };
 
-export default CartPage;
+export default withAuth(CartPage);

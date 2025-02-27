@@ -1,4 +1,5 @@
 "use client";
+import withAuth from "@components/auth/WithAuth";
 import { AppointmentDetails } from "@components/checkout/appointment-details";
 import { CustomerSupport } from "@components/checkout/customer-support";
 import { PaymentMethods } from "@components/checkout/payment-methods";
@@ -23,7 +24,7 @@ export interface IAppointmentData {
   notes?: string;
 }
 
-export default function CheckoutPage() {
+ function CheckoutPage() {
   const router = useRouter();
   const [appointmentData, setAppointmentData] =
     useState<IAppointmentData | null>(null);
@@ -89,4 +90,8 @@ export default function CheckoutPage() {
       />
     </main>
   );
-}
+ }
+
+
+ export default withAuth(CheckoutPage);
+

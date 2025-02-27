@@ -9,8 +9,9 @@ import { useState } from "react";
 import { useCart } from "@hooks/useCart";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
+import withAuth from "@components/auth/WithAuth";
 
-export default function CheckoutPage() {
+function CheckoutPage() {
   const dispatch = useDispatch();
   const router = useRouter();
   const [showModal, setShowModal] = useState(false); // Modal visibility state
@@ -48,3 +49,6 @@ export default function CheckoutPage() {
     </main>
   );
 }
+
+
+export default withAuth(CheckoutPage);

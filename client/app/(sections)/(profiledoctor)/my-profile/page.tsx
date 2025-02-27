@@ -7,6 +7,7 @@ import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import withAuth from "@components/auth/WithAuth";
+import DoctorAppointments from "@components/doctor/profileDoctor/DoctorAppointments";
 
 interface DoctorProfileProps {
   profileImageUrl?: string;
@@ -273,7 +274,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
 
   return (
     <div className=" p-8 flex justify-center items-center ">
-      <div className="w-full max-w-4xl bg-white p-8 rounded-lg shadow-2xl">
+      <div className="w-full max-w-6xl bg-white p-8 rounded-lg shadow-2xl">
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 space-y-4 md:space-y-0">
           <div className="flex flex-col md:flex-row items-center relative w-full">
             <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-4">
@@ -327,6 +328,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
             "Documents",
             "Services",
             "Schedule",
+            "Appointments",
           ].map((tab) => (
             <button
               key={tab}
@@ -349,6 +351,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
           {activeTab === "Documents" && renderDocuments()}
           {activeTab === "Services" && <ServicesManagment />}
           {activeTab === "Schedule" && <ScheduleManagement />}
+          {activeTab === "Appointments" && <DoctorAppointments />}
         </div>
       </div>
     </div>

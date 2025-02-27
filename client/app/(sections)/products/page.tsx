@@ -6,6 +6,7 @@ import Image from "next/image";
 import productsData from "../../content/products.json"; // Adjust path as needed
 import ProductsHeader from "@components/products/ProductsHeader";
 import Product from "@components/products/Product";
+import withAuth from "@components/auth/WithAuth";
 
 const Products = () => {
   const { products } = productsData;
@@ -87,4 +88,4 @@ const Products = () => {
   );
 };
 
-export default Products;
+export default withAuth(Products);

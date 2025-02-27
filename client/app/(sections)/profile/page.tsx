@@ -20,6 +20,7 @@ import { logout } from "@/app/store/authSlice";
 import { motion } from "framer-motion";
 import Navbar from "@components/common/Navbar";
 import withAuth from "@components/auth/WithAuth";
+import PatientAppointments from "@components/patient/PatientAppointments";
 
 interface ProfileData {
   username: string;
@@ -46,9 +47,9 @@ const ProfilePage: React.FC = () => {
   const router = useRouter();
   const { user } = useSelector((state: RootState) => state.auth);
 
-  const [activeTab, setActiveTab] = useState<"personalInfo" | "paymentInfo">(
-    "personalInfo"
-  );
+  const [activeTab, setActiveTab] = useState<
+    "personalInfo" | "paymentInfo" | "appointments"
+  >("personalInfo");
   const [isEditMode, setIsEditMode] = useState<boolean>(false);
   const [showSignOutModal, setShowSignOutModal] = useState<boolean>(false);
   const [profileData, setProfileData] = useState<ProfileData>({
@@ -183,6 +184,16 @@ const ProfilePage: React.FC = () => {
                 >
                   Payment Information
                 </button>
+                <button
+                  className={`pb-4 px-2 text-lg font-medium transition-colors ${
+                    activeTab === "appointments"
+                      ? "text-teal-600 border-b-2 border-teal-600"
+                      : "text-gray-600 hover:text-teal-600"
+                  }`}
+                  onClick={() => setActiveTab("appointments")}
+                >
+                  Appointments Information{" "}
+                </button>
               </div>
 
               {activeTab === "personalInfo" && (
@@ -284,6 +295,7 @@ const ProfilePage: React.FC = () => {
               {activeTab === "paymentInfo" && (
                 <div>{/* Your payment info content */}</div>
               )}
+              {activeTab === "appointments" && <PatientAppointments />}
             </motion.main>
           </div>
         </div>

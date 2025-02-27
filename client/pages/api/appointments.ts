@@ -24,16 +24,16 @@ export default async function handler(
       case "GET": {
         // Handle filtering options
         const { doctorId, patientId, appointmentId } = req.query;
-
+        console.log("patientId: " + patientId);
         let url = `${BASE_URL}/appointments/`;
 
         // Build query parameters
         if (appointmentId) {
           url = `${BASE_URL}/appointments/${appointmentId}/`;
         } else if (doctorId) {
-          url += `?doctor=${doctorId}`;
+          url += `?doctor_id=${doctorId}`;
         } else if (patientId) {
-          url += `?patient=${patientId}`;
+          url += `?patient_id=${patientId}`;
         }
 
         const appointmentsResponse = await axios.get<

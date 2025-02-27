@@ -9,6 +9,7 @@ import "swiper/css/thumbs";
 import ProductsHeader from "@components/products/ProductsHeader";
 import Link from "next/link"; // Import Link for navigation
 import { useCart } from "@hooks/useCart";
+import withAuth from "@components/auth/WithAuth";
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
   const { products } = productsData;
@@ -100,4 +101,4 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   );
 };
 
-export default ProductPage;
+export default withAuth(ProductPage);
