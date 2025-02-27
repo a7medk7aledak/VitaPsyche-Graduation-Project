@@ -8,7 +8,7 @@ interface layoutProps {
 
 const layout: FC<layoutProps> = ({ children }) => {
   return (
-    <div className="  ">
+    <div>
       <div className="bg-backgroundcolor ">
         <Navbar />
       </div>

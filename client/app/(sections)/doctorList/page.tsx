@@ -48,6 +48,7 @@ type Service = {
   duration: string;
   category: number;
   is_active: boolean;
+  image?: string;
 };
 
 function DoctorList() {
@@ -71,7 +72,7 @@ function DoctorList() {
     country: countryFromURL,
     sessionRange: "",
     promocodeAccepted: "",
-    is_active: true, // Default value
+    is_active: false, // Default value
   };
 
   const [filters, setFilters] = useState<Filters>(defaultFilters);
@@ -111,8 +112,14 @@ function DoctorList() {
       queryParams.append("category_id", categoryId);
     }
 
-    // Handle session duration
-    if (filters.sessionDuration.length > 0) {
+    // Handle session duration (avoid sending if both 30 Min & 60 Min are selected)
+    if (
+      filters.sessionDuration.length > 0 &&
+      !(
+        filters.sessionDuration.includes("30 Min") &&
+        filters.sessionDuration.includes("60 Min")
+      )
+    ) {
       const durations = filters.sessionDuration.map(
         (duration) => duration.split(" ")[0] // Convert "30 Min" to "30"
       );
@@ -237,7 +244,7 @@ function DoctorList() {
         <h2 className="text-3xl capitalize w-full md:w-1/2 mx-auto font-medium text-subheading text-center mb-8">
           Discover the Right Therapist to Guide Your Mental Health Journey
         </h2>
-        <div className="relative w-5/6 mx-auto mb-6">
+        <div className="sticky top-2 w-5/6 mx-auto mb-6 z-40">
           <input
             type="search"
             id="default-search"
@@ -250,7 +257,7 @@ function DoctorList() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          <aside className="w-full h-fit lg:w-1/4 bg-white shadow p-4 rounded">
+          <aside className="lg:sticky lg:top-20 w-full h-fit lg:w-1/4 bg-white shadow p-4 rounded">
             <h3 className="text-xl py-2 text-center border-b-2 border-gray-400 font-semibold text-gray-700 mb-4">
               Filters
             </h3>
@@ -494,11 +501,15 @@ function DoctorList() {
             <div className="flex justify-center items-center w-full min-h-[300px]">
               <SpinnerLoading message="loading services" />
             </div>
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
+          ) : filteredServices.length > 0 ? (
+            <div className="z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
               {filteredServices.map((service) => (
                 <ServiceCard key={service.id} {...service} />
               ))}
+            </div>
+          ) : (
+            <div className="w-full text-center py-12">
+              <p className="text-red-400 text-3xl">No Services Found</p>
             </div>
           )}
 

@@ -21,7 +21,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "@/app/store/authSlice";
 import { useRouter } from "next/navigation";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 interface FormData {
   username: string;
@@ -245,17 +245,6 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="font-[sans-serif] bg-white md:h-screen">
-      <Toaster
-        position="top-center"
-        reverseOrder={false}
-        toastOptions={{
-          duration: 5000,
-          style: {
-            background: "#333",
-            color: "#fff",
-          },
-        }}
-      />
       <div className="grid md:grid-cols-2 items-center gap-8 h-full">
         <motion.div
           className="flex items-center md:p-8 p-6 bg-white h-full lg:w-11/12 lg:ml-auto"

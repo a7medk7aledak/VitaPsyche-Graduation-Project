@@ -2,11 +2,17 @@
 
 import { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import useAxios from "@hooks/useAxios";
+import { useSelector } from "react-redux";
+import { RootState } from "@store/store";
+import { useSearchParams } from "next/navigation";
+import { isAxiosError } from "axios";
 
 export interface ReviewFormProps {
   doctorName: string;
   setIsReviewOpen: (isOpen: boolean) => void;
 }
+
 export interface StarProps {
   filled: boolean;
   onClick: () => void;
@@ -34,19 +40,65 @@ export default function ReviewForm({
   doctorName,
   setIsReviewOpen,
 }: ReviewFormProps) {
+  const searchParams = useSearchParams();
+
+  const axiosInstance = useAxios();
   const [rating, setRating] = useState<number>(0);
   const [hoveredStar, setHoveredStar] = useState<number>(0);
   const [feedback, setFeedback] = useState("");
   const [recommend, setRecommend] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const patientId = useSelector(
+    (state: RootState) => state.auth.user?.patient_details?.id
+  );
+
+  console.log("patient", patientId);
+  const validateForm = () => {
+    if (rating === 0) {
+      setError("Please provide a rating");
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError("");
 
-    //validation must be here (not validation not to user to fill the data ) but to not send the empty data to server
-    //so if there is data send it to backend if not exit without sending data
+    if (!validateForm()) {
+      return;
+    }
 
-    console.log({ rating, feedback, recommend });
-    setIsReviewOpen(false);
+    setIsSubmitting(true);
+
+    try {
+      const bodyOfRequest = {
+        rating,
+        comment: feedback.trim() || null,
+        is_positive: recommend || null,
+        patient: patientId,
+        doctor: searchParams?.get("doctorId"),
+      };
+      const response = await axiosInstance.post("/api/reviews", bodyOfRequest);
+      if (response.status === 201 || response.status === 200) {
+        setIsReviewOpen(false);
+      }
+    } catch (err) {
+      setError("Failed to submit review. Please try again later.");
+
+      if (isAxiosError(err)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = err.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -60,12 +112,19 @@ export default function ReviewForm({
         <p className="text-lg font-medium text-[#1a1a3c]">{doctorName}</p>
       </div>
 
+      {/* Error Message */}
+      {error && (
+        <div className="p-3 text-red-500 bg-red-50 rounded-lg text-sm">
+          {error}
+        </div>
+      )}
+
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Rating */}
         <div>
           <h2 className="text-lg font-semibold text-[#1a1a3c]">
-            How to rate your experience?
+            How to rate your experience? <span className="text-red-500">*</span>
           </h2>
           <div className="flex justify-center gap-2 mt-2">
             {[1, 2, 3, 4, 5].map((star) => (
@@ -83,7 +142,7 @@ export default function ReviewForm({
         {/* Feedback */}
         <div>
           <h2 className="text-lg font-semibold text-[#1a1a3c]">
-            Share your thoughts about your experience with us.
+            Share your thoughts about your experience with us (optional)
           </h2>
           <textarea
             value={feedback}
@@ -99,7 +158,7 @@ export default function ReviewForm({
         {/* Recommendation */}
         <div>
           <h2 className="text-lg font-semibold text-[#1a1a3c]">
-            Would you recommend this Doctor to others?
+            Would you recommend this Doctor to others? (optional)
           </h2>
           <div className="mt-2 space-y-2">
             <label className="flex items-center space-x-2 cursor-pointer">
@@ -130,9 +189,12 @@ export default function ReviewForm({
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full py-3 text-white bg-subbutton hover:bg-hoversubbutton  rounded-lg text-lg transition-colors"
+          disabled={isSubmitting}
+          className={`w-full py-3 text-white bg-subbutton hover:bg-hoversubbutton rounded-lg text-lg transition-colors ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
         >
-          Submit Review
+          {isSubmitting ? "Submitting..." : "Submit Review"}
         </button>
       </form>
     </div>

@@ -31,6 +31,12 @@ export interface UserData {
   nationality: string;
   fluent_languages: string;
   current_residence: string;
+
+  // for patient
+  patient_details?: {
+    id: number;
+  };
+
   //for doctor
   doctor_details?: DoctorDetails;
 }

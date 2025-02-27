@@ -1,5 +1,6 @@
 import { useCategoryLookup } from "@utils/categoryLookup";
-import { formatDuration } from "@utils/formatDuration";
+import { formatDuration, getDoctorInitial } from "@utils/doctorUtils";
+import Image from "next/image";
 import Link from "next/link";
 import React, { memo } from "react";
 import { FaClock, FaMoneyBillTransfer } from "react-icons/fa6";
@@ -14,10 +15,12 @@ interface ServiceCardProps {
   duration: string;
   category: number;
   is_active: boolean;
+  image?: string;
 }
 
 const ServiceCard = memo(
   ({
+    id,
     name,
     doctor,
     doctor_name,
@@ -26,12 +29,10 @@ const ServiceCard = memo(
     duration,
     category,
     is_active,
+    image,
   }: ServiceCardProps) => {
     const getCategory = useCategoryLookup();
-    const doctorInitial =
-      doctor_name && doctor_name.length > 0
-        ? doctor_name.charAt(0).toUpperCase()
-        : "?";
+    const doctorInitial = getDoctorInitial(doctor_name);
 
     const categoryName = getCategory(category);
     const formattedDuration = formatDuration(duration);
@@ -82,11 +83,26 @@ const ServiceCard = memo(
 
         {/* Header: Avatar & Doctor Info */}
         <div className="flex items-center gap-4 min-w-0">
-          <div
-            className={`w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-2xl font-bold shadow-md ${avatarStyle.bg} ${avatarStyle.text}`}
-          >
-            {doctorInitial}
-          </div>
+          {image ? (
+            <div className="w-16 h-16 flex-shrink-0 relative overflow-hidden rounded-full border">
+              <Image
+                src={image}
+                alt={doctor_name || "Doctor"}
+                width={64}
+                height={64}
+                quality={100}
+                priority
+                unoptimized
+                className="object-cover w-full h-full"
+              />
+            </div>
+          ) : (
+            <div
+              className={`w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-2xl font-bold shadow-md ${avatarStyle.bg} ${avatarStyle.text}`}
+            >
+              {doctorInitial}
+            </div>
+          )}
           <div className="flex-1 min-w-0">
             <h2
               title={name}
@@ -130,12 +146,12 @@ const ServiceCard = memo(
         </div>
 
         <div className="mt-6 flex justify-center items-center gap-x-6">
-          <Link href={`/view-profile?id=${doctor}`}>
+          <Link href={`/view-profile?doctorId=${doctor}`}>
             <button className="text-lg font-medium text-subheading hover:underline">
               View Profile
             </button>
           </Link>
-          <Link href={`/doctorList/booking?id=${doctor}`}>
+          <Link href={`/doctorList/booking?serviceId=${id}&doctorId=${doctor}`}>
             <button className="btn-secondary rounded-full text-white py-2 px-4 shadow-md hover:shadow-lg font-medium">
               Book Now
             </button>

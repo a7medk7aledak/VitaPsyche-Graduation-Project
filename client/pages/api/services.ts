@@ -1,5 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axios, { AxiosError } from "axios";
+import formidable, { Fields, Files } from "formidable";
+import fs from "fs";
+import FormData from "form-data"; // Node.js FormData
 
 interface Service {
   id: number;
@@ -18,7 +21,29 @@ interface ApiErrorResponse {
   detail?: string;
 }
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 const BASE_URL = "https://abdokh.pythonanywhere.com/api"; // Replace with your backend URL
+
+const parseForm = async (
+  req: NextApiRequest
+): Promise<{ fields: Fields; files: Files }> => {
+  return new Promise((resolve, reject) => {
+    const form = formidable({
+      maxFileSize: 5 * 1024 * 1024, // 5MB
+      multiples: false,
+    });
+
+    form.parse(req, (err, fields, files) => {
+      if (err) reject(err);
+      resolve({ fields, files });
+    });
+  });
+};
 
 export default async function handler(
   req: NextApiRequest,
@@ -32,47 +57,65 @@ export default async function handler(
   try {
     switch (req.method) {
       case "GET": {
-        const { doctorId } = req.query;
-        const servicesResponse = await axios.get<Service[]>(
-          `${BASE_URL}/services/?doctor_id=${doctorId}`,
-          {
-            headers: { Authorization: authHeader },
-          }
+        const { doctorId, serviceId } = req.query;
+        if (!doctorId && !serviceId) {
+          return res
+            .status(400)
+            .json({ error: "Missing doctorId or serviceId" });
+        }
+        const servicesResponse = await axios.get<Service | Service[]>(
+          serviceId
+            ? `${BASE_URL}/services/${serviceId}` // Fetch specific service
+            : `${BASE_URL}/services/?doctor_id=${doctorId}`, // Fetch all services for a doctor
+          { headers: { Authorization: authHeader } }
         );
         return res.status(200).json(servicesResponse.data);
       }
 
-      case "POST": {
-        const serviceResponse = await axios.post<Service>(
-          `${BASE_URL}/services/`,
-          req.body,
-          {
-            headers: {
-              Authorization: authHeader,
-              "Content-Type": "application/json",
-            },
-          }
-        );
-        return res.status(201).json(serviceResponse.data);
-      }
-
+      case "POST":
       case "PUT": {
-        const { id } = req.query;
+        const { fields, files } = await parseForm(req);
+        const formData = new FormData();
 
-        if (!id)
-          return res.status(400).json({ error: "Service ID is required" });
-
-        const updatedServiceResponse = await axios.put<Service>(
-          `${BASE_URL}/services/${id}/`,
-          req.body,
-          {
-            headers: {
-              Authorization: authHeader,
-              "Content-Type": "application/json",
-            },
+        // Add all fields to formData
+        Object.entries(fields).forEach(([key, value]) => {
+          if (value !== null) {
+            formData.append(key, Array.isArray(value) ? value[0] : value);
           }
-        );
-        return res.status(200).json(updatedServiceResponse.data);
+        });
+
+        // Add image if it exists
+        if (
+          files.image &&
+          Array.isArray(files.image) &&
+          files.image.length > 0
+        ) {
+          const file = files.image[0];
+          const fileStream = fs.createReadStream(file.filepath);
+          formData.append("image", fileStream, {
+            filename: file.originalFilename || "uploaded-file",
+          });
+        }
+
+        const url =
+          req.method === "POST"
+            ? `${BASE_URL}/services/`
+            : `${BASE_URL}/services/${req.query.id}/`;
+
+        console.log(formData);
+        const response = await axios({
+          method: req.method,
+          url,
+          data: formData,
+          headers: {
+            Authorization: authHeader,
+            ...formData.getHeaders(),
+          },
+        });
+
+        return res
+          .status(req.method === "POST" ? 201 : 200)
+          .json(response.data);
       }
 
       case "DELETE": {
