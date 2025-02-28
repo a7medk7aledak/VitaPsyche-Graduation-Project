@@ -1,12 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { RootState } from "@store/store";
 import axios from "axios";
 
 // Define the async thunk for form submission
 export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
-  async (_, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
-      const token = localStorage.getItem("access_token");
+      const token = (getState() as RootState).auth.token;
+      console.log("in actCategories.ts");
+      // If no token is available, you might want to handle that case
+      if (!token) {
+        console.log("No token available, user might not be logged in");
+        return [];
+      }
       console.log("Token is:", token);
 
       // Make an API request to your Next.js API route
