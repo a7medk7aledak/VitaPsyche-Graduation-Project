@@ -22,11 +22,14 @@ function CheckoutPage() {
   const testSlug = searchParams?.get("testSlug");
   const price = parseInt(searchParams?.get("price") || "0");
 
-  const closeModalHandler = () => {
+  const handleContinue = async () => {
     if (testSlug) {
       dispatch(addPurchasedTest(testSlug));
     }
+    setShowModal(true);
+  };
 
+  const closeModalHandler = () => {
     setShowModal(false);
     // إعادة التوجيه إلى صفحة الاختبار
     router.push(`/tests/premium/${testSlug}`);
@@ -80,7 +83,7 @@ function CheckoutPage() {
 
         {/* Payment Methods Section */}
         <div className="order-2 md:order-2">
-          <PaymentMethods setShowModal={setShowModal} price={price} />
+          <PaymentMethods onContinue={handleContinue} price={price} />{" "}
         </div>
       </div>
 

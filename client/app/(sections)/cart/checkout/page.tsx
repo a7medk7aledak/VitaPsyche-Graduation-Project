@@ -17,6 +17,9 @@ function CheckoutPage() {
   const [showModal, setShowModal] = useState(false); // Modal visibility state
   const { totalPrice, resetCart } = useCart();
 
+  const onContinue = () => {
+    setShowModal(true);
+  };
   const closeModalHandler = () => {
     setShowModal(false);
     // window.location.href = "/products";
@@ -33,7 +36,7 @@ function CheckoutPage() {
           <ProductDetailsCheckout />
         </div>
         <div className="md:sticky md:top-6 h-fit order-1 md:order-2">
-          <PaymentMethods setShowModal={setShowModal} price={totalPrice} />
+          <PaymentMethods price={totalPrice} onContinue={onContinue} />
         </div>
       </div>
 
@@ -49,6 +52,5 @@ function CheckoutPage() {
     </main>
   );
 }
-
 
 export default withAuth(CheckoutPage);

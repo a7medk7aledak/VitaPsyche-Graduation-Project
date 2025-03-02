@@ -8,6 +8,8 @@ import SpinnerLoading from "@components/loading/SpinnerLoading";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import useAxios from "@hooks/useAxios";
+import { convertToISO } from "@utils/dataTimeIso";
 
 export interface IAppointmentData {
   patientId: string;
@@ -24,12 +26,14 @@ export interface IAppointmentData {
   notes?: string;
 }
 
- function CheckoutPage() {
+function CheckoutPage() {
   const router = useRouter();
+  const axiosInstance = useAxios();
   const [appointmentData, setAppointmentData] =
     useState<IAppointmentData | null>(null);
-  const [showModal, setShowModal] = useState(false); // Modal visibility state
+  const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     // Retrieve data from sessionStorage
@@ -52,6 +56,40 @@ export interface IAppointmentData {
     setIsLoading(false);
   }, [router]);
 
+  const handleContinue = async () => {
+    if (!appointmentData) return;
+
+    try {
+      setIsSubmitting(true);
+
+      const isoDateTime = convertToISO(
+        appointmentData.date || "",
+        appointmentData.time || ""
+      );
+
+      // Prepare appointment data with payment method
+      const requestBody = {
+        patient: appointmentData.patientId,
+        doctor: appointmentData.doctorId,
+        services: appointmentData.serviceId,
+        date_time: isoDateTime,
+        cost: String(appointmentData.price),
+        notes: appointmentData.notes,
+      };
+
+      // Make direct API call to create appointment
+      await axiosInstance.post("/api/appointments", requestBody);
+
+      // Show success modal
+      setShowModal(true);
+    } catch (error) {
+      console.error("Error creating appointment:", error);
+      alert("Failed to create appointment. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   const closeModalHandler = () => {
     setShowModal(false);
     router.push("/doctorList");
@@ -70,18 +108,18 @@ export interface IAppointmentData {
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="order-1 md:order-1">
-          {/* Fixed: Pass appointmentData instead of doctorName */}
           <AppointmentDetails appointmentData={appointmentData} />
         </div>
         <div className="order-2 md:order-2">
           <PaymentMethods
-            setShowModal={setShowModal}
-            appointmentData={appointmentData}
+            onContinue={handleContinue}
+            price={appointmentData ? Number(appointmentData.price) : undefined}
+            isSubmitting={isSubmitting}
           />
         </div>
       </div>
       <CustomerSupport />
-      {/* Modal Component */}
+
       <SuccessfullModal
         isOpen={showModal}
         onClose={closeModalHandler}
@@ -90,8 +128,6 @@ export interface IAppointmentData {
       />
     </main>
   );
- }
+}
 
-
- export default withAuth(CheckoutPage);
-
+export default withAuth(CheckoutPage);

@@ -2,14 +2,11 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { IAppointmentData } from "@app/(sections)/doctorList/booking/checkout/page";
-import useAxios from "@hooks/useAxios";
-import { convertToISO } from "@utils/dataTimeIso";
 
 type PaymentMethodsProps = {
-  setShowModal: (value: boolean) => void;
-  appointmentData?: IAppointmentData | null;
+  onContinue: (paymentMethod: string) => void;
   price?: number;
+  isSubmitting?: boolean;
 };
 
 const paymentOptions = [
@@ -49,44 +46,14 @@ const paymentOptions = [
 ];
 
 export function PaymentMethods({
-  setShowModal,
-  appointmentData,
+  onContinue,
+  price,
+  isSubmitting,
 }: PaymentMethodsProps) {
-  const axiosInstance = useAxios();
   const [selectedMethod, setSelectedMethod] = useState("credit");
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleContinue = async () => {
-    try {
-      setIsSubmitting(true);
-      console.log(appointmentData?.date, appointmentData?.time);
-      const isoDateTime = convertToISO(
-        appointmentData?.date || "",
-        appointmentData?.time || ""
-      );
-
-      console.log(isoDateTime);
-      // Prepare appointment data with payment method
-      const requestBody = {
-        patient: appointmentData?.patientId,
-        doctor: appointmentData?.doctorId,
-        services: appointmentData?.serviceId,
-        date_time: isoDateTime,
-        cost: String(appointmentData?.price),
-        notes: appointmentData?.notes,
-      };
-
-      // Make direct API call to create appointment
-      await axiosInstance.post("/api/appointments", requestBody);
-
-      // Show success modal
-      setShowModal(true);
-    } catch (error) {
-      console.error("Error creating appointment:", error);
-      alert("Failed to create appointment. Please try again.");
-    } finally {
-      setIsSubmitting(false);
-    }
+  const handleSubmit = () => {
+    onContinue(selectedMethod);
   };
 
   return (
@@ -138,13 +105,11 @@ export function PaymentMethods({
         ))}
       </div>
       <button
-        onClick={handleContinue}
+        onClick={handleSubmit}
         disabled={isSubmitting}
         className="w-full white rounded-xl py-4 mt-6 font-semibold transition-colors text-white bg-subbutton hover:bg-hoversubbutton disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        {isSubmitting
-          ? "Processing..."
-          : `Continue ${appointmentData?.price} EGP`}
+        {isSubmitting ? "Processing..." : `Continue ${price} EGP`}
       </button>
     </div>
   );
