@@ -163,7 +163,7 @@ const ProfilePage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               {/* Tabs */}
-              <div className="flex space-x-6 border-b border-gray-200 mb-6">
+              <div className="flex flex-col md:flex-row md:space-x-6 border-b border-gray-200 mb-6">
                 <button
                   className={`pb-4 px-2 text-lg font-medium transition-colors ${
                     activeTab === "personalInfo"

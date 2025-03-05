@@ -13,6 +13,7 @@ import { IDoctor } from "./profileTypes";
 import { getDoctorInitial } from "@utils/doctorUtils";
 import { RenderStars } from "./renderStars";
 import { toast } from "react-hot-toast"; // Import toast from your toast library
+import { useSearchParams } from "next/navigation";
 
 interface ProfileCardProps {
   doctorData: IDoctor;
@@ -25,8 +26,10 @@ const ProfileCardBase = ({
   reviewsStats,
   canReview,
 }: ProfileCardProps) => {
+  const searchParams = useSearchParams();
   const [isReviewOpen, setIsReviewOpen] = useState(false);
 
+  const serviceId = searchParams?.get("serviceId");
   const {
     first_name,
     last_name,
@@ -114,7 +117,9 @@ const ProfileCardBase = ({
         >
           Write a review
         </button>
-        <Link href={`/doctorList/booking?doctorId=${doctorData.id}`}>
+        <Link
+          href={`/doctorList/booking?serviceId=${serviceId}&doctorId=${doctorData.doctor_details.id}`}
+        >
           <Button variant="secondary" size="large" roundedValue="md">
             Select Time Slot
           </Button>

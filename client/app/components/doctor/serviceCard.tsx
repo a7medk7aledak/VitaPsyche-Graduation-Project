@@ -146,7 +146,7 @@ const ServiceCard = memo(
         </div>
 
         <div className="mt-6 flex justify-center items-center gap-x-6">
-          <Link href={`/view-profile?doctorId=${doctor}`}>
+          <Link href={`/view-profile?serviceId=${id}&doctorId=${doctor}`}>
             <button className="text-lg font-medium text-subheading hover:underline">
               View Profile
             </button>

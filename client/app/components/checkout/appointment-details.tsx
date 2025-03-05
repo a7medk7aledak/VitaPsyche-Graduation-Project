@@ -68,8 +68,7 @@ export function AppointmentDetails({
 
   // Calculate fees
   const sessionFees = Number(price);
-  const adminFees = 30;
-  const totalAmount = sessionFees + adminFees;
+  const totalAmount = sessionFees;
 
   return (
     <div className="bg-white rounded-3xl p-8 shadow-md ">
@@ -130,10 +129,7 @@ export function AppointmentDetails({
           <span>Session fees</span>
           <span className="font-medium">{sessionFees} EGP</span>
         </div>
-        <div className="flex justify-between text-[#1a1a3f]">
-          <span>Administrative fees</span>
-          <span className="font-medium">{adminFees} EGP</span>
-        </div>
+
         <div className="flex justify-between text-[#1a1a3f] font-bold pt-2 border-t">
           <span>Total amount</span>
           <span>{totalAmount} EGP</span>
