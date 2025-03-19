@@ -24,7 +24,6 @@ export default async function handler(
 
     form.parse(req, async (err, fields, files) => {
       // processing the data and dividing it into files and fields and provide error if error happen when handling
-      console.log(fields);
       if (err) {
         console.error("Error parsing form data:", err);
         return res.status(500).json({ error: "Error parsing form data" });

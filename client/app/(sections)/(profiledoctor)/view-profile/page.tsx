@@ -39,7 +39,6 @@ const DoctorProfilePage = () => {
 
   const { canReview, hasEditPermission } = useCheckDoctorPermissions(doctorId);
 
-  console.log("doctorData", doctorData);
 
   useEffect(() => {
     const fetchDoctorData = async () => {

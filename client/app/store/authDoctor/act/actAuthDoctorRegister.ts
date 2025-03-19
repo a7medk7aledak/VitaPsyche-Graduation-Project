@@ -7,7 +7,6 @@ import axiosErrorHandler from "@app/utils/axiosErrorHandler";
 export const actAuthDoctorRegister = createAsyncThunk(
   "auth/actAuthDoctorRegister",
   async (formData: Partial<TFormData>, { rejectWithValue }) => {
-    console.log("Raw FormData:", formData);
 
     // Create a FormData object
     const formDataToSend = new FormData();
@@ -27,7 +26,6 @@ export const actAuthDoctorRegister = createAsyncThunk(
       }
     });
 
-    console.log("Final FormData content:");
 
     try {
       // Send FormData to the Next.js API route
@@ -38,7 +36,6 @@ export const actAuthDoctorRegister = createAsyncThunk(
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      console.log(response);
       return response.data;
     } catch (error) {
       return rejectWithValue(axiosErrorHandler(error));

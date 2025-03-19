@@ -17,7 +17,6 @@ interface FormData {
 }
 
 const ContactForm = () => {
-  console.log("rendering");
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -67,7 +66,6 @@ const ContactForm = () => {
         );
 
       if (formData.email.length) {
-        console.log("confirmation happen");
         emailjs
           .send(
             "service_2riy6pi",

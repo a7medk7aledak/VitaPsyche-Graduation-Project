@@ -50,13 +50,14 @@ const ProfileCardBase = ({
     }
   };
 
+  const imageUrl = `https://abdokh.pythonanywhere.com/${image}`;
   return (
     <div className="relative w-[500px] bg-white rounded-lg p-6 shadow-md">
       <div className="flex items-start gap-4">
         {image ? (
           <div className="w-16 h-16 flex-shrink-0 relative overflow-hidden rounded-full border">
             <Image
-              src={image}
+              src={imageUrl}
               alt={fullName || "Doctor"}
               width={64}
               height={64}

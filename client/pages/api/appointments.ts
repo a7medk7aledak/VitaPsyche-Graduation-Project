@@ -24,7 +24,6 @@ export default async function handler(
       case "GET": {
         // Handle filtering options
         const { doctorId, patientId, appointmentId } = req.query;
-        console.log("patientId: " + patientId);
         let url = `${BASE_URL}/appointments/`;
 
         // Build query parameters
@@ -44,7 +43,6 @@ export default async function handler(
           },
         });
 
-        console.log(appointmentsResponse.data);
         return res.status(200).json(appointmentsResponse.data);
       }
 
@@ -58,7 +56,6 @@ export default async function handler(
               "Missing required fields: patient, doctor, services, date_time, and cost are required",
           });
         }
-        console.log(date_time);
 
         // Create payload with notes explicitly set (can be null)
         const payload = {

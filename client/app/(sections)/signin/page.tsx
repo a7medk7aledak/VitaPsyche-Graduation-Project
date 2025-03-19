@@ -78,7 +78,6 @@ const LoginPage: React.FC = () => {
         role: role.toLowerCase(),
       });
 
-      console.log("Login Response:", response.data);
 
       const { access_token, user } = response.data;
 

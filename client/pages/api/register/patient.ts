@@ -34,7 +34,6 @@ export default async function handler(
           headers: { "Content-Type": "application/json" },
         }
       );
-      console.log(response.data);
       res.status(200).json(response.data);
     } catch (error) {
       if (axios.isAxiosError(error)) {

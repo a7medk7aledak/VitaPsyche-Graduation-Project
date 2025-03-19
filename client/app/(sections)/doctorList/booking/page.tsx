@@ -265,10 +265,6 @@ const SessionBooking = () => {
 
         // Set appointments data
         setAppointments(appointmentsResponse.data);
-
-        console.log("availabilities", availabilityResponse.data);
-        console.log("service", serviceResponse.data);
-        console.log("appointments", appointmentsResponse.data);
       } catch (err) {
         setError("Failed to load doctor information. Please try again later.");
         if (isAxiosError(err)) {

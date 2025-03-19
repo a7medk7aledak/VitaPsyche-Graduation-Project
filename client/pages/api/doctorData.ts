@@ -9,7 +9,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("I'm here in server");
   try {
     // Check for authentication header
     const authHeader = req.headers.authorization;
@@ -21,7 +20,6 @@ export default async function handler(
 
     // Get the doctor ID from the query parameters
     const { doctorId } = req.query;
-    console.log("the doctor id is  ", doctorId);
     // Fetch doctor data from your backend
     const response = await axios.get(`${BASE_URL}/doctor/${doctorId}/`, {
       headers: {

@@ -11,16 +11,7 @@ import DoctorAppointments from "@components/doctor/profileDoctor/DoctorAppointme
 
 interface DoctorProfileProps {
   profileImageUrl?: string;
-  fullNameEn?: string;
-  fullNameAr?: string;
-  specialization?: string;
-  clinicName?: string;
 }
-
-// interface CareerTimelineItem {
-//   year: string;
-//   event: string;
-// }
 
 interface DoctorData {
   profileImageUrl: string;
@@ -40,7 +31,6 @@ interface DoctorData {
   cardType: string;
   cardNumber: string;
   paypalConnected: boolean;
-  // careerTimeline: { year: string; event: string }[];
   highestDegree: string;
   institutionName: string;
   totalExperience: number;
@@ -52,28 +42,38 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
 
   const [doctorData, setDoctorData] = useState<DoctorData>({
     profileImageUrl: profileImageUrl || "/images/default-avatar.png",
-    fullNameEn: user ? `Dr.${user?.first_name} ${user?.last_name}` : "N/A",
-    specialization: doctorDetails?.specialization || "N/A",
-    clinicName: doctorDetails?.clinic_name || "N/A" || "N/A",
-    email: user?.email || "N/A",
-    phoneNumber: user?.phone_number || "N/A",
-    username: user?.username || "N/A",
+    fullNameEn: user
+      ? `Dr. ${user.first_name || ""} ${user.last_name || ""}`.trim()
+      : "Dr. [Name Not Available]",
+    specialization:
+      doctorDetails?.specialization || "Specialization Not Specified",
+    clinicName: doctorDetails?.clinic_name || "Clinic Not Specified",
+    email: user?.email || "Email Not Provided",
+    phoneNumber: user?.phone_number || "Phone Number Not Provided",
+    username: user?.username || "Username Not Assigned",
     password: "********",
-    dateOfBirth: user?.birth_date || "N/A",
-    gender: user?.gender || "N/A",
-    nationality: user?.nationality || "N/A",
-    countryOfResidence: user?.current_residence || "N/A",
+    dateOfBirth: user?.birth_date || "Birth Date Not Specified",
+    gender: user?.gender || "Gender Not Specified",
+    nationality: user?.nationality || "Nationality Not Specified",
+    countryOfResidence:
+      user?.current_residence === "null"
+        ? "Not Specified"
+        : user?.current_residence || "Country of Residence Not Specified",
     fluentLanguages: Array.isArray(user?.fluent_languages)
-      ? user?.fluent_languages.join(", ")
-      : user?.fluent_languages.replace(/[\[\]']/g, "") || "N/A",
+      ? user.fluent_languages.join(", ")
+      : user?.fluent_languages?.replace(/[\[\]']/g, "") ||
+        "No Languages Specified",
     paymentMethod: "Credit Card",
     cardType: "Visa",
     cardNumber: "**** **** **** 1234",
     paypalConnected: false,
-    highestDegree: doctorDetails?.highest_degree || "Doctoral degree",
-    institutionName: doctorDetails?.institution_name || "Harvard University",
+    highestDegree:
+      doctorDetails?.highest_degree || "Highest Degree Not Specified",
+    institutionName:
+      doctorDetails?.institution_name || "Institution Not Specified",
     totalExperience: doctorDetails?.years_of_experience || 0,
   });
+
 
   const [editing, setEditing] = useState(false);
   const [activeTab, setActiveTab] = useState("Personal");
@@ -241,17 +241,6 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
           <p className="text-lg ">{doctorData.totalExperience} years</p>
         </li>
       </ul>
-      {/* <h2 className="text-xl font-semibold text-gray-800 mb-4">
-        Career Timeline
-      </h2>
-      <ul className="timeline">
-        {doctorData.careerTimeline.map((item, index) => (
-          <li key={index} className="mb-4">
-            <span className="text-gray-600">{item.year}</span>
-            <p className="text-lg font-semibold">{item.event}</p>
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 
@@ -304,9 +293,6 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 capitalize">
                 {doctorData.fullNameEn}
               </h1>
-              {/* <p className="text-lg sm:text-xl lg:text-2xl text-gray-600">
-                {doctorData.fullNameAr}
-              </p> */}
               <p className="text-sm sm:text-base lg:text-lg text-gray-600">
                 {doctorData.specialization} | {doctorData.clinicName}
               </p>

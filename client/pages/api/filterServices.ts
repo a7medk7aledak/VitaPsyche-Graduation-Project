@@ -29,7 +29,6 @@ export default async function handler(
     return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
   }
 
-  console.log(req.query);
 
   const authHeader = req.headers.authorization;
   if (!authHeader) {

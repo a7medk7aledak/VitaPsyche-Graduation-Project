@@ -72,9 +72,7 @@ const ScheduleManagement = () => {
     >
   ) => {
     const { name, value } = e.target;
-    if (name === "start_time") {
-      console.log("start_time", value);
-    }
+
     setNewSchedule((prev) => ({ ...prev, [name]: value }));
   };
 

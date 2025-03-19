@@ -102,7 +102,6 @@ export default async function handler(
             ? `${BASE_URL}/services/`
             : `${BASE_URL}/services/${req.query.id}/`;
 
-        console.log(formData);
         const response = await axios({
           method: req.method,
           url,

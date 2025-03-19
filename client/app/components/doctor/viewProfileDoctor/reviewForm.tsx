@@ -54,7 +54,6 @@ export default function ReviewForm({
     (state: RootState) => state.auth.user?.patient_details?.id
   );
 
-  console.log("patient", patientId);
   const validateForm = () => {
     if (rating === 0) {
       setError("Please provide a rating");

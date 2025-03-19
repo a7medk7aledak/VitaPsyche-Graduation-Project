@@ -99,7 +99,6 @@ const DoctorForm3 = () => {
 
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      console.log("Form data ready for submission:", formData);
 
       const {
         username,
