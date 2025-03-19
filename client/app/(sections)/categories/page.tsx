@@ -21,7 +21,6 @@ const Categories = () => {
     (state: RootState) => state.categories
   );
 
-  const categoriesTitles = categories.map((category) => category.name);
   return (
     <motion.div
       className="container mx-auto pt-8 pb-20"
