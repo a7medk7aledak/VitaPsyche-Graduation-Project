@@ -3,6 +3,7 @@
 ## Overview
 
 **VitaPsyche** is a comprehensive mental health platform designed to help users assess and manage their psychological well-being. The platform uses AI and machine learning models to analyze psychological disorders, offers personalized doctor recommendations, and facilitates communication between patients and doctors. It also includes an intelligent chatbot powered by **Rasa Framework**, which provides psychological assessments and general mental health advice. Additionally, the platform enables direct communication between patients and doctors for consultations and continuous support.
+![My Image]("image\web.png")
 
 ## Key Features
 
