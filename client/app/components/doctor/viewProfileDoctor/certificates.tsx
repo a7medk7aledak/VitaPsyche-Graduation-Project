@@ -45,9 +45,15 @@ export function Certificates({
         : "/api/certificates";
       const response = await axiosInstance.get(endpoint);
       setCertificates(response.data);
-    } catch (err) {
-      setError("Failed to load certificates. Please try again.");
-      console.error(err);
+    } catch (error) {
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     } finally {
       setLoading(false);
     }
@@ -99,9 +105,15 @@ export function Certificates({
       try {
         await axiosInstance.delete(`/api/certificates?id=${id}`);
         fetchCertificates();
-      } catch (err) {
-        setError("Failed to delete certificate");
-        console.error(err);
+      } catch (error) {
+        if (isAxiosError(error)) {
+          // The server's processed error (from axiosErrorHandler) is now in err.response
+          const { status, data } = error.response || {
+            status: 500,
+            data: { message: "Unknown error occurred" },
+          };
+          console.error(`Error (${status}):`, data);
+        }
       }
     }
   };

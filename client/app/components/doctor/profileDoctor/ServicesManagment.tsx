@@ -6,6 +6,7 @@ import { RootState } from "@store/store";
 import useAxios from "@hooks/useAxios";
 import Image from "next/image";
 import { formatDuration } from "@utils/doctorUtils";
+import { isAxiosError } from "axios";
 
 interface IService {
   id: number;
@@ -59,7 +60,14 @@ const ServicesManagment = () => {
       }));
       setServices(formattedServices);
     } catch (error) {
-      console.error("Failed to fetch services:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     }
   }, [axiosInstance, doctorId]);
 
@@ -97,11 +105,14 @@ const ServicesManagment = () => {
     });
 
     // Create preview
-    const reader = new FileReader();
+    const reader = new FileReader(); //1st step and done in background
+
+    //3rd step (when the file read completely do this function)
     reader.onloadend = () => {
       setImagePreview(reader.result as string);
     };
-    reader.readAsDataURL(file);
+
+    reader.readAsDataURL(file); // 2nd step
 
     setNewService((prev) => ({
       ...prev,
@@ -127,12 +138,18 @@ const ServicesManagment = () => {
     try {
       const formData = new FormData();
       Object.entries(newService).forEach(([key, value]) => {
-        if (value !== undefined) {
-          if (key === "image" && value instanceof File) {
+        // Skip undefined values
+        if (value === undefined) return;
+
+        // Handle image field
+        if (key === "image") {
+          // Only append image if it's a File object (new upload)
+          if (value instanceof File) {
             formData.append("image", value);
-          } else {
-            formData.append(key, value.toString());
           }
+        } else {
+          // Append other fields as strings
+          formData.append(key, value.toString());
         }
       });
 
@@ -158,7 +175,14 @@ const ServicesManagment = () => {
       resetForm();
       setIsPopupVisible(false);
     } catch (error) {
-      console.error("Error saving service:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     }
   };
 
@@ -174,7 +198,14 @@ const ServicesManagment = () => {
       await axiosInstance.delete(`/api/services?id=${id}`);
       fetchServices();
     } catch (error) {
-      console.error("Error deleting service:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     }
   };
 

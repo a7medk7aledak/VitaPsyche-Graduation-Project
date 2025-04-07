@@ -10,6 +10,8 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import useAxios from "@hooks/useAxios";
 import { convertToISO } from "@utils/dataTimeIso";
+import { isAxiosError } from "axios";
+import toast from "react-hot-toast";
 
 export interface IAppointmentData {
   patientId: string;
@@ -83,8 +85,16 @@ function CheckoutPage() {
       // Show success modal
       setShowModal(true);
     } catch (error) {
-      console.error("Error creating appointment:", error);
-      alert("Failed to create appointment. Please try again.");
+      toast.error("Failed to create appointment. Please try again.");
+
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     } finally {
       setIsSubmitting(false);
     }

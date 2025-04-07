@@ -22,6 +22,7 @@ import useAxios from "@hooks/useAxios";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
 import { useCategoryLookup } from "@utils/categoryLookup";
 import withAuth from "@components/auth/WithAuth";
+import { isAxiosError } from "axios";
 
 // Define the types for the filters
 type Filters = {
@@ -174,7 +175,14 @@ function DoctorList() {
         const response = await axiosInstance.get(endpoint);
         setServices(response.data);
       } catch (error) {
-        console.error("Failed to fetch services:", error);
+        if (isAxiosError(error)) {
+          // The server's processed error (from axiosErrorHandler) is now in err.response
+          const { status, data } = error.response || {
+            status: 500,
+            data: { message: "Unknown error occurred" },
+          };
+          console.error(`Error (${status}):`, data);
+        }
       } finally {
         setLoading(false);
       }

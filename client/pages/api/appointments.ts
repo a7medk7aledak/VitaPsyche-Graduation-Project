@@ -19,6 +19,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).json({ error: "Authorization token is required" });
+  }
+  
   try {
     switch (req.method) {
       case "GET": {

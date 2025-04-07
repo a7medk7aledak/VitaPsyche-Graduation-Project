@@ -28,11 +28,8 @@ export default async function handler(
     // Send the categories as a JSON response
     res.status(200).json(response.data);
   } catch (error) {
-    console.log("the error is ", axiosErrorHandler(error));
-    // Handle any errors using the axiosErrorHandler
-    const errorMessage = axiosErrorHandler(error);
-    res
-      .status(500)
-      .json({ message: "Error fetching categories", error: errorMessage });
+    const { status, data } = axiosErrorHandler(error);
+    console.log("status code: " + status, data);
+    return res.status(status).json(data);
   }
 }

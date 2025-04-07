@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import useAxios from "@hooks/useAxios";
+import { isAxiosError } from "axios";
 
 interface Appointment {
   id: number;
@@ -53,7 +54,14 @@ const DoctorAppointments: React.FC = () => {
       setAppointments(response.data);
       setFilteredAppointments(response.data);
     } catch (error) {
-      console.error("Error fetching appointments:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     } finally {
       setLoading(false);
     }
@@ -153,7 +161,14 @@ const DoctorAppointments: React.FC = () => {
       setSelectedAppointment(null);
       setIsModalOpen(false);
     } catch (error) {
-      console.error("Error updating appointment status:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     }
   };
 
@@ -182,7 +197,14 @@ const DoctorAppointments: React.FC = () => {
       setSelectedAppointment(null);
       setIsModalOpen(false);
     } catch (error) {
-      console.error("Error deleting appointment:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     }
   };
 

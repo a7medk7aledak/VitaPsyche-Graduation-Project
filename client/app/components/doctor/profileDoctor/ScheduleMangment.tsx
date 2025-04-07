@@ -4,6 +4,7 @@ import Schedule from "./Schedule";
 import useAxios from "@hooks/useAxios";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
+import { isAxiosError } from "axios";
 
 interface Schedule {
   id: number;
@@ -58,7 +59,14 @@ const ScheduleManagement = () => {
       );
       setSchedules(response.data);
     } catch (error) {
-      console.error("Failed to fetch schedules:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     }
   }, [axiosInstance, doctorId]);
 
@@ -91,7 +99,14 @@ const ScheduleManagement = () => {
       resetForm();
       setIsPopupVisible(false);
     } catch (error) {
-      console.error("Error saving schedule:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     }
   };
 
@@ -107,7 +122,14 @@ const ScheduleManagement = () => {
       await axiosInstance.delete(`${API_URL}?id=${id}`);
       fetchSchedules();
     } catch (error) {
-      console.error("Error deleting schedule:", error);
+      if (isAxiosError(error)) {
+        // The server's processed error (from axiosErrorHandler) is now in err.response
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
     }
   };
 

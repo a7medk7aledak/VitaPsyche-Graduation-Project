@@ -7,7 +7,6 @@ import axiosErrorHandler from "@app/utils/axiosErrorHandler";
 export const actAuthDoctorRegister = createAsyncThunk(
   "auth/actAuthDoctorRegister",
   async (formData: Partial<TFormData>, { rejectWithValue }) => {
-
     // Create a FormData object
     const formDataToSend = new FormData();
     // Add a default value for clinic_name if not provided to avoid the error that comes from database in backend
@@ -25,7 +24,6 @@ export const actAuthDoctorRegister = createAsyncThunk(
         formDataToSend.append(typedKey, value as string | Blob);
       }
     });
-
 
     try {
       // Send FormData to the Next.js API route

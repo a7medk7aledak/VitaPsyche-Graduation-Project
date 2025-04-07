@@ -51,18 +51,21 @@ const MobileNav: React.FC<MobileNavProps> = ({
 
   return (
     <>
-      <div className="flex lg:hidden cursor-pointer" onClick={toggleMenu}>
+      <button
+        className="flex lg:hidden items-center justify-center cursor-pointer"
+        onClick={toggleMenu}
+      >
         {isOpen ? (
           <IoMdClose className="text-3xl" />
         ) : (
           <SlMenu className="text-3xl" />
         )}
-      </div>
+      </button>
 
       <div
         ref={menuRef}
         className={`absolute flex lg:hidden flex-col w-full bg-slate-400 left-0 z-50 text-center p-3 rounded-md shadow-lg transition-all duration-500 ease-in-out ${
-          isOpen ? "top-[70px] opacity-100" : "top-[-400px] opacity-0"
+          isOpen ? "top-[75px] opacity-100" : "top-[-600px] opacity-0"
         }`}
       >
         {/* Nav Links */}

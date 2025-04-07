@@ -15,6 +15,7 @@ import { RootState } from "@/app/store/store";
 import { motion, AnimatePresence } from "framer-motion";
 import useAxios from "@hooks/useAxios";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
+import { isAxiosError } from "axios";
 
 interface Appointment {
   id: number;
@@ -59,9 +60,17 @@ const PatientAppointments: React.FC = () => {
         setAppointments(response.data);
         setFilteredAppointments(response.data);
         setError(null);
-      } catch (err) {
+      } catch (error) {
         setError("Failed to load appointments. Please try again later.");
-        console.error("Error fetching appointments:", err);
+
+        if (isAxiosError(error)) {
+          // The server's processed error (from axiosErrorHandler) is now in err.response
+          const { status, data } = error.response || {
+            status: 500,
+            data: { message: "Unknown error occurred" },
+          };
+          console.error(`Error (${status}):`, data);
+        }
       } finally {
         setIsLoading(false);
         // Mark initial load as complete after a short delay
