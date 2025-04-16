@@ -1,5 +1,5 @@
 import { useCategoryLookup } from "@utils/categoryLookup";
-import { formatDuration, getDoctorInitial } from "@utils/doctorUtils";
+import { formatDuration, getInitial } from "@utils/doctorUtils";
 import Image from "next/image";
 import Link from "next/link";
 import React, { memo } from "react";
@@ -32,7 +32,7 @@ const ServiceCard = memo(
     image,
   }: ServiceCardProps) => {
     const getCategory = useCategoryLookup();
-    const doctorInitial = getDoctorInitial(doctor_name);
+    const doctorInitial = getInitial(doctor_name);
 
     const categoryName = getCategory(category);
     const formattedDuration = formatDuration(duration);

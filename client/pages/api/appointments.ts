@@ -1,17 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 import axiosErrorHandler from "@utils/axiosErrorHandler";
-
-interface Appointment {
-  id?: number;
-  patient: string;
-  doctor: string;
-  services: string;
-  date_time: string;
-  cost: string;
-  notes?: string;
-  status?: string;
-}
+import { IAppointment } from "@myTypes/appointments";
 
 const BASE_URL = "https://abdokh.pythonanywhere.com/api"; // Replace with your backend URL
 
@@ -23,7 +13,7 @@ export default async function handler(
   if (!authHeader) {
     return res.status(401).json({ error: "Authorization token is required" });
   }
-  
+
   try {
     switch (req.method) {
       case "GET": {
@@ -41,7 +31,7 @@ export default async function handler(
         }
 
         const appointmentsResponse = await axios.get<
-          Appointment | Appointment[]
+          IAppointment | IAppointment[]
         >(url, {
           headers: {
             Authorization: req.headers.authorization,
@@ -73,7 +63,8 @@ export default async function handler(
           status: "booked",
         };
 
-        const appointmentResponse = await axios.post<Appointment>(
+        console.log("payload of booking appointments are ", payload);
+        const appointmentResponse = await axios.post<IAppointment>(
           `${BASE_URL}/appointments/`,
           payload,
           {
@@ -88,36 +79,22 @@ export default async function handler(
       }
 
       case "PUT": {
-        const { id } = req.query;
+        const { id, status, date_time, patient, doctor } = req.body;
 
         if (!id) {
           return res.status(400).json({ error: "Appointment ID is required" });
         }
 
-        // Validate required fields for update
-        const { patient, doctor, services, date_time, cost } = req.body;
-
-        if (!patient || !doctor || !services || !date_time || !cost) {
+        if (!patient || !doctor || !date_time || !status) {
           return res.status(400).json({
             error:
-              "Missing required fields: patient, doctor, services, date_time, and cost are required",
+              "Missing required fields: patient, doctor, date_time are required",
           });
         }
 
-        // Create payload with notes and status explicitly set
-        const payload = {
-          patient,
-          doctor,
-          services,
-          date_time,
-          cost,
-          notes: req.body.notes || null,
-          status: req.body.status || "pending",
-        };
-
-        const updatedAppointmentResponse = await axios.put<Appointment>(
-          `${BASE_URL}/appointments/${id}/`,
-          payload,
+        const updatedAppointmentResponse = await axios.put<IAppointment>(
+          `${BASE_URL}/appointments/`,
+          req.body,
           {
             headers: {
               Authorization: req.headers.authorization,

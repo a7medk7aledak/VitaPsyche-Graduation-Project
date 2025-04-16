@@ -5,15 +5,9 @@ import useAxios from "@hooks/useAxios";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import { isAxiosError } from "axios";
+import { IAvailability } from "@myTypes/appointments";
 
-interface Schedule {
-  id: number;
-  day_of_week: string;
-  start_time: string;
-  end_time: string;
-  max_patients_per_slot?: number;
-  notes?: string;
-}
+
 
 const daysOfWeek = [
   "monday",
@@ -32,12 +26,12 @@ export const capitalizeFirstLetter = (str: string) =>
 
 const ScheduleManagement = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const [schedules, setSchedules] = useState<Schedule[]>([]);
+  const [schedules, setSchedules] = useState<IAvailability[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [editingScheduleId, setEditingScheduleId] = useState<number | null>(
     null
   );
-  const [newSchedule, setNewSchedule] = useState<Schedule>({
+  const [newSchedule, setNewSchedule] = useState<IAvailability>({
     id: 0,
     day_of_week: "",
     start_time: "",

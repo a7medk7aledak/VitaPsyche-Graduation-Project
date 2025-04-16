@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { SpeechRecognition } from "@app/types/chat";
+import { SpeechRecognition } from "@myTypes/chat";
 
 export const useSpeechRecognition = (
   language: string,

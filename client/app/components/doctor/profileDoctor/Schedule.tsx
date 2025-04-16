@@ -1,15 +1,9 @@
 import React from "react";
 import { capitalizeFirstLetter } from "./ScheduleMangment";
+import { IAvailability } from "@myTypes/appointments";
 
 interface ScheduleProps {
-  schedule: {
-    id: number;
-    day_of_week: string;
-    start_time: string;
-    end_time: string;
-    max_patients_per_slot?: number;
-    notes?: string;
-  };
+  schedule: IAvailability;
   onEdit: (id: number) => void;
   onRemove: (id: number) => void;
 }

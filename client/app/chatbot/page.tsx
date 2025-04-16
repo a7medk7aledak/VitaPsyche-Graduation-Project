@@ -10,7 +10,7 @@ import { messageService } from "@app/services/messages";
 import { ChatSidebar } from "@components/chat/ChatSidebar";
 import { ChatMessages } from "@components/chat/ChatMessages";
 import { ChatInput } from "@components/chat/ChatInput";
-import { Message } from "@app/types/chat";
+import { Message } from "@myTypes/chat";
 
 declare global {
   interface Window {

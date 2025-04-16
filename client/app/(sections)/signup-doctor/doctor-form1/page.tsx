@@ -14,7 +14,7 @@ import "react-phone-input-2/lib/style.css";
 import Select, { MultiValue } from "react-select";
 import { useRouter } from "next/navigation";
 import { customStylesForLanguageInput } from "./customStyles";
-import { TFormErrors } from "@app/types/FormDoctor";
+import { TFormErrors } from "@myTypes/FormDoctor";
 import { languageOptions, OptionType } from "@constants/doctorLanguages";
 import { RootState } from "@store/store";
 import { setFormData, setLanguages } from "@store/authDoctor/authDoctorSlice";

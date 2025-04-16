@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FaUser, FaCog, FaSignOutAlt } from "react-icons/fa";
-import { User } from "@app/types/chat";
+import { User } from "@myTypes/chat";
 
 interface UserMenuProps {
   user: User | null;

@@ -16,8 +16,8 @@ export const formatDuration = (duration: string): string => {
 };
 
 //get first letter for the alternative image
-export const getDoctorInitial = (doctorName?: string): string => {
-  return doctorName?.trim() ? doctorName.charAt(0).toUpperCase() : "?";
+export const getInitial = (username?: string): string => {
+  return username?.trim() ? username.charAt(0).toUpperCase() : "?";
 };
 
 export const getReviewStats = (reviews: { rating: number }[]) => {
@@ -29,5 +29,3 @@ export const getReviewStats = (reviews: { rating: number }[]) => {
 
   return { count, average };
 };
-
-

@@ -2,8 +2,8 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchCategories } from "./act/actCategories";
-import { isString } from "@app/types/types";
-import { TLoading } from "@app/types/shared.types";
+import { isString } from "@myTypes/types";
+import { TLoading } from "@myTypes/shared.types";
 
 // Define Category type
 interface Category {

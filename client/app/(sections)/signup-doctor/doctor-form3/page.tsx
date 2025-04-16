@@ -5,7 +5,7 @@ import { useState } from "react";
 import Button from "@components/common/Button";
 import { FileUpload } from "@components/FileUpload";
 import React from "react";
-import { TFormErrors } from "@app/types/FormDoctor";
+import { TFormErrors } from "@myTypes/FormDoctor";
 import { useRouter } from "next/navigation";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
 import { setFormData, setShowModal } from "@store/authDoctor/authDoctorSlice"; // import setFormData action

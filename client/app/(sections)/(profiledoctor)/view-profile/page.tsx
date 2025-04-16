@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Interests } from "@components/doctor/viewProfileDoctor/interests";
 import { ProfileCard } from "@components/doctor/viewProfileDoctor/profileCard";
 import { Ratings } from "@components/doctor/viewProfileDoctor/ratings";
@@ -17,6 +17,8 @@ import withAuth from "@components/auth/WithAuth";
 
 interface IReview {
   id: number;
+  patient_first_name: string;
+  patient_last_name: string;
   rating: number;
   created_at: string;
   updated_at: string;
@@ -27,6 +29,7 @@ interface IReview {
 }
 
 const DoctorProfilePage = () => {
+  const router = useRouter();
   const axiosInstance = useAxios();
   const searchParams = useSearchParams();
   const [doctorData, setDoctorData] = useState<IDoctor | null>(null);
@@ -39,13 +42,13 @@ const DoctorProfilePage = () => {
 
   const { canReview, hasEditPermission } = useCheckDoctorPermissions(doctorId);
 
-
   useEffect(() => {
     const fetchDoctorData = async () => {
       try {
         const doctorId = searchParams?.get("doctorId");
         if (!doctorId) {
-          throw new Error("Doctor ID not found");
+          router.push("/doctorList");
+          return; // Early return to prevent the API calls
         }
 
         // Fetch both doctor data and reviews in parallel
@@ -115,8 +118,6 @@ const DoctorProfilePage = () => {
     </main>
   );
 };
-
-
 
 function viewProfilePage() {
   return (

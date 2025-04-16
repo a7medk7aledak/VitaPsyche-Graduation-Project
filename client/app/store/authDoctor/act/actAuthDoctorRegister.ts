@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { TFormData } from "@app/types/FormDoctor";
+import { TFormData } from "@myTypes/FormDoctor";
 import axiosErrorHandler from "@app/utils/axiosErrorHandler";
 
 // Define the async thunk for form submission

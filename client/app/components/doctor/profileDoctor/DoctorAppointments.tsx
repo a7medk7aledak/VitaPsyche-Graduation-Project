@@ -4,66 +4,79 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import useAxios from "@hooks/useAxios";
 import { isAxiosError } from "axios";
-
-interface Appointment {
-  id: number;
-  created_at: string;
-  updated_at: string;
-  date_time: string;
-  status: "booked" | "confirmed" | "cancelled";
-  cost: string;
-  notes: string | null;
-  appointment_address: string | null;
-  is_follow_up: boolean;
-  is_confirmed: boolean;
-  patient: number;
-  doctor: number | null;
-  services: number[];
-
-  // Additional fields for UI display that may come from the API
-  patientName?: string;
-  serviceName?: string;
-}
+import toast from "react-hot-toast";
+import {
+  IAppointment,
+  ICancelAppointmentPayload,
+  IServiceBooked,
+} from "@myTypes/appointments";
 
 const DoctorAppointments: React.FC = () => {
   const doctorId = useSelector(
     (state: RootState) => state.auth.user?.doctor_details?.id
   );
   const axiosInstance = useAxios();
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<IAppointment[]>([]);
   const [filteredAppointments, setFilteredAppointments] = useState<
-    Appointment[]
+    IAppointment[]
   >([]);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [dateFilter, setDateFilter] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const [refreshing, setRefreshing] = useState<boolean>(false);
   const [selectedAppointment, setSelectedAppointment] =
-    useState<Appointment | null>(null);
+    useState<IAppointment | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [actionInProgress, setActionInProgress] = useState<boolean>(false);
+
+  // New state for confirmation modal
+  const [showConfirmation, setShowConfirmation] = useState<boolean>(false);
+  const [pendingAction, setPendingAction] = useState<{
+    appointmentId: number;
+    newStatus: "booked" | "confirmed" | "cancelled";
+    actionText: string;
+  } | null>(null);
+
+  // Toggle for confirmation dialogs
+  const [requireConfirmation, setRequireConfirmation] = useState<boolean>(true);
 
   // Fetch appointments from API
   const fetchAppointments = async () => {
+    if (refreshing) return;
+
     setLoading(true);
+    setRefreshing(true);
+
     try {
+      if (!doctorId) {
+        throw new Error("Doctor ID not found");
+      }
+
       const response = await axiosInstance.get(
         `/api/appointments?doctorId=${doctorId}`
       );
 
-      // Store the fetched appointments
-      // Assuming the API already returns appointments with patientName and serviceName
-      setAppointments(response.data);
-      setFilteredAppointments(response.data);
+      if (response.status === 200) {
+        setAppointments(response.data);
+        setFilteredAppointments(response.data);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
-        // The server's processed error (from axiosErrorHandler) is now in err.response
         const { status, data } = error.response || {
           status: 500,
           data: { message: "Unknown error occurred" },
         };
         console.error(`Error (${status}):`, data);
+        toast.error(
+          `Failed to load appointments: ${data.message || "Unknown error"}`
+        );
+      } else {
+        console.error("Error fetching appointments:", error);
+        toast.error("Failed to load appointments");
       }
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -101,6 +114,24 @@ const DoctorAppointments: React.FC = () => {
     setFilteredAppointments(filtered);
   }, [statusFilter, dateFilter, appointments]);
 
+  // Get patient's full name
+  const getPatientFullName = (appointment: IAppointment): string => {
+    return (
+      `${appointment.patient_first_name} ${appointment.patient_last_name}`.trim() ||
+      `Patient #${appointment.patient}`
+    );
+  };
+
+  // Get service names
+  const getServiceNames = (appointment: IAppointment): string => {
+    if (appointment.services && appointment.services.length > 0) {
+      return appointment.services
+        .map((service: IServiceBooked) => service.name)
+        .join(", ");
+    }
+    return "No service";
+  };
+
   // Format date for display
   const formatDate = (dateString: string): string => {
     const options: Intl.DateTimeFormatOptions = {
@@ -109,102 +140,128 @@ const DoctorAppointments: React.FC = () => {
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
+      timeZone: "UTC",
     };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  // Handle status change
-  const handleStatusChange = async (
+  // Process status change - either show confirmation or process immediately
+  const processStatusChange = (
     appointmentId: number,
     newStatus: "booked" | "confirmed" | "cancelled"
   ) => {
+    // Generate action text based on the new status
+    let actionText = "";
+    switch (newStatus) {
+      case "confirmed":
+        actionText = "confirm";
+        break;
+      case "cancelled":
+        actionText = "cancel";
+        break;
+      case "booked":
+        actionText = "rebook";
+        break;
+    }
+
+    if (requireConfirmation) {
+      // Show confirmation dialog
+      setPendingAction({
+        appointmentId,
+        newStatus,
+        actionText,
+      });
+      setShowConfirmation(true);
+    } else {
+      // Process immediately
+      handleStatusChange(appointmentId, newStatus);
+    }
+  };
+
+  // Handle status change
+  const handleStatusChange = async (
+    appointmentId?: number,
+    newStatus?: "booked" | "confirmed" | "cancelled"
+  ) => {
+    if (actionInProgress) return;
+
+    // Determine which data to use (from pendingAction or params)
+    const targetId =
+      appointmentId || (pendingAction ? pendingAction.appointmentId : null);
+    const targetStatus =
+      newStatus || (pendingAction ? pendingAction.newStatus : null);
+
+    if (!targetId || !targetStatus) {
+      toast.error("Invalid appointment data");
+      return;
+    }
+
+    setActionInProgress(true);
+
     try {
       // Find the appointment to update
       const appointmentToUpdate = appointments.find(
-        (app) => app.id === appointmentId
+        (app) => app.id === targetId
       );
 
       if (!appointmentToUpdate) {
-        console.error("Appointment not found");
+        toast.error("Appointment not found");
         return;
       }
 
       // Prepare updated data
-      const updatedData = {
-        ...appointmentToUpdate,
-        status: newStatus,
-        is_confirmed: newStatus === "confirmed",
+      const updatedData: ICancelAppointmentPayload = {
+        id: appointmentToUpdate.id,
+        date_time: appointmentToUpdate.date_time,
+        status: targetStatus,
+        cost: appointmentToUpdate.cost,
+        notes: appointmentToUpdate.notes,
+        appointment_address: appointmentToUpdate.appointment_address,
+        is_follow_up: appointmentToUpdate.is_follow_up,
+        is_confirmed: targetStatus === "confirmed",
+        patient: appointmentToUpdate.patient,
+        doctor: appointmentToUpdate.doctor,
       };
 
       // Send PUT request to update the appointment
-      await axiosInstance.put(
-        `/api/appointments/${appointmentId}/`,
+      const response = await axiosInstance.put(
+        `/api/appointments/`,
         updatedData
       );
 
-      // Update local state
-      const updatedAppointments = appointments.map((appointment) => {
-        if (appointment.id === appointmentId) {
-          return {
-            ...appointment,
-            status: newStatus,
-            is_confirmed: newStatus === "confirmed",
-            updated_at: new Date().toISOString(),
-          };
+      if (response.status === 200) {
+        // Show success message
+        const statusText =
+          targetStatus.charAt(0).toUpperCase() + targetStatus.slice(1);
+        toast.success(`Appointment ${statusText} successfully`);
+
+        // Refresh appointments from backend after status change
+        await fetchAppointments();
+
+        // Close modal if open
+        if (isModalOpen) {
+          setSelectedAppointment(null);
+          setIsModalOpen(false);
         }
-        return appointment;
-      });
-
-      setAppointments(updatedAppointments);
-
-      // Close modal if open
-      setSelectedAppointment(null);
-      setIsModalOpen(false);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
-        // The server's processed error (from axiosErrorHandler) is now in err.response
         const { status, data } = error.response || {
           status: 500,
           data: { message: "Unknown error occurred" },
         };
         console.error(`Error (${status}):`, data);
+        toast.error(
+          `Failed to update appointment: ${data.message || "Unknown error"}`
+        );
+      } else {
+        console.error("Error updating appointment:", error);
+        toast.error("Failed to update appointment");
       }
-    }
-  };
-
-  // Delete appointment
-  const handleDeleteAppointment = async (appointmentId: number) => {
-    if (
-      !confirm(
-        "Are you sure you want to delete this appointment? This action cannot be undone."
-      )
-    ) {
-      return;
-    }
-
-    try {
-      // Send DELETE request
-      await axiosInstance.delete(`/api/appointments/${appointmentId}/`);
-
-      // Update local state
-      const updatedAppointments = appointments.filter(
-        (appointment) => appointment.id !== appointmentId
-      );
-
-      setAppointments(updatedAppointments);
-
-      // Close modal if open
-      setSelectedAppointment(null);
-      setIsModalOpen(false);
-    } catch (error) {
-      if (isAxiosError(error)) {
-        // The server's processed error (from axiosErrorHandler) is now in err.response
-        const { status, data } = error.response || {
-          status: 500,
-          data: { message: "Unknown error occurred" },
-        };
-        console.error(`Error (${status}):`, data);
-      }
+    } finally {
+      setActionInProgress(false);
+      setShowConfirmation(false);
+      setPendingAction(null);
     }
   };
 
@@ -223,9 +280,80 @@ const DoctorAppointments: React.FC = () => {
   };
 
   // Open detail modal
-  const openDetailModal = (appointment: Appointment) => {
+  const openDetailModal = (appointment: IAppointment) => {
     setSelectedAppointment(appointment);
     setIsModalOpen(true);
+  };
+
+  // Confirmation modal component
+  const ConfirmationModal = () => {
+    if (!showConfirmation || !pendingAction) return null;
+
+    // Get the appointment to be updated
+    const appointment = appointments.find(
+      (app) => app.id === pendingAction.appointmentId
+    );
+    if (!appointment) return null;
+
+    // Get patient name
+    const patientName = getPatientFullName(appointment);
+
+    // Get action details
+    const actionText = pendingAction.actionText;
+    let actionColor = "";
+
+    switch (pendingAction.newStatus) {
+      case "confirmed":
+        actionColor = "green";
+        break;
+      case "cancelled":
+        actionColor = "red";
+        break;
+      case "booked":
+        actionColor = "yellow";
+        break;
+    }
+
+    return (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white rounded-lg p-6 max-w-md w-full">
+          <h2 className="text-xl font-bold mb-4">Confirm Action</h2>
+
+          <p className="mb-6">
+            Are you sure you want to{" "}
+            <span className={`font-bold text-${actionColor}-600`}>
+              {actionText}
+            </span>{" "}
+            the appointment for <span className="font-bold">{patientName}</span>{" "}
+            on{" "}
+            <span className="font-bold">
+              {formatDate(appointment.date_time)}
+            </span>
+            ?
+          </p>
+
+          <div className="flex justify-end gap-3">
+            <button
+              onClick={() => {
+                setShowConfirmation(false);
+                setPendingAction(null);
+              }}
+              className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={() => handleStatusChange()}
+              disabled={actionInProgress}
+              className={`px-4 py-2 bg-${actionColor}-600 text-white rounded hover:bg-${actionColor}-700 transition disabled:opacity-50 disabled:cursor-not-allowed`}
+            >
+              {actionInProgress ? "Processing..." : `Yes, ${actionText}`}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   // Detail modal component
@@ -240,8 +368,22 @@ const DoctorAppointments: React.FC = () => {
             <button
               onClick={() => setIsModalOpen(false)}
               className="text-gray-500 hover:text-gray-700"
+              aria-label="Close"
             >
-              ✕
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
             </button>
           </div>
 
@@ -249,15 +391,13 @@ const DoctorAppointments: React.FC = () => {
             <div>
               <p className="text-gray-600 font-semibold">Patient</p>
               <p className="text-lg">
-                {selectedAppointment.patientName || "Unknown"}
+                {getPatientFullName(selectedAppointment)}
               </p>
             </div>
 
             <div>
               <p className="text-gray-600 font-semibold">Service</p>
-              <p className="text-lg">
-                {selectedAppointment.serviceName || "Unknown"}
-              </p>
+              <p className="text-lg">{getServiceNames(selectedAppointment)}</p>
             </div>
 
             <div>
@@ -281,7 +421,11 @@ const DoctorAppointments: React.FC = () => {
 
             <div>
               <p className="text-gray-600 font-semibold">Cost</p>
-              <p className="text-lg">${selectedAppointment.cost}</p>
+              <p className="text-lg">
+                {selectedAppointment.cost
+                  ? `$${selectedAppointment.cost}`
+                  : "Not specified"}
+              </p>
             </div>
 
             <div>
@@ -315,47 +459,88 @@ const DoctorAppointments: React.FC = () => {
             {selectedAppointment.status !== "confirmed" && (
               <button
                 onClick={() =>
-                  handleStatusChange(selectedAppointment.id, "confirmed")
+                  processStatusChange(selectedAppointment.id, "confirmed")
                 }
-                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition"
+                disabled={actionInProgress}
+                className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Confirm Appointment
+                {actionInProgress ? "Processing..." : "Confirm Appointment"}
               </button>
             )}
 
             {selectedAppointment.status !== "cancelled" && (
               <button
                 onClick={() =>
-                  handleStatusChange(selectedAppointment.id, "cancelled")
+                  processStatusChange(selectedAppointment.id, "cancelled")
                 }
-                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition"
+                disabled={actionInProgress}
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Cancel Appointment
+                {actionInProgress ? "Processing..." : "Cancel Appointment"}
               </button>
             )}
 
             {selectedAppointment.status === "cancelled" && (
               <button
                 onClick={() =>
-                  handleStatusChange(selectedAppointment.id, "booked")
+                  processStatusChange(selectedAppointment.id, "booked")
                 }
-                className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition"
+                disabled={actionInProgress}
+                className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Rebook Appointment
+                {actionInProgress ? "Processing..." : "Rebook Appointment"}
               </button>
             )}
-
-            <button
-              onClick={() => handleDeleteAppointment(selectedAppointment.id)}
-              className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700 transition"
-            >
-              Delete Appointment
-            </button>
           </div>
         </div>
       </div>
     );
   };
+
+  // Toggle switch component for confirmation settings
+  const ConfirmationToggle = () => {
+    return (
+      <div className="flex  mb-4">
+        <div className="flex items-center gap-2">
+          <span className="text-sm font-medium text-gray-700">
+            Require confirmation for actions:
+          </span>
+          <button
+            onClick={() => setRequireConfirmation(!requireConfirmation)}
+            className={`relative inline-flex items-center h-6 rounded-full w-11 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00bfa5] ${
+              requireConfirmation ? "bg-[#00bfa5]" : "bg-gray-300"
+            }`}
+            role="switch"
+            aria-checked={requireConfirmation}
+          >
+            <span
+              className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${
+                requireConfirmation ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
+          <span className="text-xs text-gray-500">
+            {requireConfirmation ? "On" : "Off"}
+          </span>
+        </div>
+      </div>
+    );
+  };
+
+  // If doctor ID is not available, show appropriate message
+  if (!doctorId && !loading) {
+    return (
+      <div className="mt-6 p-6 bg-red-50 rounded-lg border border-red-200">
+        <h2 className="text-xl font-semibold text-red-700 mb-3">
+          Doctor Profile Not Found
+        </h2>
+        <p className="text-red-600">
+          Doctor profile information is not available. Please make sure your
+          account is properly set up as a doctor.
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="mt-6">
@@ -366,13 +551,17 @@ const DoctorAppointments: React.FC = () => {
       {/* Filters */}
       <div className="mb-6 flex flex-col md:flex-row gap-4">
         <div className="w-full md:w-1/3">
-          <label className="block mb-2 text-sm font-medium text-gray-700">
+          <label
+            htmlFor="status-filter"
+            className="block mb-2 text-sm font-medium text-gray-700"
+          >
             Filter by Status
           </label>
           <select
+            id="status-filter"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00bfa5]"
           >
             <option value="all">All Statuses</option>
             <option value="booked">Booked</option>
@@ -382,14 +571,18 @@ const DoctorAppointments: React.FC = () => {
         </div>
 
         <div className="w-full md:w-1/3">
-          <label className="block mb-2 text-sm font-medium text-gray-700">
+          <label
+            htmlFor="date-filter"
+            className="block mb-2 text-sm font-medium text-gray-700"
+          >
             Filter by Date
           </label>
           <input
+            id="date-filter"
             type="date"
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md"
+            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00bfa5]"
           />
         </div>
 
@@ -399,22 +592,55 @@ const DoctorAppointments: React.FC = () => {
               setStatusFilter("all");
               setDateFilter("");
             }}
-            className="w-full p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition"
+            className="w-full p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition focus:outline-none focus:ring-2 focus:ring-gray-400"
           >
             Clear Filters
           </button>
         </div>
       </div>
 
+      {/* Stats Summary */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
+          <h3 className="text-blue-800 font-medium mb-2">Total Appointments</h3>
+          <p className="text-2xl font-bold text-blue-900">
+            {appointments.length}
+          </p>
+        </div>
+
+        <div className="bg-green-50 p-4 rounded-lg border border-green-100">
+          <h3 className="text-green-800 font-medium mb-2">Confirmed</h3>
+          <p className="text-2xl font-bold text-green-900">
+            {appointments.filter((a) => a.status === "confirmed").length}
+          </p>
+        </div>
+
+        <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-100">
+          <h3 className="text-yellow-800 font-medium mb-2">Pending</h3>
+          <p className="text-2xl font-bold text-yellow-900">
+            {appointments.filter((a) => a.status === "booked").length}
+          </p>
+        </div>
+      </div>
+
       {/* Refresh Button */}
-      <div className="mb-4">
+      <div className="mb-4 flex flex-col md:flex-row space-y-4 md:space-y-0  md:justify-between">
         <button
           onClick={fetchAppointments}
-          className="px-4 py-2 bg-[#00bfa5] hover:bg-[#139485] text-white rounded transition"
-          disabled={loading}
+          className="px-4 py-2 bg-[#00bfa5] hover:bg-[#139485] text-white rounded transition focus:outline-none focus:ring-2 focus:ring-[#00bfa5] focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={loading || refreshing}
         >
-          {loading ? "Loading..." : "Refresh Appointments"}
+          {loading || refreshing ? (
+            <>
+              <span className="inline-block mr-2 animate-spin">⟳</span>
+              Loading...
+            </>
+          ) : (
+            "Refresh Appointments"
+          )}
         </button>
+        {/* Confirmation toggle */}
+        <ConfirmationToggle />
       </div>
 
       {/* Appointments Table */}
@@ -426,13 +652,43 @@ const DoctorAppointments: React.FC = () => {
           </div>
         </div>
       ) : filteredAppointments.length === 0 ? (
-        <div className="bg-gray-50 p-6 rounded-lg text-center">
-          <p className="text-gray-600">
+        <div className="bg-gray-50 p-6 rounded-lg text-center border border-gray-200">
+          <svg
+            className="mx-auto h-12 w-12 text-gray-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+            />
+          </svg>
+          <h3 className="mt-2 text-sm font-medium text-gray-900">
+            No appointments found
+          </h3>
+          <p className="mt-1 text-sm text-gray-500">
             No appointments found matching your filters.
           </p>
+          {statusFilter !== "all" || dateFilter !== "" ? (
+            <div className="mt-3">
+              <button
+                onClick={() => {
+                  setStatusFilter("all");
+                  setDateFilter("");
+                }}
+                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#00bfa5] hover:bg-[#139485] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00bfa5]"
+              >
+                Clear filters
+              </button>
+            </div>
+          ) : null}
         </div>
       ) : (
-        <div className="overflow-x-auto bg-white rounded-lg shadow">
+        <div className="overflow-x-auto bg-white rounded-lg shadow border border-gray-200">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -470,19 +726,15 @@ const DoctorAppointments: React.FC = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {filteredAppointments.map((appointment) => (
-                <tr key={appointment.id}>
+                <tr key={appointment.id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {appointment.patientName ||
-                      `Patient #${appointment.patient}`}
+                    {getPatientFullName(appointment)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                     {formatDate(appointment.date_time)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {appointment.serviceName ||
-                      (appointment.services && appointment.services.length > 0
-                        ? `Service #${appointment.services[0]}`
-                        : "No service")}
+                    {getServiceNames(appointment)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <span
@@ -497,16 +749,18 @@ const DoctorAppointments: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
                       onClick={() => openDetailModal(appointment)}
-                      className="text-blue-600 hover:text-blue-900 mr-3"
+                      className="text-blue-600 hover:text-blue-900 mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                      disabled={actionInProgress}
                     >
                       View
                     </button>
                     {appointment.status === "booked" && (
                       <button
                         onClick={() =>
-                          handleStatusChange(appointment.id, "confirmed")
+                          processStatusChange(appointment.id, "confirmed")
                         }
-                        className="text-green-600 hover:text-green-900 mr-3"
+                        className="text-green-600 hover:text-green-900 mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled={actionInProgress}
                       >
                         Confirm
                       </button>
@@ -514,9 +768,10 @@ const DoctorAppointments: React.FC = () => {
                     {appointment.status !== "cancelled" && (
                       <button
                         onClick={() =>
-                          handleStatusChange(appointment.id, "cancelled")
+                          processStatusChange(appointment.id, "cancelled")
                         }
-                        className="text-red-600 hover:text-red-900"
+                        className="text-red-600 hover:text-red-900 disabled:opacity-50 disabled:cursor-not-allowed"
+                        disabled={actionInProgress}
                       >
                         Cancel
                       </button>
@@ -531,6 +786,9 @@ const DoctorAppointments: React.FC = () => {
 
       {/* Detail Modal */}
       {isModalOpen && <AppointmentDetailModal />}
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal />
 
       {/* CSS for spinner */}
       <style jsx>{`

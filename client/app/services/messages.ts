@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ChatSession, Message } from "@app/types/chat";
+import { ChatSession, Message } from "@myTypes/chat";
 
 export const sessionService = {
   getChatSessions: async (token: string): Promise<ChatSession[]> => {

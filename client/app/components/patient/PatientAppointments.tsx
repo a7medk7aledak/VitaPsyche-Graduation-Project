@@ -2,48 +2,34 @@ import React, { useState, useEffect } from "react";
 import {
   FaCalendarAlt,
   FaClock,
-  FaMapMarkerAlt,
   FaUserMd,
   FaInfoCircle,
   FaFilter,
   FaMoneyBillWave,
   FaCheckCircle,
   FaExclamationCircle,
+  FaListUl,
 } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@/app/store/store";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import useAxios from "@hooks/useAxios";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
 import { isAxiosError } from "axios";
-
-interface Appointment {
-  id: number;
-  created_at: string;
-  updated_at: string;
-  date_time: string;
-  status: "booked" | "confirmed" | "cancelled";
-  cost: string | null;
-  notes: string | null;
-  appointment_address: string | null;
-  is_follow_up: boolean;
-  is_confirmed: boolean;
-  patient: number;
-  doctor: number | null;
-  services: number[];
-}
+import { IAppointment, ICancelAppointmentPayload } from "@myTypes/appointments";
 
 const PatientAppointments: React.FC = () => {
-  const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [appointments, setAppointments] = useState<IAppointment[]>([]);
   const [filteredAppointments, setFilteredAppointments] = useState<
-    Appointment[]
+    IAppointment[]
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>("all");
-  // Add this flag to prevent animation on initial load
-  const [initialLoadComplete, setInitialLoadComplete] =
-    useState<boolean>(false);
+  const [processingAppointmentId, setProcessingAppointmentId] = useState<
+    number | null
+  >(null);
 
   const axiosInstance = useAxios();
   const patientId = useSelector(
@@ -51,35 +37,38 @@ const PatientAppointments: React.FC = () => {
   );
 
   useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        setIsLoading(true);
-        const response = await axiosInstance.get(
-          `/api/appointments?patientId=${patientId}`
-        );
-        setAppointments(response.data);
-        setFilteredAppointments(response.data);
-        setError(null);
-      } catch (error) {
-        setError("Failed to load appointments. Please try again later.");
-
-        if (isAxiosError(error)) {
-          // The server's processed error (from axiosErrorHandler) is now in err.response
-          const { status, data } = error.response || {
-            status: 500,
-            data: { message: "Unknown error occurred" },
-          };
-          console.error(`Error (${status}):`, data);
-        }
-      } finally {
-        setIsLoading(false);
-        // Mark initial load as complete after a short delay
-        setTimeout(() => setInitialLoadComplete(true), 100);
-      }
-    };
-
     fetchAppointments();
-  }, [axiosInstance, patientId]);
+  }, []);
+
+  const fetchAppointments = async () => {
+    if (!patientId) return;
+    try {
+      setIsLoading(true);
+      setError(null);
+      const response = await axiosInstance.get(
+        `/api/appointments?patientId=${patientId}`
+      );
+      setAppointments(response.data);
+      setFilteredAppointments(
+        statusFilter === "all"
+          ? response.data
+          : response.data.filter(
+              (appointment: IAppointment) => appointment.status === statusFilter
+            )
+      );
+    } catch (error) {
+      setError("Failed to load appointments. Please try again later.");
+      if (isAxiosError(error)) {
+        const { status, data } = error.response || {
+          status: 500,
+          data: { message: "Unknown error occurred" },
+        };
+        console.error(`Error (${status}):`, data);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (statusFilter === "all") {
@@ -119,68 +108,138 @@ const PatientAppointments: React.FC = () => {
     return new Date(dateTimeString).toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
+      timeZone: "UTC",
     });
   };
 
-  if (isLoading) {
-    return <SpinnerLoading message="loading appointments..." />;
-  }
+  const handleCancelAppointment = async (appointment: IAppointment) => {
+    if (processingAppointmentId) return;
+    try {
+      setProcessingAppointmentId(appointment.id);
+      setIsProcessing(true);
+      const payload: ICancelAppointmentPayload = {
+        id: appointment.id,
+        date_time: appointment.date_time,
+        status: "cancelled",
+        cost: appointment.cost,
+        notes: appointment.notes,
+        appointment_address: appointment.appointment_address,
+        is_follow_up: appointment.is_follow_up,
+        is_confirmed: appointment.is_confirmed,
+        patient: appointment.patient,
+        doctor: appointment.doctor,
+      };
+      await axiosInstance.put(`/api/appointments/`, payload);
+      await fetchAppointments();
+    } catch (error) {
+      console.error("Failed to cancel appointment:", error);
+      setError("Failed to cancel appointment. Please try again.");
+    } finally {
+      setProcessingAppointmentId(null);
+      setIsProcessing(false);
+    }
+  };
 
-  if (error) {
-    return (
-      <div className="bg-red-50 p-4 rounded-lg">
-        <div className="flex items-center space-x-3">
-          <FaInfoCircle className="text-red-500 text-xl" />
-          <p className="text-red-700">{error}</p>
-        </div>
-      </div>
-    );
-  }
-
-  // Animation constants
+  // Animation Variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        when: "beforeChildren",
         staggerChildren: 0.1,
+        delayChildren: 0.2,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const errorVariants = {
+    hidden: { opacity: 0, y: -10 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
         duration: 0.3,
+        ease: "easeInOut",
       },
     },
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">My Appointments</h2>
-        <div className="flex items-center space-x-2">
-          <FaFilter className="text-teal-600" />
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="border-gray-300 rounded-md focus:ring-teal-500 focus:border-teal-500 text-sm"
-          >
-            <option value="all">All appointments</option>
-            <option value="booked">Booked</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="cancelled">Cancelled</option>
-          </select>
+    <div className="max-w-4xl mx-auto space-y-6">
+      {/* Error Message */}
+      {error && (
+        <motion.div
+          variants={errorVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-red-50 p-3 rounded-lg mb-4"
+        >
+          <div className="flex items-center space-x-3">
+            <FaInfoCircle className="text-red-500 text-lg flex-shrink-0" />
+            <p className="text-red-700 text-sm">{error}</p>
+          </div>
+        </motion.div>
+      )}
+
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-gray-200 pb-4">
+        <h2 className="text-2xl font-semibold text-gray-800 mb-3 sm:mb-0">
+          Appointments
+        </h2>
+        <div className="flex items-center space-x-3">
+          {isProcessing && (
+            <span className="text-xs text-gray-500">Processing...</span>
+          )}
+          <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 px-3 py-2">
+            <FaFilter className="text-teal-600 mr-2" />
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="border-0 focus:ring-0 text-sm font-medium text-gray-700 bg-transparent"
+              disabled={isProcessing}
+            >
+              <option value="all">All appointments</option>
+              <option value="booked">Booked</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      {filteredAppointments.length === 0 ? (
-        <div className="bg-gray-50 rounded-lg p-8 text-center">
+      {/* Loading State */}
+      {isLoading && !appointments.length && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="flex justify-center py-4"
+        >
+          <SpinnerLoading message="Loading appointments..." />
+        </motion.div>
+      )}
+
+      {/* No Appointments Found */}
+      {filteredAppointments.length === 0 && !isLoading && (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="bg-white shadow-sm border border-gray-100 rounded-lg p-8 text-center"
+        >
           <FaCalendarAlt className="mx-auto text-gray-400 text-4xl mb-4" />
           <h3 className="text-xl font-medium text-gray-700 mb-2">
             No appointments found
@@ -190,104 +249,110 @@ const PatientAppointments: React.FC = () => {
               ? `You have no ${statusFilter} appointments.`
               : "You haven't scheduled any appointments yet."}
           </p>
-        </div>
-      ) : (
-        <AnimatePresence>
-          <motion.div
-            className="space-y-4"
-            variants={containerVariants}
-            initial={initialLoadComplete ? "hidden" : "visible"}
-            animate="visible"
-          >
-            {filteredAppointments.map((appointment) => (
-              <motion.div
-                key={appointment.id}
-                className="border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all"
-                variants={itemVariants}
-                whileHover={{ scale: 1.01, transition: { duration: 0.1 } }}
-                layout
-              >
-                <div className="p-5">
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="font-bold text-lg text-gray-900 mb-1">
-                        Appointment #{appointment.id}
-                      </h3>
-                      <div className="flex items-center text-gray-600 mb-3">
-                        <FaUserMd className="mr-2 text-teal-600" />
-                        <span>
-                          {appointment.doctor
-                            ? `Doctor ID: ${appointment.doctor}`
-                            : "No doctor assigned"}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex space-x-2 items-center">
-                      {appointment.is_follow_up && (
+        </motion.div>
+      )}
+
+      {/* Appointment List */}
+      {filteredAppointments.length > 0 && (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="space-y-5"
+        >
+          {filteredAppointments.map((appointment) => (
+            <motion.div
+              key={appointment.id}
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+              className={`bg-white shadow-sm border border-gray-100 rounded-lg overflow-hidden transition-all duration-300 ease-in-out hover:shadow-md ${
+                processingAppointmentId === appointment.id ? "opacity-75" : ""
+              }`}
+            >
+              <div className="px-6 py-5">
+                {/* Header with status badges */}
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                  <div className="flex items-center mb-3 md:mb-0">
+                    <FaUserMd className="mr-3 text-teal-600" />
+                    <h3 className="font-medium text-gray-800">
+                      {appointment.doctor_first_name &&
+                      appointment.doctor_last_name
+                        ? `Dr. ${appointment.doctor_first_name} ${appointment.doctor_last_name}`
+                        : "Doctor not assigned yet"}
+                    </h3>
+                  </div>
+                  <div className="flex space-x-2 items-center">
+                    {appointment.status !== "cancelled" &&
+                      appointment.is_follow_up && (
                         <span className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-xs font-medium">
                           Follow-up
                         </span>
                       )}
-                      <div
-                        className={`px-3 py-1 rounded-full border ${getStatusBadgeClass(
-                          appointment.status
-                        )} text-sm font-medium capitalize`}
-                      >
-                        {appointment.status}
-                      </div>
+                    <div
+                      className={`px-3 py-1 rounded-full border ${getStatusBadgeClass(
+                        appointment.status
+                      )} text-xs font-medium capitalize`}
+                    >
+                      {appointment.status}
                     </div>
                   </div>
+                </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                {/* Appointment details grid */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-4">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                      <FaCalendarAlt className="text-teal-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                        Date
+                      </p>
+                      <p className="font-medium text-gray-800">
+                        {formatDate(appointment.date_time)}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                      <FaClock className="text-teal-600" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                        Time
+                      </p>
+                      <p className="font-medium text-gray-800">
+                        {formatTime(appointment.date_time)}
+                      </p>
+                    </div>
+                  </div>
+                  {appointment.cost && (
                     <div className="flex items-center">
-                      <FaCalendarAlt className="text-teal-600 mr-3" />
+                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                        <FaMoneyBillWave className="text-teal-600" />
+                      </div>
                       <div>
-                        <p className="text-sm text-gray-500">Date</p>
+                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                          Cost
+                        </p>
                         <p className="font-medium text-gray-800">
-                          {formatDate(appointment.date_time)}
+                          {appointment.cost} EGP
                         </p>
                       </div>
                     </div>
+                  )}
+                  {appointment.status !== "cancelled" && (
                     <div className="flex items-center">
-                      <FaClock className="text-teal-600 mr-3" />
+                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                        {appointment.is_confirmed ? (
+                          <FaCheckCircle className="text-green-600" />
+                        ) : (
+                          <FaExclamationCircle className="text-amber-500" />
+                        )}
+                      </div>
                       <div>
-                        <p className="text-sm text-gray-500">Time</p>
-                        <p className="font-medium text-gray-800">
-                          {formatTime(appointment.date_time)}
-                        </p>
-                      </div>
-                    </div>
-                    {appointment.appointment_address && (
-                      <div className="flex items-center">
-                        <FaMapMarkerAlt className="text-teal-600 mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500">Location</p>
-                          <p className="font-medium text-gray-800">
-                            {appointment.appointment_address}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    {appointment.cost && (
-                      <div className="flex items-center">
-                        <FaMoneyBillWave className="text-teal-600 mr-3" />
-                        <div>
-                          <p className="text-sm text-gray-500">Cost</p>
-                          <p className="font-medium text-gray-800">
-                            ${appointment.cost}
-                          </p>
-                        </div>
-                      </div>
-                    )}
-                    <div className="flex items-center">
-                      {appointment.is_confirmed ? (
-                        <FaCheckCircle className="text-green-600 mr-3" />
-                      ) : (
-                        <FaExclamationCircle className="text-amber-500 mr-3" />
-                      )}
-                      <div>
-                        <p className="text-sm text-gray-500">
-                          Confirmation Status
+                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                          Confirmation
                         </p>
                         <p className="font-medium text-gray-800">
                           {appointment.is_confirmed
@@ -296,36 +361,72 @@ const PatientAppointments: React.FC = () => {
                         </p>
                       </div>
                     </div>
-                  </div>
-
-                  {appointment.notes && (
-                    <div className="mt-4 bg-gray-50 p-3 rounded-lg">
-                      <p className="text-sm text-gray-600">
-                        {appointment.notes}
-                      </p>
+                  )}
+                  {appointment.services.length > 0 && (
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                        <FaListUl className="text-teal-600" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                          Service
+                        </p>
+                        <p className="font-medium text-gray-800">
+                          {appointment.services[0].name}
+                        </p>
+                      </div>
                     </div>
                   )}
                 </div>
 
-                <div className="bg-gray-50 px-5 py-3 flex justify-end space-x-3">
-                  {appointment.status !== "cancelled" && (
-                    <>
-                      <button className="px-4 py-2 text-sm text-teal-700 hover:text-teal-800 font-medium">
-                        Reschedule
-                      </button>
-                      <button className="px-4 py-2 text-sm text-red-600 hover:text-red-700 font-medium">
-                        Cancel
-                      </button>
-                    </>
-                  )}
-                  <button className="px-4 py-2 bg-teal-600 text-white text-sm font-medium rounded-lg hover:bg-teal-700 transition-colors">
-                    View Details
+                {/* Notes section */}
+                {appointment.notes && (
+                  <div className="mt-5 bg-gray-50 p-4 rounded-lg">
+                    <p className="text-sm text-gray-600 italic">
+                      {appointment.notes}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Action footer */}
+              {appointment.status !== "cancelled" && (
+                <div className="bg-gray-50 px-6 py-3 flex justify-end space-x-3 border-t border-gray-100">
+                  <button
+                    className={`px-4 py-2 text-sm text-teal-700 font-medium transition-colors ${
+                      processingAppointmentId
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:text-teal-800"
+                    }`}
+                    disabled={!!processingAppointmentId}
+                  >
+                    Reschedule
+                  </button>
+                  <button
+                    onClick={() => handleCancelAppointment(appointment)}
+                    disabled={!!processingAppointmentId}
+                    className={`px-4 py-2 text-sm font-medium transition-colors ${
+                      processingAppointmentId === appointment.id
+                        ? "bg-red-50 text-red-300"
+                        : processingAppointmentId
+                        ? "text-red-300 cursor-not-allowed"
+                        : "text-red-600 hover:text-red-700"
+                    }`}
+                  >
+                    {processingAppointmentId === appointment.id ? (
+                      <span className="flex items-center">
+                        <span className="w-3 h-3 border-2 border-red-300 border-t-transparent rounded-full animate-spin mr-2"></span>
+                        Cancelling
+                      </span>
+                    ) : (
+                      "Cancel"
+                    )}
                   </button>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
+              )}
+            </motion.div>
+          ))}
+        </motion.div>
       )}
     </div>
   );

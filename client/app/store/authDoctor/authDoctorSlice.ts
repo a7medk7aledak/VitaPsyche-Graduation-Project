@@ -1,8 +1,8 @@
-import { TFormData } from "@app/types/FormDoctor";
+import { TFormData } from "@myTypes/FormDoctor";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { actAuthDoctorRegister } from "./act/actAuthDoctorRegister";
-import { TLoading } from "@app/types/shared.types";
-import { isString } from "@app/types/types";
+import { TLoading } from "@myTypes/shared.types";
+import { isString } from "@myTypes/types";
 
 type TInitialState = {
   formData: TFormData;

@@ -10,7 +10,7 @@ import { FaGlobe } from "react-icons/fa";
 import ReviewForm from "./reviewForm";
 import Link from "next/link";
 import { IDoctor } from "./profileTypes";
-import { getDoctorInitial } from "@utils/doctorUtils";
+import { getInitial } from "@utils/doctorUtils";
 import { RenderStars } from "./renderStars";
 import { toast } from "react-hot-toast"; // Import toast from your toast library
 import { useSearchParams } from "next/navigation";
@@ -40,7 +40,7 @@ const ProfileCardBase = ({
   } = doctorData;
 
   const fullName = `${first_name} ${last_name}`;
-  const doctorInitial = getDoctorInitial(fullName);
+  const doctorInitial = getInitial(fullName);
 
   const handleReviewClick = () => {
     if (!canReview) {

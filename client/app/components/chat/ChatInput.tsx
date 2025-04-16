@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FaPaperPlane, FaMicrophone, FaMicrophoneSlash } from "react-icons/fa";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { RootState } from "@/app/store/store";
-import { Message } from "@app/types/chat";
+import { Message } from "@myTypes/chat";
 
 interface ChatInputProps {
   input: string;

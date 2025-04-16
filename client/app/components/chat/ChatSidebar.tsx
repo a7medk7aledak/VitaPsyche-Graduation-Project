@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { FaPlus, FaHistory } from "react-icons/fa";
 import { UserMenu } from "./UserMenu";
 import { LanguageSelector } from "./LanguageSelector";
-import { User } from "@app/types/chat";
+import { User } from "@myTypes/chat";
 import { sessionService } from "@app/services/messages";
 import {
   setSessions,

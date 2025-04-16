@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Button from "@components/common/Button";
-import { TFormErrors } from "@app/types/FormDoctor";
+import { TFormErrors } from "@myTypes/FormDoctor";
 import { useSelector, useDispatch } from "react-redux";
 import { setFormData } from "@store/authDoctor/authDoctorSlice"; // Redux action
 import { useRouter } from "next/navigation";

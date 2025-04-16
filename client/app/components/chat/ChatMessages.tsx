@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Message } from "@app/types/chat";
+import { Message } from "@myTypes/chat";
 
 interface ChatMessages {
   messages: Message[];

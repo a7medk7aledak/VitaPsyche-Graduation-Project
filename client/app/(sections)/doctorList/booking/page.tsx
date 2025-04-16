@@ -5,25 +5,16 @@ import Heading from "@components/common/Heading";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
 import useAxios from "@hooks/useAxios";
 import { useCheckDoctorPermissions } from "@hooks/useCheckDoctorPermissions";
+import { IAppointment, IAvailability } from "@myTypes/appointments";
 import { RootState } from "@store/store";
 import { useCategoryLookup } from "@utils/categoryLookup";
-import { formatDuration, getDoctorInitial } from "@utils/doctorUtils";
+import { formatDuration, getInitial } from "@utils/doctorUtils";
 import { isAxiosError } from "axios";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-
-interface IAvailability {
-  id: number;
-  doctor: number;
-  day_of_week: string;
-  start_time: string;
-  end_time: string;
-  max_patients_per_slot: number;
-  notes?: string;
-}
 
 interface IService {
   id: number;
@@ -36,6 +27,19 @@ interface IService {
   image?: string;
   category: number;
   is_active: boolean;
+}
+
+interface ITimeSlot {
+  time: string;
+  endTime: string;
+  isReserved: boolean;
+}
+
+interface ISelection {
+  date: string | null;
+  slot: string | null;
+  endTime: string | null;
+  notes: string | null;
 }
 
 const defaultService: IService = {
@@ -51,28 +55,7 @@ const defaultService: IService = {
   is_active: true,
 };
 
-interface ITimeSlot {
-  time: string;
-  endTime: string;
-  isReserved: boolean;
-}
-
-interface IAppointment {
-  id: number;
-  created_at: string;
-  updated_at: string;
-  date_time: string;
-  status: string;
-  cost: number | null;
-  notes: string;
-  appointment_address: string;
-  is_follow_up: boolean;
-  is_confirmed: boolean;
-  patient: number;
-  doctor: number;
-  services: number[];
-}
-
+// Helper functions
 const generateDates = (startDate: Date, days: number) => {
   const dates = [];
   for (let i = 0; i < days; i++) {
@@ -83,13 +66,23 @@ const generateDates = (startDate: Date, days: number) => {
   return dates;
 };
 
-// Helper function to convert time string to minutes from midnight
+// Format just the date without time
+const formatDateOnly = (dateString: string | Date): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+  };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+};
+
+// Convert time string (HH:MM) to minutes from midnight
 const timeToMinutes = (timeString: string): number => {
   const [hours, minutes] = timeString.split(":").map(Number);
   return hours * 60 + minutes;
 };
 
-// Helper function to convert minutes from midnight to formatted time string
+// Convert minutes from midnight to formatted time string (H:MM AM/PM)
 const minutesToTime = (minutes: number): string => {
   const hours = Math.floor(minutes / 60);
   const mins = minutes % 60;
@@ -98,50 +91,43 @@ const minutesToTime = (minutes: number): string => {
   return `${displayHours}:${mins.toString().padStart(2, "0")} ${period}`;
 };
 
-// Function to check if a slot is reserved based on appointments
-// Function to check if a slot is reserved based on appointments
+// Helper function to create a full date object from a date and time string
+const createDateTime = (date: Date, timeStr: string): Date => {
+  const result = new Date(date);
+  const [time, period] = timeStr.split(" ");
+  const [hourStr, minuteStr] = time.split(":");
+  let hour = parseInt(hourStr);
+  const minute = parseInt(minuteStr);
+
+  // Handle AM/PM conversion
+  if (period === "PM" && hour !== 12) hour += 12;
+  if (period === "AM" && hour === 12) hour = 0;
+
+  result.setHours(hour, minute, 0, 0);
+  return result;
+};
+
+// Check if a slot is reserved based on appointments
 const isSlotReserved = (
   date: Date,
   slotStartTime: string,
   appointments: IAppointment[]
 ): boolean => {
-  // Format the date to YYYY-MM-DD
-  const formattedDate = date.toISOString().split("T")[0];
+  // Create a date object for the slot
+  const slotDateTime = createDateTime(date, slotStartTime);
 
-  // Convert the slot time to 24-hour format for comparison
-  const [time, period] = slotStartTime.split(" ");
-  const [hourStr, minuteStr] = time.split(":");
-  let hour = parseInt(hourStr);
-  const minute = parseInt(minuteStr);
-
-  // Adjust hour for PM
-  if (period === "PM" && hour !== 12) {
-    hour += 12;
-  }
-  // Adjust for AM 12 (midnight)
-  if (period === "AM" && hour === 12) {
-    hour = 0;
-  }
-
-  // Create a datetime string in the format expected by Date constructor
-  const slotTimeString = `${formattedDate}T${hour
-    .toString()
-    .padStart(2, "0")}:${minute.toString().padStart(2, "0")}:00`;
-  const slotTime = new Date(slotTimeString);
-
-  // Check if any appointment matches this date and time
   return appointments.some((appointment) => {
-    // Create a new date from the appointment time and subtract 2 hours
+    // Create a date from the appointment time and adjust for timezone
     const appointmentTime = new Date(appointment.date_time);
     appointmentTime.setHours(appointmentTime.getHours() - 2);
 
-    // Compare year, month, day, hour, and minute
+    // Compare the times (ignoring seconds and milliseconds)
     return (
-      appointmentTime.getFullYear() === slotTime.getFullYear() &&
-      appointmentTime.getMonth() === slotTime.getMonth() &&
-      appointmentTime.getDate() === slotTime.getDate() &&
-      appointmentTime.getHours() === slotTime.getHours() &&
-      appointmentTime.getMinutes() === slotTime.getMinutes()
+      appointmentTime.getFullYear() === slotDateTime.getFullYear() &&
+      appointmentTime.getMonth() === slotDateTime.getMonth() &&
+      appointmentTime.getDate() === slotDateTime.getDate() &&
+      appointmentTime.getHours() === slotDateTime.getHours() &&
+      appointmentTime.getMinutes() === slotDateTime.getMinutes()
     );
   });
 };
@@ -206,27 +192,254 @@ const generateTimeSlots = (
   };
 };
 
+// Component for time slot button
+const TimeSlot = ({
+  slot,
+  isSelected,
+  onClick,
+  disabled,
+}: {
+  slot: ITimeSlot;
+  isSelected: boolean;
+  onClick: () => void;
+  disabled: boolean;
+}) => {
+  return (
+    <button
+      className={`w-full py-2 rounded-md text-sm font-medium ${
+        disabled
+          ? "bg-red-500 text-white cursor-not-allowed"
+          : isSelected
+          ? "bg-[#00978c] text-white"
+          : "bg-gray-200 text-gray-700 hover:bg-[#bbe6e3]"
+      }`}
+      onClick={onClick}
+      disabled={disabled}
+    >
+      {slot.time} - {slot.endTime}
+    </button>
+  );
+};
+
+// Component for date column
+const DateColumn = ({
+  date,
+  slots,
+  notes,
+  selectedDate,
+  selectedSlot,
+  onSlotClick,
+}: {
+  date: Date;
+  slots: ITimeSlot[];
+  notes?: string;
+  selectedDate: string | null;
+  selectedSlot: string | null;
+  onSlotClick: (slot: ITimeSlot, date: Date, notes?: string) => void;
+}) => {
+  const formattedDate = formatDateOnly(date);
+  const hasNotes = notes && notes.trim().length > 0;
+
+  return (
+    <div className="border rounded-lg p-4 bg-gray-100">
+      <h4 className="text-md font-semibold text-center text-blue-800 mb-2">
+        {formattedDate}
+      </h4>
+
+      {hasNotes && (
+        <div className="mb-2 px-2">
+          <div className="bg-blue-50 p-2 rounded-md text-xs text-gray-700 border border-blue-200 flex items-start space-x-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clipRule="evenodd"
+              />
+            </svg>
+            <span className="overflow-hidden text-ellipsis line-clamp-2">
+              {notes}
+            </span>
+          </div>
+        </div>
+      )}
+
+      <div className="flex flex-col space-y-2 max-h-72 overflow-y-auto">
+        {slots.length > 0 ? (
+          slots.map((slot) => (
+            <TimeSlot
+              key={slot.time}
+              slot={slot}
+              isSelected={
+                selectedSlot === slot.time && selectedDate === formattedDate
+              }
+              onClick={() => onSlotClick(slot, date, notes)}
+              disabled={slot.isReserved}
+            />
+          ))
+        ) : (
+          <p className="text-center text-gray-500 py-4">No available slots</p>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// Component for doctor info card
+const DoctorInfoCard = ({
+  service,
+  doctorInitial,
+  categoryName,
+}: {
+  service: IService;
+  doctorInitial: string;
+  categoryName: string | number | null;
+}) => {
+  return (
+    <div className="relative flex items-center bg-white py-6 px-2 space-x-2 rounded-lg shadow-md">
+      <span
+        className={`absolute top-2 right-2 text-sm px-3 py-1 rounded-full font-medium ${
+          service.is_active
+            ? "bg-green-200 text-green-800"
+            : "bg-red-200 text-red-800"
+        }`}
+      >
+        {service.is_active ? "Active" : "Inactive"}
+      </span>
+
+      {service.image ? (
+        <div className="w-20 h-20 flex-shrink-0 relative overflow-hidden rounded-full border">
+          <Image
+            src={service.image}
+            alt={service.doctor_name || "Doctor"}
+            width={64}
+            height={64}
+            quality={100}
+            priority
+            unoptimized
+            className="object-cover w-full h-full"
+          />
+        </div>
+      ) : (
+        <div
+          className={`w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-2xl font-bold shadow-md ${
+            service.is_active ? "bg-green-500" : "bg-red-500"
+          } text-white `}
+        >
+          {doctorInitial}
+        </div>
+      )}
+      <div>
+        <h2 className="text-lg xl:text-2xl font-semibold text-gray-800">
+          Dr. {service.doctor_name}
+        </h2>
+        <p className="text-md text-gray-500">
+          {categoryName ? `Specialist in ${categoryName}` : "Psychiatrist"}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// Component for service details
+const ServiceDetails = ({
+  service,
+  sessionDuration,
+}: {
+  service: IService;
+  sessionDuration: number;
+}) => {
+  return (
+    <div className="bg-white p-4 rounded-lg shadow-md">
+      <h3 className="text-lg font-semibold text-gray-800 mb-2">
+        Service Details
+      </h3>
+      <p className="text-md text-gray-700">
+        <span className="font-medium">Service:</span> {service.name}
+      </p>
+      {service.description && (
+        <p className="text-sm text-gray-600 mt-1">{service.description}</p>
+      )}
+      <p className="text-md text-gray-700 mt-2">
+        <span className="font-medium">Price:</span> {service.price} EGP
+      </p>
+      <p className="text-md text-gray-700 mt-2">
+        <span className="font-medium">Duration:</span> {sessionDuration} minutes
+      </p>
+    </div>
+  );
+};
+
+// Component for booking summary
+const BookingSummary = ({
+  selection,
+  service,
+  sessionDuration,
+  onBookClick,
+}: {
+  selection: ISelection;
+  service: IService;
+  sessionDuration: number;
+  onBookClick: () => void;
+}) => {
+  if (!selection.date || !selection.slot || !selection.endTime) return null;
+
+  return (
+    <div className="bg-white p-4 rounded-lg shadow-md">
+      <p className="text-lg font-semibold text-gray-800">Slot is selected</p>
+      <p className="text-md text-gray-700">
+        {selection.date} - {selection.slot} to {selection.endTime} -{" "}
+        {sessionDuration} Min
+      </p>
+
+      {selection.notes && (
+        <div className="mt-3 bg-blue-50 p-3 rounded-md border border-blue-200">
+          <p className="text-sm font-medium text-blue-800 mb-1">
+            Schedule Notes:
+          </p>
+          <p className="text-sm text-gray-700">{selection.notes}</p>
+        </div>
+      )}
+
+      <button
+        onClick={onBookClick}
+        className="w-full mt-4 text-lg mx-auto px-6 py-3 btn shadow-md hover:shadow-lg btn-secondary rounded-md font-medium "
+      >
+        Book Now {service.price} EGP
+      </button>
+    </div>
+  );
+};
+
+// Main SessionBooking component
 const SessionBooking = () => {
   const router = useRouter();
   const axiosInstance = useAxios();
   const searchParams = useSearchParams();
   const getCategory = useCategoryLookup();
 
+  // State
   const [service, setService] = useState<IService>(defaultService);
   const [availabilities, setAvailabilities] = useState<IAvailability[]>([]);
   const [appointments, setAppointments] = useState<IAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
-  const [selectedEndTime, setSelectedEndTime] = useState<string | null>(null);
-  const [selectedDayNotes, setSelectedDayNotes] = useState<string | null>(null);
   const [startDay, setStartDay] = useState(0);
+  const [selection, setSelection] = useState<ISelection>({
+    date: null,
+    slot: null,
+    endTime: null,
+    notes: null,
+  });
 
-  // Get doctor ID and service ID from URL
+  // Get params and user details
   const serviceId = searchParams?.get("serviceId") ?? null;
   const doctorId = searchParams?.get("doctorId") ?? null;
-  const doctorInitial = getDoctorInitial(service.doctor_name);
+  const doctorInitial = getInitial(service.doctor_name);
   const categoryName = getCategory(service.category);
   const { canBook } = useCheckDoctorPermissions(doctorId);
 
@@ -234,47 +447,80 @@ const SessionBooking = () => {
     (state: RootState) => state.auth.user?.patient_details?.id
   );
 
-  const allDates = generateDates(new Date(), 14); // Generate 14 days starting from today
-  const visibleDates = allDates.slice(startDay, startDay + 7); // Show 7 days at a time
+  // Get the duration in minutes from the service
+  const duration = formatDuration(service.duration);
+  const sessionDuration = service && duration ? parseInt(duration) : 30;
 
+  // Memoized dates
+  const allDates = useMemo(() => generateDates(new Date(), 14), []);
+  const visibleDates = useMemo(
+    () => allDates.slice(startDay, startDay + 7),
+    [allDates, startDay]
+  );
+
+  // Memoized time slots by date
+  const timeSlotsData = useMemo(
+    () =>
+      visibleDates.map((date) => ({
+        date,
+        ...generateTimeSlots(
+          availabilities,
+          date,
+          sessionDuration,
+          appointments
+        ),
+      })),
+    [visibleDates, availabilities, sessionDuration, appointments]
+  );
+
+  // Load data on component mount
   useEffect(() => {
     if (!doctorId) {
-      setError("Doctor ID is required");
       router.push("/doctorList");
-      setLoading(false);
       return;
     }
 
     const fetchData = async () => {
       try {
-        // Fetch doctor availabilities, appointments, and service details
-        const [availabilityResponse, serviceResponse, appointmentsResponse] =
+        // Fetch doctor availabilities, appointments, and service details in parallel
+        const [availabilityResponse, appointmentsResponse, serviceResponse] =
           await Promise.all([
             axiosInstance.get(`/api/availabilities?doctorId=${doctorId}`),
+            axiosInstance.get(`/api/appointments?doctorId=${doctorId}`),
             serviceId
               ? axiosInstance.get(`/api/services?serviceId=${serviceId}`)
               : Promise.resolve({ data: defaultService }),
-            axiosInstance.get(`/api/appointments?doctorId=${doctorId}`),
           ]);
 
         setAvailabilities(availabilityResponse.data);
+        setAppointments(appointmentsResponse.data);
 
         if (serviceResponse.data) {
           setService(serviceResponse.data);
         }
-
-        // Set appointments data
-        setAppointments(appointmentsResponse.data);
       } catch (err) {
-        setError("Failed to load doctor information. Please try again later.");
         if (isAxiosError(err)) {
-          // The server's processed error is now in err.response
-          const { status, data } = err.response || {
-            status: 500,
-            data: { message: "Unknown error occurred" },
-          };
-          console.error(`Error (${status}):`, data);
+          const { status } = err.response || { status: 500 };
+
+          switch (status) {
+            case 404:
+              setError(
+                "Doctor or service not found. Please check your selection."
+              );
+              break;
+            case 401:
+              setError("Please log in to access booking services.");
+              router.push("/login");
+              break;
+            default:
+              setError(
+                "Unable to load booking information. Please try again later."
+              );
+          }
+
+          console.error(`Error (${status}):`, err.response?.data);
         } else {
+          setError("Connection error. Please check your internet connection.");
           console.error("Unknown error:", err);
         }
       } finally {
@@ -283,25 +529,19 @@ const SessionBooking = () => {
     };
 
     fetchData();
-  }, [doctorId, serviceId, axiosInstance]);
+  }, [doctorId, serviceId, axiosInstance, router]);
 
-  // Get the duration in minutes from the service
-  const duration = formatDuration(service.duration);
-
-  const sessionDuration = service && duration ? parseInt(duration) : 30;
-
+  // Event handlers
   const handleSlotClick = (slot: ITimeSlot, date: Date, notes?: string) => {
     if (!slot.isReserved) {
-      const formattedDate = date.toLocaleDateString("en-US", {
-        weekday: "short",
-        day: "numeric",
-        month: "short",
-      });
+      const formattedDate = formatDateOnly(date);
 
-      setSelectedDate(formattedDate);
-      setSelectedSlot(slot.time);
-      setSelectedEndTime(slot.endTime);
-      setSelectedDayNotes(notes || null);
+      setSelection({
+        date: formattedDate,
+        slot: slot.time,
+        endTime: slot.endTime,
+        notes: notes || null,
+      });
     }
   };
 
@@ -322,22 +562,28 @@ const SessionBooking = () => {
       toast.error(
         "Doctors are not allowed to book appointments for themselves."
       );
-    } else if (!service.is_active) {
+      return;
+    }
+
+    if (!service.is_active) {
       toast.error("This service is currently unavailable.");
-    } else if (selectedDate && selectedSlot && selectedEndTime) {
+      return;
+    }
+
+    if (selection.date && selection.slot && selection.endTime) {
       const bookingData = {
         patientId: String(patientId) || "",
         doctorId: doctorId || "",
         serviceId: serviceId || "",
-        date: selectedDate,
-        time: selectedSlot,
-        endTime: selectedEndTime,
+        date: selection.date,
+        time: selection.slot,
+        endTime: selection.endTime,
         duration: sessionDuration.toString(),
         doctorName: service.doctor_name,
         categoryName: (categoryName as string) || "Psychiatrist",
         serviceName: service.name,
         price: service.price,
-        notes: selectedDayNotes,
+        notes: selection.notes,
       };
 
       // Save booking data to sessionStorage
@@ -345,15 +591,17 @@ const SessionBooking = () => {
         sessionStorage.setItem("bookingData", JSON.stringify(bookingData));
       }
 
-      // Navigate to checkout page without query parameters
+      // Navigate to checkout page
       router.push("/doctorList/booking/checkout");
     }
   };
 
+  // Render loading state
   if (loading) {
     return <SpinnerLoading message="Preparing your booking options..." />;
   }
 
+  // Render error state
   if (error) {
     return (
       <div className="text-center text-red-500 p-6 bg-white rounded-lg shadow-md">
@@ -363,8 +611,9 @@ const SessionBooking = () => {
     );
   }
 
+  // Render main content
   return (
-    <div className=" lg:mx-auto lg:container px-6 mt-6 mb-28 font-sans">
+    <div className="lg:mx-auto lg:container px-6 mt-6 mb-28 font-sans">
       <div className="-mb-10">
         <Heading variant="secondary">Session Booking</Heading>
       </div>
@@ -373,105 +622,27 @@ const SessionBooking = () => {
         {/* Left Section */}
         <div className="lg:w-1/4 flex flex-col space-y-6">
           {/* Doctor Info */}
-          <div className=" relative flex items-center bg-white py-6 px-2 space-x-2 rounded-lg shadow-md">
-            <span
-              className={`absolute top-2 right-2 text-sm px-3 py-1 rounded-full font-medium ${
-                service.is_active
-                  ? "bg-green-200 text-green-800"
-                  : "bg-red-200 text-red-800"
-              }`}
-            >
-              {service.is_active ? "Active" : "Inactive"}
-            </span>
+          <DoctorInfoCard
+            service={service}
+            doctorInitial={doctorInitial}
+            categoryName={categoryName}
+          />
 
-            {service.image ? (
-              <div className="w-20 h-20 flex-shrink-0 relative overflow-hidden rounded-full border">
-                <Image
-                  src={service.image}
-                  alt={service.doctor_name || "Doctor"}
-                  width={64}
-                  height={64}
-                  quality={100}
-                  priority
-                  unoptimized
-                  className="object-cover w-full h-full"
-                />
-              </div>
-            ) : (
-              <div
-                className={`w-16 h-16 shrink-0 rounded-full flex items-center justify-center text-2xl font-bold shadow-md ${
-                  service.is_active ? "bg-green-500" : "bg-red-500"
-                } text-white `}
-              >
-                {doctorInitial}
-              </div>
-            )}
-            <div>
-              <h2 className="text-lg xl:text-2xl font-semibold text-gray-800">
-                Dr. {service.doctor_name}
-              </h2>
-              <p className="text-md text-gray-500">
-                {categoryName
-                  ? `Specialist in ${categoryName}`
-                  : "Psychiatrist"}
-              </p>
-            </div>
-          </div>
+          {/* Service Info */}
+          <ServiceDetails service={service} sessionDuration={sessionDuration} />
 
-          {/* Session Info */}
-          <div className="bg-white p-4 rounded-lg shadow-md">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-              Service Details
-            </h3>
-            <p className="text-md text-gray-700">
-              <span className="font-medium">Service:</span> {service.name}
-            </p>
-            {service.description && (
-              <p className="text-sm text-gray-600 mt-1">
-                {service.description}
-              </p>
-            )}
-            <p className="text-md text-gray-700 mt-2">
-              <span className="font-medium">Price:</span> {service.price} EGP
-            </p>
-            <p className="text-md text-gray-700 mt-2">
-              <span className="font-medium">Duration:</span> {sessionDuration}{" "}
-              minutes
-            </p>
-          </div>
-
-          {/* Summary and Booking Button */}
-          {selectedSlot && selectedDate && (
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <p className="text-lg font-semibold text-gray-800">
-                Slot is selected
-              </p>
-              <p className="text-md text-gray-700">
-                {selectedDate} - {selectedSlot} to {selectedEndTime} -{" "}
-                {sessionDuration} Min
-              </p>
-
-              {selectedDayNotes && (
-                <div className="mt-3 bg-blue-50 p-3 rounded-md border border-blue-200">
-                  <p className="text-sm font-medium text-blue-800 mb-1">
-                    Schedule Notes:
-                  </p>
-                  <p className="text-sm text-gray-700">{selectedDayNotes}</p>
-                </div>
-              )}
-
-              <button
-                onClick={handleBookClick}
-                className="w-full mt-4 text-lg mx-auto px-6 py-3 btn shadow-md hover:shadow-lg btn-secondary rounded-md font-medium "
-              >
-                Book Now {service.price} EGP
-              </button>
-            </div>
-          )}
+          {/* Booking Summary */}
+          <BookingSummary
+            selection={selection}
+            service={service}
+            sessionDuration={sessionDuration}
+            onBookClick={handleBookClick}
+          />
         </div>
 
-        {/* Right Section */}
+        {/* Right Section - Calendar */}
         <div className="md:w-3/4 bg-white p-4 rounded-lg shadow-md">
+          {/* Calendar Navigation */}
           <div className="flex justify-between items-center mb-4">
             <button
               className="px-4 py-2 bg-gray-200 rounded-md text-gray-700 hover:bg-gray-300 disabled:opacity-50"
@@ -481,20 +652,8 @@ const SessionBooking = () => {
               &lt;
             </button>
             <h3 className="text-lg font-semibold text-gray-800">
-              {visibleDates[0].toLocaleDateString("en-US", {
-                day: "numeric",
-                month: "short",
-                year: "numeric",
-              })}{" "}
-              -{" "}
-              {visibleDates[visibleDates.length - 1].toLocaleDateString(
-                "en-US",
-                {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                }
-              )}
+              {formatDateOnly(visibleDates[0])} -{" "}
+              {formatDateOnly(visibleDates[visibleDates.length - 1])}
             </h3>
             <button
               className="px-4 py-2 bg-gray-200 rounded-md text-gray-700 hover:bg-gray-300 disabled:opacity-50"
@@ -505,88 +664,22 @@ const SessionBooking = () => {
             </button>
           </div>
 
+          {/* Calendar Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
-            {visibleDates.map((date) => {
-              const { slots: daySlots, notes } = generateTimeSlots(
-                availabilities,
-                date,
-                sessionDuration,
-                appointments
-              );
-
-              // Check if we have notes for this day's schedule
-              const hasNotes = notes && notes.trim().length > 0;
-
-              return (
-                <div
-                  key={date.toDateString()}
-                  className="border rounded-lg p-4 bg-gray-100"
-                >
-                  <h4 className="text-md font-semibold text-center text-blue-800 mb-2">
-                    {date.toLocaleDateString("en-US", {
-                      weekday: "short",
-                      day: "numeric",
-                      month: "short",
-                    })}
-                  </h4>
-
-                  {/* Show an info icon if there are notes */}
-                  {hasNotes && (
-                    <div className="mb-2 px-2">
-                      <div className="bg-blue-50 p-2 rounded-md text-xs text-gray-700 border border-blue-200 flex items-start space-x-1">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          className="h-4 w-4 text-blue-500 mt-0.5 flex-shrink-0"
-                          viewBox="0 0 20 20"
-                          fill="currentColor"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                        <span className="overflow-hidden text-ellipsis line-clamp-2">
-                          {notes}
-                        </span>
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="flex flex-col space-y-2 max-h-72 overflow-y-auto">
-                    {daySlots.length > 0 ? (
-                      daySlots.map((slot) => (
-                        <button
-                          key={slot.time}
-                          className={`w-full py-2 rounded-md text-sm font-medium ${
-                            slot.isReserved
-                              ? "bg-red-500 text-white cursor-not-allowed"
-                              : selectedSlot === slot.time &&
-                                selectedDate ===
-                                  date.toLocaleDateString("en-US", {
-                                    weekday: "short",
-                                    day: "numeric",
-                                    month: "short",
-                                  })
-                              ? "bg-[#00978c] text-white"
-                              : "bg-gray-200 text-gray-700 hover:bg-[#bbe6e3]"
-                          }`}
-                          onClick={() => handleSlotClick(slot, date, notes)}
-                          disabled={slot.isReserved}
-                        >
-                          {slot.time} - {slot.endTime}
-                        </button>
-                      ))
-                    ) : (
-                      <p className="text-center text-gray-500 py-4">
-                        No available slots
-                      </p>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+            {timeSlotsData.map(({ date, slots, notes }) => (
+              <DateColumn
+                key={date.toDateString()}
+                date={date}
+                slots={slots}
+                notes={notes}
+                selectedDate={selection.date}
+                selectedSlot={selection.slot}
+                onSlotClick={handleSlotClick}
+              />
+            ))}
           </div>
+
+          {/* Legend */}
           <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
             <h4 className="text-lg font-medium text-gray-800 mb-3">
               Understanding Your Booking Options
@@ -628,6 +721,8 @@ const SessionBooking = () => {
               </p>
             </div>
           </div>
+
+          {/* Timezone note */}
           <p className="text-center text-sm text-gray-500 mt-8">
             All times are <span className="font-medium">Africa/Cairo</span>{" "}
             <button className="underline text-blue-500 hover:text-blue-700">
@@ -640,6 +735,7 @@ const SessionBooking = () => {
   );
 };
 
+// Wrap with Suspense for SSR compatibility
 function bookingPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
