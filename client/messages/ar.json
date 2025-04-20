@@ -1,0 +1,122 @@
+{
+  "logo": {
+    "title": "فيتاسيك"
+  },
+  "navbar": {
+    "home": "الرئيسية",
+    "about": "من نحن",
+    "contact": "تواصل معنا",
+    "tests": "الاختبارات",
+    "lina": "لينا",
+    "chatbot": "عالج نفسك ب AI",
+    "signIn": "تسجيل الدخول",
+    "signUp": "إنشاء حساب",
+    "profile": "الملف الشخصي",
+    "help": "المساعدة والدعم",
+    "logout": "تسجيل الخروج"
+  },
+  "HomePage": {
+    "title": "فيتاسيك",
+    "heroTitle": "مرحبًا بك في ",
+    "heroDescription": " منصتنا توفر تقييمًا نفسيًا شخصيًا، تواصلًا مباشرًا مع الأطباء، متجرًا لمنتجات الصحة النفسية، ومحتوى تعليمي لزيادة الوعي وفهم الذات.",
+    "chatbot": "تحدث مع AI"
+  },
+  "FindPsychiatrists": {
+    "heading": "ابحث عن الأطباء النفسيين",
+    "specializationLabel": "التخصص",
+    "specializationPlaceholder": "--اختر التخصص--",
+    "areaLabel": "في المنطقة",
+    "areaPlaceholder": "--اختر المنطقة--",
+    "governorateLabel": "في المحافظة",
+    "governoratePlaceholder": "--اختر المحافظة--",
+    "doctorLabel": "البحث بالاسم",
+    "doctorPlaceholder": "--اختر الاسم--",
+    "searchButton": "بحث"
+  },
+  "recommendations": {
+    "heading": "أشهر الأطباء النفسيين",
+    "psychiatrist": "طبيب نفسي",
+    "reviews": "1172تقييمات",
+    "topTherapist": "أفضل معالج",
+    "sessions": "جلسات+1000",
+    "interests": "اهتمامات:",
+    "moodDisorders": "اضطرابات المزاج",
+    "personalityDisorders": "اضطرابات الشخصية",
+    "nearestAppointment": "أقرب موعد:",
+    "appointmentTime": "الاثنين، ٣٠ سبتمبر عند الساعة ١٢:٠٠ صباحًا",
+    "price60Min": "٩٥٠ جنيه مصري",
+    "price30Min": "٦٠٠ جنيه مصري",
+    "viewProfile": "عرض الملف الشخصي",
+    "bookNow": "احجز الآن",
+    "showMore": "عرض المزيد"
+  },
+  "Services": {
+    "heading": "خدمات لتحسين الصحة النفسية",
+    "serviceTitles": {
+      "Do you have a question?": "هل لديك سؤال؟",
+      "Articles on mental health": "مقالات عن الصحة النفسية",
+      "Mental health products": "الأدوية والمنتجات الخاصة بالصحة العقلية",
+      "Frequently asked questions": "الأسئلة الشائعة",
+      "Choose your specialty Dr": "اختر تخصص طبيبك"
+    },
+    "buttonTitles": {
+      "Ask now": "اسأل الآن",
+      "Go now": "اذهب الآن",
+      "Show more": "عرض المزيد"
+    }
+  },
+  "Footer": {
+    "joinUs": "انضم إلينا",
+    "joinAsDoctor": "انضم كطبيب",
+    "joinAsClient": "انضم كعميل",
+    "googlePlay": "Google Play",
+    "appStore": "App Store",
+    "copyright": " حقوق النشر ©2025 جميع الحقوق محفوظة",
+
+    "sections": {
+      "Products": "المنتجات",
+      "searchBy": "البحث حسب",
+      "needHelp": "هل تحتاج إلى مساعدة؟",
+      "followUs": "تابعنا"
+    },
+    "links": {
+      "tests": "الاختبارات",
+      "treatYourself": "عالج نفسك",
+      "aboutUs": "من نحن",
+      "contactUs": "اتصل بنا",
+      "updates": "التحديثات",
+      "doctorName": "اسم الطبيب",
+      "area": "المنطقة",
+      "location": "الموقع",
+      "medicalLibrary": "المكتبة الطبية",
+      "termsOfUse": "شروط الاستخدام",
+      "privacyPolicy": "سياسة الخصوصية",
+      "doctorsPrivacyPolicy": "سياسة خصوصية الأطباء",
+      "facebook": "فيسبوك",
+      "instagram": "إنستغرام",
+      "linkedin": "لينكد إن",
+      "youtube": "يوتيوب"
+    }
+  },
+  "AboutVitapsyche": {
+    "heading": "معلومات عن فيتاسيك",
+    "psychologicalAssessment": {
+      "title": "التقييم النفسي:",
+      "description": "من خلال الاختبارات النفسية المتقدمة ونماذج التعلم الآلي، ستتمكن المنصة من تحديد الحالة النفسية للمستخدم وتقديم توصيات بناءً على النتائج."
+    },
+    "communicationWithDoctors": {
+      "title": "التواصل مع الأطباء:",
+      "description": "تسمح المنصة للمستخدمين بالتواصل مباشرة مع علماء النفس من خلال نظام دردشة متكامل وحجز مواعيد للاستشارات."
+    },
+    "doctorRecommendations": {
+      "title": "توصيات الأطباء:",
+      "description": "تقديم توصيات شخصية للمستخدمين بناءً على تقييماتهم النفسية وتفضيلاتهم."
+    },
+    "saleOfProductsAndMedicines": {
+      "title": "بيع المنتجات والأدوية:",
+      "description": "توفير منصة لبيع المنتجات والأدوية المتعلقة بالصحة النفسية والعلاج النفسي. نشر المعرفة: تقديم مقالات ومحتوى تعليمي يدعم الصحة النفسية ويساعد المستخدمين على فهم أنفسهم بشكل أفضل."
+    },
+    "showMore": "عرض المزيد",
+    "imageAlt": "عن فيتاسيك"
+  }
+}

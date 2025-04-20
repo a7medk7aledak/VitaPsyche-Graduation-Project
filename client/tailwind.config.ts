@@ -25,7 +25,6 @@ const config: Config = {
         homepagebackground: "#83ddd3",
         hovernavlink: "#13cbb7",
         maincolorincontactform: "#1e6a66",
-
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
@@ -33,4 +32,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;

@@ -1,0 +1,121 @@
+{
+  "logo": {
+    "title": "Vitapsyche"
+  },
+  "navbar": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact Us",
+    "tests": "Tests",
+    "lina": "Lina",
+    "chatbot": "Talk to Ai",
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "profile": "Profile",
+    "help": "Help & Support",
+    "logout": "Logout"
+  },
+  "HomePage": {
+    "title": "Vitapsyche",
+    "heroTitle": "Welcome to ",
+    "heroDescription": "Our platform offers personalized psychological assessments, direct access to doctors, a mental health product store, and educational content to promote awareness and self-understanding.",
+    "chatbot": "Talk to AI"
+  },
+  "FindPsychiatrists": {
+    "heading": "Find Psychiatrists",
+    "specializationLabel": "Specialization",
+    "specializationPlaceholder": "--Select Specialization--",
+    "areaLabel": "In the area",
+    "areaPlaceholder": "--Select the area--",
+    "governorateLabel": "In the governorate",
+    "governoratePlaceholder": "--Select Governorate--",
+    "doctorLabel": "Search by name",
+    "doctorPlaceholder": "--Select name--",
+    "searchButton": "Search"
+  },
+  "recommendations": {
+    "heading": "The most famous psychiatrists",
+    "psychiatrist": "Psychiatrist",
+    "reviews": "1172 Reviews",
+    "topTherapist": "Top Therapist",
+    "sessions": "1000+ Sessions",
+    "interests": "Interests:",
+    "moodDisorders": "Mood disorders",
+    "personalityDisorders": "Personality disorders",
+    "nearestAppointment": "Nearest appointment:",
+    "appointmentTime": "Monday, Sep.30 at 12:00 AM",
+    "price60Min": "950 EGP",
+    "price30Min": "600 EGP",
+    "viewProfile": "View Profile",
+    "bookNow": "Book Now",
+    "showMore": "Show more"
+  },
+  "Services": {
+    "heading": "Services to improve mental health",
+    "serviceTitles": {
+      "Do you have a question?": "Do you have a question?",
+      "Articles on mental health": "Articles on mental health",
+      "Mental health products": "Mental health products",
+      "Frequently asked questions": "Frequently asked questions",
+      "Choose your specialty Dr": "Choose your specialty Dr"
+    },
+    "buttonTitles": {
+      "Ask now": "Ask now",
+      "Go now": "Go now",
+      "Show more": "Show more"
+    }
+  },
+  "Footer": {
+    "joinUs": "Join Us",
+    "joinAsDoctor": "Join as a Doctor",
+    "joinAsClient": "Join as a Client",
+    "googlePlay": "Google Play",
+    "appStore": "App Store",
+    "copyright": "Copyright ©2025 All Rights Reserved",
+    "sections": {
+      "Products": "Products",
+      "searchBy": "Search By",
+      "needHelp": "Need Help?",
+      "followUs": "Follow Us"
+    },
+    "links": {
+      "tests": "Tests",
+      "treatYourself": "Treat Yourself",
+      "aboutUs": "About Us",
+      "contactUs": "Contact Us",
+      "updates": "Updates",
+      "doctorName": "Doctor Name",
+      "area": "Area",
+      "location": "Location",
+      "medicalLibrary": "Medical Library",
+      "termsOfUse": "Terms of Use",
+      "privacyPolicy": "Privacy Policy",
+      "doctorsPrivacyPolicy": "Doctors Privacy Policy",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn",
+      "youtube": "YouTube"
+    }
+  },
+  "AboutVitapsyche": {
+    "heading": "Information about Vitapsyche",
+    "psychologicalAssessment": {
+      "title": "Psychological assessment:",
+      "description": "Through advanced psychological tests and machine learning models, the platform will be able to determine the user’s psychological state and provide recommendations based on the results."
+    },
+    "communicationWithDoctors": {
+      "title": "Communication with doctors:",
+      "description": "The platform allows users to communicate directly with psychologists through an integrated chat system and book appointments for consultations."
+    },
+    "doctorRecommendations": {
+      "title": "Doctor recommendations:",
+      "description": "Provide personalized recommendations to users based on their psychological assessments and preferences."
+    },
+    "saleOfProductsAndMedicines": {
+      "title": "Sale of products and medicines:",
+      "description": "Provide a platform for selling products and medicines related to mental health and psychotherapy. Dissemination of knowledge: Provide articles and educational content that support mental health and help users understand themselves better."
+    },
+    "showMore": "Show more",
+    "imageAlt": "About Vitapsyche"
+  }
+}

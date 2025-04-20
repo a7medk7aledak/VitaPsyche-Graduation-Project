@@ -21,13 +21,13 @@
       "three/examples/jsm/loaders/GLTFLoader": [
         "./node_modules/@types/three/examples/jsm/loaders/GLTFLoader"
       ],
-      "@constants/*": ["./app/constants/*"],
-      "@hooks/*": ["./app/hooks/*"],
-      "@store/*": ["./app/store/*"],
-      "@components/*": ["./app/components/*"],
-      "@utils/*": ["./app/utils/*"],
-      "@myTypes/*": ["./app/types/*"],
-      "@app/*": ["./app/*"],
+      "@constants/*": ["./app/[locale]/constants/*"],
+      "@hooks/*": ["./app/[locale]/hooks/*"],
+      "@store/*": ["./app/[locale]/store/*"],
+      "@components/*": ["./app/[locale]/components/*"],
+      "@utils/*": ["./app/[locale]/utils/*"],
+      "@myTypes/*": ["./app/[locale]/types/*"],
+      "@app/*": ["./app/[locale]/*"],
       "@/*": ["./*"]
     }
   },
