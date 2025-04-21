@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import axios, { AxiosError } from "axios";
+import axios from "axios";
+import axiosErrorHandler from "@utils/axiosErrorHandler";
 
 interface Schedule {
   id: number;
@@ -8,17 +9,11 @@ interface Schedule {
   endTime: string;
 }
 
-interface ApiErrorResponse {
-  error?: string;
-  message?: string;
-  detail?: string;
-}
-
 const BASE_URL = "https://abdokh.pythonanywhere.com/api"; // Replace with your backend URL
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Schedule | Schedule[] | ApiErrorResponse>
+  res: NextApiResponse
 ) {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
@@ -90,18 +85,8 @@ export default async function handler(
           .json({ error: `Method ${req.method} Not Allowed` });
     }
   } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError<ApiErrorResponse>;
-      const status = axiosError.response?.status || 500;
-      const errorMessage = axiosError.response?.data || {
-        error: "An error occurred",
-      };
-
-      console.error("API Error:", errorMessage);
-      return res.status(status).json(errorMessage);
-    }
-
-    console.error("Unexpected Error:", error);
-    return res.status(500).json({ error: "An unexpected error occurred" });
+    const { status, data } = axiosErrorHandler(error);
+    console.log("status code: " + status, data);
+    return res.status(status).json(data);
   }
 }
