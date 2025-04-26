@@ -131,6 +131,8 @@ export const tests = [
     },
     maxscoring: 30,
   },
+
+
   {
     testTitle: "Yale-Brown Obsessive Compulsive Scale (Y-BOCS)",
     testSlug: "ocd-scale",
@@ -399,6 +401,8 @@ export const tests = [
       ],
     },
   },
+
+
   {
     testTitle: "Beck Depression Inventory",
     testSlug: "depression-scale", // URL-friendly slug
@@ -954,6 +958,8 @@ export const tests = [
       ],
     },
   },
+
+
   {
     testTitle: "PTSD Scale according to DSM-IV",
     testSlug: "ptsd-scale", // URL-friendly slug
@@ -1172,6 +1178,8 @@ export const tests = [
       ],
     },
   },
+
+
   {
     testTitle: "Internet Addiction Scale",
     testSlug: "internet-addiction-scale", // URL-friendly slug
@@ -1464,6 +1472,8 @@ export const tests = [
       ],
     },
   },
+
+  
 
   {
     testTitle: " Anxiety Scale",

@@ -87,7 +87,7 @@ const ELEVENLABS_API_KEY =
 
 // Avatar Model Component
 const AvatarModel: React.FC<{ message: string }> = ({ message }) => {
-  const gltf = useLoader(GLTFLoader, "./lina.glb");
+  const gltf = useLoader(GLTFLoader, "/lina.glb");
   const bonesRef = useRef<BonesRef>({});
   const eyesRef = useRef<EyesRef>({});
   const lipsRef = useRef<THREE.Object3D | null>(null);
@@ -441,7 +441,7 @@ const AvatarMessage: React.FC<{
 };
 
 const RoomModel: React.FC = () => {
-  const roomGltf = useLoader(GLTFLoader, "./room.glb");
+  const roomGltf = useLoader(GLTFLoader, "/room.glb");
   return (
     <primitive
       object={roomGltf.scene}
@@ -454,7 +454,7 @@ const RoomModel: React.FC = () => {
 
 // Chair model component
 const ChairModel: React.FC = () => {
-  const chairGltf = useLoader(GLTFLoader, "./chair.glb");
+  const chairGltf = useLoader(GLTFLoader, "/chair.glb");
   return (
     <primitive object={chairGltf.scene} scale={1.5} position={[0, -0.4, -1]} />
   );
