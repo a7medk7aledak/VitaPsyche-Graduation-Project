@@ -10,9 +10,11 @@ import { useCart } from "@hooks/useCart";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import withAuth from "@components/auth/WithAuth";
+import { useTranslations } from "next-intl";
 
 function CheckoutPage() {
   const dispatch = useDispatch();
+  const t = useTranslations("checkout"); // Initialize translations
   const router = useRouter();
   const [showModal, setShowModal] = useState(false); // Modal visibility state
   const { totalPrice, resetCart } = useCart();
@@ -29,7 +31,7 @@ function CheckoutPage() {
   return (
     <main className="py-16 min-h-screen">
       <div className="-mb-10">
-        <Heading variant="secondary">Checkout</Heading>
+        <Heading variant="secondary">{t("title")}</Heading>
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="order-2 md:order-1">
@@ -47,7 +49,7 @@ function CheckoutPage() {
         isOpen={showModal}
         onClose={closeModalHandler}
         img="/images/payment-methods/submissionModal.png"
-        message="Payment completed successfully"
+        message={t("paymentSuccess")}
       />
     </main>
   );

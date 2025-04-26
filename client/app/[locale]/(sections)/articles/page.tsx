@@ -2,51 +2,77 @@
 import React, { useState, useMemo } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import articles from "@app/content/articles.json";
+import articlesInEnglish from "@app/content/articles/en.json";
+import articlesInArabic from "@app/content/articles/ar.json";
 import Button from "@components/common/Button";
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 
 const Page = () => {
-  const categories = [
-    "All",
-    "Psychotic and Neurodegenerative Disorders",
-    "Mood Disorders",
-    "Anxiety and Related Disorders",
-    "Personality Disorders",
-  ];
+  const t = useTranslations("Articles"); // Initialize the translation hook
+  const locale = useLocale();
+  const articles = locale === "en" ? articlesInEnglish : articlesInArabic;
+  // Use translated category names
+  const categories = useMemo(
+    () => [
+      t("categories.all"),
+      t("categories.psychotic"),
+      t("categories.mood"),
+      t("categories.anxiety"),
+      t("categories.personality"),
+    ],
+    [t]
+  );
 
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState(t("categories.all"));
   const [searchQuery, setSearchQuery] = useState("");
 
   const psychoticArticles = useMemo(
     () =>
       articles.filter((article) =>
-        ["Schizophrenia", "Alzheimer's Disease", "Lewy Body Dementia"].includes(
-          article.title
-        )
+        locale === "en"
+          ? [
+              "Schizophrenia",
+              "Alzheimer's Disease",
+              "Lewy Body Dementia",
+            ].includes(article.title)
+          : ["الفصام", "مرض الزهايمر", "خرف أجسام ليوي"].includes(article.title)
       ),
-    []
+    [articles, locale]
   );
 
   const moodArticles = useMemo(
-    () => articles.filter((article) => article.title === "Depression"),
-    []
+    () =>
+      articles.filter((article) =>
+        locale === "en"
+          ? article.title === "Depression"
+          : article.title === "الاكتئاب"
+      ),
+    [articles, locale]
   );
 
   const anxietyArticles = useMemo(
     () =>
       articles.filter((article) =>
-        ["Panic Disorder", "Geriatric Sleep Disorder"].includes(article.title)
+        locale === "en"
+          ? ["Panic Disorder", "Geriatric Sleep Disorder"].includes(
+              article.title
+            )
+          : ["اضطراب الهلع", "اضطراب النوم لدى كبار السن"].includes(
+              article.title
+            )
       ),
-    []
+    [articles, locale]
   );
 
   const personalityArticles = useMemo(
     () =>
-      articles.filter(
-        (article) => article.title === "Borderline Personality Disorder"
+      articles.filter((article) =>
+        locale === "en"
+          ? article.title === "Borderline Personality Disorder"
+          : article.title === "اضطراب الشخصية الحدية"
       ),
-    []
+    [articles, locale]
   );
 
   //function for selecting articles for specific category
@@ -54,16 +80,16 @@ const Page = () => {
     let articlesToFilter = [];
 
     switch (selectedCategory) {
-      case "Psychotic and Neurodegenerative Disorders":
+      case categories[1]: // Psychotic and Neurodegenerative Disorders
         articlesToFilter = psychoticArticles;
         break;
-      case "Mood Disorders":
+      case categories[2]: // Mood Disorders
         articlesToFilter = moodArticles;
         break;
-      case "Anxiety and Related Disorders":
+      case categories[3]: // Anxiety and Related Disorders
         articlesToFilter = anxietyArticles;
         break;
-      case "Personality Disorders":
+      case categories[4]: // Personality Disorders
         articlesToFilter = personalityArticles;
         break;
       default: // "All articles"
@@ -81,6 +107,8 @@ const Page = () => {
     anxietyArticles,
     personalityArticles,
     searchQuery,
+    categories,
+    articles,
   ]);
 
   return (
@@ -114,7 +142,7 @@ const Page = () => {
             id="default-search"
             className="block w-full p-3 ps-11 text-xl outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:placeholder-gray-400"
             required
-            placeholder="Search here"
+            placeholder={t("search.placeholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
@@ -141,7 +169,9 @@ const Page = () => {
           ))}
         </motion.ul>
 
-        <h4 className="text-xl text-maintext font-medium">Explore articles</h4>
+        <h4 className="text-xl text-maintext font-medium">
+          {t("articles.explore")}
+        </h4>
 
         <motion.div
           className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3"
@@ -173,10 +203,10 @@ const Page = () => {
               </p>
               <Link
                 href={`/articles/${encodeURIComponent(article.title)}`}
-                className="ml-auto"
+                className="ms-auto"
               >
                 <Button variant="primary" roundedValue="full" size="medium">
-                  Read More
+                  {t("articles.readMore")}
                 </Button>
               </Link>
             </motion.div>

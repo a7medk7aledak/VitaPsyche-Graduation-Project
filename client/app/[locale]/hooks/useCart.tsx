@@ -1,8 +1,10 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@store/store";
 import { removeFromCart, addToCart, resetCart } from "@store/cartSlice";
-import productsData from "../content/products.json";
 import { useMemo } from "react";
+import englishProducts from "@app/content/products/en.json";
+import arabicProducts from "@app/content/products/ar.json";
+import { useLocale } from "next-intl";
 
 export interface Product {
   id: string;
@@ -12,8 +14,13 @@ export interface Product {
 }
 
 export const useCart = () => {
+  const locale = useLocale();
+
   const cartItems = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
+
+  const productsData = locale === "ar" ? arabicProducts : englishProducts;
+
   const { products }: { products: Product[] } = productsData;
 
   // Calculate total price using useMemo

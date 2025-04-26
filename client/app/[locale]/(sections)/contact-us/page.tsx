@@ -7,6 +7,7 @@ import { MdEmail } from "react-icons/md";
 import { TbWorld } from "react-icons/tb";
 import { FaFacebook, FaInstagram, FaTwitter } from "react-icons/fa";
 import emailjs, { EmailJSResponseStatus } from "@emailjs/browser";
+import { useTranslations } from "next-intl"; // Import useTranslations hook
 
 interface FormData {
   firstName: string;
@@ -17,6 +18,9 @@ interface FormData {
 }
 
 const ContactForm = () => {
+  // Initialize the translation hook
+  const t = useTranslations("contactUs");
+
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     lastName: "",
@@ -111,9 +115,9 @@ const ContactForm = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <Heading variant="secondary">You are our priority</Heading>
+          <Heading variant="secondary">{t("heading")}</Heading>
           <h6 className="w-fit mx-auto -mt-24 p-5 text-lg text-paragraphtext font-medium text-center">
-            We appreciate your comments and inquiries! Feel free to contact us.
+            {t("subheading")}
           </h6>
         </motion.div>
 
@@ -131,35 +135,33 @@ const ContactForm = () => {
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             <div>
-              <h4 className="text-2xl font-medium">Contact Information</h4>
-              <p className="text-[#c8cdcd]">
-                Say something to start a live chat!
-              </p>
+              <h4 className="text-2xl font-medium">{t("contactInfo")}</h4>
+              <p className="text-[#c8cdcd]">{t("startChat")}</p>
             </div>
             <div className="space-y-4">
-              <div className="flex space-x-3 items-center">
+              <div className="flex space-x-3 rtl:space-x-reverse items-center">
                 <FiPhoneCall className="text-xl" />
                 <div>
-                  <h4 className="font-medium">Hotline</h4>
+                  <h4 className="font-medium">{t("hotline")}</h4>
                   <p>29374277</p>
                 </div>
               </div>
-              <div className="flex space-x-3 items-center">
+              <div className="flex space-x-3 rtl:space-x-reverse items-center">
                 <MdEmail className="text-xl" />
                 <div>
-                  <h4 className="font-medium">e-mail</h4>
+                  <h4 className="font-medium">{t("email")}</h4>
                   <p>info@yoursite.com</p>
                 </div>
               </div>
-              <div className="flex space-x-3 items-center">
+              <div className="flex space-x-3 rtl:space-x-reverse items-center">
                 <TbWorld className="text-xl" />
                 <div>
-                  <h4 className="font-medium">Website</h4>
+                  <h4 className="font-medium">{t("website")}</h4>
                   <p>Vitapsyche.com</p>
                 </div>
               </div>
             </div>
-            <div className="flex justify-between w-[100px] -ml-7 md:ml-0 ">
+            <div className="flex justify-between w-[100px] -ms-7 md:ms-0 ">
               <FaTwitter className="w-6 h-6 p-1 bg-white text-black rounded-full cursor-pointer" />
               <FaInstagram className="w-6 h-6 p-1 bg-white text-black rounded-full cursor-pointer" />
               <FaFacebook className="w-6 h-6 p-1 bg-white text-black rounded-full cursor-pointer" />
@@ -167,7 +169,7 @@ const ContactForm = () => {
           </motion.div>
 
           {/* Left section with contact form */}
-          <div className="md:w-3/4 w-full  p-5 pl-8">
+          <div className="md:w-3/4 w-full p-5 pl-8">
             <motion.form
               className="flex flex-wrap pt-8"
               onSubmit={sendEmail}
@@ -177,20 +179,20 @@ const ContactForm = () => {
             >
               <div className="flex flex-col group mb-7 w-full md:w-1/2">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
-                  First Name
+                  {t("firstName")}
                 </label>
                 <input
                   type="text"
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className="w-10/12 md:w-3/4  border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
+                  className="w-10/12 md:w-3/4 border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
                 />
               </div>
 
               <div className="flex flex-col group mb-7 w-full md:w-1/2">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
-                  Last Name
+                  {t("lastName")}
                 </label>
                 <input
                   type="text"
@@ -201,35 +203,35 @@ const ContactForm = () => {
                 />
               </div>
 
-              <div className="flex flex-col group mb-7 w-full  md:w-1/2">
+              <div className="flex flex-col group mb-7 w-full md:w-1/2">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
-                  Email
+                  {t("emailLabel")}
                 </label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-10/12 md:w-3/4  border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
+                  className="w-10/12 md:w-3/4 border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
                 />
               </div>
 
               <div className="flex flex-col group mb-7 w-full md:w-1/2">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
-                  Phone Number
+                  {t("phoneNumber")}
                 </label>
                 <input
                   type="text"
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleChange}
-                  className="w-10/12  md:w-3/4 border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
+                  className="w-10/12 md:w-3/4 border-b py-2 px-3 text-gray-700 leading-tight focus:outline-none group-focus:border-maincolorincontactform transition-colors duration-200"
                 />
               </div>
 
               <div className="flex flex-col group mb-7 w-full">
                 <label className="group-focus-within:text-maincolorincontactform transition-colors duration-200">
-                  Write Your Message
+                  {t("message")}
                 </label>
                 <textarea
                   id="message"
@@ -240,7 +242,7 @@ const ContactForm = () => {
                 />
               </div>
 
-              {/*  success message */}
+              {/* Success message */}
               {submitted && (
                 <motion.p
                   className="text-green-600 font-medium mb-4"
@@ -248,18 +250,17 @@ const ContactForm = () => {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.5 }}
                 >
-                  Thank you for contacting us! Your message has been submitted
-                  successfully.
+                  {t("successMessage")}
                 </motion.p>
               )}
 
               <motion.button
                 type="submit"
-                className="bg-maincolorincontactform hover:shadow-lg ml-auto text-white font-medium py-3 px-6 rounded-md transition-shadow duration-200"
+                className="bg-maincolorincontactform hover:shadow-lg ms-auto text-white font-medium py-3 px-6 rounded-md transition-shadow duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                Send Message
+                {t("sendButton")}
               </motion.button>
             </motion.form>
           </div>

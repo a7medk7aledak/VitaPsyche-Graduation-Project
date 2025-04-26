@@ -15,6 +15,7 @@ const Services = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
 
+
   const handleScroll = () => {
     if (sectionRef.current) {
       const rect = sectionRef.current.getBoundingClientRect();

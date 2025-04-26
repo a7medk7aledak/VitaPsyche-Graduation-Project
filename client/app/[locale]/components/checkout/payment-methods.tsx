@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 type PaymentMethodsProps = {
   onContinue: (paymentMethod: string) => void;
@@ -9,48 +10,38 @@ type PaymentMethodsProps = {
   isSubmitting?: boolean;
 };
 
-const paymentOptions = [
-  {
-    id: "vitapsyche",
-    label: "Vitapsyche Wallet",
-    icon: "/images/payment-methods/vitapsycheWallet.png",
-  },
-  {
-    id: "debit",
-    label: "Debit Card",
-    icons: [
-      "/images/payment-methods/mastercard.png",
-      "/images/payment-methods/visa.png",
-      "/images/payment-methods/mesa.png",
-    ],
-  },
-  {
-    id: "digital",
-    label: "Digital Wallet",
-    icons: [
-      "/images/payment-methods/we.png",
-      "/images/payment-methods/orange.png",
-      "/images/payment-methods/etisalat.png",
-      "/images/payment-methods/vodafone.png",
-      "/images/payment-methods/alahly.png",
-    ],
-  },
-  {
-    id: "credit",
-    label: "Credit Card",
-    icons: [
-      "/images/payment-methods/mastercard.png",
-      "/images/payment-methods/visa.png",
-    ],
-  },
-];
-
-export function PaymentMethods({
+const PaymentMethods = ({
   onContinue,
   price,
   isSubmitting,
-}: PaymentMethodsProps) {
+}: PaymentMethodsProps) => {
+  const t = useTranslations("checkout.payment"); // Initialize translations
   const [selectedMethod, setSelectedMethod] = useState("credit");
+
+  const paymentOptions = [
+    {
+      id: "vitapsyche",
+      label: t("methods.vitapsycheWallet"),
+      icon: "/images/payment-methods/vitapsycheWallet.png",
+    },
+    {
+      id: "digital",
+      label: t("methods.digitalWallet"),
+      icons: [
+        "/images/payment-methods/orange.png",
+        "/images/payment-methods/etisalat.png",
+        "/images/payment-methods/vodafone.png",
+      ],
+    },
+    {
+      id: "credit",
+      label: t("methods.creditCard"),
+      icons: [
+        "/images/payment-methods/mastercard.png",
+        "/images/payment-methods/visa.png",
+      ],
+    },
+  ];
 
   const handleSubmit = () => {
     onContinue(selectedMethod);
@@ -58,7 +49,7 @@ export function PaymentMethods({
 
   return (
     <div className="bg-white rounded-3xl p-8 shadow-md">
-      <h2 className="text-2xl font-bold text-[#1a1a3f] mb-6">Payment Method</h2>
+      <h2 className="text-2xl font-bold text-[#1a1a3f] mb-6">{t("title")}</h2>
 
       <div className="space-y-4">
         {paymentOptions.map((option) => (
@@ -109,8 +100,10 @@ export function PaymentMethods({
         disabled={isSubmitting}
         className="w-full white rounded-xl py-4 mt-6 font-semibold transition-colors text-white bg-subbutton hover:bg-hoversubbutton disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        {isSubmitting ? "Processing..." : `Continue ${price} EGP`}
+        {isSubmitting ? t("processing") : `${t("continue")} ${price} EGP`}
       </button>
     </div>
   );
-}
+};
+
+export { PaymentMethods };

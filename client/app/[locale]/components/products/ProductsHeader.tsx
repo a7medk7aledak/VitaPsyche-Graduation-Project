@@ -4,12 +4,14 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface ProductsHeaderProps {
   setSearchQuery?: (query: string) => void;
 }
 
 const ProductsHeader: React.FC<ProductsHeaderProps> = ({ setSearchQuery }) => {
+  const t = useTranslations("Products");
   const router = useRouter();
   const cartCount = useSelector((state: RootState) =>
     state.cart.items.reduce((total, item) => total + item.quantity, 0)
@@ -40,7 +42,7 @@ const ProductsHeader: React.FC<ProductsHeaderProps> = ({ setSearchQuery }) => {
           id="default-search"
           onChange={(e) => setSearchQuery?.(e.target.value)} // Update search query on input change
           className="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-gray-50 focus:border-[#216862] focus:ring-[#216862] focus:outline-none transition-all"
-          placeholder="Search for products..."
+          placeholder={t("search")}
         />
       </div>
       <button
@@ -49,7 +51,7 @@ const ProductsHeader: React.FC<ProductsHeaderProps> = ({ setSearchQuery }) => {
         }}
         className="flex items-center bg-[#216862] text-white px-5 py-3 rounded-full shadow-md hover:bg-[#1a4c47] transition-colors duration-300"
       >
-        <FaShoppingCart className="mr-2 text-lg" />
+        <FaShoppingCart className="me-2 text-lg" />
         <span className="font-medium">{cartCount}</span>{" "}
         {/* Display the cart count */}
       </button>

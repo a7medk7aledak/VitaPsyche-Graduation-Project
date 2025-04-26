@@ -13,7 +13,13 @@
     "signUp": "Sign up",
     "profile": "Profile",
     "help": "Help & Support",
-    "logout": "Logout"
+    "logout": "Logout",
+    "languageChangeAlert": {
+      "title": "Language settings unavailable here",
+      "message": "To change language, please return to",
+      "linkText": "articles page",
+      "continuation": "first"
+    }
   },
   "HomePage": {
     "title": "Vitapsyche",
@@ -117,5 +123,105 @@
     },
     "showMore": "Show more",
     "imageAlt": "About Vitapsyche"
+  },
+  "AboutUs": {
+    "headingTitle": "Who are we?",
+    "description": "We are a collaborative team of doctors, programmers, and psychotherapists dedicated to improving mental health. Our goal is to help individuals understand their thoughts, feelings, and behaviors while developing effective strategies to tackle the mental health challenges they encounter. We also aim to identify the optimal treatment methods for a wide range of mental health conditions.",
+    "learnMoreButton": "Learn More About Us",
+    "supervisorHeading": "Under the guidance of our project supervisor:",
+    "teamHeading": "Executed by the collaborative efforts of our team:"
+  },
+  "contactUs": {
+    "heading": "You are our priority",
+    "subheading": "We appreciate your comments and inquiries! Feel free to contact us.",
+    "contactInfo": "Contact Information",
+    "startChat": "Say something to start a live chat!",
+    "hotline": "Hotline",
+    "email": "e-mail",
+    "website": "Website",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "emailLabel": "Email",
+    "phoneNumber": "Phone Number",
+    "message": "Write Your Message",
+    "successMessage": "Thank you for contacting us! Your message has been submitted successfully.",
+    "sendButton": "Send Message"
+  },
+  "Articles": {
+    "categories": {
+      "all": "All",
+      "psychotic": "Psychotic and Neurodegenerative Disorders",
+      "mood": "Mood Disorders",
+      "anxiety": "Anxiety and Related Disorders",
+      "personality": "Personality Disorders"
+    },
+    "search": {
+      "placeholder": "Search here"
+    },
+    "articles": {
+      "explore": "Explore articles",
+      "readMore": "Read More",
+      "symptoms": "Symptoms",
+      "causes": "Causes",
+      "treatment": "Treatment"
+    }
+  },
+  "Products": {
+    "title": "Vitapsyche Products",
+    "description": "Does stress make you angry and complaining? These products may help you relieve stress and restore peace of mind in your busy life.",
+    "learnMore": "Learn More",
+    "search": "Search for products...",
+    "addToCart": "Add to Cart",
+    "categories": {
+      "all": "View All Products",
+      "products": "Products",
+      "herbal": "Herbal"
+    },
+    "productNotFound": "Product not found",
+    "aboutProduct": "About this product:",
+    "quantity": "Quantity:",
+    "goToCart": "Go to Cart & Checkout",
+    "Cart": {
+      "shoppingCart": "Shopping Cart",
+      "emptyCart": "Your cart is empty.",
+      "continueShopping": "Continue Shopping",
+      "unknownProduct": "Unknown Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "notAvailable": "N/A",
+      "remove": "Remove",
+      "total": "Total",
+      "checkout": "Checkout"
+    }
+  },
+  "checkout": {
+    "title": "Checkout",
+    "paymentSuccess": "Payment completed successfully",
+    "cart": {
+      "title": "Your Cart",
+      "price": "Price",
+      "quantity": "Quantity",
+      "remove": "Remove",
+      "enterCoupon": "Enter coupon code",
+      "apply": "Apply",
+      "totalAmount": "Total Amount"
+    },
+    "payment": {
+      "title": "Payment Method",
+      "methods": {
+        "vitapsycheWallet": "Vitapsyche Wallet",
+        "debitCard": "Debit Card",
+        "digitalWallet": "Digital Wallet",
+        "creditCard": "Credit Card"
+      },
+      "processing": "Processing...",
+      "continue": "Continue"
+    },
+    "support": "Customer Support",
+    "modal": {
+      "processing": "Processing your payment, please wait...",
+      "defaultMessage": "Payment has been successfully completed. Thank you!",
+      "close": "Close"
+    }
   }
 }

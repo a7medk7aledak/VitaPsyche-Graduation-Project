@@ -8,7 +8,7 @@ import { navLinks } from "@app/constants/nav-links";
 import { BsPersonAdd } from "react-icons/bs";
 import Logo from "./Logo";
 import { CiLogin } from "react-icons/ci";
-import { FiLogOut, FiUser, FiHelpCircle } from "react-icons/fi";
+import { FiLogOut, FiUser, FiHelpCircle, FiInfo } from "react-icons/fi";
 import MobileNav from "./MobileNav";
 import Button from "./Button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,6 +16,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@app/store/store";
 import { logout } from "@app/store/authSlice";
 import { getProfileRoute } from "@utils/profileRoute";
+import toast from "react-hot-toast";
 
 // Interfaces
 interface User {
@@ -133,12 +134,38 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ user, handleLogout }) => {
 };
 
 // LanguageSwitcher Component
+// LanguageSwitcher Component
 const LanguageSwitcher: React.FC = () => {
+  const t = useTranslations("navbar");
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
 
   const handleLanguageChange = (newLocale: string): void => {
+    // Check if current path starts with '/articles/'
+    if (pathname.startsWith("/articles/")) {
+      toast.error(
+        <div>
+          <p className="font-medium">{t("languageChangeAlert.title")}</p>
+          <p className="text-sm mt-1">
+            {t("languageChangeAlert.message")}{" "}
+            <Link
+              href="/articles"
+              className="text-teal-600 hover:underline"
+              onClick={() => toast.dismiss()}
+            >
+              {t("languageChangeAlert.linkText")}{" "}
+            </Link>{" "}
+            {t("languageChangeAlert.continuation")}{" "}
+          </p>
+        </div>,
+        {
+          duration: 5000,
+          icon: <FiInfo className="text-teal-600" />,
+        }
+      );
+      return;
+    }
     router.replace(pathname, { locale: newLocale });
   };
 

@@ -1,11 +1,14 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import Image from "next/image"; // Import Image component
+import Image from "next/image";
 import { useCart } from "@hooks/useCart";
 import withAuth from "@components/auth/WithAuth";
+import { useLocale, useTranslations } from "use-intl";
 
 const CartPage: React.FC = () => {
+  const t = useTranslations("Products.Cart"); // Initialize the translation hook
+  const locale = useLocale();
   const { cartItems, totalPrice, products, removeItem, addItem } = useCart();
 
   const handleQuantityChange = (id: string, quantity: number) => {
@@ -15,14 +18,16 @@ const CartPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
       <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">
-        Shopping Cart
+        {t("shoppingCart", { defaultMessage: "Shopping Cart" })}
       </h1>
       {cartItems.length === 0 ? (
         <div className="text-center">
-          <p className="text-gray-600">Your cart is empty.</p>
+          <p className="text-gray-600">
+            {t("emptyCart", { defaultMessage: "Your cart is empty." })}
+          </p>
           <Link href="/products">
             <button className="text-blue-500 hover:underline mt-4 inline-block">
-              Continue Shopping
+              {t("continueShopping", { defaultMessage: "Continue Shopping" })}
             </button>
           </Link>
         </div>
@@ -43,7 +48,12 @@ const CartPage: React.FC = () => {
                   <div className="w-20 h-20 relative">
                     <Image
                       src={mainImage?.url || "/images/placeholder.jpg"}
-                      alt={product.title || "Unknown Product"}
+                      alt={
+                        product.title ||
+                        t("unknownProduct", {
+                          defaultMessage: "Unknown Product",
+                        })
+                      }
                       layout="fill"
                       objectFit="cover"
                       className="rounded"
@@ -51,12 +61,19 @@ const CartPage: React.FC = () => {
                   </div>
                   <div className="flex-1">
                     <h2 className="text-lg font-semibold text-gray-800">
-                      {product.title || "Unknown Product"}
+                      {product.title ||
+                        t("unknownProduct", {
+                          defaultMessage: "Unknown Product",
+                        })}
                     </h2>
                     <p className="text-gray-600">
-                      Price: {product.price || "N/A"}
+                      {t("price", { defaultMessage: "Price" })}:{" "}
+                      {product.price ||
+                        t("notAvailable", { defaultMessage: "N/A" })}
                     </p>
-                    <p className="text-gray-600">Quantity:</p>
+                    <p className="text-gray-600">
+                      {t("quantity", { defaultMessage: "Quantity" })}:
+                    </p>
                     <select
                       value={cartItem.quantity}
                       onChange={(e) =>
@@ -78,7 +95,7 @@ const CartPage: React.FC = () => {
                     onClick={() => removeItem(cartItem.id)}
                     className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
                   >
-                    Remove
+                    {t("remove", { defaultMessage: "Remove" })}
                   </button>
                 </li>
               );
@@ -86,12 +103,16 @@ const CartPage: React.FC = () => {
           </ul>
           <div className="mt-6 border-t pt-4">
             <div className="flex justify-between text-lg font-semibold text-gray-800">
-              <span>Total:</span>
-              <span>{`EGP ${totalPrice.toFixed(2)}`}</span>
+              <span>{t("total", { defaultMessage: "Total" })}:</span>
+              <span>
+                {locale === "ar"
+                  ? `${totalPrice.toFixed(2)} جنيه مصري`
+                  : `EGP ${totalPrice.toFixed(2)}`}
+              </span>
             </div>
             <Link href={"/cart/checkout"}>
-              <button className="mt-4 w-full  py-3 bg-[#216862] text-white font-semibold text-lg rounded-lg hover:bg-[#205f5a] transition-colors">
-                Checkout
+              <button className="mt-4 w-full py-3 bg-[#216862] text-white font-semibold text-lg rounded-lg hover:bg-[#205f5a] transition-colors">
+                {t("checkout", { defaultMessage: "Checkout" })}
               </button>
             </Link>
           </div>

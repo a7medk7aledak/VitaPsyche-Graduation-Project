@@ -7,6 +7,7 @@ import Image from "next/image";
 import { FaLinkedin } from "react-icons/fa";
 import { aboutUsData, doctorsData } from "@app/constants/aboutUsData";
 import { HiArrowSmRight, HiOutlineArrowSmDown } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 
 // Define animation values
 const fadeInUp = {
@@ -35,6 +36,7 @@ const slideUpAnimation = {
 };
 
 const AboutUsPage = () => {
+  const t = useTranslations("AboutUs");
   const [isVisible, setIsVisible] = useState(false);
 
   return (
@@ -47,15 +49,9 @@ const AboutUsPage = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="-mt-10"
         >
-          <Heading variant="secondary">Who are we?</Heading>
+          <Heading variant="secondary">{t("headingTitle")}</Heading>
           <motion.h6 className="lg:w-3/4 mx-auto -mt-24 p-5 text-xl text-paragraphtext font-medium text-center tracking-wide leading-relaxed">
-            We are a collaborative team of doctors, programmers, and
-            psychotherapists dedicated to improving mental health. Our goal is
-            to help individuals understand their thoughts, feelings, and
-            behaviors while developing effective strategies to tackle the mental
-            health challenges they encounter. We also aim to identify the
-            optimal treatment methods for a wide range of mental health
-            conditions.
+            {t("description")}
           </motion.h6>
         </motion.div>
 
@@ -64,9 +60,9 @@ const AboutUsPage = () => {
           onClick={() => setIsVisible(!isVisible)}
           className="mx-auto flex justify-center items-center gap-x-2 mt-8 px-6 py-3 bg-teal-700 text-white font-semibold rounded-lg shadow-md hover:bg-teal-800 transition duration-200"
         >
-          Learn More About Us
+          {t("learnMoreButton")}
           {!isVisible ? (
-            <HiArrowSmRight className="text-2xl" />
+            <HiArrowSmRight className="text-2xl flip-in-rtl" />
           ) : (
             <HiOutlineArrowSmDown className="text-2xl" />
           )}
@@ -84,10 +80,10 @@ const AboutUsPage = () => {
             >
               {/* Supervisor Section */}
               <motion.h3
-                className="w-full text-left text-2xl font-medium text-teal-800"
+                className="w-full text-start text-2xl font-medium text-teal-800"
                 variants={slideUpAnimation}
               >
-                Under the guidance of our project supervisor:
+                {t("supervisorHeading")}
               </motion.h3>
               {doctorsData.map((member, indx) => (
                 <motion.div
@@ -117,10 +113,10 @@ const AboutUsPage = () => {
 
               {/* Team Section */}
               <motion.h3
-                className="w-full text-left text-2xl font-medium text-teal-800"
+                className="w-full text-start text-2xl font-medium text-teal-800"
                 variants={slideUpAnimation}
               >
-                Executed by the collaborative efforts of our team:
+                {t("teamHeading")}
               </motion.h3>
               {aboutUsData.map((member, indx) => (
                 <motion.div

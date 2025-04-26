@@ -1,0 +1,157 @@
+[
+  {
+    "title": "Schizophrenia",
+    "image": "https://diseases-content.s3.eu-west-1.amazonaws.com/spec00000021/Schizophrenia.jpg",
+    "content": {
+      "description": "Schizophrenia is a severe mental disorder that affects how a person thinks, feels, and behaves. Individuals with schizophrenia often seem like they have lost touch with reality, which can be distressing for both them and their loved ones. Schizophrenia is a chronic condition that requires lifelong treatment and can be disabling.",
+      "symptoms": [
+        "Delusions (false beliefs that are not based on reality)",
+        "Hallucinations (seeing or hearing things that don’t exist)",
+        "Disorganized thinking and speech",
+        "Extremely disorganized or abnormal motor behavior",
+        "Negative symptoms, such as reduced emotional expression or lack of motivation",
+        "Social withdrawal and difficulty functioning in daily life",
+        "Difficulty concentrating and remembering things"
+      ],
+      "causes": [
+        "Genetics: A family history of schizophrenia increases the risk",
+        "Brain structure and chemistry: Imbalances in neurotransmitters like dopamine and glutamate",
+        "Environmental factors: Trauma, abuse, and prenatal exposure to infections"
+      ],
+      "treatment": "Schizophrenia is typically managed with antipsychotic medications that help control symptoms by affecting brain chemicals like dopamine. Psychotherapy, especially cognitive behavioral therapy (CBT), helps individuals manage symptoms, build coping skills, and improve functioning. Long-term treatment is necessary, and support from family and community services is crucial."
+    }
+  },
+  {
+    "title": "Alzheimer's Disease",
+    "image": "https://diseases-content.s3.eu-west-1.amazonaws.com/spec00000021/Alzheimer-Disease.jpg",
+    "content": {
+      "description": "Alzheimer's disease is a progressive neurodegenerative disorder that leads to memory loss, cognitive decline, and behavioral changes. It is the most common form of dementia, affecting millions of people worldwide. Alzheimer's begins with mild memory loss and eventually affects the ability to carry out simple tasks.",
+      "symptoms": [
+        "Memory loss that disrupts daily life",
+        "Challenges in planning or solving problems",
+        "Difficulty completing familiar tasks at home or work",
+        "Confusion with time or place",
+        "Trouble understanding visual images and spatial relationships",
+        "New problems with words in speaking or writing",
+        "Decreased or poor judgment",
+        "Withdrawal from work or social activities"
+      ],
+      "causes": [
+        "Age: The biggest risk factor is increasing age, especially after 65",
+        "Genetics: A family history of Alzheimer’s may increase the risk",
+        "Lifestyle and heart health: Poor cardiovascular health and lifestyle factors such as smoking and lack of exercise"
+      ],
+      "treatment": "There is currently no cure for Alzheimer’s disease, but treatments can slow the progression and manage symptoms. Medications such as cholinesterase inhibitors (e.g., donepezil) and NMDA receptor antagonists (e.g., memantine) can help with cognitive symptoms. Supportive care includes occupational therapy, counseling, and creating a safe environment."
+    }
+  },
+  {
+    "title": "Depression",
+    "image": "https://diseases-content.s3.eu-west-1.amazonaws.com/spec00000021/Depression.jpg",
+    "content": {
+      "description": "Depression is a mood disorder that causes persistent feelings of sadness, hopelessness, and a loss of interest in activities. It affects how a person feels, thinks, and handles daily activities, such as sleeping, eating, or working. Depression can be long-lasting or recurrent, and it can significantly impact a person’s ability to function.",
+      "symptoms": [
+        "Persistent sadness or 'empty' mood",
+        "Loss of interest or pleasure in activities",
+        "Fatigue or loss of energy",
+        "Feelings of guilt, worthlessness, or helplessness",
+        "Difficulty concentrating, remembering, or making decisions",
+        "Insomnia or sleeping too much",
+        "Changes in appetite or weight",
+        "Thoughts of death or suicide"
+      ],
+      "causes": [
+        "Genetics: A family history of depression can increase the risk",
+        "Brain chemistry: Imbalances in neurotransmitters, particularly serotonin and dopamine",
+        "Hormonal changes: Such as during pregnancy or due to thyroid issues",
+        "Life events: Trauma, loss of a loved one, or chronic stress"
+      ],
+      "treatment": "Depression is treated with a combination of medication and psychotherapy. Antidepressants like SSRIs (e.g., fluoxetine, sertraline) help correct chemical imbalances. Psychotherapy, including cognitive behavioral therapy (CBT) and interpersonal therapy (IPT), is effective in helping individuals identify negative thought patterns and improve relationships. Lifestyle changes such as regular exercise and a healthy diet also contribute to recovery."
+    }
+  },
+  {
+    "title": "Panic Disorder",
+    "image": "https://diseases-content.s3.eu-west-1.amazonaws.com/spec00000021/Panic-Disorder.jpg",
+    "content": {
+      "description": "Panic disorder is a type of anxiety disorder characterized by sudden and repeated episodes of intense fear that trigger severe physical reactions, even when there is no real danger. These episodes are known as panic attacks. Panic disorder can significantly interfere with daily life, as individuals often live in fear of having another panic attack.",
+      "symptoms": [
+        "Sudden and overwhelming fear or anxiety",
+        "Rapid heart rate (palpitations)",
+        "Sweating or trembling",
+        "Shortness of breath or a feeling of being smothered",
+        "Chest pain or discomfort",
+        "Dizziness or lightheadedness",
+        "Fear of losing control or dying"
+      ],
+      "causes": [
+        "Genetics: Panic disorder often runs in families",
+        "Stress: Major life transitions or traumatic events",
+        "Brain chemistry: Imbalances in neurotransmitters such as serotonin and norepinephrine"
+      ],
+      "treatment": "Panic disorder is treated with a combination of psychotherapy and medications. Cognitive behavioral therapy (CBT) helps individuals understand and control their panic attacks, while medications such as selective serotonin reuptake inhibitors (SSRIs) and benzodiazepines are used to reduce the frequency and severity of attacks. Relaxation techniques and lifestyle changes are also helpful in managing symptoms."
+    }
+  },
+  {
+    "title": "Borderline Personality Disorder",
+    "image": "https://diseases-content.s3.eu-west-1.amazonaws.com/spec00000021/Borderline-Personality-Disorder.jpg",
+    "content": {
+      "description": "Borderline Personality Disorder (BPD) is a mental health disorder characterized by unstable moods, behavior, and relationships. Individuals with BPD often experience intense episodes of anger, depression, and anxiety that may last from a few hours to days. They may also engage in impulsive behaviors such as self-harm or substance abuse.",
+      "symptoms": [
+        "Fear of abandonment",
+        "Unstable personal relationships",
+        "Impulsive behaviors (e.g., spending sprees, reckless driving)",
+        "Chronic feelings of emptiness",
+        "Unstable self-image",
+        "Emotional instability and mood swings",
+        "Suicidal behavior or self-harm",
+        "Intense and inappropriate anger"
+      ],
+      "causes": [
+        "Genetics: A family history of BPD",
+        "Environmental factors: Childhood trauma, neglect, or abuse",
+        "Brain structure: Abnormalities in the areas of the brain responsible for regulating emotions"
+      ],
+      "treatment": "Borderline Personality Disorder is treated primarily through psychotherapy, with Dialectical Behavior Therapy (DBT) being the most effective approach. DBT helps individuals learn skills to manage emotions, improve relationships, and reduce self-harming behaviors. In some cases, medications such as mood stabilizers or antidepressants may be prescribed to help control mood swings and depression."
+    }
+  },
+  {
+    "title": "Geriatric Sleep Disorder",
+    "image": "https://diseases-content.s3.eu-west-1.amazonaws.com/spec00000021/Geriatric-Sleep-Disorder (1).jpg",
+    "content": {
+      "description": "Geriatric sleep disorders, especially insomnia, are common among older adults and often affect their overall health and well-being. Sleep difficulties in the elderly may be related to changes in the body’s internal clock, medical conditions, or medication use. These disorders can lead to poor quality of life and increase the risk of falls, cognitive decline, and depression.",
+      "symptoms": [
+        "Difficulty falling asleep",
+        "Frequent awakenings during the night",
+        "Daytime fatigue or sleepiness",
+        "Difficulty concentrating or memory problems",
+        "Restlessness or tossing and turning in bed"
+      ],
+      "causes": [
+        "Age-related changes in sleep patterns",
+        "Chronic health conditions (e.g., arthritis, diabetes)",
+        "Medications that affect sleep",
+        "Poor sleep hygiene"
+      ],
+      "treatment": "Treatment includes lifestyle changes, such as improving sleep hygiene, regular exercise, and avoiding caffeine and alcohol before bedtime. Cognitive behavioral therapy for insomnia (CBT-I) is a highly effective non-pharmacological treatment. In some cases, sleep medications or melatonin supplements may be prescribed, but they should be used with caution in older adults."
+    }
+  },
+  {
+    "title": "Lewy Body Dementia",
+    "image": "https://diseases-content.s3.eu-west-1.amazonaws.com/spec00000021/Lewy-Body-Dementia.jpg",
+    "content": {
+      "description": "Lewy Body Dementia (LBD) is a progressive neurological disorder caused by abnormal protein deposits called Lewy bodies in the brain. These deposits affect chemicals in the brain, leading to problems with thinking, movement, behavior, and mood. LBD is one of the most common types of dementia, often sharing characteristics with both Alzheimer’s and Parkinson’s diseases.",
+      "symptoms": [
+        "Visual hallucinations",
+        "Difficulty with concentration and attention",
+        "Sleep disturbances (e.g., acting out dreams)",
+        "Slowed movement, tremors, and stiffness",
+        "Memory problems and confusion"
+      ],
+      "causes": [
+        "Age: People over 60 are at higher risk",
+        "Genetics: A family history of dementia or Parkinson's disease",
+        "Brain changes: Abnormal protein deposits (Lewy bodies)"
+      ],
+      "treatment": "There is no cure for Lewy Body Dementia, but treatment focuses on managing symptoms. Medications such as cholinesterase inhibitors (used for Alzheimer’s) can help with cognitive symptoms. Parkinson’s medications like levodopa can be prescribed to improve movement issues. Supportive care from a team of specialists, including physical and occupational therapy, is essential."
+    }
+  }
+]

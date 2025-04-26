@@ -1,9 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import FAQs from "@app/content/FAQ's.json";
 import Heading from "@components/common/Heading";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocale } from "next-intl";
+import englishFAQs from "@app/content/FAQ/en.json";
+import arabicFAQs from "@app/content/FAQ/ar.json";
 
 interface Faq {
   question: string;
@@ -11,7 +13,11 @@ interface Faq {
 }
 
 const Faq: React.FC = () => {
+  const locale = useLocale();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  // Select the appropriate FAQ data based on the current locale
+  const FAQs = locale === "ar" ? arabicFAQs : englishFAQs;
 
   const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -24,7 +30,9 @@ const Faq: React.FC = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
       >
-        <Heading variant="secondary">Frequently Asked Questions</Heading>
+        <Heading variant="secondary">
+          {locale === "ar" ? "الأسئلة المتكررة" : "Frequently Asked Questions"}
+        </Heading>
       </motion.div>
       <div className="space-y-6">
         {FAQs.faqs.map((faq: Faq, index) => (

@@ -1,17 +1,23 @@
 "use client";
 import React, { useState } from "react";
-import productsData from "../../../content/products.json";
 import ProductImageSlider from "@components/products/ProductImageSlider";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import ProductsHeader from "@components/products/ProductsHeader";
-import Link from "next/link"; // Import Link for navigation
+import Link from "next/link";
 import { useCart } from "@hooks/useCart";
 import withAuth from "@components/auth/WithAuth";
+import englishProducts from "@app/content/products/en.json";
+import arabicProducts from "@app/content/products/ar.json";
+import { useLocale, useTranslations } from "use-intl";
 
 const ProductPage = ({ params }: { params: { id: string } }) => {
+  const t = useTranslations("Products"); // Initialize the translation hook
+  const locale = useLocale();
+  const productsData = locale === "ar" ? arabicProducts : englishProducts;
+
   const { products } = productsData;
   const product = products.find((p) => p.id === params.id);
   const [quantity, setQuantity] = useState(1); // State for quantity
@@ -20,7 +26,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
   if (!product) {
     return (
       <div className="text-center text-xl text-red-600 mt-10">
-        Product not found
+        {t("productNotFound", { defaultMessage: "Product not found" })}
       </div>
     );
   }
@@ -53,7 +59,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
 
             <div className="space-y-4">
               <h3 className="text-2xl font-semibold text-gray-800">
-                About this product:
+                {t("aboutProduct", { defaultMessage: "About this product:" })}
               </h3>
               <ul className="list-disc text-lg pl-5 space-y-2 text-gray-600">
                 {product.about.map((detail, index) => (
@@ -65,7 +71,9 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             {/* Quantity Dropdown and Add to Cart Button */}
             <div className="mt-6 flex items-center gap-4 justify-start">
               <div className="flex items-center gap-2">
-                <label className="text-gray-700 font-medium">Quantity:</label>
+                <label className="text-gray-700 font-medium">
+                  {t("quantity", { defaultMessage: "Quantity:" })}
+                </label>
                 <select
                   value={quantity}
                   onChange={(e) => setQuantity(Number(e.target.value))}
@@ -82,7 +90,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
                 className="px-6 py-3 bg-[#216862] text-white font-semibold rounded-lg hover:bg-[#205f5a] transition-colors"
                 onClick={handleAddToCart}
               >
-                Add to Cart
+                {t("addToCart")}
               </button>
             </div>
 
@@ -90,7 +98,7 @@ const ProductPage = ({ params }: { params: { id: string } }) => {
             <div className="mt-6 flex justify-end">
               <Link href="/cart">
                 <button className="px-6 py-3 bg-[#216862] text-white font-semibold rounded-lg hover:bg-[#205f5a] transition-colors">
-                  Go to Cart & Checkout
+                  {t("goToCart", { defaultMessage: "Go to Cart & Checkout" })}
                 </button>
               </Link>
             </div>

@@ -3,6 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@hooks/useCart";
+import { useTranslations } from "next-intl";
 
 type TProductProps = {
   product: {
@@ -14,6 +15,8 @@ type TProductProps = {
 };
 
 const Product = ({ product }: TProductProps) => {
+  const t = useTranslations("Products"); // Initialize the translation hook
+
   const { addItem } = useCart();
 
   const handleAddToCart = () => {
@@ -40,8 +43,8 @@ const Product = ({ product }: TProductProps) => {
           onClick={handleAddToCart}
           className="flex items-center justify-center w-full px-4 py-3 mt-6 text-white bg-[#216862] rounded-full hover:bg-[#205f5a]focus:outline-none focus:ring-4 focus:ring-[#3a7c8d] shadow-md transition-all duration-300"
         >
-          <FaShoppingCart className="mr-2 text-lg" />
-          Add to Cart
+          <FaShoppingCart className="me-2 text-lg transform rtl:scale-x-[-1]" />
+          {t("addToCart")}
         </button>
       </div>
     </div>

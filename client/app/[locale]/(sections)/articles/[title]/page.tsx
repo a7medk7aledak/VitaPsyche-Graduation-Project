@@ -1,9 +1,15 @@
 "use client";
 import { motion } from "framer-motion";
-import articles from "@app/content/articles.json";
+import articlesInEnglish from "@app/content/articles/en.json";
+import articlesInArabic from "@app/content/articles/ar.json";
 import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
 
 const ArticlePage = ({ params }: { params: { title: string } }) => {
+  const t = useTranslations("Articles"); // Initialize the translation hook
+  const locale = useLocale();
+  const articles = locale === "en" ? articlesInEnglish : articlesInArabic;
+
   // Decode the title from the URL (removing the encoding symbols )
   const decodedTitle = decodeURIComponent(params.title);
 
@@ -68,7 +74,7 @@ const ArticlePage = ({ params }: { params: { title: string } }) => {
             {/* Symptoms Section */}
             <div className="mb-12">
               <h2 className="text-3xl font-semibold text-teal-700 mb-4 border-b-2 pb-2">
-                Symptoms
+                {t("articles.symptoms")}
               </h2>
               <ul className="list-disc list-inside space-y-3">
                 {article.content.symptoms.map((symptom, indx) => (
@@ -82,7 +88,7 @@ const ArticlePage = ({ params }: { params: { title: string } }) => {
             {/* Causes Section */}
             <div className="mb-12">
               <h2 className="text-3xl font-semibold text-teal-700 mb-4 border-b-2 pb-2">
-                Causes
+                {t("articles.causes")}
               </h2>
               <ul className="list-disc list-inside space-y-3">
                 {article.content.causes.map((cause, indx) => (
@@ -96,7 +102,7 @@ const ArticlePage = ({ params }: { params: { title: string } }) => {
             {/* Treatment Section */}
             <div>
               <h2 className="text-3xl font-semibold text-teal-700 mb-4 border-b-2 pb-2">
-                Treatment
+                {t("articles.treatment")}
               </h2>
               <p className="leading-relaxed text-lg">
                 {article.content.treatment}

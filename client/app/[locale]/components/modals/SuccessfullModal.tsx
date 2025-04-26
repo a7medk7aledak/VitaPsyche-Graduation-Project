@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FaSpinner } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 interface SuccessfullModalProps {
   isOpen: boolean;
@@ -18,6 +19,7 @@ const SuccessfullModal: React.FC<SuccessfullModalProps> = ({
   message,
   isTransaction = true,
 }) => {
+  const t = useTranslations("checkout.modal");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -69,7 +71,7 @@ const SuccessfullModal: React.FC<SuccessfullModalProps> = ({
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              {isTransaction && "Processing your payment, please wait..."}
+              {isTransaction && t("processing")}
             </motion.p>
           </motion.div>
         ) : (
@@ -115,7 +117,7 @@ const SuccessfullModal: React.FC<SuccessfullModalProps> = ({
                 },
               }}
             >
-              {message || "Payment has been successfully completed. Thank you!"}
+              {message || t("defaultMessage")}
             </motion.h2>
 
             {/* Close Button Animation */}
@@ -129,7 +131,7 @@ const SuccessfullModal: React.FC<SuccessfullModalProps> = ({
                 onClick={onClose}
                 className="px-6 py-2 bg-subbutton text-white text-xl rounded-lg hover:bg-hoversubbutton transition-all"
               >
-                Close
+                {t("close")}
               </button>
             </motion.div>
           </>
