@@ -223,5 +223,258 @@
       "defaultMessage": "Payment has been successfully completed. Thank you!",
       "close": "Close"
     }
+  },
+  "signupDoctor": {
+    "hero": {
+      "title": "Join Vitapsyche now and make your own contribution",
+      "description": "Enjoy practicing psychotherapy online; now you can communicate with thousands of customers from all over the world privately. Join us with other psychiatrists and psychologists worldwide."
+    },
+    "cta": "join now as a therapist",
+    "offers": {
+      "title": "What Vitapsyche offers you",
+      "items": [
+        {
+          "title": "Online Sessions",
+          "description": "Availability to work from anywhere saving time, effort and cost."
+        },
+        {
+          "title": "Better Communication",
+          "description": "Availability to communicate with customers via a text chat or via a video call."
+        },
+        {
+          "title": "Private and Safe",
+          "description": "Vitapsyche is 100% private and secured."
+        },
+        {
+          "title": "Universal Therapy",
+          "description": "We serve clients from all over the world and you will get paid for both"
+        },
+        {
+          "title": "Client history",
+          "description": "Securely keep notes and medical reports for your clients"
+        },
+        {
+          "title": "Recorded Notes and tests",
+          "description": "Securely keep notes and medical reports for your clients"
+        }
+      ]
+    },
+    "steps": {
+      "title": "Hurry up and reserve your place with us",
+      "step1": "Click on join Vitapsyche now.",
+      "step2": "upload your own C.V.",
+      "step3": "Complete your profile",
+      "step4": "Add time slots to run sessions. Join now as a therapist"
+    }
+  },
+  "doctorForm1": {
+    "joinAsTherapist": "Join as a Therapist Form",
+    "requiredCriteria": "Required Criteria For Each Category:",
+    "clinicalPsychologists": {
+      "title": "For Clinical Psychologists:",
+      "requirements": [
+        "Master's of Science or Arts (MSc/MA) in Clinical Psychology.",
+        "Five Years of clinical experience",
+        "Proof of supervision document."
+      ]
+    },
+    "counselingPsychologists": {
+      "title": "For Counseling Psychologists:",
+      "requirements": [
+        "Masters of Science or Arts (MSc/MA) in Counseling Psychology.",
+        "Five years of counseling experience.",
+        "Proof of supervision document."
+      ]
+    },
+    "psychiatrists": {
+      "title": "For Psychiatrists:",
+      "requirements": [
+        "Graduation certificate.",
+        "Practice license.",
+        "Medical syndicate rank certificate.",
+        "Postgraduate certificate \"MSc or PhD\""
+      ]
+    },
+    "personalInformation": "Personal Information",
+    "formFields": {
+      "firstName": {
+        "label": "First Name",
+        "placeholder": "John",
+        "error": "first name (English) is required."
+      },
+      "lastName": {
+        "label": "Last Name",
+        "placeholder": "Doe",
+        "error": "last name (English) is required."
+      },
+      "fullNameArabic": {
+        "label": "Full Name (in Arabic)",
+        "placeholder": "جون دو",
+        "error": "Full name (Arabic) is required."
+      },
+      "prefix": {
+        "label": "Prefix",
+        "placeholder": "Dr, Ms, Mrs, Mr, Prof",
+        "error": "Prefix is required."
+      },
+      "email": {
+        "label": "Email Address",
+        "placeholder": "joe.doe@example.com",
+        "error": "Email is required.",
+        "invalidError": "Email format is invalid."
+      },
+      "phoneNumber": {
+        "label": "Phone Number",
+        "placeholder": "Enter phone number",
+        "error": "Phone number is required."
+      },
+      "username": {
+        "label": "Username",
+        "placeholder": "johndoe123",
+        "error": "Username is required."
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "********",
+        "error": "Password is required.",
+        "lengthError": "Password must be at least 8 characters long.",
+        "formatError": "Password must contain at least one letter, one number, and one special character."
+      },
+      "confirmPassword": {
+        "label": "Confirm Password",
+        "placeholder": "********",
+        "error": "Passwords do not match."
+      },
+      "birthDate": {
+        "label": "Date of Birth",
+        "error": "Date of birth is required."
+      },
+      "gender": {
+        "label": "Gender",
+        "placeholder": "Select Gender",
+        "options": {
+          "male": "Male",
+          "female": "Female",
+          "other": "Other"
+        },
+        "error": "Gender is required."
+      },
+      "nationality": {
+        "label": "Nationality",
+        "placeholder": "Select nationality",
+        "error": "Nationality is required."
+      },
+      "currentResidence": {
+        "label": "Country of Residence",
+        "placeholder": "Select country",
+        "error": "Country of residence is required."
+      },
+      "fluentLanguages": {
+        "label": "Fluent Languages",
+        "placeholder": "List languages you are fluent in",
+        "error": "At least one language must be selected."
+      }
+    },
+    "navigation": {
+      "pageIndicator": "1/3",
+      "next": "Next"
+    }
+  },
+  "doctorForm2": {
+    "title": "Educational Information",
+    "formFields": {
+      "highestDegree": {
+        "label": "Highest Degree Earned",
+        "placeholder": "Select your degree",
+        "options": {
+          "bachelors": "Bachelor's degree",
+          "masters": "Master's degree",
+          "doctoral": "Doctoral degree"
+        },
+        "error": "Degree is required."
+      },
+      "institutionName": {
+        "label": "Name of Institution",
+        "placeholder": "Enter the name of your institution",
+        "error": "Institution name is required."
+      },
+      "graduationYear": {
+        "label": "Year of Graduation",
+        "placeholder": "Enter your graduation year",
+        "error": "Graduation year is required.",
+        "rangeError": "Year must be between 1900 and {currentYear}."
+      }
+    },
+    "navigation": {
+      "back": "Back",
+      "next": "Next",
+      "pageIndicator": "2/3"
+    }
+  },
+  "fileUpload": {
+    "dragAndDrop": "Drag and drop your file here",
+    "or": "or",
+    "browseFile": "Browse File",
+    "fileSizeError": "File size must be between {min} KB and {max} MB.",
+    "selectedFile": "Selected File:"
+  },
+  "doctorForm3": {
+    "professionalInformation": "Professional Information",
+    "category": "Category",
+    "selectCategory": "Select Category",
+    "psychiatrist": "Psychiatrist",
+    "clinicalPsychologist": "Clinical Psychologist",
+    "counselingPsychologist": "Counseling Psychologist",
+    "specialization": "Specialization",
+    "selectSpecialization": "Select Specialization",
+    "yearsOfExperience": "Total Years Of Professional Experience",
+    "licenseNumber": "License Number (If applicable)",
+    "ifApplicable": "if applicable",
+    "licensingOrganization": "Licensing Organization",
+    "workingInClinic": "Working in a clinic",
+    "select": "select",
+    "yes": "Yes",
+    "no": "No",
+    "clinicName": "Clinic Name",
+    "ifWorkingInClinic": "if you are working in a clinic",
+    "availabilityForSessions": "Availability for Sessions",
+    "selectAvailability": "Select availability",
+    "uploadCv": "Upload CV",
+    "uploadQualifications": "Upload Professional qualifications and educational certifications",
+    "haveMultipleQualifications": "Do You Have More than One professional qualifications certifications",
+    "ifMultipleQualifications": "If you possess multiple professional qualifications",
+    "back": "Back",
+    "submit": "Submit",
+    "loading": "loading...",
+    "registrationSuccess": "Registration completed successfully! 🎉\nYou can now sign in using your credentials to access your doctor dashboard.",
+    "specializations": {
+      "Depression": "Depression",
+      "Addiction": "Addiction",
+      "Psychosis": "Psychosis",
+      "Personality disorders": "Personality disorders",
+      "Adjustment disorders": "Adjustment disorders",
+      "Anxiety": "Anxiety",
+      "Eating disorders": "Eating disorders",
+      "Sexual disorders": "Sexual disorders",
+      "Posttraumatic stress disorder": "Posttraumatic stress disorder",
+      "Bipolar disorder": "Bipolar disorder",
+      "Attention deficit hyperactivity": "Attention deficit hyperactivity",
+      "Obsessive-compulsive": "Obsessive-compulsive",
+      "schizophrenia": "schizophrenia",
+      "Marriage counseling": "Marriage counseling",
+      "Behavioral and emotional disorders in children": "Behavioral and emotional disorders in children"
+    },
+    "errors": {
+      "categoryRequired": "Category is required",
+      "specializationRequired": "Specialization is required",
+      "yearsOfExperienceRequired": "Years of experience is required",
+      "workingInClinicRequired": "Please select if you are working in a clinic or not",
+      "clinicNameRequired": "Clinic name is required if you have selected yes",
+      "availabilityRequired": "Availability for sessions is required",
+      "cvRequired": "CV upload is required",
+      "certificationsRequired": "Certifications upload is required",
+      "multipleQualificationsRequired": "Please specify if you have multiple qualifications",
+      "additionalQualificationsRequired": "Additional qualifications must be uploaded if you have selected yes"
+    }
   }
 }

@@ -14,7 +14,7 @@ interface ChatInputProps {
   language: string;
   setIsHistoryVisible: (visible: boolean) => void;
   onMessageSent: (message: Message) => void;
-  setIsLoading: (loading: boolean) => void; // Add this
+  setIsLoading?: (loading: boolean) => void; // Add this
 }
 export const ChatInput: React.FC<ChatInputProps> = ({
   input,

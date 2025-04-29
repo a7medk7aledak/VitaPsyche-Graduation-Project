@@ -1,5 +1,5 @@
 "use client";
-import { offers } from "@app/constants/offers";
+import { offers } from "@app/constants/offers"; // Make sure to update this import if needed
 import Button from "@components/common/Button";
 import Footer from "@components/common/Footer";
 import Heading from "@components/common/Heading";
@@ -8,8 +8,11 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const SignupDoctor = () => {
+  const t = useTranslations("signupDoctor");
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 50 },
     visible: {
@@ -59,7 +62,7 @@ const SignupDoctor = () => {
 
         {/* Content */}
         <motion.div
-          className="pt-10 md:pt-80 text-center md:text-left pl-2 md:pl-0 lg:w-[38%]"
+          className="pt-10 md:pt-80 text-center md:text-start pl-2 md:pl-0 lg:w-[38%]"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -73,12 +76,10 @@ const SignupDoctor = () => {
             className="md:hidden mx-auto mb-4"
           />
           <h4 className="text-maintext text-3xl tracking-wide px-4 font-bold mb-5">
-            Join Vitapsyche now and make your own contribution
+            {t("hero.title")}
           </h4>
           <p className="font-medium text-lg text-[#10143B] mb-20 px-4 tracking-wide">
-            Enjoy practicing psychotherapy online; now you can communicate with
-            thousands of customers from all over the world privately. Join us
-            with other psychiatrists and psychologists worldwide.
+            {t("hero.description")}
           </p>
         </motion.div>
 
@@ -93,7 +94,7 @@ const SignupDoctor = () => {
             variants={scaleIn}
           >
             <Button variant="secondary" size="extraLarge" roundedValue="full">
-              join now as a therapist
+              {t("cta")}
             </Button>
           </motion.div>
         </Link>
@@ -102,7 +103,7 @@ const SignupDoctor = () => {
       {/* Offers Section */}
       <section className="bg-[#daf4f1]">
         <div className="container mx-auto">
-          <Heading variant="secondary">What Vitapsyche offers you</Heading>
+          <Heading variant="secondary">{t("offers.title")}</Heading>
           <motion.div
             className="grid gap-y-8 md:gap-x-10 lg:gap-x-20 md:grid-cols-2 lg:grid-cols-3 justify-items-center"
             initial="hidden"
@@ -116,7 +117,7 @@ const SignupDoctor = () => {
                 className="w-[350px] h-[250px] flex flex-col items-center justify-center border border-gray-200 p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 bg-backgroundcolor"
                 variants={fadeInUp}
               >
-                <div className="flex items-center space-x-3 mb-4">
+                <div className="flex items-center space-x-3 rtl:space-x-reverse mb-4">
                   <Image
                     src={offer.img}
                     width={90}
@@ -126,11 +127,11 @@ const SignupDoctor = () => {
                     className="w-auto"
                   />
                   <h4 className="text-maintext text-xl font-bold tracking-wide">
-                    {offer.title}
+                    {t(offer.titleKey)}
                   </h4>
                 </div>
                 <p className="text-lg text-center leading-relaxed">
-                  {offer.description}
+                  {t(offer.descriptionKey)}
                 </p>
               </motion.div>
             ))}
@@ -142,9 +143,7 @@ const SignupDoctor = () => {
       <section className="bg-[#daf4f1]">
         <div className="container mx-auto">
           <div className="px-4">
-            <Heading variant="secondary">
-              Hurry up and reserve your place with us
-            </Heading>
+            <Heading variant="secondary">{t("steps.title")}</Heading>
           </div>
 
           <motion.div
@@ -155,7 +154,7 @@ const SignupDoctor = () => {
             variants={fadeInUp}
           >
             {/* steps */}
-            <div className="absolute -left-[150px] md:-left-[97px] bottom-full translate-y-1/2 md:translate-y-0 md:bottom-[-50px] flex w-[350px] md:w-auto md:flex-col space-x-4 md:space-x-0 md:space-y-4 items-center justify-center">
+            <div className="absolute -start-[150px] md:-start-[97px] rtl:md:-start-[110px] bottom-full translate-y-1/2 md:translate-y-0 md:bottom-[-50px] flex w-[350px] md:w-auto md:flex-col space-x-4 rtl:space-x-reverse md:space-x-0 md:space-y-4 items-center justify-center">
               <Image
                 src={"/images/signup-doctor/join-step.png"}
                 width={60}
@@ -167,10 +166,10 @@ const SignupDoctor = () => {
                 1
               </div>
               <p className="font-medium w-[100px] md:w-auto">
-                Click on join Vitapsyche now.
+                {t("steps.step1")}
               </p>
             </div>
-            <div className="absolute -left-[150px] md:left-[25%] bottom-[60%]  md:bottom-[-50px] flex w-[350px] md:w-auto md:flex-col space-x-4 md:space-x-0 md:space-y-4 items-center justify-center">
+            <div className="absolute -start-[150px] md:start-[25%] bottom-[60%]  md:bottom-[-50px] flex w-[350px] md:w-auto md:flex-col space-x-4 rtl:space-x-reverse md:space-x-0 md:space-y-4 items-center justify-center">
               <Image
                 src={"/images/signup-doctor/cv.png"}
                 width={60}
@@ -182,10 +181,10 @@ const SignupDoctor = () => {
                 2
               </div>
               <p className="font-medium w-[100px] md:w-auto">
-                upload your own C.V.
+                {t("steps.step2")}
               </p>
             </div>
-            <div className="absolute -left-[150px] md:left-[60%] bottom-[25%] md:-bottom-[50px] flex w-[350px] md:w-auto md:flex-col space-x-4 md:space-x-0 md:space-y-4 items-center justify-center">
+            <div className="absolute -start-[150px] md:start-[60%] bottom-[25%] md:-bottom-[50px] flex w-[350px] md:w-auto md:flex-col space-x-4 rtl:space-x-reverse md:space-x-0 md:space-y-4 items-center justify-center">
               <Image
                 src={"/images/signup-doctor/profile.png"}
                 width={60}
@@ -197,10 +196,10 @@ const SignupDoctor = () => {
                 3
               </div>
               <p className="font-medium w-[100px] md:w-auto">
-                Complete your profile
+                {t("steps.step3")}
               </p>
             </div>
-            <div className="absolute -left-[150px]  md:left-[100%] md:-translate-x-1/2 bottom-0 translate-y-1/2 md:translate-y-0 md:-bottom-[99px] flex w-[350px] md:w-auto md:flex-col space-x-4 md:space-x-0 md:space-y-4 items-center justify-center">
+            <div className="absolute -start-[150px]  md:start-[100%] md:-translate-x-1/2 rtl:md:translate-x-1/2 bottom-0 translate-y-1/2 md:translate-y-0 md:-bottom-[99px] rtl:md:-bottom-[75px] flex w-[350px] md:w-auto md:flex-col space-x-4 rtl:space-x-reverse md:space-x-0 md:space-y-4 items-center justify-center">
               <Image
                 src={"/images/signup-doctor/calendar.png"}
                 width={60}
@@ -212,10 +211,10 @@ const SignupDoctor = () => {
                 4
               </div>
               <p className="text-center font-medium w-[100px] md:w-[200px] ">
-                Add time slots to run sessions. Join now as a therapist
+                {t("steps.step4")}
               </p>
             </div>
-            {/* steps */}{" "}
+            {/* steps */}
           </motion.div>
 
           <Link
@@ -229,7 +228,7 @@ const SignupDoctor = () => {
               variants={scaleIn}
             >
               <Button variant="secondary" size="extraLarge" roundedValue="full">
-                join now as a therapist
+                {t("cta")}
               </Button>
             </motion.div>
           </Link>

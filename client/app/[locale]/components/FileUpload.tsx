@@ -1,6 +1,7 @@
 import { useState, ChangeEvent, DragEvent } from "react";
 import { FiX } from "react-icons/fi";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 interface FileUploadProps {
   label: string;
@@ -15,6 +16,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   onFileChange,
   existingFile,
 }) => {
+  const t = useTranslations("fileUpload");
   const minSize = 1024; // 1 KB
   const maxSize = 5242880; // 5 MB
 
@@ -29,9 +31,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       if (fileSize < minSize || fileSize > maxSize) {
         // File size is invalid
         setError(
-          `File size must be between ${minSize / 1024} KB and ${
-            maxSize / 1048576
-          } MB.`
+          t("fileSizeError", {
+            min: minSize / 1024,
+            max: maxSize / 1048576,
+          })
         );
         setFile(null); // Clear file if invalid size
       } else {
@@ -52,9 +55,10 @@ export const FileUpload: React.FC<FileUploadProps> = ({
       if (fileSize < minSize || fileSize > maxSize) {
         // File size is invalid
         setError(
-          `File size must be between ${minSize / 1024} KB and ${
-            maxSize / 1048576
-          } MB.`
+          t("fileSizeError", {
+            min: minSize / 1024,
+            max: maxSize / 1048576,
+          })
         );
         setFile(null); // Clear file if invalid size
       } else {
@@ -96,7 +100,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          Drag and drop your file here
+          {t("dragAndDrop")}
         </motion.p>
 
         <motion.p
@@ -105,7 +109,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          or
+          {t("or")}
         </motion.p>
 
         <motion.label
@@ -114,7 +118,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           animate={{ scale: 1 }}
           transition={{ duration: 0.3 }}
         >
-          Browse File
+          {t("browseFile")}
           <input
             type="file"
             className="hidden"
@@ -142,7 +146,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <h4 className="text-md font-semibold">Selected File:</h4>
+          <h4 className="text-md font-semibold">{t("selectedFile")}</h4>
           <motion.p
             className="flex items-center gap-x-2"
             initial={{ opacity: 0 }}
@@ -153,6 +157,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             <span
               onClick={() => {
                 setFile(null);
+                onFileChange(null);
                 setError(""); // Clear error when removing file
               }}
             >

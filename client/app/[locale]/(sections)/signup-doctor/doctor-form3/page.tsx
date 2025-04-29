@@ -8,10 +8,11 @@ import React from "react";
 import { TFormErrors } from "@myTypes/FormDoctor";
 import { useRouter } from "next/navigation";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
-import { setFormData, setShowModal } from "@store/authDoctor/authDoctorSlice"; // import setFormData action
+import { setFormData, setShowModal } from "@store/authDoctor/authDoctorSlice";
 import { RootState, useAppDispatch } from "@store/store";
 import { actAuthDoctorRegister } from "@store/authDoctor/act/actAuthDoctorRegister";
 import { useSelector } from "react-redux";
+import { useTranslations } from "next-intl";
 
 const categories = [
   "Depression",
@@ -32,6 +33,7 @@ const categories = [
 ];
 
 const DoctorForm3 = () => {
+  const t = useTranslations("doctorForm3");
   const router = useRouter();
   const dispatch = useAppDispatch();
   const formData = useSelector((state: RootState) => state.doctorForm.formData); // Get the current form data from Redux
@@ -60,35 +62,35 @@ const DoctorForm3 = () => {
   const validateForm = () => {
     const errors: TFormErrors = {};
 
-    if (!formData.category) errors.category = "Category is required.";
+    if (!formData.category) errors.category = t("errors.categoryRequired");
     if (!formData.specialization)
-      errors.specialization = "Specialization is required.";
+      errors.specialization = t("errors.specializationRequired");
     if (!formData.years_of_experience)
-      errors.years_of_experience = "Years of experience is required.";
+      errors.years_of_experience = t("errors.yearsOfExperienceRequired");
 
     if (!workingInClinic)
-      errors.workingInClinic =
-        "Please select if you are working in a clinic or not.";
+      errors.workingInClinic = t("errors.workingInClinicRequired");
     if (workingInClinic === "yes" && !formData.clinic_name)
-      errors.clinic_name = "Clinic name is required if you have selected yes.";
+      errors.clinic_name = t("errors.clinicNameRequired");
 
     if (!formData.availability_for_sessions)
-      errors.availability_for_sessions =
-        "Availability for sessions is required.";
+      errors.availability_for_sessions = t("errors.availabilityRequired");
 
-    if (!formData.cv) errors.cv = "CV upload is required.";
+    if (!formData.cv) errors.cv = t("errors.cvRequired");
     if (!formData.certifications)
-      errors.certifications = "Certifications upload is required.";
+      errors.certifications = t("errors.certificationsRequired");
 
     if (!multipleQualifications)
-      errors.multipleQualifications =
-        "Please specify if you have multiple qualifications.";
+      errors.multipleQualifications = t(
+        "errors.multipleQualificationsRequired"
+      );
     if (
       multipleQualifications === "yes" &&
       (!formData.another_qualification1 || !formData.another_qualification2)
     ) {
-      errors.additionalQualifications =
-        "Additional qualifications must be uploaded if you have selected yes.";
+      errors.additionalQualifications = t(
+        "errors.additionalQualificationsRequired"
+      );
     }
 
     return errors;
@@ -99,7 +101,6 @@ const DoctorForm3 = () => {
 
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-
       const {
         username,
         first_name,
@@ -178,7 +179,7 @@ const DoctorForm3 = () => {
 
   return (
     <>
-      {/* personal information section */}
+      {/* professional information section */}
       <motion.div
         className="relative py-10 px-8 md:px-0"
         initial="hidden"
@@ -195,7 +196,7 @@ const DoctorForm3 = () => {
             transition={{ duration: 0.6 }}
           >
             {" "}
-            Professional Information
+            {t("professionalInformation")}
           </motion.h5>
 
           {/* formData */}
@@ -212,7 +213,7 @@ const DoctorForm3 = () => {
               variants={formVariants}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Category
+                {t("category")}
               </label>
               <select
                 name="category"
@@ -221,14 +222,14 @@ const DoctorForm3 = () => {
                 onChange={handleInputChange}
               >
                 <option value="" disabled>
-                  Select Category
+                  {t("selectCategory")}
                 </option>
-                <option value="psychiatrist">Psychiatrist</option>
+                <option value="psychiatrist">{t("psychiatrist")}</option>
                 <option value="clinical_psychologist">
-                  Clinical Psychologist
+                  {t("clinicalPsychologist")}
                 </option>
                 <option value="counseling_psychologist">
-                  Counseling Psychologist
+                  {t("counselingPsychologist")}
                 </option>
               </select>
               {errors.category && (
@@ -242,7 +243,7 @@ const DoctorForm3 = () => {
               variants={formVariants}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Specialization
+                {t("specialization")}
               </label>
               <select
                 name="specialization"
@@ -251,11 +252,11 @@ const DoctorForm3 = () => {
                 onChange={handleInputChange}
               >
                 <option value="" disabled>
-                  Select Specialization
+                  {t("selectSpecialization")}
                 </option>
                 {categories.map((cat, index) => (
                   <option value={cat} key={index}>
-                    {cat}
+                    {t(`specializations.${cat}`)}
                   </option>
                 ))}
               </select>
@@ -269,7 +270,7 @@ const DoctorForm3 = () => {
               variants={formVariants}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Total Years Of Professional Experience{" "}
+                {t("yearsOfExperience")}
               </label>
 
               <input
@@ -292,11 +293,11 @@ const DoctorForm3 = () => {
               variants={formVariants}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                License Number (If applicable)
+                {t("licenseNumber")}
               </label>
               <input
                 name="licenseNumber"
-                placeholder="if applicable"
+                placeholder={t("ifApplicable")}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 value={formData.licenseNumber || ""}
                 onChange={handleInputChange}
@@ -309,7 +310,7 @@ const DoctorForm3 = () => {
               variants={formVariants}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                licensing Organization{" "}
+                {t("licensingOrganization")}
               </label>
               <input
                 name="licensingOrganization"
@@ -325,7 +326,7 @@ const DoctorForm3 = () => {
               variants={formVariants}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Working in a clinic
+                {t("workingInClinic")}
               </label>
               <select
                 name="workingInClinic"
@@ -338,10 +339,10 @@ const DoctorForm3 = () => {
                 }}
               >
                 <option value="" disabled>
-                  select
+                  {t("select")}
                 </option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="yes">{t("yes")}</option>
+                <option value="no">{t("no")}</option>
               </select>
               {errors.workingInClinic && (
                 <p className="text-red-500 text-sm">{errors.workingInClinic}</p>
@@ -358,12 +359,12 @@ const DoctorForm3 = () => {
                 transition={{ duration: 0.4 }}
               >
                 <label className="text-xl font-medium text-[#1e256c]">
-                  Clinic Name
+                  {t("clinicName")}
                 </label>
                 <input
                   name="clinic_name"
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 transition duration-200"
-                  placeholder="if you are working in a clinic"
+                  placeholder={t("ifWorkingInClinic")}
                   value={formData.clinic_name || ""}
                   onChange={handleInputChange}
                 />
@@ -379,7 +380,7 @@ const DoctorForm3 = () => {
               variants={formVariants}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Availability for Sessions
+                {t("availabilityForSessions")}
               </label>
               <select
                 name="availability_for_sessions"
@@ -388,10 +389,10 @@ const DoctorForm3 = () => {
                 onChange={handleInputChange}
               >
                 <option value="" disabled>
-                  Select availability
+                  {t("selectAvailability")}
                 </option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
+                <option value="true">{t("yes")}</option>
+                <option value="false">{t("no")}</option>
               </select>
               {errors.availability_for_sessions && (
                 <p className="text-red-500 text-sm">
@@ -404,7 +405,7 @@ const DoctorForm3 = () => {
             <div>
               <FileUpload
                 existingFile={formData.cv}
-                label="Upload Cv"
+                label={t("uploadCv")}
                 acceptedFileTypes=".pdf,.doc,.docx"
                 onFileChange={(file) => handleFileChange("cv", file)}
               />
@@ -416,7 +417,7 @@ const DoctorForm3 = () => {
             <div>
               <FileUpload
                 existingFile={formData.certifications}
-                label="Upload Professional qualifications and educational certifications"
+                label={t("uploadQualifications")}
                 acceptedFileTypes=".pdf,.doc,.docx"
                 onFileChange={(file) =>
                   handleFileChange("certifications", file)
@@ -434,8 +435,7 @@ const DoctorForm3 = () => {
               variants={formVariants}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Do You Have More than One professional qualifications
-                certifications
+                {t("haveMultipleQualifications")}
               </label>
               <select
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
@@ -443,10 +443,10 @@ const DoctorForm3 = () => {
                 onChange={(e) => setMultipleQualifications(e.target.value)}
               >
                 <option value="" disabled>
-                  select
+                  {t("select")}
                 </option>
-                <option value="yes">Yes</option>
-                <option value="no">No</option>
+                <option value="yes">{t("yes")}</option>
+                <option value="no">{t("no")}</option>
               </select>{" "}
               {errors.multipleQualifications && (
                 <p className="text-red-500 text-sm">
@@ -460,7 +460,7 @@ const DoctorForm3 = () => {
               <div>
                 <FileUpload
                   existingFile={formData.another_qualification1 || null}
-                  label="If you possess multiple professional qualifications."
+                  label={t("ifMultipleQualifications")}
                   acceptedFileTypes=".pdf,.doc,.docx"
                   onFileChange={(file) =>
                     handleFileChange("another_qualification1", file)
@@ -494,7 +494,7 @@ const DoctorForm3 = () => {
                 }}
               >
                 <Button variant="primary" size="large" roundedValue="full">
-                  Back
+                  {t("back")}
                 </Button>
               </motion.div>
 
@@ -516,7 +516,7 @@ const DoctorForm3 = () => {
                 onClick={handleSubmit}
               >
                 <Button variant="secondary" size="large" roundedValue="full">
-                  {status == "pending" ? "loading..." : "submit"}
+                  {status == "pending" ? t("loading") : t("submit")}
                 </Button>
               </motion.div>
             </div>
@@ -529,14 +529,7 @@ const DoctorForm3 = () => {
         isOpen={showModal}
         onClose={closeModalHandler}
         img="/images/signup-doctor/submissionModal.png"
-        message={
-          <>
-            Registration completed successfully! 🎉
-            <br />
-            You can now sign in using your credentials to access your doctor
-            dashboard.
-          </>
-        }
+        message={t("registrationSuccess")}
         isTransaction={false}
       />
     </>

@@ -7,6 +7,7 @@ import { setFormData } from "@store/authDoctor/authDoctorSlice"; // Redux action
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { RootState } from "@store/store";
+import { useTranslations } from "next-intl";
 
 const DoctorForm2 = () => {
   const router = useRouter();
@@ -14,20 +15,26 @@ const DoctorForm2 = () => {
   const formData = useSelector((state: RootState) => state.doctorForm.formData);
   const [errors, setErrors] = useState<TFormErrors>({});
 
+  // Load translations
+  const t = useTranslations("doctorForm2");
+
   const validateForm = () => {
     const errors: TFormErrors = {};
     const currentYear = new Date().getFullYear();
 
-    if (!formData.highestDegree) errors.highestDegree = "Degree is required.";
+    if (!formData.highestDegree)
+      errors.highestDegree = t("formFields.highestDegree.error");
     if (!formData.institutionName)
-      errors.institutionName = "Institution name is required.";
+      errors.institutionName = t("formFields.institutionName.error");
     if (!formData.graduationYear) {
-      errors.graduationYear = "Graduation year is required.";
+      errors.graduationYear = t("formFields.graduationYear.error");
     } else if (
       formData.graduationYear < 1900 ||
       formData.graduationYear > currentYear
     ) {
-      errors.graduationYear = `Year must be between 1900 and ${currentYear}.`;
+      errors.graduationYear = t("formFields.graduationYear.rangeError", {
+        currentYear,
+      });
     }
 
     return errors;
@@ -59,7 +66,7 @@ const DoctorForm2 = () => {
       >
         <div className="container mx-auto">
           <h5 className="text-maintext text-3xl font-medium mb-7 text-center">
-            Educational Information
+            {t("title")}
           </h5>
 
           <motion.form
@@ -75,7 +82,7 @@ const DoctorForm2 = () => {
               transition={{ duration: 0.4, ease: "easeOut" }}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Highest Degree Earned
+                {t("formFields.highestDegree.label")}
               </label>
               <select
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
@@ -85,14 +92,22 @@ const DoctorForm2 = () => {
                 }
               >
                 <option value="" disabled>
-                  Select your degree
+                  {t("formFields.highestDegree.placeholder")}
                 </option>
-                <option value="Bachelors">Bachelor&apos;s degree</option>
-                <option value="Masters">Master&apos;s degree</option>
-                <option value="Doctoral">Doctoral degree</option>
+                <option value="Bachelors">
+                  {t("formFields.highestDegree.options.bachelors")}
+                </option>
+                <option value="Masters">
+                  {t("formFields.highestDegree.options.masters")}
+                </option>
+                <option value="Doctoral">
+                  {t("formFields.highestDegree.options.doctoral")}
+                </option>
               </select>
               {errors.highestDegree && (
-                <p className="text-red-500">{errors.highestDegree}</p>
+                <p className="text-red-500 text-start">
+                  {errors.highestDegree}
+                </p>
               )}
             </motion.div>
 
@@ -103,18 +118,20 @@ const DoctorForm2 = () => {
               transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Name of Institution
+                {t("formFields.institutionName.label")}
               </label>
               <input
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                placeholder="Enter the name of your institution"
+                placeholder={t("formFields.institutionName.placeholder")}
                 value={formData.institutionName || ""}
                 onChange={(e) =>
                   dispatch(setFormData({ institutionName: e.target.value }))
                 }
               />
               {errors.institutionName && (
-                <p className="text-red-500">{errors.institutionName}</p>
+                <p className="text-red-500 rtl:text-right ltr:text-left">
+                  {errors.institutionName}
+                </p>
               )}
             </motion.div>
 
@@ -129,14 +146,14 @@ const DoctorForm2 = () => {
               }}
             >
               <label className="text-xl font-medium text-[#1e256c]">
-                Year of Graduation
+                {t("formFields.graduationYear.label")}
               </label>
               <input
                 type="number"
                 min="1900"
                 max={new Date().getFullYear()}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                placeholder="Enter your graduation year"
+                placeholder={t("formFields.graduationYear.placeholder")}
                 value={formData.graduationYear || ""}
                 onChange={(e) =>
                   dispatch(
@@ -149,7 +166,9 @@ const DoctorForm2 = () => {
                 }
               />
               {errors.graduationYear && (
-                <p className="text-red-500">{errors.graduationYear}</p>
+                <p className="text-red-500 rtl:text-right ltr:text-left">
+                  {errors.graduationYear}
+                </p>
               )}
             </motion.div>
 
@@ -164,7 +183,7 @@ const DoctorForm2 = () => {
                 }}
               >
                 <Button variant="primary" size="large" roundedValue="full">
-                  Back
+                  {t("navigation.back")}
                 </Button>
               </motion.div>
 
@@ -174,7 +193,7 @@ const DoctorForm2 = () => {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
               >
-                2/3
+                {t("navigation.pageIndicator")}
               </motion.span>
 
               <motion.div
@@ -184,7 +203,7 @@ const DoctorForm2 = () => {
                 onClick={handleNextClick}
               >
                 <Button variant="secondary" size="large" roundedValue="full">
-                  Next
+                  {t("navigation.next")}
                 </Button>
               </motion.div>
             </div>

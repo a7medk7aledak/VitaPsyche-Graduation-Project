@@ -1,48 +1,45 @@
 type TOffers = {
   img: string;
   alt: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
 }[];
 
 export const offers: TOffers = [
   {
     img: "/images/signup-doctor/online-sessions.png",
     alt: "online-sessions.png",
-    title: "Online Sessions",
-    description:
-      "Availability to work from anywhere saving time, effort and cost.",
+    titleKey: "offers.items.0.title",
+    descriptionKey: "offers.items.0.description",
   },
   {
     img: "/images/signup-doctor/communication.png",
     alt: "communication.png",
-    title: "Better Communication",
-    description:
-      "Availability to communicate with customers via a text chat or via a video call.",
+    titleKey: "offers.items.1.title",
+    descriptionKey: "offers.items.1.description",
   },
   {
     img: "/images/signup-doctor/safe.png",
     alt: "safe.png",
-    title: "Private and Safe",
-    description: "Vitapsyche is 100% private and secured.",
+    titleKey: "offers.items.2.title",
+    descriptionKey: "offers.items.2.description",
   },
   {
     img: "/images/signup-doctor/universal.png",
     alt: "universal.png",
-    title: "Universal Therapy",
-    description:
-      "We serve clients from all over the world and you will get paid for both",
+    titleKey: "offers.items.3.title",
+    descriptionKey: "offers.items.3.description",
   },
   {
     img: "/images/signup-doctor/history.png",
     alt: "history.png",
-    title: "Client history",
-    description: "Securely keep notes and medical reports for your clients",
+    titleKey: "offers.items.4.title",
+    descriptionKey: "offers.items.4.description",
   },
   {
     img: "/images/signup-doctor/tests.png",
     alt: "tests.png",
-    title: "Recorded Notes and tests",
-    description: "Securely keep notes and medical reports for your clients",
+    titleKey: "offers.items.5.title",
+    descriptionKey: "offers.items.5.description",
   },
 ];

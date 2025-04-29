@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslations } from "next-intl";
 
 import { countries } from "@app/constants/countries";
 import Button from "@components/common/Button";
@@ -20,6 +21,7 @@ import { RootState } from "@store/store";
 import { setFormData, setLanguages } from "@store/authDoctor/authDoctorSlice";
 
 const DoctorForm1 = () => {
+  const t = useTranslations("doctorForm1");
   const dispatch = useDispatch();
   const formData = useSelector((state: RootState) => state.doctorForm.formData);
   const router = useRouter();
@@ -45,44 +47,44 @@ const DoctorForm1 = () => {
     const errors: TFormErrors = {};
     const regexEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const regexPassword =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/; // Password regex (min 8 chars, 1 letter, 1 number, 1 special char)
+      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
     if (!formData.first_name)
-      errors.first_name = "first name (English) is required.";
-    if (!formData.last_name)
-      errors.last_name = "last name (English) is required.";
+      errors.first_name = t("formFields.firstName.error");
+    if (!formData.last_name) errors.last_name = t("formFields.lastName.error");
     if (!formData.full_name_arabic)
-      errors.full_name_arabic = "Full name (Arabic) is required.";
-    if (!formData.prefix) errors.prefix = "Prefix is required.";
+      errors.full_name_arabic = t("formFields.fullNameArabic.error");
+    if (!formData.prefix) errors.prefix = t("formFields.prefix.error");
     if (!formData.email) {
-      errors.email = "Email is required.";
+      errors.email = t("formFields.email.error");
     } else if (!regexEmail.test(formData.email)) {
-      errors.email = "Email format is invalid.";
+      errors.email = t("formFields.email.invalidError");
     }
     if (!formData.phone_number)
-      errors.phone_number = "Phone number is required.";
-    if (!formData.username) errors.username = "Username is required.";
+      errors.phone_number = t("formFields.phoneNumber.error");
+    if (!formData.username) errors.username = t("formFields.username.error");
 
     // Password validation
     if (!formData.password) {
-      errors.password = "Password is required.";
+      errors.password = t("formFields.password.error");
     } else if (formData.password.length < 8) {
-      errors.password = "Password must be at least 8 characters long.";
+      errors.password = t("formFields.password.lengthError");
     } else if (!regexPassword.test(formData.password)) {
-      errors.password =
-        "Password must contain at least one letter, one number, and one special character.";
+      errors.password = t("formFields.password.formatError");
     }
 
     if (formData.password !== formData.password2)
-      errors.password2 = "Passwords do not match.";
+      errors.password2 = t("formFields.confirmPassword.error");
 
-    if (!formData.birth_date) errors.birth_date = "Date of birth is required.";
-    if (!formData.gender) errors.gender = "Gender is required.";
-    if (!formData.nationality) errors.nationality = "Nationality is required.";
+    if (!formData.birth_date)
+      errors.birth_date = t("formFields.birthDate.error");
+    if (!formData.gender) errors.gender = t("formFields.gender.error");
+    if (!formData.nationality)
+      errors.nationality = t("formFields.nationality.error");
     if (!formData.current_residence)
-      errors.current_residence = "Country of residence is required.";
+      errors.current_residence = t("formFields.currentResidence.error");
     if (!formData.fluent_languages.length)
-      errors.fluent_languages = "At least one language must be selected.";
+      errors.fluent_languages = t("formFields.fluentLanguages.error");
 
     return errors;
   };
@@ -110,8 +112,8 @@ const DoctorForm1 = () => {
         <div className="container mx-auto">
           <div className="-mb-10">
             <Heading variant="secondary">
-              Join as a Therapist Form{" "}
-              <hr className="w-full absolute left-0 border-1 border-slate-500 mt-7 " />
+              {t("joinAsTherapist")}
+              <hr className="w-full absolute start-0 border-1 border-slate-500 mt-7 " />
             </Heading>
           </div>
           {/* content */}
@@ -141,44 +143,45 @@ const DoctorForm1 = () => {
             >
               {" "}
               <h5 className="text-maintext text-3xl font-medium mb-3">
-                Required Criteria For Each Category:
+                {t("requiredCriteria")}
               </h5>
               {/* the lists */}
               <div className="space-y-4">
                 {/* list-1 */}
                 <div>
-                  <h4 className="text-2xl mb-2">For Clinical Psychologists:</h4>
-                  <ul className="list-decimal ml-8 space-y-1 text-xl">
-                    <li>
-                      Master&apos;s of Science or Arts (MSc/MA) in Clinical
-                      Psychology.
-                    </li>
-                    <li>Five Years of clinical experience</li>
-                    <li>Proof of supervision document.</li>
+                  <h4 className="text-2xl mb-2">
+                    {t("clinicalPsychologists.title")}
+                  </h4>
+                  <ul className="list-decimal ms-8 space-y-1 text-xl">
+                    {t
+                      .raw("clinicalPsychologists.requirements")
+                      .map((requirement: string, index: number) => (
+                        <li key={index}>{requirement}</li>
+                      ))}
                   </ul>
                 </div>
                 {/* list-2 */}
                 <div>
                   <h4 className="text-2xl mb-3">
-                    For Counseling Psychologists:
+                    {t("counselingPsychologists.title")}
                   </h4>
-                  <ul className="list-decimal ml-8 space-y-1 text-xl">
-                    <li>
-                      Masters of Science or Arts (MSc/MA) in Counseling
-                      Psychology.
-                    </li>
-                    <li>Five years of counseling experience.</li>
-                    <li>Proof of supervision document.</li>
+                  <ul className="list-decimal ms-8 space-y-1 text-xl">
+                    {t
+                      .raw("counselingPsychologists.requirements")
+                      .map((requirement: string, index: number) => (
+                        <li key={index}>{requirement}</li>
+                      ))}
                   </ul>
                 </div>
                 {/* list-3 */}
                 <div>
-                  <h4 className="text-2xl mb-3">For Psychiatrists:</h4>
-                  <ul className="list-decimal ml-8 space-y-1 text-xl">
-                    <li>Graduation certificate.</li>
-                    <li>Practice license.</li>
-                    <li>Medical syndicate rank certificate.</li>
-                    <li>Postgraduate certificate &quot;MSc or PhD&quot;</li>
+                  <h4 className="text-2xl mb-3">{t("psychiatrists.title")}</h4>
+                  <ul className="list-decimal ms-8 space-y-1 text-xl">
+                    {t
+                      .raw("psychiatrists.requirements")
+                      .map((requirement: string, index: number) => (
+                        <li key={index}>{requirement}</li>
+                      ))}
                   </ul>
                 </div>
               </div>
@@ -186,7 +189,7 @@ const DoctorForm1 = () => {
             {/* text content */}
           </div>
           {/* content */}
-          <hr className="w-full absolute left-0 border-1 border-slate-500 mt-7" />
+          <hr className="w-full absolute start-0 border-1 border-slate-500 mt-7" />
         </div>
       </motion.div>
 
@@ -201,7 +204,7 @@ const DoctorForm1 = () => {
         {" "}
         <div className="container mx-auto">
           <h5 className="text-maintext text-3xl font-medium mb-7 ">
-            Personal Information
+            {t("personalInformation")}
           </h5>
 
           {/* formData */}
@@ -211,14 +214,14 @@ const DoctorForm1 = () => {
               {/* First Name Field */}
               <div className="flex flex-col space-y-2 w-full md:w-1/2">
                 <label className="text-xl font-medium text-[#1e256c]">
-                  First Name
+                  {t("formFields.firstName.label")}
                 </label>
                 <input
                   name="first_name"
                   value={formData.first_name}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                  placeholder="John"
+                  placeholder={t("formFields.firstName.placeholder")}
                 />
                 {errors.first_name && (
                   <span className="text-red-600 text-sm">
@@ -229,14 +232,14 @@ const DoctorForm1 = () => {
               {/* Last Name Field */}
               <div className="flex flex-col space-y-2 w-full md:w-1/2">
                 <label className="text-xl font-medium text-[#1e256c]">
-                  Last Name
+                  {t("formFields.lastName.label")}
                 </label>
                 <input
                   name="last_name"
                   value={formData.last_name}
                   onChange={handleInputChange}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                  placeholder="Doe"
+                  placeholder={t("formFields.lastName.placeholder")}
                 />
                 {errors.last_name && (
                   <span className="text-red-600 text-sm">
@@ -249,14 +252,14 @@ const DoctorForm1 = () => {
             {/* Full Name in Arabic Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Full Name (in Arabic)
+                {t("formFields.fullNameArabic.label")}
               </label>
               <input
                 name="full_name_arabic"
                 value={formData.full_name_arabic}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                placeholder="جون دو"
+                placeholder={t("formFields.fullNameArabic.placeholder")}
               />
               {errors.full_name_arabic && (
                 <span className="text-red-600 text-sm">
@@ -268,14 +271,14 @@ const DoctorForm1 = () => {
             {/* Prefix Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Prefix
+                {t("formFields.prefix.label")}
               </label>
               <input
                 name="prefix"
                 value={formData.prefix}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                placeholder="Dr, Ms, Mrs, Mr, Prof"
+                placeholder={t("formFields.prefix.placeholder")}
               />
               {errors.prefix && (
                 <span className="text-red-600 text-sm">{errors.prefix}</span>
@@ -285,7 +288,7 @@ const DoctorForm1 = () => {
             {/* Email Address Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Email Address
+                {t("formFields.email.label")}
               </label>
               <input
                 name="email"
@@ -293,7 +296,7 @@ const DoctorForm1 = () => {
                 onChange={handleInputChange}
                 type="email"
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2  transition duration-200"
-                placeholder="joe.doe@example.com"
+                placeholder={t("formFields.email.placeholder")}
               />
               {errors.email && (
                 <span className="text-red-600 text-sm">{errors.email}</span>
@@ -303,32 +306,44 @@ const DoctorForm1 = () => {
             {/* Phone Number Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Phone Number
+                {t("formFields.phoneNumber.label")}
               </label>
-              <PhoneInput
-                country={"eg"}
-                value={formData.phone_number}
-                onChange={(phone_number) =>
-                  dispatch(setFormData({ phone_number }))
-                }
-                placeholder="Enter phone number"
-                containerStyle={{ width: "100%" }}
-                inputStyle={{
-                  width: "100%",
-                  paddingLeft: "50px",
-                  height: "48px",
-                  borderRadius: "8px",
-                  border: "1px solid #ccc",
-                }}
-                buttonStyle={{
-                  borderRadius: "8px 0 0 8px",
-                  borderRight: "1px solid #ccc",
-                  backgroundColor: "transparent",
-                  padding: "2px",
-                }}
-              />
+
+              {/* 
+    Force LTR direction for phone input - this is important because 
+    phone numbers are always LTR regardless of language
+  */}
+              <div className="relative w-full" dir="ltr">
+                <PhoneInput
+                  country={"eg"}
+                  value={formData.phone_number}
+                  onChange={(phone_number) =>
+                    dispatch(setFormData({ phone_number }))
+                  }
+                  placeholder={t("formFields.phoneNumber.placeholder")}
+                  enableSearch={true}
+                  // Minimal inline styles that are needed for the component to function properly
+                  containerStyle={{ width: "100%" }}
+                  inputStyle={{
+                    width: "100%",
+                    paddingLeft: "50px",
+                    height: "48px",
+                    borderRadius: "8px",
+                    border: "1px solid #ccc",
+                  }}
+                  buttonStyle={{
+                    borderRadius: "8px 0 0 8px",
+                    borderRight: "1px solid #ccc",
+                    backgroundColor: "transparent",
+                    padding: "2px",
+                  }}
+                  specialLabel=""
+                />
+              </div>
+
+              {/* Error message with RTL/LTR responsive alignment */}
               {errors.phone_number && (
-                <span className="text-red-600 text-sm">
+                <span className="text-red-600 text-sm text-start">
                   {errors.phone_number}
                 </span>
               )}
@@ -337,11 +352,11 @@ const DoctorForm1 = () => {
             {/* Username Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Username
+                {t("formFields.username.label")}
               </label>
               <input
                 name="username"
-                placeholder="johndoe123"
+                placeholder={t("formFields.username.placeholder")}
                 value={formData.username}
                 onChange={handleInputChange}
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
@@ -354,7 +369,7 @@ const DoctorForm1 = () => {
             {/* Password Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Password
+                {t("formFields.password.label")}
               </label>
               <div className="relative">
                 <input
@@ -363,12 +378,12 @@ const DoctorForm1 = () => {
                   onChange={handleInputChange}
                   type={showPassword ? "text" : "password"}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                  placeholder="********"
+                  placeholder={t("formFields.password.placeholder")}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-600"
+                  className="absolute end-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-600"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
@@ -381,7 +396,7 @@ const DoctorForm1 = () => {
             {/* Confirm Password Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Confirm Password
+                {t("formFields.confirmPassword.label")}
               </label>
               <div className="relative">
                 <input
@@ -390,12 +405,12 @@ const DoctorForm1 = () => {
                   onChange={handleInputChange}
                   type={showConfirmPassword ? "text" : "password"}
                   className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
-                  placeholder="********"
+                  placeholder={t("formFields.confirmPassword.placeholder")}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-600"
+                  className="absolute end-3 top-1/2 transform -translate-y-1/2 text-xl text-gray-600"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
@@ -408,14 +423,14 @@ const DoctorForm1 = () => {
             {/* Date of Birth Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Date of Birth
+                {t("formFields.birthDate.label")}
               </label>
               <input
                 name="birth_date"
                 value={formData.birth_date}
                 onChange={handleInputChange}
                 type="date"
-                className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
+                className=" w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               />
               {errors.birth_date && (
                 <span className="text-red-600 text-sm">
@@ -427,7 +442,7 @@ const DoctorForm1 = () => {
             {/* Gender Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Gender
+                {t("formFields.gender.label")}
               </label>
               <select
                 name="gender"
@@ -436,11 +451,17 @@ const DoctorForm1 = () => {
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               >
                 <option value="" disabled>
-                  Select Gender
+                  {t("formFields.gender.placeholder")}
                 </option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="prefer_not_to_say">Other</option>
+                <option value="male">
+                  {t("formFields.gender.options.male")}
+                </option>
+                <option value="female">
+                  {t("formFields.gender.options.female")}
+                </option>
+                <option value="other">
+                  {t("formFields.gender.options.other")}
+                </option>
               </select>
               {errors.gender && (
                 <span className="text-red-600 text-sm">{errors.gender}</span>
@@ -450,7 +471,7 @@ const DoctorForm1 = () => {
             {/* Nationality Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Nationality
+                {t("formFields.nationality.label")}
               </label>
               <select
                 name="nationality"
@@ -459,7 +480,7 @@ const DoctorForm1 = () => {
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               >
                 <option disabled value="">
-                  Select nationality
+                  {t("formFields.nationality.placeholder")}
                 </option>
                 {countries.map((country, index) => (
                   <option key={index} value={country}>
@@ -477,7 +498,7 @@ const DoctorForm1 = () => {
             {/* Country of Residence Field */}
             <div className="flex flex-col space-y-2 w-full">
               <label className="text-xl font-medium text-[#1e256c]">
-                Country of Residence
+                {t("formFields.currentResidence.label")}
               </label>
               <select
                 name="current_residence"
@@ -486,7 +507,7 @@ const DoctorForm1 = () => {
                 className="w-full px-3 py-2 outline-none rounded ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
               >
                 <option disabled value="">
-                  Select country
+                  {t("formFields.currentResidence.placeholder")}
                 </option>
                 {countries.map((country, index) => (
                   <option key={index} value={country}>
@@ -504,7 +525,7 @@ const DoctorForm1 = () => {
             {/* Fluent Languages Field */}
             <div className="flex flex-col space-y-2 w-full mb-10">
               <label className="text-xl font-medium text-[#1e256c]">
-                Fluent Languages
+                {t("formFields.fluentLanguages.label")}
               </label>
               <Select
                 name="fluent_languages"
@@ -515,7 +536,7 @@ const DoctorForm1 = () => {
                   formData.fluent_languages.includes(option.value)
                 )}
                 onChange={handleLanguageChange}
-                placeholder="List languages you are fluent in"
+                placeholder={t("formFields.fluentLanguages.placeholder")}
                 styles={customStylesForLanguageInput}
               />
               {errors.fluent_languages && (
@@ -527,10 +548,12 @@ const DoctorForm1 = () => {
 
             {/* Next Button */}
             <div className="flex justify-end  items-center gap-x-2 text-2xl pt-5">
-              <span className="text-[#686b72]">1/3</span>
+              <span className="text-[#686b72]">
+                {t("navigation.pageIndicator")}
+              </span>
               <div onClick={handleNextClick}>
                 <Button variant="secondary" size="large" roundedValue="full">
-                  Next
+                  {t("navigation.next")}
                 </Button>
               </div>
             </div>
