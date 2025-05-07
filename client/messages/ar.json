@@ -477,5 +477,80 @@
       "multipleQualificationsRequired": "الرجاء تحديد ما إذا كان لديك مؤهلات متعددة",
       "additionalQualificationsRequired": "يجب رفع المؤهلات الإضافية إذا اخترت نعم"
     }
+  },
+  "login": {
+    "pageTitle": "فيتاسايك",
+    "welcome": "مرحباً بعودتك",
+    "welcomeSubtitle": "رحلة صحتك النفسية تستمر هنا",
+    "roles": {
+      "visitor": "زائر",
+      "doctor": "طبيب"
+    },
+    "form": {
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "signIn": "تسجيل الدخول",
+      "signingIn": "جاري تسجيل الدخول...",
+      "noAccount": "إذا لم يكن لديك حساب",
+      "signUp": "تسجيل حساب جديد"
+    },
+    "errors": {
+      "emptyFields": "الرجاء إدخال البريد الإلكتروني وكلمة المرور.",
+      "invalidCredentials": "البريد الإلكتروني أو كلمة المرور غير صحيحة. الرجاء المحاولة مرة أخرى."
+    }
+  },
+  "signup": {
+    "pageTitle": "إنشاء حساب | فيتاسايك",
+    "createAccount": "إنشاء حساب جديد",
+    "form": {
+      "username": "اسم المستخدم",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور",
+      "confirmPassword": "تأكيد كلمة المرور",
+      "phoneNumber": "رقم الهاتف",
+      "birthDate": "تاريخ الميلاد",
+      "gender": "الجنس",
+      "genderOptions": {
+        "select": "اختر الجنس",
+        "male": "ذكر",
+        "female": "أنثى",
+        "other": "غير ذلك"
+      },
+      "nationality": "الجنسية",
+      "fluentLanguages": "اللغات المتقنة",
+      "currentResidence": "مكان الإقامة الحالي",
+      "termsAndConditions": "أوافق على",
+      "termsLink": "الشروط والأحكام",
+      "register": "تسجيل",
+      "creatingAccount": "جاري إنشاء الحساب...",
+      "alreadyHaveAccount": "هل لديك حساب بالفعل؟",
+      "loginHere": "تسجيل الدخول هنا"
+    },
+    "placeholders": {
+      "enterUsername": "أدخل اسم المستخدم",
+      "enterFirstName": "أدخل الاسم الأول",
+      "enterLastName": "أدخل اسم العائلة",
+      "enterEmail": "أدخل البريد الإلكتروني",
+      "enterPassword": "أدخل كلمة المرور",
+      "enterConfirmPassword": "أدخل تأكيد كلمة المرور",
+      "enterPhoneNumber": "أدخل رقم الهاتف",
+      "enterNationality": "أدخل الجنسية",
+      "enterFluentLanguages": "أدخل اللغات المتقنة",
+      "enterCurrentResidence": "أدخل مكان الإقامة الحالي"
+    },
+    "errors": {
+      "acceptTerms": "يرجى الموافقة على الشروط والأحكام.",
+      "passwordsDoNotMatch": "كلمات المرور غير متطابقة.",
+      "creatingAccount": "جاري إنشاء حسابك...",
+      "usernameTaken": "اسم المستخدم هذا مستخدم بالفعل.",
+      "emailRegistered": "هذا البريد الإلكتروني مسجل بالفعل.",
+      "registrationFailed": "فشل التسجيل. يرجى المحاولة مرة أخرى."
+    },
+    "success": {
+      "accountCreated": "تم إنشاء الحساب بنجاح!"
+    }
   }
 }

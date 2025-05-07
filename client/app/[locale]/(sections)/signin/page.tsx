@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUser, setToken } from "@app/store/authSlice";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 
 // Interfaces
 interface UserData {
@@ -44,6 +45,7 @@ interface ApiError {
 }
 
 const LoginPage: React.FC = () => {
+  const t = useTranslations("login");
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -66,7 +68,7 @@ const LoginPage: React.FC = () => {
     setIsLoading(true);
 
     if (!email || !password) {
-      setError("Please enter both email and password.");
+      setError(t("errors.emptyFields"));
       setIsLoading(false);
       return;
     }
@@ -94,7 +96,7 @@ const LoginPage: React.FC = () => {
       setError(
         apiError.response?.data?.error ||
           apiError.response?.data?.message ||
-          "Invalid email or password. Please try again."
+          t("errors.invalidCredentials")
       );
     } finally {
       setIsLoading(false);
@@ -104,7 +106,7 @@ const LoginPage: React.FC = () => {
   return (
     <div className="min-h-screen flex">
       <Head>
-        <title>Login | Vitapsyche</title>
+        <title>{t("pageTitle")}</title>
       </Head>
 
       {/* Left Section (Form Section) */}
@@ -123,7 +125,7 @@ const LoginPage: React.FC = () => {
               height={64}
             />
             <h2 className="text-2xl font-semibold text-center text-teal-700 mb-2">
-              Vitapsyche
+              {t("pageTitle")}
             </h2>
           </motion.div>
 
@@ -146,12 +148,12 @@ const LoginPage: React.FC = () => {
               >
                 <Image
                   src="/images/user.png"
-                  alt="Visitor"
+                  alt={t("roles.visitor")}
                   width={64}
                   height={64}
                 />
               </div>
-              <span className="mt-2 text-sm">Visitor</span>
+              <span className="mt-2 text-sm">{t("roles.visitor")}</span>
             </motion.button>
 
             <motion.button
@@ -171,12 +173,12 @@ const LoginPage: React.FC = () => {
               >
                 <Image
                   src="/images/doctor.png"
-                  alt="Doctor"
+                  alt={t("roles.doctor")}
                   width={64}
                   height={64}
                 />
               </div>
-              <span className="mt-2 text-sm">Doctor</span>
+              <span className="mt-2 text-sm">{t("roles.doctor")}</span>
             </motion.button>
           </div>
 
@@ -188,10 +190,10 @@ const LoginPage: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="mb-4 relative"
             >
-              <FaEnvelope className="absolute left-3 top-3 text-button" />
+              <FaEnvelope className="absolute start-3 top-3 text-button" />
               <input
                 type="email"
-                placeholder="Email"
+                placeholder={t("form.email")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-buttonhov"
@@ -206,17 +208,17 @@ const LoginPage: React.FC = () => {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="mb-4 relative"
             >
-              <FaLock className="absolute left-3 top-3 text-button" />
+              <FaLock className="absolute start-3 top-3 text-button" />
               <input
                 type={showPassword ? "text" : "password"}
-                placeholder="Password"
+                placeholder={t("form.password")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-10 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-buttonhov"
                 disabled={isLoading}
               />
               <div
-                className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
+                className="absolute inset-y-0 end-3 flex items-center cursor-pointer"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? (
@@ -239,9 +241,9 @@ const LoginPage: React.FC = () => {
             )}
 
             {/* Forget Password */}
-            <div className="mb-6 text-left">
+            <div className="mb-6 text-start">
               <Link href="/forgot-password" className="text-teal-600 text-sm">
-                Forget password?
+                {t("form.forgotPassword")}
               </Link>
             </div>
 
@@ -253,7 +255,7 @@ const LoginPage: React.FC = () => {
               whileTap={{ scale: 0.95 }}
               disabled={isLoading}
             >
-              {isLoading ? "Signing in..." : "Sign In"}
+              {isLoading ? t("form.signingIn") : t("form.signIn")}
             </motion.button>
           </form>
 
@@ -264,9 +266,9 @@ const LoginPage: React.FC = () => {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="mt-6 text-center text-sm"
           >
-            If you do not have an account{" "}
+            {t("form.noAccount")}{" "}
             <Link href="/signup" className="text-heading font-semibold">
-              Sign Up
+              {t("form.signUp")}
             </Link>
           </motion.p>
         </div>
@@ -307,7 +309,7 @@ const LoginPage: React.FC = () => {
                 transition={{ delay: 0.5 }}
                 className="text-3xl font-bold text-heading text-center mb-4 z-10"
               >
-                Welcome Back
+                {t("welcome")}
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -315,7 +317,7 @@ const LoginPage: React.FC = () => {
                 transition={{ delay: 0.7 }}
                 className="text-maintext text-center max-w-md z-10"
               >
-                Your mental health journey continues here
+                {t("welcomeSubtitle")}
               </motion.p>
             </div>
           </motion.div>

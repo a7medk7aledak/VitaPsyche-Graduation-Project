@@ -476,5 +476,80 @@
       "multipleQualificationsRequired": "Please specify if you have multiple qualifications",
       "additionalQualificationsRequired": "Additional qualifications must be uploaded if you have selected yes"
     }
+  },
+  "login": {
+    "pageTitle": "Vitapsyche",
+    "welcome": "Welcome Back",
+    "welcomeSubtitle": "Your mental health journey continues here",
+    "roles": {
+      "visitor": "Visitor",
+      "doctor": "Doctor"
+    },
+    "form": {
+      "email": "Email",
+      "password": "Password",
+      "forgotPassword": "Forget password?",
+      "signIn": "Sign In",
+      "signingIn": "Signing in...",
+      "noAccount": "If you do not have an account",
+      "signUp": "Sign Up"
+    },
+    "errors": {
+      "emptyFields": "Please enter both email and password.",
+      "invalidCredentials": "Invalid email or password. Please try again."
+    }
+  },
+  "signup": {
+    "pageTitle": "Sign Up | Vitapsyche",
+    "createAccount": "Create an account",
+    "form": {
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "phoneNumber": "Phone Number",
+      "birthDate": "Birth Date",
+      "gender": "Gender",
+      "genderOptions": {
+        "select": "Select gender",
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "nationality": "Nationality",
+      "fluentLanguages": "Fluent Languages",
+      "currentResidence": "Current Residence",
+      "termsAndConditions": "I accept the",
+      "termsLink": "Terms and Conditions",
+      "register": "Register",
+      "creatingAccount": "Creating Account...",
+      "alreadyHaveAccount": "Already have an account?",
+      "loginHere": "Login here"
+    },
+    "placeholders": {
+      "enterUsername": "Enter username",
+      "enterFirstName": "Enter first name",
+      "enterLastName": "Enter last name",
+      "enterEmail": "Enter email",
+      "enterPassword": "Enter password",
+      "enterConfirmPassword": "Enter confirm password",
+      "enterPhoneNumber": "Enter phone number",
+      "enterNationality": "Enter nationality",
+      "enterFluentLanguages": "Enter fluent languages",
+      "enterCurrentResidence": "Enter current residence"
+    },
+    "errors": {
+      "acceptTerms": "Please accept the terms and conditions.",
+      "passwordsDoNotMatch": "Passwords do not match.",
+      "creatingAccount": "Creating your account...",
+      "usernameTaken": "This username is already taken.",
+      "emailRegistered": "This email is already registered.",
+      "registrationFailed": "Registration failed. Please try again."
+    },
+    "success": {
+      "accountCreated": "Account created successfully!"
+    }
   }
 }

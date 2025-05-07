@@ -22,6 +22,8 @@ import { useDispatch } from "react-redux";
 import { setUser } from "@app/store/authSlice";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
+import Head from "next/head";
 
 interface FormData {
   username: string;
@@ -73,6 +75,7 @@ interface UserData {
 }
 
 const SignUpPage: React.FC = () => {
+  const t = useTranslations("signup");
   const dispatch = useDispatch();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -120,16 +123,16 @@ const SignUpPage: React.FC = () => {
     event.preventDefault();
 
     if (!formData.termsAccepted) {
-      toast.error("Please accept the terms and conditions.");
+      toast.error(t("errors.acceptTerms"));
       return;
     }
     if (formData.password !== formData.password2) {
-      toast.error("Passwords do not match.");
+      toast.error(t("errors.passwordsDoNotMatch"));
       return;
     }
 
     setIsLoading(true);
-    const loadingToast = toast.loading("Creating your account...");
+    const loadingToast = toast.loading(t("errors.creatingAccount"));
 
     // Create FormData object
     const apiFormData = new FormData();
@@ -169,21 +172,21 @@ const SignUpPage: React.FC = () => {
       };
 
       dispatch(setUser(userData));
-      toast.success("Account created successfully!", {
+      toast.success(t("success.accountCreated"), {
         id: loadingToast,
       });
       router.push("/");
     } catch (error) {
       const apiError = error as ApiError;
-      let errorMessage = "Registration failed. Please try again.";
+      let errorMessage = t("errors.registrationFailed");
 
       if (apiError.response?.data) {
         const data = apiError.response.data;
 
         if (data.username) {
-          errorMessage = "This username is already taken.";
+          errorMessage = t("errors.usernameTaken");
         } else if (data.email) {
-          errorMessage = "This email is already registered.";
+          errorMessage = t("errors.emailRegistered");
         } else if (data.password) {
           errorMessage = Array.isArray(data.password)
             ? data.password[0]
@@ -212,6 +215,7 @@ const SignUpPage: React.FC = () => {
     icon: React.ElementType,
     value: string,
     required: boolean,
+    placeholder: string,
     showPassword?: boolean,
     togglePassword?: () => void
   ) => (
@@ -224,7 +228,7 @@ const SignUpPage: React.FC = () => {
       <label className="text-maintext text-xs block mb-2">{label}</label>
       <div className="relative flex items-center">
         {React.createElement(icon, {
-          className: "absolute left-2 text-button",
+          className: "absolute start-2 text-button",
         })}
         <input
           name={name}
@@ -232,12 +236,12 @@ const SignUpPage: React.FC = () => {
           value={value}
           onChange={handleInputChange}
           required={required}
-          className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
-          placeholder={`Enter ${label.toLowerCase()}`}
+          className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading ps-8 py-3 outline-none"
+          placeholder={placeholder}
         />
         {togglePassword && (
           <div
-            className="absolute right-2 cursor-pointer text-button"
+            className="absolute end-2 cursor-pointer text-button"
             onClick={togglePassword}
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
@@ -249,9 +253,12 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="font-[sans-serif] bg-white md:h-screen">
+      <Head>
+        <title>{t("pageTitle")}</title>
+      </Head>
       <div className="grid md:grid-cols-2 items-center gap-8 h-full">
         <motion.div
-          className="flex items-center md:p-8 p-6 bg-white h-full lg:w-11/12 lg:ml-auto"
+          className="flex items-center md:p-8 p-6 bg-white h-full lg:w-11/12 lg:ms-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
@@ -259,71 +266,77 @@ const SignUpPage: React.FC = () => {
           <form className="max-w-lg w-full mx-auto" onSubmit={handleSubmit}>
             <div className="mb-8 text-center flex items-center justify-center">
               <img src="/images/logo.png" alt="logo" className="w-32" />
-              <p className="mr-2 text-3xl font-semibold text-heading">
+              <p className="me-2 text-3xl font-semibold text-heading">
                 Vitapsyche
               </p>
             </div>
 
             <div className="mb-12">
               <h3 className="text-3xl font-bold text-center text-maintext">
-                Create an account
+                {t("createAccount")}
               </h3>
             </div>
 
             {renderInputField(
               "username",
-              "Username",
+              t("form.username"),
               "text",
               FaUser,
               formData.username,
-              true
+              true,
+              t("placeholders.enterUsername")
             )}
 
             {renderInputField(
               "first_name",
-              "First Name",
+              t("form.firstName"),
               "text",
               FaUser,
               formData.first_name,
-              true
+              true,
+              t("placeholders.enterFirstName")
             )}
 
             {renderInputField(
               "last_name",
-              "Last Name",
+              t("form.lastName"),
               "text",
               FaUser,
               formData.last_name,
-              true
+              true,
+              t("placeholders.enterLastName")
             )}
 
             {renderInputField(
               "email",
-              "Email",
+              t("form.email"),
               "email",
               FaEnvelope,
               formData.email,
-              true
+              true,
+              t("placeholders.enterEmail")
             )}
 
             {renderInputField(
               "password",
-              "Password",
+              t("form.password"),
               showPassword1 ? "text" : "password",
               FaLock,
               formData.password,
               true,
+              t("placeholders.enterPassword"),
               showPassword1,
               togglePasswordVisibility1
             )}
 
             {renderInputField(
               "password2",
-              "Confirm Password",
+              t("form.confirmPassword"),
               showPassword2 ? "text" : "password",
               FaLock,
               formData.password2,
               true,
+              t("placeholders.enterConfirmPassword"),
               showPassword2,
               togglePasswordVisibility2
             )}
@@ -335,47 +348,28 @@ const SignUpPage: React.FC = () => {
               className="mt-8"
             >
               <label className="text-maintext text-xs block mb-2">
-                Phone Number
+                {t("form.phoneNumber")}
               </label>
-              <PhoneInput
-                country="eg"
-                value={formData.phone_number}
-                onChange={handlePhoneChange}
-                inputStyle={{
-                  width: "100%",
-                  backgroundColor: "transparent",
-                  border: "none",
-                  borderBottom: "1px solid #d1d5db",
-                  paddingLeft: "48px",
-                  fontSize: "14px",
-                  color: "#1f2937",
-                }}
-                buttonStyle={{
-                  backgroundColor: "transparent",
-                  border: "none",
-                  borderBottom: "1px solid #d1d5db",
-                }}
-                placeholder="Enter phone number"
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mt-8"
-            >
-              <label className="text-maintext text-xs block mb-2">
-                Birth Date
-              </label>
-              <div className="relative flex items-center">
-                <FaCalendarAlt className="absolute left-2 text-button" />
-                <input
-                  name="birth_date"
-                  type="date"
-                  value={formData.birth_date}
-                  onChange={handleInputChange}
-                  className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
+              <div dir="ltr">
+                <PhoneInput
+                  country="eg"
+                  value={formData.phone_number}
+                  onChange={handlePhoneChange}
+                  inputStyle={{
+                    width: "100%",
+                    backgroundColor: "transparent",
+                    border: "none",
+                    borderBottom: "1px solid #d1d5db",
+                    paddingLeft: "48px",
+                    fontSize: "14px",
+                    color: "#1f2937",
+                  }}
+                  buttonStyle={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    borderBottom: "1px solid #d1d5db",
+                  }}
+                  placeholder={t("placeholders.enterPhoneNumber")}
                 />
               </div>
             </motion.div>
@@ -386,48 +380,76 @@ const SignUpPage: React.FC = () => {
               transition={{ duration: 0.5 }}
               className="mt-8"
             >
-              <label className="text-maintext text-xs block mb-2">Gender</label>
+              <label className="text-maintext text-xs block mb-2">
+                {t("form.birthDate")}
+              </label>
               <div className="relative flex items-center">
-                <FaVenusMars className="absolute left-2 text-button" />
+                <FaCalendarAlt className="absolute start-2 text-button hidden ltr:flex" />
+                <input
+                  name="birth_date"
+                  type="date"
+                  value={formData.birth_date}
+                  onChange={handleInputChange}
+                  className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading ltr:ps-8 py-3 outline-none"
+                />
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="mt-8"
+            >
+              <label className="text-maintext text-xs block mb-2">
+                {t("form.gender")}
+              </label>
+              <div className="relative flex items-center">
+                <FaVenusMars className="absolute start-2 text-button" />
                 <select
                   name="gender"
                   value={formData.gender}
                   onChange={handleInputChange}
-                  className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading pl-8 py-3 outline-none"
+                  className="w-full bg-transparent text-sm text-maintext border-b border-gray-300 focus:border-heading ps-8 py-3 outline-none"
                 >
-                  <option value="">Select gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                  <option value="">{t("form.genderOptions.select")}</option>
+                  <option value="male">{t("form.genderOptions.male")}</option>
+                  <option value="female">
+                    {t("form.genderOptions.female")}
+                  </option>
+                  <option value="other">{t("form.genderOptions.other")}</option>
                 </select>
               </div>
             </motion.div>
 
             {renderInputField(
               "nationality",
-              "Nationality",
+              t("form.nationality"),
               "text",
               FaGlobe,
               formData.nationality,
-              true
+              true,
+              t("placeholders.enterNationality")
             )}
 
             {renderInputField(
               "fluent_languages",
-              "Fluent Languages",
+              t("form.fluentLanguages"),
               "text",
               FaLanguage,
               formData.fluent_languages,
-              true
+              true,
+              t("placeholders.enterFluentLanguages")
             )}
 
             {renderInputField(
               "current_residence",
-              "Current Residence",
+              t("form.currentResidence"),
               "text",
               FaHome,
               formData.current_residence,
-              true
+              true,
+              t("placeholders.enterCurrentResidence")
             )}
 
             <motion.div
@@ -443,13 +465,13 @@ const SignUpPage: React.FC = () => {
                 onChange={handleInputChange}
                 className="h-4 w-4 shrink-0 rounded"
               />
-              <label className="text-maintext ml-3 block text-sm">
-                I accept the
+              <label className="text-maintext ms-3 block text-sm">
+                {t("form.termsAndConditions")}{" "}
                 <a
                   href="#"
-                  className="text-buttonhov font-semibold hover:underline ml-1"
+                  className="text-buttonhov font-semibold hover:underline ms-1"
                 >
-                  Terms and Conditions
+                  {t("form.termsLink")}
                 </a>
               </label>
             </motion.div>
@@ -463,23 +485,23 @@ const SignUpPage: React.FC = () => {
                 }`}
               >
                 {isLoading ? (
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 rtl:space-x-reverse">
                     <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
-                    <span>Creating Account...</span>
+                    <span>{t("form.creatingAccount")}</span>
                   </div>
                 ) : (
-                  "Register"
+                  t("form.register")
                 )}
               </button>
             </div>
 
             <p className="text-sm text-maintext mt-8 text-center">
-              Already have an account?{" "}
+              {t("form.alreadyHaveAccount")}{" "}
               <Link
                 href="/signin"
-                className="text-heading font-semibold hover:underline ml-1"
+                className="text-heading font-semibold hover:underline ms-1"
               >
-                Login here
+                {t("form.loginHere")}
               </Link>
             </p>
           </form>
@@ -501,7 +523,7 @@ const SignUpPage: React.FC = () => {
             <source src="/recap.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-        </div>{" "}
+        </div>
       </div>
     </div>
   );
