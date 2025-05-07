@@ -131,23 +131,27 @@ const SignUpPage: React.FC = () => {
     setIsLoading(true);
     const loadingToast = toast.loading("Creating your account...");
 
-    const apiData = {
-      username: formData.username,
-      first_name: formData.first_name,
-      last_name: formData.last_name,
-      email: formData.email,
-      password: formData.password,
-      password2: formData.password2,
-      phone_number: formData.phone_number,
-      birth_date: formData.birth_date,
-      gender: formData.gender,
-      nationality: formData.nationality,
-      fluent_languages: formData.fluent_languages,
-      current_residence: formData.current_residence,
-    };
+    // Create FormData object
+    const apiFormData = new FormData();
+    apiFormData.append("username", formData.username);
+    apiFormData.append("first_name", formData.first_name);
+    apiFormData.append("last_name", formData.last_name);
+    apiFormData.append("email", formData.email);
+    apiFormData.append("password", formData.password);
+    apiFormData.append("password2", formData.password2);
+    apiFormData.append("phone_number", formData.phone_number);
+    apiFormData.append("birth_date", formData.birth_date);
+    apiFormData.append("gender", formData.gender);
+    apiFormData.append("nationality", formData.nationality);
+    apiFormData.append("fluent_languages", formData.fluent_languages);
+    apiFormData.append("current_residence", formData.current_residence);
 
     try {
-      const response = await axios.post("/api/register/patient", apiData);
+      const response = await axios.post("/api/register/patient", apiFormData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       const userData: UserData = {
         id: response.data.id,
