@@ -2,9 +2,10 @@
 
 import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { paidtests } from "@app/content/paid tests/data";
 import Navbar from "@components/common/Navbar";
 import { FaCrown } from "react-icons/fa";
+import { usePaidTestData } from "@app/content/tests/paid";
+import { useTranslations } from "next-intl";
 
 // Define interfaces for better type safety
 interface Option {
@@ -27,6 +28,7 @@ interface ScoreRange {
 }
 
 interface Test {
+  testId: string;
   testTitle: string;
   testSlug: string;
   questions: Question[];
@@ -35,23 +37,22 @@ interface Test {
     instruction: string;
     scoreRanges: ScoreRange[];
   };
-  maxScoring: number;
 }
 
 const TestPage: React.FC = () => {
+  const t = useTranslations("premiumTestPage");
+  const paidTests = usePaidTestData();
   const params = useParams();
   const router = useRouter();
-  const premiumTestName = params?.premiumTestName as string;
-
+  const testId = params?.testId as string;
+  console.log("URL testId parameter:", testId);
   // تصحيح استخدام find
-  const test = paidtests.find((t) => t.testSlug === premiumTestName) as
-    | Test
-    | undefined;
+  const test = paidTests.find((t) => t.testId === testId) as Test | undefined;
 
+  console.log("Test id:", test?.testId);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [answers, setAnswers] = useState<number[]>([]);
 
-  // ... باقي الكود يبقى كما هو
   // Early return for invalid test
   if (!test) {
     return (
@@ -60,21 +61,18 @@ const TestPage: React.FC = () => {
         <div className="flex flex-col items-center justify-center min-h-screen p-6">
           <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
             <div className="flex items-center justify-center mb-4">
-              <FaCrown className="text-yellow-500 text-3xl mr-2" />
+              <FaCrown className="text-yellow-500 text-3xl me-2" />
               <h2 className="text-2xl font-bold text-gray-800">
-                Premium Test Not Found
+                {t("notFound")}
               </h2>
             </div>
-            <p className="text-gray-600 mb-6">
-              The premium test you&apos;re looking for doesn&apos;t exist or
-              might have been moved.
-            </p>
+            <p className="text-gray-600 mb-6">{t("notFoundMessage")}</p>
             <button
               onClick={() => router.push("/tests/paid")}
               className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg px-6 py-2 hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center justify-center"
             >
-              <FaCrown className="mr-2 text-yellow-300" />
-              Return to Premium Tests
+              <FaCrown className="me-2 text-yellow-300" />
+              {t("returnToPremium")}
             </button>
           </div>
         </div>
@@ -90,21 +88,18 @@ const TestPage: React.FC = () => {
         <div className="flex flex-col items-center justify-center min-h-screen p-6">
           <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center">
             <div className="flex items-center justify-center mb-4">
-              <FaCrown className="text-yellow-500 text-3xl mr-2" />
+              <FaCrown className="text-yellow-500 text-3xl me-2" />
               <h2 className="text-2xl font-bold text-gray-800">
-                Test Under Maintenance
+                {t("underMaintenance")}
               </h2>
             </div>
-            <p className="text-gray-600 mb-6">
-              This premium test is currently being updated. Please check back
-              later.
-            </p>
+            <p className="text-gray-600 mb-6">{t("underMaintenanceMessage")}</p>
             <button
               onClick={() => router.push("/tests/paid")}
               className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-semibold rounded-lg px-6 py-2 hover:from-purple-700 hover:to-indigo-700 transition-all flex items-center justify-center"
             >
-              <FaCrown className="mr-2 text-yellow-300" />
-              Return to Premium Tests
+              <FaCrown className="me-2 text-yellow-300" />
+              {t("returnToPremium")}
             </button>
           </div>
         </div>
@@ -122,7 +117,7 @@ const TestPage: React.FC = () => {
       const answersStr = JSON.stringify(answers);
       const url = `/result?score=${score}&answers=${encodeURIComponent(
         answersStr
-      )}&testSlug=${encodeURIComponent(premiumTestName)}&isPremium=true`;
+      )}&testId=${testId}&isPremium=true`;
 
       router.push(url);
     }
@@ -151,6 +146,7 @@ const TestPage: React.FC = () => {
   };
 
   const currentQuestion = test.questions[currentPage - 1];
+  const percentage = Math.round((currentPage / test.questions.length) * 100);
 
   return (
     <>
@@ -158,8 +154,8 @@ const TestPage: React.FC = () => {
       <div className="flex flex-col items-center justify-center p-6 max-w-3xl mx-auto font-sans mt-24">
         {/* Premium Badge */}
         <div className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-full mb-6 flex items-center">
-          <FaCrown className="text-yellow-300 mr-2" />
-          <span>Premium Test</span>
+          <FaCrown className="text-yellow-300 me-2" />
+          <span>{t("premiumBadge")}</span>
         </div>
 
         {/* Title with Image */}
@@ -167,7 +163,7 @@ const TestPage: React.FC = () => {
           <img
             src="/images/testimg.png"
             alt="test icon"
-            className="w-10 h-10 mr-4"
+            className="w-10 h-10 me-4"
           />
           <h1 className="text-2xl font-bold text-purple-800">
             {test.testTitle}
@@ -176,9 +172,7 @@ const TestPage: React.FC = () => {
 
         {/* Instructions */}
         <p className="text-sm text-gray-500 text-center mb-6">
-          Please read each question carefully and answer based on your
-          experiences over the past two weeks. There are no right or wrong
-          answers.
+          {t("instructions")}
         </p>
 
         {/* Question Section */}
@@ -301,11 +295,13 @@ const TestPage: React.FC = () => {
         <div className="w-full mb-6">
           <div className="flex justify-between mb-2">
             <span className="text-sm text-gray-600">
-              Question {currentPage} of {test.questions.length}
+              {t("questionCounter", {
+                currentPage,
+                totalQuestions: test.questions.length,
+              })}
             </span>
             <span className="text-sm text-gray-600">
-              {Math.round((currentPage / test.questions.length) * 100)}%
-              Complete
+              {t("complete", { percentage })}
             </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -319,13 +315,13 @@ const TestPage: React.FC = () => {
         </div>
 
         {/* Navigation Buttons */}
-        <div className="flex space-x-4 mt-6">
+        <div className="flex space-x-4 rtl:space-x-reverse mt-6">
           <button
             onClick={handlePrevious}
             className="bg-gray-500 text-white font-semibold rounded-lg px-6 py-2 hover:bg-gray-600 transition-all"
             disabled={currentPage === 1}
           >
-            Previous
+            {t("previous")}
           </button>
           <button
             onClick={handleNext}
@@ -334,7 +330,7 @@ const TestPage: React.FC = () => {
             }`}
             disabled={!answers[currentPage - 1]}
           >
-            {currentPage === test.questions.length ? "Finish" : "Next"}
+            {currentPage === test.questions.length ? t("finish") : t("next")}
           </button>
         </div>
       </div>

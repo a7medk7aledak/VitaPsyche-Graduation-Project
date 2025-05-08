@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { tests } from "@app/content/free tests/data";
-import { paidtests } from "@app/content/paid tests/data";
 import Navbar from "@components/common/Navbar";
 import { FaCrown } from "react-icons/fa";
+import { usePaidTestData } from "@app/content/tests/paid";
+import { useFreeTestData } from "@app/content/tests/free";
+import { useTranslations } from "next-intl";
 
 interface Option {
   optionId: number;
@@ -171,7 +172,7 @@ function calculatePTSDScore(answers: number[], questions: Question[]): string {
   const hasPTSD =
     reexperienceCount >= 1 && avoidanceCount >= 3 && arousalCount >= 1;
 
-  return hasPTSD ? "You have PTSD." : "You don't have PTSD.";
+  return hasPTSD ? "positive" : "negative";
 }
 
 function calculatePersonalityDisorders(
@@ -343,6 +344,11 @@ function calculateCognitiveDistortions(
   };
 }
 const ClientSideResult: React.FC = () => {
+  const t = useTranslations("testResults");
+  const common = useTranslations("common");
+
+  const paidTests = usePaidTestData();
+  const freeTests = useFreeTestData();
   const [test, setTest] = useState<Test | null>(null);
   const [userAnswers, setUserAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
@@ -354,22 +360,22 @@ const ClientSideResult: React.FC = () => {
   >([]);
 
   const searchParams = useSearchParams();
-  const testSlug = searchParams?.get("testSlug");
+  const testId = searchParams?.get("testId");
   const answersStr = searchParams?.get("answers");
   const isPremium = searchParams?.get("isPremium") === "true";
 
   useEffect(() => {
-    if (testSlug) {
+    if (testId) {
       const selectedTest = isPremium
-        ? paidtests.find((t) => t.testSlug === testSlug)
-        : tests.find((t) => t.testSlug === testSlug);
+        ? paidTests.find((t) => t.testId === testId)
+        : freeTests.find((t) => t.testId === testId);
 
       if (selectedTest) {
         setTest({ ...selectedTest, isPremium });
         setUserAnswers(JSON.parse(answersStr || "[]"));
       }
     }
-  }, [testSlug, answersStr, isPremium]);
+  }, [testId, answersStr, isPremium]);
 
   useEffect(() => {
     if (test && userAnswers.length > 0) {
@@ -380,15 +386,18 @@ const ClientSideResult: React.FC = () => {
         );
         setScore(results.totalScore);
         setDetailedInfo(
-          `Total Score: ${results.totalScore}/${results.maxTotalScore}`
+          t("totalScore", {
+            score: results.totalScore,
+            maxScore: results.maxTotalScore,
+          })
         );
         setDistortionResults(results.groupResults);
         setFeedback(
           `Analyzed ${results.groupResults.length} cognitive distortion groups`
         );
       } else if (test.testSlug === "ptsd-scale") {
-        const feedbackText = calculatePTSDScore(userAnswers, test.questions);
-        setFeedback(feedbackText);
+        const result = calculatePTSDScore(userAnswers, test.questions);
+        setFeedback(t(`ptsd.${result}`));
       } else if (test.testSlug === "personality-disorders-test") {
         const result = calculatePersonalityDisorders(
           userAnswers,
@@ -397,10 +406,12 @@ const ClientSideResult: React.FC = () => {
 
         if (result.disorders.length > 0) {
           setFeedback(
-            `Potential indicators found for: ${result.disorders.join(", ")}`
+            t("personalityDisorders.potentialIndicators", {
+              disorders: result.disorders.join(", "),
+            })
           );
         } else {
-          setFeedback("No significant personality disorder indicators found");
+          setFeedback(t("personalityDisorders.noIndicators"));
         }
 
         setDetailedInfo(result.details);
@@ -430,7 +441,7 @@ const ClientSideResult: React.FC = () => {
       const calculatedMaxScore = calculateMaxScore(test.questions);
       setMaxScore(calculatedMaxScore);
     }
-  }, [test, userAnswers]);
+  }, [test, userAnswers, t]);
 
   const getFeedback = (
     score: number,
@@ -457,7 +468,7 @@ const ClientSideResult: React.FC = () => {
     if (!detailedInfo) {
       return (
         <div className="text-center text-gray-600">
-          No detailed information available
+          {t("personalityDisorders.noDetailedInfo")}
         </div>
       );
     }
@@ -502,7 +513,7 @@ const ClientSideResult: React.FC = () => {
     if (!distortionResults.length) {
       return (
         <div className="text-center text-gray-600">
-          No detailed information available
+          {t("personalityDisorders.noDetailedInfo")}
         </div>
       );
     }
@@ -525,7 +536,9 @@ const ClientSideResult: React.FC = () => {
                 {result.groupName}
               </h3>
               <div className="mt-2 space-y-1">
-                <p className="text-sm">Score: {result.details}</p>
+                <p className="text-sm">
+                  {t("cognitiveDistortions.score", { score: result.details })}
+                </p>
                 <p
                   className={`text-sm font-medium ${
                     result.severity === "High"
@@ -535,7 +548,11 @@ const ClientSideResult: React.FC = () => {
                       : "text-green-600"
                   }`}
                 >
-                  Severity: {result.severity}
+                  {t("cognitiveDistortions.severity", {
+                    severity: t(
+                      `cognitiveDistortions.${result.severity.toLowerCase()}Severity`
+                    ),
+                  })}
                 </p>
               </div>
             </div>
@@ -544,8 +561,9 @@ const ClientSideResult: React.FC = () => {
       </div>
     );
   };
+
   if (!test) {
-    return <div>Loading...</div>;
+    return <div>{t("loading")}</div>;
   }
 
   return (
@@ -572,7 +590,7 @@ const ClientSideResult: React.FC = () => {
             <>
               <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
                 <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-6">
-                  Cognitive Distortions Test Results
+                  {t("cognitiveDistortions.title")}
                 </h2>
                 <div className="bg-gray-50 rounded-lg p-4 mb-6">
                   <p className="text-lg text-center text-gray-700">
@@ -584,43 +602,40 @@ const ClientSideResult: React.FC = () => {
 
               <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                  Understanding Your Results
+                  {t("understandingResults")}
                 </h2>
                 <div className="space-y-4">
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <h3 className="font-semibold text-blue-800 mb-2">
-                      Important Note
+                      {t("importantNote")}
                     </h3>
                     <p className="text-blue-600 text-sm">
-                      This assessment evaluates 12 different types of cognitive
-                      distortions. Each score indicates the strength of that
-                      particular thinking pattern. This is a screening tool and
-                      not a diagnostic instrument.
+                      {t("cognitiveDistortions.importantNoteText")}
                     </p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="bg-green-50 border border-green-200 rounded-lg p-4">
                       <h3 className="font-semibold text-green-800">
-                        Low Severity
+                        {t("cognitiveDistortions.lowSeverity")}
                       </h3>
                       <p className="text-green-600 text-sm">
-                        Indicates healthy thinking patterns
+                        {t("cognitiveDistortions.lowSeverityDesc")}
                       </p>
                     </div>
                     <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                       <h3 className="font-semibold text-yellow-800">
-                        Moderate Severity
+                        {t("cognitiveDistortions.moderateSeverity")}
                       </h3>
                       <p className="text-yellow-600 text-sm">
-                        May benefit from awareness and monitoring
+                        {t("cognitiveDistortions.moderateSeverityDesc")}
                       </p>
                     </div>
                     <div className="bg-red-50 border border-red-200 rounded-lg p-4">
                       <h3 className="font-semibold text-red-800">
-                        High Severity
+                        {t("cognitiveDistortions.highSeverity")}
                       </h3>
                       <p className="text-red-600 text-sm">
-                        Consider professional support
+                        {t("cognitiveDistortions.highSeverityDesc")}
                       </p>
                     </div>
                   </div>
@@ -631,7 +646,7 @@ const ClientSideResult: React.FC = () => {
             <>
               <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
                 <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-6">
-                  Test Results Summary
+                  {t("personalityDisorders.title")}
                 </h2>
                 <div className="bg-gray-50 rounded-lg p-4 mb-6">
                   <p className="text-lg text-center text-gray-700">
@@ -643,36 +658,27 @@ const ClientSideResult: React.FC = () => {
 
               <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
                 <h2 className="text-xl font-semibold text-gray-800 mb-4">
-                  Understanding Your Results
+                  {t("understandingResults")}
                 </h2>
                 <div className="space-y-4">
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                     <h3 className="font-semibold text-blue-800 mb-2">
-                      Important Note
+                      {t("importantNote")}
                     </h3>
                     <p className="text-blue-600 text-sm">
-                      This screening tool provides initial insights but is not a
-                      diagnostic instrument. A proper diagnosis can only be made
-                      by a qualified mental health professional.
+                      {t("personalityDisorders.importantNoteText")}
                     </p>
                   </div>
                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
                     <h3 className="font-semibold text-gray-800 mb-2">
-                      Score Interpretation
+                      {t("scoreInterpretation")}
                     </h3>
                     <ul className="list-disc list-inside text-sm text-gray-600 space-y-2">
-                      <li>
-                        &quot;Present&quot; indicates that responses meet the
-                        threshold for further evaluation
-                      </li>
-                      <li>
-                        &quot;Not Present&quot; suggests symptoms may not be
-                        clinically significant
-                      </li>
-                      <li>
-                        Multiple indicators may suggest overlapping traits or
-                        complex presentations
-                      </li>
+                      {t
+                        .raw("personalityDisorders.scoreInterpretationPoints")
+                        .map((point: string, index: number) => (
+                          <li key={index}>{point}</li>
+                        ))}
                     </ul>
                   </div>
                 </div>
@@ -682,7 +688,7 @@ const ClientSideResult: React.FC = () => {
             <>
               <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
                 <h2 className="text-xl md:text-2xl font-semibold text-center text-gray-700 mb-4">
-                  Your Result
+                  {t("yourResult")}
                 </h2>
                 <div className="flex flex-col md:flex-row items-center justify-center gap-4 mb-6">
                   <div className="flex items-baseline">
@@ -712,7 +718,7 @@ const ClientSideResult: React.FC = () => {
               {detailedInfo && (
                 <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
                   <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
-                    What does this mean?
+                    {t("whatDoesThisMean")}
                   </h2>
                   <p className="text-gray-600 leading-relaxed text-center md:text-left">
                     {detailedInfo}
@@ -732,7 +738,7 @@ const ClientSideResult: React.FC = () => {
                           {range.description}
                         </span>
                         <span className="text-xs opacity-90 block">
-                          {range.range} points
+                          {range.range} {common("points")}
                         </span>
                       </div>
                     ))}
@@ -748,8 +754,7 @@ const ClientSideResult: React.FC = () => {
                 test.isPremium ? "text-purple-600" : "text-blue-600"
               } font-semibold text-lg px-4`}
             >
-              Don&apos;t face your challenges alone. Professional help is
-              available!
+              {t("dontFaceAlone")}
             </p>
             <button
               className={`${
@@ -758,7 +763,7 @@ const ClientSideResult: React.FC = () => {
                   : "bg-green-600 hover:bg-green-700"
               } text-white font-semibold py-3 px-8 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105`}
             >
-              Find a Specialist
+              {t("findSpecialist")}
             </button>
           </div>
         </main>

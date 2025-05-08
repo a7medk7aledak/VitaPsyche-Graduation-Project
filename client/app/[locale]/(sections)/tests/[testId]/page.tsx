@@ -2,8 +2,10 @@
 
 import React, { useState } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { tests } from "@app/content/free tests/data";
+import { useTranslations } from "next-intl";
+
 import Navbar from "@components/common/Navbar";
+import { useFreeTestData } from "@app/content/tests/free";
 
 // Define a type for the question structure
 type Question = {
@@ -13,15 +15,17 @@ type Question = {
 };
 
 const TestPage: React.FC = () => {
+  const t = useTranslations("test");
+  const freeTests = useFreeTestData();
   const params = useParams();
-  const testName = params?.testName as string;
-  const test = tests.find((t) => t.testSlug === testName);
+  const testId = params?.testId as string;
+  const test = freeTests.find((t) => t.testId === testId);
   const [currentPage, setCurrentPage] = useState(1);
   const [answers, setAnswers] = useState<number[]>([]);
   const router = useRouter();
 
   if (!test || !test.questions || test.questions.length === 0) {
-    return <div>No questions available for this test.</div>;
+    return <div>{t("noQuestions")}</div>;
   }
 
   const handleNext = () => {
@@ -36,7 +40,7 @@ const TestPage: React.FC = () => {
       const answersStr = JSON.stringify(answers);
       const url = `/result?score=${score}&answers=${encodeURIComponent(
         answersStr
-      )}&testSlug=${encodeURIComponent(testName)}`;
+      )}&testId=${testId}`;
 
       router.push(url);
     }
@@ -75,7 +79,7 @@ const TestPage: React.FC = () => {
           <img
             src="/images/testimg.png"
             alt="test icon"
-            className="w-10 h-10 mr-4"
+            className="w-10 h-10 me-4"
           />
           <h1 className="text-2xl font-bold text-hoversubbutton">
             {test.testTitle}
@@ -84,8 +88,7 @@ const TestPage: React.FC = () => {
 
         {/* Instructions */}
         <p className="text-sm text-gray-500 text-center mb-6">
-          Please read the test items carefully and answer based on the past two
-          weeks. There&apos;s no right or wrong answer.
+          {t("instructions")}
         </p>
 
         {/* Question Section */}
@@ -120,11 +123,11 @@ const TestPage: React.FC = () => {
         <div className="w-full mb-6">
           <div className="flex justify-between mb-2">
             <span className="text-sm text-gray-600">
-              Question {currentPage} of {test.questions.length}
+              {t("question")} {currentPage} {t("of")} {test.questions.length}
             </span>
             <span className="text-sm text-gray-600">
               {Math.round((currentPage / test.questions.length) * 100)}%
-              Complete
+              {t("complete")}
             </span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
@@ -226,13 +229,13 @@ const TestPage: React.FC = () => {
         </div>
 
         {/* Previous and Next Buttons */}
-        <div className="flex space-x-4 mt-6">
+        <div className="flex space-x-4 rtl:space-x-reverse mt-6">
           <button
             onClick={handlePrevious}
             className="bg-button text-white font-semibold rounded-lg px-6 py-2 hover:bg-heading transitions"
             disabled={currentPage === 1}
           >
-            Previous
+            {t("previous")}
           </button>
           <button
             onClick={handleNext}
@@ -241,7 +244,7 @@ const TestPage: React.FC = () => {
             }`}
             disabled={!answers[currentPage - 1]} // Disable the button if no answer is selected
           >
-            {currentPage === test.questions.length ? "Finish" : "Next"}
+            {currentPage === test.questions.length ? t("finish") : t("next")}
           </button>
         </div>
       </div>

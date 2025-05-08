@@ -1,6 +1,5 @@
 "use client";
 
-import { paidtests } from "@app/content/paid tests/data";
 import Navbar from "@components/common/Navbar";
 import PremiumTestCard from "@components/PremiumTestCard";
 import TestCard from "@components/TestCard";
@@ -11,40 +10,16 @@ import {
   FaBrain,
   FaClipboardCheck,
 } from "react-icons/fa";
+import { useTranslations } from "next-intl";
+import { usePaidTestData } from "@app/content/tests/paid";
+import { useFreeTestData } from "@app/content/tests/free";
 
 const TestsPage: React.FC = () => {
-  const tests = [
-    {
-      title: "Depression scale",
-      icon: "/path-to-depression-icon.png",
-      questions: 21,
-    },
-    {
-      title: "Anxiety scale",
-      icon: "/path-to-anxiety-icon.png",
-      questions: 50,
-    },
-    {
-      title: "OCD scale",
-      icon: "/path-to-ocd-icon.png",
-      questions: 10,
-    },
-    {
-      title: "PTSD scale",
-      icon: "/path-to-ptsd-icon.png",
-      questions: 17,
-    },
-    {
-      title: "Rosenberg Self-Esteem Scale (RSES)",
-      icon: "/path-to-adhd-icon.png",
-      questions: 10,
-    },
-    {
-      title: "Internet Addiction Scale",
-      icon: "/path-to-stress-icon.png",
-      questions: 20,
-    },
-  ];
+  const paidTests = usePaidTestData();
+  const freeTests = useFreeTestData();
+  const t = useTranslations("tests");
+
+  const benefits = ["analysis", "reports", "insights", "recommendations"];
 
   return (
     <>
@@ -58,14 +33,12 @@ const TestsPage: React.FC = () => {
                 <div className="bg-blue-50 p-4 rounded-full">
                   <FaBrain className="h-10 w-10 text-blue-600" />
                 </div>
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 ml-4">
-                  Psychological Tests
+                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 ms-4">
+                  {t("pageTitle")}
                 </h1>
               </div>
               <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">
-                Gain insights into your mental well-being through our
-                scientifically-validated assessments. Remember, these tests are
-                tools for understanding, not final diagnoses.
+                {t("pageDescription")}
               </p>
             </div>
           </div>
@@ -75,17 +48,18 @@ const TestsPage: React.FC = () => {
           {/* Free Tests Section */}
           <div className="mb-16">
             <div className="flex items-center mb-8">
-              <FaClipboardCheck className="text-green-500 text-2xl mr-3" />
+              <FaClipboardCheck className="text-green-500 text-2xl me-3" />
               <h2 className="text-3xl font-bold text-gray-800">
-                Free Assessments
+                {t("freeTests")}
               </h2>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {tests.map((test, index) => (
+              {freeTests.map((test) => (
                 <TestCard
-                  key={index}
-                  title={test.title}
-                  questions={test.questions}
+                  key={test.testId}
+                  testId={test.testId}
+                  title={test.generalTitle}
+                  questions={t(`questionCount.${test.testId}`)}
                 />
               ))}
             </div>
@@ -98,40 +72,36 @@ const TestsPage: React.FC = () => {
                 <FaCrown className="text-yellow-500 text-3xl" />
               </div>
               <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                Premium Assessments
+                {t("premiumTests")}
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                Access our advanced psychological assessments with detailed
-                professional analysis and personalized recommendations.
+                {t("premiumDescription")}
               </p>
             </div>
 
             {/* Benefits */}
             <div className="flex flex-wrap justify-center gap-4 mb-12">
-              {[
-                "Professional Analysis",
-                "Detailed Reports",
-                "Expert Insights",
-                "Personalized Recommendations",
-              ].map((benefit, index) => (
+              {benefits.map((benefit) => (
                 <div
-                  key={index}
+                  key={benefit}
                   className="flex items-center bg-blue-50 rounded-full px-6 py-3 
                            transition-all hover:bg-blue-100"
                 >
-                  <FaCheckCircle className="text-blue-500 mr-2" />
-                  <span className="text-gray-700 font-medium">{benefit}</span>
+                  <FaCheckCircle className="text-blue-500 me-2" />
+                  <span className="text-gray-700 font-medium">
+                    {t(`benefits.${benefit}`)}
+                  </span>
                 </div>
               ))}
             </div>
 
             {/* Premium Test Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {paidtests.map((test, index) => (
+              {paidTests.map((test, index) => (
                 <PremiumTestCard
                   key={index}
                   title={test.testTitle}
-                  testSlug={test.testSlug}
+                  testId={test.testId}
                   questions={test.questions.length}
                   isPurchased={false}
                   price={99}

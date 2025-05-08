@@ -551,5 +551,128 @@
     "success": {
       "accountCreated": "Account created successfully!"
     }
+  },
+  "tests": {
+    "pageTitle": "Psychological Tests",
+    "pageDescription": "Gain insights into your mental well-being through our scientifically-validated assessments. Remember, these tests are tools for understanding, not final diagnoses.",
+    "freeTests": "Free Assessments",
+    "premiumTests": "Premium Assessments",
+    "premiumDescription": "Access our advanced psychological assessments with detailed professional analysis and personalized recommendations.",
+    "benefits": {
+      "analysis": "Professional Analysis",
+      "reports": "Detailed Reports",
+      "insights": "Expert Insights",
+      "recommendations": "Personalized Recommendations"
+    },
+    "testCard": {
+      "frequency": "Every 2 weeks",
+      "takeTest": "Take the tests",
+      "questions": "questions"
+    },
+
+    "questionCount": {
+      "rses-001": "10 questions",
+      "ybocs-001": "10 questions",
+      "bdi-2025": "21 questions",
+      "ptsd-2025": "17 questions",
+      "ias-2025": "20 questions",
+      "anx-2025": "50 questions"
+    },
+    "premiumCard": {
+      "defaultDescription": "Professional psychological assessment",
+      "features": {
+        "detailedAnalysis": "Detailed Analysis",
+        "expertInsights": "Expert Insights",
+        "comprehensiveReport": "Comprehensive Report"
+      },
+      "professionalAnalysis": "Professional Analysis",
+      "takeTest": "Take Test",
+      "purchaseAndTake": "Purchase & Take Test"
+    },
+    "purchase": "Purchase for $"
+  },
+  "test": {
+    "noQuestions": "No questions available for this test.",
+    "instructions": "Please read the test items carefully and answer based on the past two weeks. There's no right or wrong answer.",
+    "question": "Question",
+    "of": "of",
+    "complete": "Complete",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Finish"
+  },
+  "premiumTestPage": {
+    "premium": "Premium Test",
+    "premiumBadge": "Premium Test",
+    "notFound": "Premium Test Not Found",
+    "notFoundMessage": "The premium test you're looking for doesn't exist or might have been moved.",
+    "returnToPremium": "Return to Premium Tests",
+    "underMaintenance": "Test Under Maintenance",
+    "underMaintenanceMessage": "This premium test is currently being updated. Please check back later.",
+    "instructions": "Please read each question carefully and answer based on your experiences over the past two weeks. There are no right or wrong answers.",
+    "questionCounter": "Question {currentPage} of {totalQuestions}",
+    "complete": "{percentage}% Complete",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Finish"
+  },
+  "testResults": {
+    "loading": "Loading...",
+    "yourResult": "Your Result",
+    "whatDoesThisMean": "What does this mean?",
+    "understandingResults": "Understanding Your Results",
+    "importantNote": "Important Note",
+    "findSpecialist": "Find a Specialist",
+    "dontFaceAlone": "Don't face your challenges alone. Professional help is available!",
+    "scoreInterpretation": "Score Interpretation",
+    "totalScore": "Total Score: {{score}}/{{maxScore}}",
+    "cognitiveDistortions": {
+      "title": "Cognitive Distortions Test Results",
+      "importantNoteText": "This assessment evaluates 12 different types of cognitive distortions. Each score indicates the strength of that particular thinking pattern. This is a screening tool and not a diagnostic instrument.",
+      "lowSeverity": "Low Severity",
+      "lowSeverityDesc": "Indicates healthy thinking patterns",
+      "moderateSeverity": "Moderate Severity",
+      "moderateSeverityDesc": "May benefit from awareness and monitoring",
+      "highSeverity": "High Severity",
+      "highSeverityDesc": "Consider professional support",
+      "score": "Score: {{score}}",
+      "severity": "Severity: {{severity}}"
+    },
+    "personalityDisorders": {
+      "title": "Test Results Summary",
+      "noIndicators": "No significant personality disorder indicators found",
+      "potentialIndicators": "Potential indicators found for: {{disorders}}",
+      "noDetailedInfo": "No detailed information available",
+      "presentStatus": "Present",
+      "notPresentStatus": "Not Present",
+      "importantNoteText": "This screening tool provides initial insights but is not a diagnostic instrument. A proper diagnosis can only be made by a qualified mental health professional.",
+      "scoreInterpretationPoints": [
+        "\"Present\" indicates that responses meet the threshold for further evaluation",
+        "\"Not Present\" suggests symptoms may not be clinically significant",
+        "Multiple indicators may suggest overlapping traits or complex presentations"
+      ]
+    },
+    "ptsd": {
+      "positive": "You have PTSD.",
+      "negative": "You don't have PTSD."
+    }
+  },
+  "common": {
+    "points": "points"
+  },
+  "testsCheckout": {
+    "pageTitle": "Checkout",
+    "premiumTest": {
+      "sectionTitle": "Premium Test Details",
+      "testName": "Test Name",
+      "price": "Price"
+    },
+    "coupon": {
+      "label": "Coupon Code",
+      "placeholder": "Enter coupon code",
+      "applyButton": "Apply"
+    },
+    "paymentSuccess": "Payment completed successfully",
+    "loading": "Loading..."
   }
 }

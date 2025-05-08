@@ -552,5 +552,135 @@
     "success": {
       "accountCreated": "تم إنشاء الحساب بنجاح!"
     }
+  },
+  "tests": {
+    "pageTitle": "الاختبارات النفسية",
+    "pageDescription": "احصل على رؤى حول صحتك النفسية من خلال تقييماتنا المعتمدة علمياً. تذكر، هذه الاختبارات هي أدوات للفهم، وليست تشخيصات نهائية.",
+    "freeTests": "التقييمات المجانية",
+    "premiumTests": "التقييمات المتميزة",
+    "premiumDescription": "احصل على تقييمات نفسية متقدمة مع تحليل احترافي مفصل وتوصيات شخصية.",
+    "benefits": {
+      "analysis": "تحليل احترافي",
+      "reports": "تقارير مفصلة",
+      "insights": "رؤى خبيرة",
+      "recommendations": "توصيات شخصية"
+    },
+    "testCard": {
+      "frequency": "كل أسبوعين",
+      "takeTest": "خذ الاختبار",
+      "questions": "سؤال"
+    },
+    "testTitles": {
+      "depressionScale": "مقياس الاكتئاب",
+      "anxietyScale": "مقياس القلق",
+      "ocdScale": "مقياس الوسواس القهري",
+      "ptsdScale": "مقياس اضطراب ما بعد الصدمة",
+      "rosenbergScale": "مقياس روزنبرغ لتقدير الذات",
+      "internetAddictionScale": "مقياس إدمان الإنترنت"
+    },
+    "questionCount": {
+      "rses-001": "10 سؤال",
+      "ybocs-001": "10 سؤال",
+      "bdi-2025": "21 أسئلة",
+      "ptsd-2025": "17 سؤال",
+      "ias-2025": "20 أسئلة",
+      "anx-2025": "50 سؤال"
+    },
+    "premiumCard": {
+      "defaultDescription": "تقييم نفسي احترافي",
+      "features": {
+        "detailedAnalysis": "تحليل مفصل",
+        "expertInsights": "رؤى الخبراء",
+        "comprehensiveReport": "تقرير شامل"
+      },
+      "professionalAnalysis": "تحليل احترافي",
+      "takeTest": "خذ الاختبار",
+      "purchaseAndTake": "اشترِ وخذ الاختبار"
+    },
+    "purchase": "شراء مقابل $"
+  },
+  "test": {
+    "noQuestions": "لا توجد أسئلة متاحة لهذا الاختبار.",
+    "instructions": "يرجى قراءة عناصر الاختبار بعناية والإجابة بناءً على الأسبوعين الماضيين. لا توجد إجابة صحيحة أو خاطئة.",
+    "question": "السؤال",
+    "of": "من",
+    "complete": "مكتمل",
+    "previous": "السابق",
+    "next": "التالي",
+    "finish": "إنهاء"
+  },
+  "premiumTestPage": {
+    "premium": "اختبار مميز",
+    "premiumBadge": "اختبار مميز",
+    "notFound": "لم يتم العثور على الاختبار المميز",
+    "notFoundMessage": "الاختبار المميز الذي تبحث عنه غير موجود أو ربما تم نقله.",
+    "returnToPremium": "العودة إلى الاختبارات المميزة",
+    "underMaintenance": "الاختبار قيد الصيانة",
+    "underMaintenanceMessage": "يتم حاليًا تحديث هذا الاختبار المميز. يرجى التحقق مرة أخرى لاحقًا.",
+    "instructions": "يرجى قراءة كل سؤال بعناية والإجابة بناءً على تجاربك خلال الأسبوعين الماضيين. لا توجد إجابات صحيحة أو خاطئة.",
+    "questionCounter": "السؤال {currentPage} من {totalQuestions}",
+    "complete": "{percentage}% مكتمل",
+    "previous": "السابق",
+    "next": "التالي",
+    "finish": "إنهاء"
+  },
+  "testResults": {
+    "loading": "جاري التحميل...",
+    "yourResult": "نتيجتك",
+    "whatDoesThisMean": "ماذا يعني هذا؟",
+    "understandingResults": "فهم نتائجك",
+    "importantNote": "ملاحظة مهمة",
+    "findSpecialist": "ابحث عن متخصص",
+    "dontFaceAlone": "لا تواجه تحدياتك وحدك. المساعدة المهنية متاحة!",
+    "scoreInterpretation": "تفسير النتيجة",
+    "totalScore": "النتيجة الإجمالية: {{score}}/{{maxScore}}",
+    "cognitiveDistortions": {
+      "title": "نتائج اختبار التشوهات المعرفية",
+      "importantNoteText": "يقيم هذا التقييم 12 نوعًا مختلفًا من التشوهات المعرفية. تشير كل نتيجة إلى قوة نمط التفكير المحدد. هذه أداة فحص وليست أداة تشخيصية.",
+      "lowSeverity": "شدة منخفضة",
+      "lowSeverityDesc": "تشير إلى أنماط تفكير صحية",
+      "moderateSeverity": "شدة متوسطة",
+      "moderateSeverityDesc": "قد تستفيد من الوعي والمراقبة",
+      "highSeverity": "شدة عالية",
+      "highSeverityDesc": "ينصح بالدعم المهني",
+      "score": "النتيجة: {{score}}",
+      "severity": "الشدة: {{severity}}"
+    },
+    "personalityDisorders": {
+      "title": "ملخص نتائج الاختبار",
+      "noIndicators": "لم يتم العثور على مؤشرات كبيرة لاضطرابات الشخصية",
+      "potentialIndicators": "تم العثور على مؤشرات محتملة لـ: {{disorders}}",
+      "noDetailedInfo": "لا توجد معلومات مفصلة متاحة",
+      "presentStatus": "موجود",
+      "notPresentStatus": "غير موجود",
+      "importantNoteText": "توفر أداة الفحص هذه رؤى أولية ولكنها ليست أداة تشخيصية. يمكن إجراء التشخيص المناسب فقط من قبل متخصص مؤهل في الصحة النفسية.",
+      "scoreInterpretationPoints": [
+        "\"موجود\" يشير إلى أن الاستجابات تلبي عتبة التقييم الإضافي",
+        "\"غير موجود\" يشير إلى أن الأعراض قد لا تكون ذات أهمية سريرية",
+        "قد تشير المؤشرات المتعددة إلى سمات متداخلة أو حالات معقدة"
+      ]
+    },
+    "ptsd": {
+      "positive": "لديك اضطراب ما بعد الصدمة.",
+      "negative": "ليس لديك اضطراب ما بعد الصدمة."
+    }
+  },
+  "common": {
+    "points": "نقاط"
+  },
+  "testsCheckout": {
+    "pageTitle": "الدفع",
+    "premiumTest": {
+      "sectionTitle": "تفاصيل الاختبار المميز",
+      "testName": "اسم الاختبار",
+      "price": "السعر"
+    },
+    "coupon": {
+      "label": "رمز القسيمة",
+      "placeholder": "أدخل رمز القسيمة",
+      "applyButton": "تطبيق"
+    },
+    "paymentSuccess": "تم إتمام عملية الدفع بنجاح",
+    "loading": "جارِ التحميل..."
   }
 }
