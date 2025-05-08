@@ -700,7 +700,7 @@ const ClientSideResult: React.FC = () => {
                       {score}
                     </span>
                     {test.testSlug !== "ptsd-scale" && (
-                      <span className="text-4xl md:text-5xl text-black ml-1">
+                      <span className="text-4xl md:text-5xl text-black ms-1">
                         /{maxScore}
                       </span>
                     )}
@@ -708,7 +708,7 @@ const ClientSideResult: React.FC = () => {
                   <div
                     className={`text-xl md:text-2xl font-semibold ${
                       test.isPremium ? "text-purple-600" : "text-green-600"
-                    } text-center md:text-left`}
+                    } text-center md:text-start`}
                   >
                     {feedback}
                   </div>
@@ -720,7 +720,7 @@ const ClientSideResult: React.FC = () => {
                   <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">
                     {t("whatDoesThisMean")}
                   </h2>
-                  <p className="text-gray-600 leading-relaxed text-center md:text-left">
+                  <p className="text-gray-600 leading-relaxed text-center">
                     {detailedInfo}
                   </p>
                 </div>
