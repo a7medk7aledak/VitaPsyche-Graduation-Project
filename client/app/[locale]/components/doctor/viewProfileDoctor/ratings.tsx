@@ -1,26 +1,32 @@
+import { useTranslations } from "next-intl";
+
 interface RatingItem {
-  label: string;
+  key: string;
   score: number;
 }
 
 export function Ratings() {
+  const t = useTranslations("viewProfile.ratings");
+
   const ratings: RatingItem[] = [
-    { label: "Communication", score: 3.68 },
-    { label: "Understanding of the situation", score: 4.7 },
-    { label: "Providing effective solutions", score: 3 },
-    { label: "Commitment to start and end times", score: 4 },
+    { key: "communication", score: 3.68 },
+    { key: "understanding", score: 4.7 },
+    { key: "solutions", score: 3 },
+    { key: "commitment", score: 4 },
   ];
 
   return (
     <div className="bg-white rounded-lg p-6 shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
-        Rating
+        {t("title")}
       </h2>
       <div className="space-y-4 max-w-[400px]">
-        {ratings.map((rating, index) => (
-          <div key={index}>
+        {ratings.map((rating) => (
+          <div key={rating.key}>
             <div className="flex justify-between text-sm mb-1">
-              <span className=" font-medium text-gray-60">{rating.label}</span>
+              <span className="font-medium text-gray-60">
+                {t(`metrics.${rating.key}`)}
+              </span>
               <span>{rating.score}</span>
             </div>
             <div className="h-5 bg-gray-200 rounded-full">

@@ -2,11 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 const AlertBox = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const router = useRouter();
+  const t = useTranslations("alertBox");
 
   // Ensure the component works only in the browser environment
   useEffect(() => {
@@ -36,71 +39,32 @@ const AlertBox = () => {
   if (!isMounted || !showAlert) return null;
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: "20px",
-        right: "20px",
-        width: "300px",
-        border: "1px solid #ddd",
-        borderRadius: "10px",
-        padding: "20px",
-        backgroundColor: "#f9f9f9",
-        boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-        textAlign: "center",
-        zIndex: 1000,
-        transition: "all 0.3s ease-in-out",
-      }}
-    >
-      <img
-        src="./images/Capture.jpeg"
-        alt="Lina"
-        style={{
-          width: "80px",
-          height: "80px",
-          borderRadius: "50%",
-          marginBottom: "15px",
-          objectFit: "cover",
-        }}
-      />
-      <p style={{ marginBottom: "15px", fontSize: "16px", fontWeight: "bold" }}>
-        Hi, I am Lina. Let&apos;s talk...
-      </p>
-      <button
-        onClick={redirectToLina}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#007BFF",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-          borderRadius: "5px",
-          fontSize: "14px",
-          marginRight: "10px",
-          transition: "background-color 0.3s",
-        }}
-        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#0056b3")}
-        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#007BFF")}
-      >
-        Go to Lina
-      </button>
-      <button
-        onClick={closeAlert}
-        style={{
-          padding: "10px 20px",
-          backgroundColor: "#dc3545",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-          borderRadius: "5px",
-          fontSize: "14px",
-          transition: "background-color 0.3s",
-        }}
-        onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#b02a37")}
-        onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#dc3545")}
-      >
-        Close
-      </button>
+    <div className="fixed bottom-5  end-5 w-72 border border-gray-200 rounded-lg p-5 bg-gray-50 shadow-lg text-center z-10 transition-all duration-300 ease-in-out">
+      <div className="flex justify-center mb-4">
+        <div className="relative w-20 h-20 rounded-full overflow-hidden">
+          <Image
+            src="/images/Capture.jpeg"
+            alt="Lina"
+            fill
+            className="object-cover"
+          />
+        </div>
+      </div>
+      <p className="mb-4 text-base font-bold">{t("title")}</p>
+      <div className="flex justify-center space-x-2 rtl:space-x-reverse">
+        <button
+          onClick={redirectToLina}
+          className="px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white border-none rounded cursor-pointer text-sm transition-colors duration-300"
+        >
+          {t("goToLina")}
+        </button>
+        <button
+          onClick={closeAlert}
+          className="px-5 py-2 bg-red-500 hover:bg-red-600 text-white border-none rounded cursor-pointer text-sm transition-colors duration-300"
+        >
+          {t("close")}
+        </button>
+      </div>
     </div>
   );
 };

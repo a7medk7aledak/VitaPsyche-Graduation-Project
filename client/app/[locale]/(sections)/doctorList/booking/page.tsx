@@ -15,6 +15,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
+import { useTranslations } from "next-intl";
 
 interface IService {
   id: number;
@@ -54,6 +55,8 @@ const defaultService: IService = {
   category: 0,
   is_active: true,
 };
+
+type TranslationFunction = (key: string) => string;
 
 // Helper functions
 const generateDates = (startDate: Date, days: number) => {
@@ -229,6 +232,7 @@ const DateColumn = ({
   selectedDate,
   selectedSlot,
   onSlotClick,
+  t,
 }: {
   date: Date;
   slots: ITimeSlot[];
@@ -236,6 +240,7 @@ const DateColumn = ({
   selectedDate: string | null;
   selectedSlot: string | null;
   onSlotClick: (slot: ITimeSlot, date: Date, notes?: string) => void;
+  t: TranslationFunction;
 }) => {
   const formattedDate = formatDateOnly(date);
   const hasNotes = notes && notes.trim().length > 0;
@@ -282,7 +287,7 @@ const DateColumn = ({
             />
           ))
         ) : (
-          <p className="text-center text-gray-500 py-4">No available slots</p>
+          <p className="text-center text-gray-500 py-4">{t("noSlots")}</p>
         )}
       </div>
     </div>
@@ -294,21 +299,23 @@ const DoctorInfoCard = ({
   service,
   doctorInitial,
   categoryName,
+  t,
 }: {
   service: IService;
   doctorInitial: string;
   categoryName: string | number | null;
+  t: TranslationFunction;
 }) => {
   return (
     <div className="relative flex items-center bg-white py-6 px-2 space-x-2 rounded-lg shadow-md">
       <span
-        className={`absolute top-2 right-2 text-sm px-3 py-1 rounded-full font-medium ${
+        className={`absolute top-2 end-2 text-sm px-3 py-1 rounded-full font-medium ${
           service.is_active
             ? "bg-green-200 text-green-800"
             : "bg-red-200 text-red-800"
         }`}
       >
-        {service.is_active ? "Active" : "Inactive"}
+        {service.is_active ? t("doctorCard.active") : t("doctorCard.inactive")}
       </span>
 
       {service.image ? (
@@ -335,10 +342,12 @@ const DoctorInfoCard = ({
       )}
       <div>
         <h2 className="text-lg xl:text-2xl font-semibold text-gray-800">
-          Dr. {service.doctor_name}
+          {t("doctorCard.doctorPrefix")} {service.doctor_name}
         </h2>
         <p className="text-md text-gray-500">
-          {categoryName ? `Specialist in ${categoryName}` : "Psychiatrist"}
+          {categoryName
+            ? `${t("doctorCard.specialistPrefix")} ${categoryName}`
+            : "Psychiatrist"}
         </p>
       </div>
     </div>
@@ -349,26 +358,31 @@ const DoctorInfoCard = ({
 const ServiceDetails = ({
   service,
   sessionDuration,
+  t,
 }: {
   service: IService;
   sessionDuration: number;
+  t: TranslationFunction;
 }) => {
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
       <h3 className="text-lg font-semibold text-gray-800 mb-2">
-        Service Details
+        {t("serviceDetails.title")}
       </h3>
       <p className="text-md text-gray-700">
-        <span className="font-medium">Service:</span> {service.name}
+        <span className="font-medium">{t("serviceDetails.serviceLabel")}</span>{" "}
+        {service.name}
       </p>
       {service.description && (
         <p className="text-sm text-gray-600 mt-1">{service.description}</p>
       )}
       <p className="text-md text-gray-700 mt-2">
-        <span className="font-medium">Price:</span> {service.price} EGP
+        <span className="font-medium">{t("serviceDetails.priceLabel")}</span>{" "}
+        {service.price} {t("bookingSummary.currency")}
       </p>
       <p className="text-md text-gray-700 mt-2">
-        <span className="font-medium">Duration:</span> {sessionDuration} minutes
+        <span className="font-medium">{t("serviceDetails.durationLabel")}</span>{" "}
+        {sessionDuration} {t("serviceDetails.minutesSuffix")}
       </p>
     </div>
   );
@@ -380,26 +394,30 @@ const BookingSummary = ({
   service,
   sessionDuration,
   onBookClick,
+  t,
 }: {
   selection: ISelection;
   service: IService;
   sessionDuration: number;
   onBookClick: () => void;
+  t: TranslationFunction;
 }) => {
   if (!selection.date || !selection.slot || !selection.endTime) return null;
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
-      <p className="text-lg font-semibold text-gray-800">Slot is selected</p>
+      <p className="text-lg font-semibold text-gray-800">
+        {t("bookingSummary.slotSelected")}
+      </p>
       <p className="text-md text-gray-700">
-        {selection.date} - {selection.slot} to {selection.endTime} -{" "}
-        {sessionDuration} Min
+        {selection.date} - {selection.slot} {t("bookingSummary.to")}{" "}
+        {selection.endTime} - {sessionDuration} {t("bookingSummary.min")}
       </p>
 
       {selection.notes && (
         <div className="mt-3 bg-blue-50 p-3 rounded-md border border-blue-200">
           <p className="text-sm font-medium text-blue-800 mb-1">
-            Schedule Notes:
+            {t("bookingSummary.scheduleNotes")}
           </p>
           <p className="text-sm text-gray-700">{selection.notes}</p>
         </div>
@@ -409,7 +427,8 @@ const BookingSummary = ({
         onClick={onBookClick}
         className="w-full mt-4 text-lg mx-auto px-6 py-3 btn shadow-md hover:shadow-lg btn-secondary rounded-md font-medium "
       >
-        Book Now {service.price} EGP
+        {t("bookingSummary.bookNowButton")} {service.price}{" "}
+        {t("bookingSummary.currency")}
       </button>
     </div>
   );
@@ -417,6 +436,7 @@ const BookingSummary = ({
 
 // Main SessionBooking component
 const SessionBooking = () => {
+  const t = useTranslations("sessionBooking");
   const router = useRouter();
   const axiosInstance = useAxios();
   const searchParams = useSearchParams();
@@ -504,23 +524,19 @@ const SessionBooking = () => {
 
           switch (status) {
             case 404:
-              setError(
-                "Doctor or service not found. Please check your selection."
-              );
+              setError(t("errorMessages.notFound"));
               break;
             case 401:
-              setError("Please log in to access booking services.");
+              setError(t("errorMessages.unauthorized"));
               router.push("/login");
               break;
             default:
-              setError(
-                "Unable to load booking information. Please try again later."
-              );
+              setError(t("errorMessages.generic"));
           }
 
           console.error(`Error (${status}):`, err.response?.data);
         } else {
-          setError("Connection error. Please check your internet connection.");
+          setError(t("errorMessages.connection"));
           console.error("Unknown error:", err);
         }
       } finally {
@@ -529,7 +545,7 @@ const SessionBooking = () => {
     };
 
     fetchData();
-  }, [doctorId, serviceId, axiosInstance, router]);
+  }, [doctorId, serviceId, axiosInstance, router, t]);
 
   // Event handlers
   const handleSlotClick = (slot: ITimeSlot, date: Date, notes?: string) => {
@@ -559,14 +575,12 @@ const SessionBooking = () => {
 
   const handleBookClick = () => {
     if (!canBook) {
-      toast.error(
-        "Doctors are not allowed to book appointments for themselves."
-      );
+      toast.error(t("errorMessages.doctorBooking"));
       return;
     }
 
     if (!service.is_active) {
-      toast.error("This service is currently unavailable.");
+      toast.error(t("errorMessages.inactiveService"));
       return;
     }
 
@@ -598,7 +612,7 @@ const SessionBooking = () => {
 
   // Render loading state
   if (loading) {
-    return <SpinnerLoading message="Preparing your booking options..." />;
+    return <SpinnerLoading message={t("loading")} />;
   }
 
   // Render error state
@@ -615,7 +629,7 @@ const SessionBooking = () => {
   return (
     <div className="lg:mx-auto lg:container px-6 mt-6 mb-28 font-sans">
       <div className="-mb-10">
-        <Heading variant="secondary">Session Booking</Heading>
+        <Heading variant="secondary">{t("pageTitle")}</Heading>
       </div>
 
       <div className="flex flex-col justify-center md:flex-row gap-6">
@@ -626,10 +640,15 @@ const SessionBooking = () => {
             service={service}
             doctorInitial={doctorInitial}
             categoryName={categoryName}
+            t={t}
           />
 
           {/* Service Info */}
-          <ServiceDetails service={service} sessionDuration={sessionDuration} />
+          <ServiceDetails
+            service={service}
+            sessionDuration={sessionDuration}
+            t={t}
+          />
 
           {/* Booking Summary */}
           <BookingSummary
@@ -637,6 +656,7 @@ const SessionBooking = () => {
             service={service}
             sessionDuration={sessionDuration}
             onBookClick={handleBookClick}
+            t={t}
           />
         </div>
 
@@ -665,7 +685,10 @@ const SessionBooking = () => {
           </div>
 
           {/* Calendar Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4">
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-4"
+            dir="ltr"
+          >
             {timeSlotsData.map(({ date, slots, notes }) => (
               <DateColumn
                 key={date.toDateString()}
@@ -675,6 +698,7 @@ const SessionBooking = () => {
                 selectedDate={selection.date}
                 selectedSlot={selection.slot}
                 onSlotClick={handleSlotClick}
+                t={t}
               />
             ))}
           </div>
@@ -682,51 +706,59 @@ const SessionBooking = () => {
           {/* Legend */}
           <div className="mt-6 p-4 bg-gray-50 border border-gray-200 rounded-lg">
             <h4 className="text-lg font-medium text-gray-800 mb-3">
-              Understanding Your Booking Options
+              {t("calendar.understanding")}
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <div className="w-10 h-8 bg-gray-200 rounded-md"></div>
                 <div>
-                  <p className="font-medium text-gray-700">Available</p>
+                  <p className="font-medium text-gray-700">
+                    {t("calendar.available.title")}
+                  </p>
                   <p className="text-sm text-gray-600">
-                    Time slot is open for booking
+                    {t("calendar.available.description")}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <div className="w-10 h-8 bg-[#00978c] rounded-md"></div>
                 <div>
-                  <p className="font-medium text-gray-700">Selected</p>
+                  <p className="font-medium text-gray-700">
+                    {t("calendar.selected.title")}
+                  </p>
                   <p className="text-sm text-gray-600">
-                    Your currently selected time slot
+                    {t("calendar.selected.description")}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
+              <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <div className="w-10 h-8 bg-red-500 rounded-md"></div>
                 <div>
-                  <p className="font-medium text-gray-700">Unavailable</p>
+                  <p className="font-medium text-gray-700">
+                    {t("calendar.unavailable.title")}
+                  </p>
                   <p className="text-sm text-gray-600">
-                    This slot has been booked
+                    {t("calendar.unavailable.description")}
                   </p>
                 </div>
               </div>
             </div>
             <div className="mt-4 bg-blue-50 p-3 rounded-md border border-blue-200">
               <p className="text-sm text-gray-700">
-                <span className="font-medium text-blue-800">Note:</span> After
-                selecting a time slot, please review your selection in the
-                booking summary on the left before confirming your appointment.
+                <span className="font-medium text-blue-800">
+                  {t("calendar.notePrefix")}
+                </span>{" "}
+                {t("calendar.noteText")}
               </p>
             </div>
           </div>
 
           {/* Timezone note */}
           <p className="text-center text-sm text-gray-500 mt-8">
-            All times are <span className="font-medium">Africa/Cairo</span>{" "}
+            {t("timezone.prefix")}{" "}
+            <span className="font-medium">{t("timezone.name")}</span>{" "}
             <button className="underline text-blue-500 hover:text-blue-700">
-              Change
+              {t("timezone.change")}
             </button>
           </p>
         </div>

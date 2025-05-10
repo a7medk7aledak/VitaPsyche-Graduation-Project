@@ -2,6 +2,8 @@ import { FaStar } from "react-icons/fa";
 import { RenderStars } from "./renderStars";
 import { useState } from "react";
 import { getInitial } from "@utils/doctorUtils";
+import { useTranslations } from "next-intl";
+import { useFormatter } from "next-intl";
 
 interface IReview {
   id: number;
@@ -22,10 +24,13 @@ interface ReviewsProps {
 }
 
 const Reviews = ({ reviews, reviewsStats }: ReviewsProps) => {
+  const t = useTranslations("viewProfile.reviews");
+  const format = useFormatter();
   const [visibleReviews, setVisibleReviews] = useState(3);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    const date = new Date(dateString);
+    return format.dateTime(date, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -55,9 +60,7 @@ const Reviews = ({ reviews, reviewsStats }: ReviewsProps) => {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="border-b pb-6">
-        <h2 className="text-2xl font-semibold text-subheading">
-          Patient Reviews
-        </h2>
+        <h2 className="text-2xl font-semibold text-subheading">{t("title")}</h2>
         <div className="mt-4 flex items-center gap-4">
           <div className="text-4xl font-bold text-maintext">
             {reviewsStats.average.toFixed(1)}
@@ -65,8 +68,7 @@ const Reviews = ({ reviews, reviewsStats }: ReviewsProps) => {
           <div>
             <RenderStars average={reviewsStats.average} />
             <span className="text-paragraphtext text-sm block mt-1">
-              Based on {reviews.length}{" "}
-              {reviews.length === 1 ? "review" : "reviews"}
+              {t("rating.average", { count: reviews.length })}
             </span>
           </div>
         </div>
@@ -75,8 +77,8 @@ const Reviews = ({ reviews, reviewsStats }: ReviewsProps) => {
       <div className="mt-6 space-y-8">
         {reviews.length === 0 ? (
           <div className="text-paragraphtext text-center py-12 border border-dashed border-gray-300 rounded-lg">
-            <p className="font-medium">No reviews yet</p>
-            <p className="text-sm mt-1">Be the first to leave feedback</p>
+            <p className="font-medium">{t("noReviews.title")}</p>
+            <p className="text-sm mt-1">{t("noReviews.subtitle")}</p>
           </div>
         ) : (
           <>
@@ -91,7 +93,7 @@ const Reviews = ({ reviews, reviewsStats }: ReviewsProps) => {
                     {getInitial(review.patient_first_name)}
                   </div>
 
-                  <div className="ml-4 flex-1">
+                  <div className="ms-4 flex-1">
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-medium text-primarytext">
@@ -113,8 +115,8 @@ const Reviews = ({ reviews, reviewsStats }: ReviewsProps) => {
                               />
                             ))}
                           </div>
-                          <span className="ml-2 text-sm text-paragraphtext">
-                            {review.rating}/5
+                          <span className="ms-2 text-sm text-paragraphtext">
+                            {t("rating.outOf", { rating: review.rating })}
                           </span>
                         </div>
                       </div>
@@ -138,8 +140,8 @@ const Reviews = ({ reviews, reviewsStats }: ReviewsProps) => {
                         }`}
                       >
                         {review.is_positive
-                          ? "Recommends this provider"
-                          : "Does not recommend"}
+                          ? t("reviewItem.recommends")
+                          : t("reviewItem.doesNotRecommend")}
                       </span>
                     </div>
                   </div>
@@ -151,11 +153,13 @@ const Reviews = ({ reviews, reviewsStats }: ReviewsProps) => {
               <div className="text-center">
                 <button
                   onClick={handleShowMore}
-                  className="px-6 py-2 bg-main hover:bg-hoverbutton text-white font-medium rounded-md transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center mx-auto space-x-2"
+                  className="px-6 py-2 bg-main hover:bg-hoverbutton text-white font-medium rounded-md transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center mx-auto space-x-2 rtl:space-x-reverse"
                 >
-                  <span>Show More...</span>
+                  <span>{t("showMore")}</span>
                   <span className="text-xs bg-white bg-opacity-20 px-2 py-1 rounded-full">
-                    {reviews.length - visibleReviews}
+                    {t("remainingCount", {
+                      count: reviews.length - visibleReviews,
+                    })}
                   </span>
                 </button>
               </div>

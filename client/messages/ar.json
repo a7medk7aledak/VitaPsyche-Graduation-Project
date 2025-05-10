@@ -682,5 +682,584 @@
     },
     "paymentSuccess": "تم إتمام عملية الدفع بنجاح",
     "loading": "جارِ التحميل..."
+  },
+  "doctorList": {
+    "pageTitle": "اكتشف المعالج المناسب لتوجيه رحلة صحتك النفسية",
+    "searchPlaceholder": "ابحث هنا",
+    "filters": {
+      "title": "الفلاتر",
+      "availability": {
+        "label": "التوفر",
+        "today": "اليوم",
+        "thisWeek": "هذا الأسبوع"
+      },
+      "specificDate": {
+        "label": "تاريخ محدد أو نطاق"
+      },
+      "areasOfInterest": {
+        "label": "مجالات الاهتمام",
+        "selectPrompt": "اختر التخصص"
+      },
+      "sessionDuration": {
+        "label": "مدة الجلسة",
+        "thirtyMin": "30 دقيقة",
+        "sixtyMin": "60 دقيقة"
+      },
+      "therapistGender": {
+        "label": "جنس المعالج",
+        "selectPrompt": "اختر الجنس",
+        "male": "ذكر",
+        "female": "أنثى"
+      },
+      "ratings": {
+        "label": "التقييمات",
+        "ratingText": "التقييم"
+      },
+      "languageAndCountry": {
+        "label": "اللغة والبلد",
+        "selectLanguage": "اختر اللغة",
+        "selectCountry": "اختر البلد"
+      },
+      "sessionRange": {
+        "label": "نطاق سعر الجلسة",
+        "selectPrompt": "النطاق",
+        "range1": "0-500",
+        "range2": "500-1000",
+        "range3": "1000-1500",
+        "range4": "1500-2000"
+      },
+      "promoCode": {
+        "label": "قبول رموز الخصم",
+        "selectPrompt": "اختر",
+        "yes": "نعم",
+        "no": "لا"
+      },
+      "activeServices": {
+        "label": "الخدمات النشطة فقط"
+      },
+      "buttons": {
+        "apply": "تطبيق",
+        "reset": "إعادة تعيين الفلاتر"
+      }
+    },
+    "noServices": "لم يتم العثور على خدمات",
+    "loading": "جاري تحميل الخدمات"
+  },
+  "serviceCard": {
+    "status": {
+      "active": "نشط",
+      "inactive": "غير نشط"
+    },
+    "unknownService": "خدمة غير معروفة",
+    "unknownDoctor": "طبيب غير معروف",
+    "doctorPrefix": "د.",
+    "uncategorized": "غير مصنف",
+    "noDescription": "لا يوجد وصف متاح.",
+    "price": {
+      "currency": "جنيه مصري",
+      "notAvailable": "غير متاح"
+    },
+    "duration": {
+      "unit": "دقيقة",
+      "notAvailable": "غير متاح"
+    },
+    "actions": {
+      "viewProfile": "عرض الملف الشخصي",
+      "bookNow": "احجز الآن"
+    }
+  },
+  "sessionBooking": {
+    "pageTitle": "حجز الجلسة",
+    "loading": "جاري تحضير خيارات الحجز...",
+    "errorMessages": {
+      "notFound": "لم يتم العثور على الطبيب أو الخدمة. يرجى التحقق من اختيارك.",
+      "unauthorized": "يرجى تسجيل الدخول للوصول إلى خدمات الحجز.",
+      "generic": "تعذر تحميل معلومات الحجز. يرجى المحاولة مرة أخرى لاحقاً.",
+      "connection": "خطأ في الاتصال. يرجى التحقق من اتصال الإنترنت الخاص بك.",
+      "doctorBooking": "لا يُسمح للأطباء بحجز مواعيد لأنفسهم.",
+      "inactiveService": "هذه الخدمة غير متوفرة حالياً."
+    },
+    "doctorCard": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "doctorPrefix": "د.",
+      "specialistPrefix": "متخصص في"
+    },
+    "serviceDetails": {
+      "title": "تفاصيل الخدمة",
+      "serviceLabel": "الخدمة:",
+      "priceLabel": "السعر:",
+      "durationLabel": "المدة:",
+      "minutesSuffix": "دقيقة"
+    },
+    "bookingSummary": {
+      "slotSelected": "تم تحديد الموعد",
+      "scheduleNotes": "ملاحظات الجدول:",
+      "bookNowButton": "احجز الآن",
+      "currency": "جنيه",
+      "to": "إلى",
+      "min": "دقيقة"
+    },
+    "calendar": {
+      "understanding": "فهم خيارات الحجز",
+      "available": {
+        "title": "متاح",
+        "description": "الموعد متاح للحجز"
+      },
+      "selected": {
+        "title": "محدد",
+        "description": "الموعد المحدد حالياً"
+      },
+      "unavailable": {
+        "title": "غير متاح",
+        "description": "تم حجز هذا الموعد"
+      },
+      "notePrefix": "ملاحظة:",
+      "noteText": "بعد تحديد موعد، يرجى مراجعة اختيارك في ملخص الحجز على اليسار قبل تأكيد موعدك."
+    },
+    "timezone": {
+      "prefix": "جميع الأوقات بتوقيت",
+      "name": "القاهرة",
+      "change": "تغيير"
+    },
+    "noSlots": "لا توجد مواعيد متاحة"
+  },
+  "appointmentCheckout": {
+    "title": "إتمام الحجز",
+    "loading": "لحظة من فضلك! نحن نعد تفاصيل الدفع الخاصة بك...",
+    "appointmentDetails": {
+      "title": "تفاصيل الموعد",
+      "doctorPrefix": "د.",
+      "dateLabel": "التاريخ",
+      "timeLabel": "الوقت",
+      "priceLabel": "السعر",
+      "couponPlaceholder": "أدخل رمز الكوبون",
+      "applyButton": "تطبيق",
+      "sessionFees": "رسوم الجلسة",
+      "totalAmount": "المبلغ الإجمالي",
+      "currency": "جنيه مصري"
+    },
+    "successModal": {
+      "message": "تم حجز جلستك بنجاح. شكرًا لك!!"
+    },
+    "errors": {
+      "appointmentCreation": "فشل في إنشاء الموعد. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "sections": {
+      "personalInfo": "المعلومات الشخصية",
+      "paymentInfo": "معلومات الدفع",
+      "appointmentsInfo": "معلومات المواعيد"
+    },
+    "fields": {
+      "username": "اسم المستخدم",
+      "firstName": "الاسم الأول",
+      "lastName": "اسم العائلة",
+      "email": "البريد الإلكتروني",
+      "phoneNumber": "رقم الهاتف",
+      "birthDate": "تاريخ الميلاد",
+      "gender": "الجنس",
+      "nationality": "الجنسية",
+      "fluentLanguages": "اللغات التي تتقنها",
+      "currentResidence": "مكان الإقامة الحالي",
+      "walletBalance": "رصيد المحفظة"
+    },
+    "actions": {
+      "editProfile": "تعديل الملف الشخصي",
+      "saveChanges": "حفظ التغييرات",
+      "changePassword": "تغيير كلمة المرور",
+      "signOut": "تسجيل الخروج"
+    },
+    "modal": {
+      "signOutTitle": "تأكيد تسجيل الخروج",
+      "signOutMessage": "هل أنت متأكد أنك تريد تسجيل الخروج؟ ستحتاج إلى تسجيل الدخول مرة أخرى للوصول إلى حسابك.",
+      "cancel": "إلغاء",
+      "confirm": "تسجيل الخروج"
+    }
+  },
+  "appointments": {
+    "title": "المواعيد",
+    "filter": {
+      "all": "جميع المواعيد",
+      "booked": "محجوزة",
+      "confirmed": "مؤكدة",
+      "cancelled": "ملغاة"
+    },
+    "status": {
+      "booked": "محجوز",
+      "confirmed": "مؤكد",
+      "cancelled": "ملغي"
+    },
+    "labels": {
+      "followUp": "متابعة",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "cost": "التكلفة",
+      "costUnit": "جنيه",
+      "confirmation": "التأكيد",
+      "service": "الخدمة",
+      "noAppointments": "لا توجد مواعيد",
+      "noFilteredAppointments": "ليس لديك مواعيد {status}.",
+      "noScheduledAppointments": "لم تقم بجدولة أي مواعيد حتى الآن.",
+      "processing": "جاري المعالجة...",
+      "doctorNotAssigned": "لم يتم تعيين طبيب بعد",
+      "confirmed": "مؤكد",
+      "awaitingConfirmation": "في انتظار التأكيد"
+    },
+    "actions": {
+      "reschedule": "إعادة جدولة",
+      "cancel": "إلغاء",
+      "cancelling": "جاري الإلغاء"
+    },
+    "messages": {
+      "loadingAppointments": "جاري تحميل المواعيد...",
+      "failedToLoad": "فشل تحميل المواعيد. يرجى المحاولة مرة أخرى لاحقًا.",
+      "failedToCancel": "فشل إلغاء الموعد. يرجى المحاولة مرة أخرى."
+    }
+  },
+  "doctorProfile": {
+    "title": "الملف الشخصي",
+    "tabs": {
+      "personal": "المعلومات الشخصية",
+      "payment": "معلومات الدفع",
+      "career": "المعلومات المهنية",
+      "documents": "المستندات",
+      "services": "الخدمات",
+      "schedule": "الجدول",
+      "appointments": "المواعيد"
+    },
+    "buttons": {
+      "edit": "تعديل",
+      "save": "حفظ",
+      "change": "تغيير"
+    },
+    "personal": {
+      "fullName": "الاسم الكامل (بالإنجليزية)",
+      "email": "البريد الإلكتروني",
+      "phoneNumber": "رقم الهاتف",
+      "username": "اسم المستخدم",
+      "password": "كلمة المرور",
+      "dateOfBirth": "تاريخ الميلاد",
+      "gender": "الجنس",
+      "nationality": "الجنسية",
+      "countryOfResidence": "بلد الإقامة",
+      "fluentLanguages": "اللغات التي يجيدها"
+    },
+    "payment": {
+      "paymentMethod": "طريقة الدفع",
+      "cardType": "نوع البطاقة",
+      "cardNumber": "رقم البطاقة",
+      "paypalConnected": "متصل بـ PayPal",
+      "yes": "نعم",
+      "no": "لا"
+    },
+    "career": {
+      "title": "المسار المهني",
+      "highestDegree": "أعلى درجة علمية",
+      "institution": "المؤسسة التعليمية",
+      "specializedIn": "التخصص",
+      "totalExperience": "سنوات الخبرة الإجمالية",
+      "years": "سنوات"
+    },
+    "documents": {
+      "title": "المستندات",
+      "viewCV": "عرض السيرة الذاتية",
+      "viewQualifications": "عرض المؤهلات"
+    }
+  },
+  "services": {
+    "title": "الخدمات",
+    "add": "إضافة خدمة",
+    "edit": "تعديل الخدمة",
+    "form": {
+      "name": {
+        "label": "اسم الخدمة",
+        "error": "اسم الخدمة مطلوب."
+      },
+      "description": "الوصف",
+      "category": {
+        "label": "الفئة",
+        "placeholder": "اختر الفئة",
+        "error": "الفئة مطلوبة."
+      },
+      "price": {
+        "label": "السعر ($)",
+        "error": {
+          "required": "السعر مطلوب",
+          "positive": "يجب أن يكون السعر رقمًا موجبًا."
+        }
+      },
+      "duration": {
+        "label": "المدة",
+        "60min": "٦٠ دقيقة",
+        "30min": "٣٠ دقيقة",
+        "error": "المدة مطلوبة."
+      },
+      "image": {
+        "label": "صورة الخدمة",
+        "sizeError": "يجب ألا يتجاوز حجم الصورة ٥ ميجابايت",
+        "typeError": "يرجى تحميل ملف صورة صالح (JPEG أو PNG أو GIF)",
+        "info": "الحد الأقصى لحجم الملف: ٥ ميجابايت. الصيغ المقبولة: JPEG، PNG، GIF"
+      },
+      "active": "نشط",
+      "save": "حفظ",
+      "add": "إضافة",
+      "cancel": "إلغاء"
+    }
+  },
+  "service": {
+    "category": "الفئة",
+    "description": "الوصف",
+    "price": "السعر",
+    "duration": "المدة",
+    "status": "الحالة",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "edit": "تعديل",
+    "remove": "إزالة",
+    "minutes": "دقيقة"
+  },
+  "schedule": {
+    "title": "الجداول",
+    "add": "إضافة جدول",
+    "edit": "تعديل الجدول",
+    "day": "اليوم",
+    "selectDay": "اختر يومًا",
+    "startTime": "وقت البدء",
+    "endTime": "وقت الانتهاء",
+    "maxPatients": "الحد الأقصى للمرضى في الموعد",
+    "notes": "ملاحظات",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "remove": "إزالة",
+
+    "errors": {
+      "dayRequired": "اليوم مطلوب.",
+      "invalidDate": "تاريخ غير صالح. يرجى اختيار تاريخ مستقبلي.",
+      "startTimeRequired": "وقت البدء مطلوب.",
+      "endTimeRequired": "وقت الانتهاء مطلوب.",
+      "invalidTimeRange": "لا يمكن أن يكون وقت البدء بعد أو يساوي وقت الانتهاء.",
+      "maxPatientsRequired": "الحد الأقصى للمرضى في الموعد مطلوب.",
+      "invalidMaxPatients": "يرجى تحديد عدد مناسب من المرضى لكل موعد لضمان جدولة مثالية."
+    },
+    "days": {
+      "monday": "الاثنين",
+      "tuesday": "الثلاثاء",
+      "wednesday": "الأربعاء",
+      "thursday": "الخميس",
+      "friday": "الجمعة",
+      "saturday": "السبت",
+      "sunday": "الأحد"
+    },
+    "timePeriods": {
+      "am": "صباحاً",
+      "pm": "مساءً"
+    }
+  },
+  "doctorAppointments": {
+    "title": "إدارة المواعيد",
+    "doctorProfileNotFound": "لم يتم العثور على ملف الطبيب",
+    "doctorProfileNotAvailable": "معلومات ملف الطبيب غير متوفرة. يرجى التأكد من إعداد حسابك بشكل صحيح كطبيب.",
+    "filters": {
+      "status": "تصفية حسب الحالة",
+      "allStatuses": "جميع الحالات",
+      "booked": "محجوز",
+      "confirmed": "مؤكد",
+      "cancelled": "ملغي",
+      "date": "تصفية حسب التاريخ",
+      "clearFilters": "مسح الفلاتر"
+    },
+    "stats": {
+      "totalAppointments": "إجمالي المواعيد",
+      "confirmed": "مؤكد",
+      "pending": "قيد الانتظار"
+    },
+    "actions": {
+      "refreshAppointments": "تحديث المواعيد",
+      "loading": "جاري التحميل...",
+      "requireConfirmation": "طلب تأكيد للإجراءات:",
+      "on": "تفعيل",
+      "off": "إيقاف"
+    },
+    "table": {
+      "patient": "المريض",
+      "dateTime": "التاريخ والوقت",
+      "service": "الخدمة",
+      "status": "الحالة",
+      "actions": "الإجراءات",
+      "view": "عرض",
+      "confirm": "تأكيد",
+      "cancel": "إلغاء"
+    },
+    "noAppointments": {
+      "title": "لم يتم العثور على مواعيد",
+      "description": "لم يتم العثور على مواعيد تطابق الفلاتر الخاصة بك."
+    },
+    "loading": "جاري تحميل المواعيد...",
+    "detailModal": {
+      "title": "تفاصيل الموعد",
+      "patient": "المريض",
+      "service": "الخدمة",
+      "dateTime": "التاريخ والوقت",
+      "status": "الحالة",
+      "cost": "التكلفة",
+      "location": "الموقع",
+      "followUp": "متابعة",
+      "created": "تم الإنشاء",
+      "notes": "ملاحظات",
+      "noNotes": "لا توجد ملاحظات",
+      "notSpecified": "غير محدد",
+      "yes": "نعم",
+      "no": "لا",
+      "confirmAppointment": "تأكيد الموعد",
+      "cancelAppointment": "إلغاء الموعد",
+      "rebookAppointment": "إعادة حجز الموعد",
+      "processing": "جاري المعالجة..."
+    },
+    "confirmationModal": {
+      "title": "تأكيد الإجراء",
+      "message": "هل أنت متأكد أنك تريد {action} الموعد لـ {patient} في {date}؟",
+      "cancel": "إلغاء",
+      "confirm": "نعم، {action}",
+      "processing": "جاري المعالجة..."
+    },
+    "actionText": {
+      "confirm": "تأكيد",
+      "cancel": "إلغاء",
+      "rebook": "إعادة حجز"
+    },
+    "statusTranslations": {
+      "booked": "حجز",
+      "confirmed": "تأكيد",
+      "cancelled": "إلغاء"
+    },
+    "errors": {
+      "failedToLoad": "فشل في تحميل المواعيد: {message}",
+      "failedToLoadUnknown": "فشل في تحميل المواعيد",
+      "failedToUpdate": "فشل في تحديث الموعد: {message}",
+      "failedToUpdateUnknown": "فشل في تحديث الموعد",
+      "appointmentNotFound": "لم يتم العثور على الموعد",
+      "invalidAppointmentData": "بيانات الموعد غير صالحة",
+      "doctorIdNotFound": "لم يتم العثور على معرف الطبيب"
+    },
+    "success": {
+      "appointmentUpdated": "تم {status} الموعد بنجاح"
+    }
+  },
+  "alertBox": {
+    "title": "مرحباً بك! أنا لينا، هنا لمساعدتك.",
+    "goToLina": "الذهاب إلى لينا",
+    "close": "إغلاق"
+  },
+  "viewProfile": {
+    "pageTitle": "ملف المعالج الشخصي",
+    "loading": "يتم الآن تحميل البيانات...",
+    "noData": "لم يتم العثور على بيانات الطبيب",
+    "sections": {
+      "interests": "التخصص",
+      "ratings": "التقييمات",
+      "certificates": "الشهادات",
+      "reviews": "المراجعات"
+    },
+    "interests": {
+      "title": "الاهتمامات"
+    },
+    "ratings": {
+      "title": "التقييم",
+      "metrics": {
+        "communication": "التواصل",
+        "understanding": "فهم الحالة",
+        "solutions": "تقديم حلول فعالة",
+        "commitment": "الالتزام بمواعيد البدء والانتهاء"
+      }
+    },
+    "certificates": {
+      "title": "الشهادات",
+      "addButton": "إضافة شهادة",
+      "cancelButton": "إلغاء",
+      "noData": {
+        "withPermission": "لم يتم العثور على شهادات. أضف شهادتك الأولى.",
+        "withoutPermission": "لم يتم العثور على شهادات."
+      },
+      "loading": "جاري تحميل الشهادات...",
+      "error": {
+        "add": "فشل في إضافة الشهادة",
+        "update": "فشل في تحديث الشهادة"
+      },
+      "deleteConfirm": "هل أنت متأكد أنك تريد حذف هذه الشهادة؟",
+      "form": {
+        "title": {
+          "add": "إضافة شهادة جديدة",
+          "edit": "تعديل الشهادة"
+        },
+        "certificateName": {
+          "label": "اسم الشهادة*"
+        },
+        "description": {
+          "label": "الوصف"
+        },
+        "startDate": {
+          "label": "تاريخ البدء*"
+        },
+        "endDate": {
+          "label": "تاريخ الانتهاء*"
+        },
+        "saveButton": "حفظ",
+        "updateButton": "تحديث",
+        "cancelButton": "إلغاء"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      }
+    },
+    "reviews": {
+      "title": "آراء المرضى",
+      "rating": {
+        "average": "بناءً على {count} {count, plural, one {تقييم} other {تقييمات}}",
+        "outOf": "{rating}/5"
+      },
+      "noReviews": {
+        "title": "لا توجد تقييمات حتى الآن",
+        "subtitle": "كن أول من يترك تعليقاً"
+      },
+      "reviewItem": {
+        "recommends": "ينصح بهذا الطبيب",
+        "doesNotRecommend": "لا ينصح بهذا الطبيب"
+      },
+      "showMore": "عرض المزيد...",
+      "remainingCount": "{count}"
+    },
+    "profileCard": {
+      "reviews": "{average} ({count} تقييم)",
+      "language": "اللغة: {languages}",
+      "country": "البلد: {nationality}",
+      "experience": "الخبرة: {years} سنوات",
+      "clinic": "العيادة: {name}",
+      "writeReview": "كتابة تقييم",
+      "selectTimeSlot": "اختر موعد",
+      "errors": {
+        "cannotReviewOwn": "لا يمكنك كتابة تقييم لملفك الشخصي"
+      }
+    },
+    "reviewForm": {
+      "title": "كتابة تقييم",
+      "subtitle": "رأيك مهم، أخبرنا عن تجربتك مع",
+      "ratingLabel": "كيف تقيم تجربتك؟",
+      "feedbackLabel": "شاركنا أفكارك حول تجربتك معنا (اختياري)",
+      "feedbackPlaceholder": "اكتب تقييمك هنا...",
+      "feedbackFooter": "تعليقاتك قيمة!",
+      "recommendLabel": "هل توصي بهذا الطبيب للآخرين؟ (اختياري)",
+      "recommendYes": "نعم، بالتأكيد",
+      "recommendNo": "لا، لن أوصي به",
+      "submit": "إرسال التقييم",
+      "submitting": "جاري الإرسال...",
+      "errors": {
+        "noRating": "الرجاء تقديم تقييم",
+        "submitFailed": "فشل في إرسال التقييم. يرجى المحاولة مرة أخرى لاحقاً."
+      }
+    }
   }
 }

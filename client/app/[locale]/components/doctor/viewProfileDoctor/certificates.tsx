@@ -1,6 +1,7 @@
 import useAxios from "@hooks/useAxios";
 import { isAxiosError } from "axios";
 import { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface ICertifacteProps {
   doctorId?: string | "" | null;
@@ -19,6 +20,7 @@ export function Certificates({
   doctorId,
   hasEditPermission,
 }: ICertifacteProps) {
+  const t = useTranslations("viewProfile.certificates");
   const axiosInstance = useAxios();
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState(true);
@@ -85,9 +87,7 @@ export function Certificates({
       fetchCertificates();
       resetForm();
     } catch (error) {
-      setError(
-        editingId ? "Failed to update certificate" : "Failed to add certificate"
-      );
+      setError(editingId ? t("error.update") : t("error.add"));
       if (isAxiosError(error)) {
         const { status, data } = error?.response || {
           status: 500,
@@ -101,7 +101,7 @@ export function Certificates({
   const handleDelete = async (id: number | undefined) => {
     if (!id) return;
 
-    if (window.confirm("Are you sure you want to delete this certificate?")) {
+    if (window.confirm(t("deleteConfirm"))) {
       try {
         await axiosInstance.delete(`/api/certificates?id=${id}`);
         fetchCertificates();
@@ -166,13 +166,13 @@ export function Certificates({
   return (
     <div className="bg-white rounded-lg p-6 shadow-md">
       <div className="flex justify-between items-center mb-6 border-b pb-2">
-        <h2 className="text-2xl font-bold text-gray-800">Certificates</h2>
+        <h2 className="text-2xl font-bold text-gray-800">{t("title")}</h2>
         {hasEditPermission && (
           <button
             onClick={handleCancel}
             className="bg-button text-white px-4 py-2 rounded hover:bg-buttonhov transition"
           >
-            {isFormOpen ? "Cancel" : "Add Certificate"}
+            {isFormOpen ? t("cancelButton") : t("addButton")}
           </button>
         )}
       </div>
@@ -184,12 +184,12 @@ export function Certificates({
       {isFormOpen && hasEditPermission && (
         <form onSubmit={handleSubmit} className="mb-6 bg-gray-50 p-4 rounded">
           <h3 className="font-semibold mb-3">
-            {editingId ? "Edit Certificate" : "Add New Certificate"}
+            {editingId ? t("form.title.edit") : t("form.title.add")}
           </h3>
           <div className="space-y-3">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Certificate Name*
+                {t("form.certificateName.label")}
               </label>
               <input
                 type="text"
@@ -204,7 +204,7 @@ export function Certificates({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Description
+                {t("form.description.label")}
               </label>
               <textarea
                 name="description"
@@ -216,7 +216,7 @@ export function Certificates({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Start Date*
+                {t("form.startDate.label")}
               </label>
               <input
                 type="date"
@@ -229,7 +229,7 @@ export function Certificates({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                End Date*
+                {t("form.endDate.label")}
               </label>
               <input
                 type="date"
@@ -245,14 +245,14 @@ export function Certificates({
                 type="submit"
                 className="bg-button text-white px-4 py-2 rounded hover:bg-buttonhov transition"
               >
-                {editingId ? "Update" : "Save"}
+                {editingId ? t("form.updateButton") : t("form.saveButton")}
               </button>
               <button
                 type="button"
                 onClick={resetForm}
                 className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition"
               >
-                Cancel
+                {t("form.cancelButton")}
               </button>
             </div>
           </div>
@@ -260,12 +260,12 @@ export function Certificates({
       )}
 
       {loading ? (
-        <div className="text-center py-4">Loading certificates...</div>
+        <div className="text-center py-4">{t("loading")}</div>
       ) : certificates.length === 0 ? (
         <div className="text-center py-4 text-gray-500">
           {hasEditPermission
-            ? " No certificates found. Add your first certificate."
-            : "No certificates found."}
+            ? t("noData.withPermission")
+            : t("noData.withoutPermission")}
         </div>
       ) : (
         <div className="space-y-4">
@@ -287,13 +287,13 @@ export function Certificates({
                       onClick={() => handleEdit(cert)}
                       className="text-[#00bfa5] hover:text-[#139485]"
                     >
-                      Edit
+                      {t("actions.edit")}
                     </button>
                     <button
                       onClick={() => handleDelete(cert.id)}
                       className="text-red-600 hover:text-red-800"
                     >
-                      Delete
+                      {t("actions.delete")}
                     </button>
                   </div>
                 )}

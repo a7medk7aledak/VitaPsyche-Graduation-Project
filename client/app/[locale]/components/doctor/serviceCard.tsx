@@ -1,5 +1,6 @@
 import { useCategoryLookup } from "@utils/categoryLookup";
 import { formatDuration, getInitial } from "@utils/doctorUtils";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import React, { memo } from "react";
@@ -31,6 +32,7 @@ const ServiceCard = memo(
     is_active,
     image,
   }: ServiceCardProps) => {
+    const  t  = useTranslations(); // Initialize translation
     const getCategory = useCategoryLookup();
     const doctorInitial = getInitial(doctor_name);
 
@@ -72,13 +74,15 @@ const ServiceCard = memo(
       <div className="relative w-[400px] max-h-[350px] max-w-full mx-auto shadow-lg rounded-xl border border-gray-200 p-6 flex flex-col gap-4 transition-transform hover:scale-105 duration-300 bg-white">
         {/* Status Badge in Top-Right Corner */}
         <span
-          className={`absolute top-2 right-2 text-sm px-3 py-1 rounded-full font-medium ${
+          className={`absolute top-2 end-2 text-sm px-3 py-1 rounded-full font-medium ${
             is_active
               ? "bg-green-200 text-green-800"
               : "bg-red-200 text-red-800"
           }`}
         >
-          {is_active ? "Active" : "Inactive"}
+          {is_active
+            ? t("serviceCard.status.active")
+            : t("serviceCard.status.inactive")}
         </span>
 
         {/* Header: Avatar & Doctor Info */}
@@ -87,7 +91,7 @@ const ServiceCard = memo(
             <div className="w-16 h-16 flex-shrink-0 relative overflow-hidden rounded-full border">
               <Image
                 src={image}
-                alt={doctor_name || "Doctor"}
+                alt={doctor_name || t("serviceCard.unknownDoctor")}
                 width={64}
                 height={64}
                 quality={100}
@@ -108,10 +112,12 @@ const ServiceCard = memo(
               title={name}
               className="text-xl font-semibold text-gray-900 truncate capitalize"
             >
-              {name || "Unknown Service"}
+              {name || t("serviceCard.unknownService")}
             </h2>
             <p className="text-lg text-gray-700 capitalize truncate">
-              {doctor_name ? `Dr. ${doctor_name}` : "Unknown Doctor"}
+              {doctor_name
+                ? `${t("serviceCard.doctorPrefix")} ${doctor_name}`
+                : t("serviceCard.unknownDoctor")}
             </p>
           </div>
         </div>
@@ -121,7 +127,7 @@ const ServiceCard = memo(
           <span
             className={`text-sm px-4 py-1 rounded-full font-medium ${categoryStyle}`}
           >
-            {categoryName || "Uncategorized"}
+            {categoryName || t("serviceCard.uncategorized")}
           </span>
         </div>
 
@@ -130,30 +136,38 @@ const ServiceCard = memo(
           title={description}
           className="text-base text-gray-800 line-clamp-2 overflow-hidden break-words min-h-[48px]"
         >
-          {description || "No description available."}
+          {description || t("serviceCard.noDescription")}
         </p>
 
         {/* Pricing & Duration */}
         <div className="flex justify-between items-center text-lg font-medium text-gray-900">
           <div className="flex items-center gap-2">
             <FaMoneyBillTransfer className="text-green-600 h-6 w-6" />
-            <span>{price ? `${price} EGP` : "N/A"}</span>
+            <span>
+              {price
+                ? `${price} ${t("serviceCard.price.currency")}`
+                : t("serviceCard.price.notAvailable")}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <FaClock className="text-orange-500 h-6 w-6" />
-            <span>{formattedDuration || "N/A"} mins</span>
+            <span>
+              {formattedDuration
+                ? `${formattedDuration} ${t("serviceCard.duration.unit")}`
+                : t("serviceCard.duration.notAvailable")}
+            </span>
           </div>
         </div>
 
         <div className="mt-6 flex justify-center items-center gap-x-6">
           <Link href={`/view-profile?serviceId=${id}&doctorId=${doctor}`}>
             <button className="text-lg font-medium text-subheading hover:underline">
-              View Profile
+              {t("serviceCard.actions.viewProfile")}
             </button>
           </Link>
           <Link href={`/doctorList/booking?serviceId=${id}&doctorId=${doctor}`}>
             <button className="btn-secondary rounded-full text-white py-2 px-4 shadow-md hover:shadow-lg font-medium">
-              Book Now
+              {t("serviceCard.actions.bookNow")}
             </button>
           </Link>
         </div>

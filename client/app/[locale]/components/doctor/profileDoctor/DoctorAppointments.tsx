@@ -10,8 +10,10 @@ import {
   ICancelAppointmentPayload,
   IServiceBooked,
 } from "@myTypes/appointments";
+import { useTranslations } from "next-intl";
 
 const DoctorAppointments: React.FC = () => {
+  const t = useTranslations("doctorAppointments");
   const doctorId = useSelector(
     (state: RootState) => state.auth.user?.doctor_details?.id
   );
@@ -49,7 +51,7 @@ const DoctorAppointments: React.FC = () => {
 
     try {
       if (!doctorId) {
-        throw new Error("Doctor ID not found");
+        throw new Error(t("errors.doctorIdNotFound"));
       }
 
       const response = await axiosInstance.get(
@@ -64,15 +66,17 @@ const DoctorAppointments: React.FC = () => {
       if (isAxiosError(error)) {
         const { status, data } = error.response || {
           status: 500,
-          data: { message: "Unknown error occurred" },
+          data: { message: t("errors.failedToLoadUnknown") },
         };
         console.error(`Error (${status}):`, data);
         toast.error(
-          `Failed to load appointments: ${data.message || "Unknown error"}`
+          data.message
+            ? t("errors.failedToLoad", { message: data.message })
+            : t("errors.failedToLoadUnknown")
         );
       } else {
         console.error("Error fetching appointments:", error);
-        toast.error("Failed to load appointments");
+        toast.error(t("errors.failedToLoadUnknown"));
       }
     } finally {
       setLoading(false);
@@ -118,7 +122,7 @@ const DoctorAppointments: React.FC = () => {
   const getPatientFullName = (appointment: IAppointment): string => {
     return (
       `${appointment.patient_first_name} ${appointment.patient_last_name}`.trim() ||
-      `Patient #${appointment.patient}`
+      `${t("table.patient")} #${appointment.patient}`
     );
   };
 
@@ -129,7 +133,7 @@ const DoctorAppointments: React.FC = () => {
         .map((service: IServiceBooked) => service.name)
         .join(", ");
     }
-    return "No service";
+    return t("table.service");
   };
 
   // Format date for display
@@ -154,13 +158,13 @@ const DoctorAppointments: React.FC = () => {
     let actionText = "";
     switch (newStatus) {
       case "confirmed":
-        actionText = "confirm";
+        actionText = t("actionText.confirm");
         break;
       case "cancelled":
-        actionText = "cancel";
+        actionText = t("actionText.cancel");
         break;
       case "booked":
-        actionText = "rebook";
+        actionText = t("actionText.rebook");
         break;
     }
 
@@ -192,7 +196,7 @@ const DoctorAppointments: React.FC = () => {
       newStatus || (pendingAction ? pendingAction.newStatus : null);
 
     if (!targetId || !targetStatus) {
-      toast.error("Invalid appointment data");
+      toast.error(t("errors.invalidAppointmentData"));
       return;
     }
 
@@ -205,7 +209,7 @@ const DoctorAppointments: React.FC = () => {
       );
 
       if (!appointmentToUpdate) {
-        toast.error("Appointment not found");
+        toast.error(t("errors.appointmentNotFound"));
         return;
       }
 
@@ -230,10 +234,13 @@ const DoctorAppointments: React.FC = () => {
       );
 
       if (response.status === 200) {
-        // Show success message
-        const statusText =
-          targetStatus.charAt(0).toUpperCase() + targetStatus.slice(1);
-        toast.success(`Appointment ${statusText} successfully`);
+        // Get translated status for the success message
+        const translatedStatus = t(`statusTranslations.${targetStatus}`);
+
+        // Show success message with translated status
+        toast.success(
+          t("success.appointmentUpdated", { status: translatedStatus })
+        );
 
         // Refresh appointments from backend after status change
         await fetchAppointments();
@@ -248,15 +255,17 @@ const DoctorAppointments: React.FC = () => {
       if (isAxiosError(error)) {
         const { status, data } = error.response || {
           status: 500,
-          data: { message: "Unknown error occurred" },
+          data: { message: t("errors.failedToUpdateUnknown") },
         };
         console.error(`Error (${status}):`, data);
         toast.error(
-          `Failed to update appointment: ${data.message || "Unknown error"}`
+          data.message
+            ? t("errors.failedToUpdate", { message: data.message })
+            : t("errors.failedToUpdateUnknown")
         );
       } else {
         console.error("Error updating appointment:", error);
-        toast.error("Failed to update appointment");
+        toast.error(t("errors.failedToUpdateUnknown"));
       }
     } finally {
       setActionInProgress(false);
@@ -317,19 +326,16 @@ const DoctorAppointments: React.FC = () => {
     return (
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-6 max-w-md w-full">
-          <h2 className="text-xl font-bold mb-4">Confirm Action</h2>
+          <h2 className="text-xl font-bold mb-4">
+            {t("confirmationModal.title")}
+          </h2>
 
           <p className="mb-6">
-            Are you sure you want to{" "}
-            <span className={`font-bold text-${actionColor}-600`}>
-              {actionText}
-            </span>{" "}
-            the appointment for <span className="font-bold">{patientName}</span>{" "}
-            on{" "}
-            <span className="font-bold">
-              {formatDate(appointment.date_time)}
-            </span>
-            ?
+            {t("confirmationModal.message", {
+              action: actionText,
+              patient: patientName,
+              date: formatDate(appointment.date_time),
+            })}
           </p>
 
           <div className="flex justify-end gap-3">
@@ -340,7 +346,7 @@ const DoctorAppointments: React.FC = () => {
               }}
               className="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 transition"
             >
-              Cancel
+              {t("confirmationModal.cancel")}
             </button>
 
             <button
@@ -348,7 +354,9 @@ const DoctorAppointments: React.FC = () => {
               disabled={actionInProgress}
               className={`px-4 py-2 bg-${actionColor}-600 text-white rounded hover:bg-${actionColor}-700 transition disabled:opacity-50 disabled:cursor-not-allowed`}
             >
-              {actionInProgress ? "Processing..." : `Yes, ${actionText}`}
+              {actionInProgress
+                ? t("confirmationModal.processing")
+                : t("confirmationModal.confirm", { action: actionText })}
             </button>
           </div>
         </div>
@@ -364,7 +372,7 @@ const DoctorAppointments: React.FC = () => {
       <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
         <div className="bg-white rounded-lg p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-2xl font-bold">Appointment Details</h2>
+            <h2 className="text-2xl font-bold">{t("detailModal.title")}</h2>
             <button
               onClick={() => setIsModalOpen(false)}
               className="text-gray-500 hover:text-gray-700"
@@ -389,26 +397,34 @@ const DoctorAppointments: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
             <div>
-              <p className="text-gray-600 font-semibold">Patient</p>
+              <p className="text-gray-600 font-semibold">
+                {t("detailModal.patient")}
+              </p>
               <p className="text-lg">
                 {getPatientFullName(selectedAppointment)}
               </p>
             </div>
 
             <div>
-              <p className="text-gray-600 font-semibold">Service</p>
+              <p className="text-gray-600 font-semibold">
+                {t("detailModal.service")}
+              </p>
               <p className="text-lg">{getServiceNames(selectedAppointment)}</p>
             </div>
 
             <div>
-              <p className="text-gray-600 font-semibold">Date & Time</p>
+              <p className="text-gray-600 font-semibold">
+                {t("detailModal.dateTime")}
+              </p>
               <p className="text-lg">
                 {formatDate(selectedAppointment.date_time)}
               </p>
             </div>
 
             <div>
-              <p className="text-gray-600 font-semibold">Status</p>
+              <p className="text-gray-600 font-semibold">
+                {t("detailModal.status")}
+              </p>
               <p
                 className={`inline-block px-2 py-1 rounded-full text-sm font-semibold ${getStatusBadgeColor(
                   selectedAppointment.status
@@ -420,30 +436,41 @@ const DoctorAppointments: React.FC = () => {
             </div>
 
             <div>
-              <p className="text-gray-600 font-semibold">Cost</p>
+              <p className="text-gray-600 font-semibold">
+                {t("detailModal.cost")}
+              </p>
               <p className="text-lg">
                 {selectedAppointment.cost
                   ? `$${selectedAppointment.cost}`
-                  : "Not specified"}
+                  : t("detailModal.notSpecified")}
               </p>
             </div>
 
             <div>
-              <p className="text-gray-600 font-semibold">Location</p>
+              <p className="text-gray-600 font-semibold">
+                {t("detailModal.location")}
+              </p>
               <p className="text-lg">
-                {selectedAppointment.appointment_address || "Not specified"}
+                {selectedAppointment.appointment_address ||
+                  t("detailModal.notSpecified")}
               </p>
             </div>
 
             <div>
-              <p className="text-gray-600 font-semibold">Follow-up</p>
+              <p className="text-gray-600 font-semibold">
+                {t("detailModal.followUp")}
+              </p>
               <p className="text-lg">
-                {selectedAppointment.is_follow_up ? "Yes" : "No"}
+                {selectedAppointment.is_follow_up
+                  ? t("detailModal.yes")
+                  : t("detailModal.no")}
               </p>
             </div>
 
             <div>
-              <p className="text-gray-600 font-semibold">Created</p>
+              <p className="text-gray-600 font-semibold">
+                {t("detailModal.created")}
+              </p>
               <p className="text-lg">
                 {formatDate(selectedAppointment.created_at)}
               </p>
@@ -451,8 +478,12 @@ const DoctorAppointments: React.FC = () => {
           </div>
 
           <div className="mb-6">
-            <p className="text-gray-600 font-semibold">Notes</p>
-            <p className="text-lg">{selectedAppointment.notes || "No notes"}</p>
+            <p className="text-gray-600 font-semibold">
+              {t("detailModal.notes")}
+            </p>
+            <p className="text-lg">
+              {selectedAppointment.notes || t("detailModal.noNotes")}
+            </p>
           </div>
 
           <div className="flex flex-wrap gap-3">
@@ -464,7 +495,9 @@ const DoctorAppointments: React.FC = () => {
                 disabled={actionInProgress}
                 className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {actionInProgress ? "Processing..." : "Confirm Appointment"}
+                {actionInProgress
+                  ? t("detailModal.processing")
+                  : t("detailModal.confirmAppointment")}
               </button>
             )}
 
@@ -476,7 +509,9 @@ const DoctorAppointments: React.FC = () => {
                 disabled={actionInProgress}
                 className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {actionInProgress ? "Processing..." : "Cancel Appointment"}
+                {actionInProgress
+                  ? t("detailModal.processing")
+                  : t("detailModal.cancelAppointment")}
               </button>
             )}
 
@@ -488,7 +523,9 @@ const DoctorAppointments: React.FC = () => {
                 disabled={actionInProgress}
                 className="px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {actionInProgress ? "Processing..." : "Rebook Appointment"}
+                {actionInProgress
+                  ? t("detailModal.processing")
+                  : t("detailModal.rebookAppointment")}
               </button>
             )}
           </div>
@@ -503,7 +540,7 @@ const DoctorAppointments: React.FC = () => {
       <div className="flex  mb-4">
         <div className="flex items-center gap-2">
           <span className="text-sm font-medium text-gray-700">
-            Require confirmation for actions:
+            {t("actions.requireConfirmation")}
           </span>
           <button
             onClick={() => setRequireConfirmation(!requireConfirmation)}
@@ -515,12 +552,14 @@ const DoctorAppointments: React.FC = () => {
           >
             <span
               className={`inline-block w-4 h-4 transform bg-white rounded-full transition-transform ${
-                requireConfirmation ? "translate-x-6" : "translate-x-1"
-              }`}
+                requireConfirmation
+                  ? "translate-x-6 rtl:-translate-x-6"
+                  : "translate-x-1 rtl:-translate-x-1"
+              } `}
             />
           </button>
           <span className="text-xs text-gray-500">
-            {requireConfirmation ? "On" : "Off"}
+            {requireConfirmation ? t("actions.on") : t("actions.off")}
           </span>
         </div>
       </div>
@@ -532,12 +571,9 @@ const DoctorAppointments: React.FC = () => {
     return (
       <div className="mt-6 p-6 bg-red-50 rounded-lg border border-red-200">
         <h2 className="text-xl font-semibold text-red-700 mb-3">
-          Doctor Profile Not Found
+          {t("doctorProfileNotFound")}
         </h2>
-        <p className="text-red-600">
-          Doctor profile information is not available. Please make sure your
-          account is properly set up as a doctor.
-        </p>
+        <p className="text-red-600">{t("doctorProfileNotAvailable")}</p>
       </div>
     );
   }
@@ -545,7 +581,7 @@ const DoctorAppointments: React.FC = () => {
   return (
     <div className="mt-6">
       <h2 className="text-3xl font-semibold text-gray-800 mb-6">
-        Appointments Management
+        {t("title")}
       </h2>
 
       {/* Filters */}
@@ -555,7 +591,7 @@ const DoctorAppointments: React.FC = () => {
             htmlFor="status-filter"
             className="block mb-2 text-sm font-medium text-gray-700"
           >
-            Filter by Status
+            {t("filters.status")}
           </label>
           <select
             id="status-filter"
@@ -563,10 +599,10 @@ const DoctorAppointments: React.FC = () => {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#00bfa5]"
           >
-            <option value="all">All Statuses</option>
-            <option value="booked">Booked</option>
-            <option value="confirmed">Confirmed</option>
-            <option value="cancelled">Cancelled</option>
+            <option value="all">{t("filters.allStatuses")}</option>
+            <option value="booked">{t("filters.booked")}</option>
+            <option value="confirmed">{t("filters.confirmed")}</option>
+            <option value="cancelled">{t("filters.cancelled")}</option>
           </select>
         </div>
 
@@ -575,7 +611,7 @@ const DoctorAppointments: React.FC = () => {
             htmlFor="date-filter"
             className="block mb-2 text-sm font-medium text-gray-700"
           >
-            Filter by Date
+            {t("filters.date")}
           </label>
           <input
             id="date-filter"
@@ -594,7 +630,7 @@ const DoctorAppointments: React.FC = () => {
             }}
             className="w-full p-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition focus:outline-none focus:ring-2 focus:ring-gray-400"
           >
-            Clear Filters
+            {t("filters.clearFilters")}
           </button>
         </div>
       </div>
@@ -602,21 +638,27 @@ const DoctorAppointments: React.FC = () => {
       {/* Stats Summary */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
         <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
-          <h3 className="text-blue-800 font-medium mb-2">Total Appointments</h3>
+          <h3 className="text-blue-800 font-medium mb-2">
+            {t("stats.totalAppointments")}
+          </h3>
           <p className="text-2xl font-bold text-blue-900">
             {appointments.length}
           </p>
         </div>
 
         <div className="bg-green-50 p-4 rounded-lg border border-green-100">
-          <h3 className="text-green-800 font-medium mb-2">Confirmed</h3>
+          <h3 className="text-green-800 font-medium mb-2">
+            {t("stats.confirmed")}
+          </h3>
           <p className="text-2xl font-bold text-green-900">
             {appointments.filter((a) => a.status === "confirmed").length}
           </p>
         </div>
 
         <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-100">
-          <h3 className="text-yellow-800 font-medium mb-2">Pending</h3>
+          <h3 className="text-yellow-800 font-medium mb-2">
+            {t("stats.pending")}
+          </h3>
           <p className="text-2xl font-bold text-yellow-900">
             {appointments.filter((a) => a.status === "booked").length}
           </p>
@@ -632,11 +674,11 @@ const DoctorAppointments: React.FC = () => {
         >
           {loading || refreshing ? (
             <>
-              <span className="inline-block mr-2 animate-spin">⟳</span>
-              Loading...
+              <span className="inline-block me-2 animate-spin">⟳</span>
+              {t("actions.loading")}
             </>
           ) : (
-            "Refresh Appointments"
+            t("actions.refreshAppointments")
           )}
         </button>
         {/* Confirmation toggle */}
@@ -648,7 +690,7 @@ const DoctorAppointments: React.FC = () => {
         <div className="flex justify-center items-center h-40">
           <div className="text-center">
             <div className="spinner"></div>
-            <p className="mt-2 text-gray-600">Loading appointments...</p>
+            <p className="mt-2 text-gray-600">{t("loading")}</p>
           </div>
         </div>
       ) : filteredAppointments.length === 0 ? (
@@ -668,10 +710,10 @@ const DoctorAppointments: React.FC = () => {
             />
           </svg>
           <h3 className="mt-2 text-sm font-medium text-gray-900">
-            No appointments found
+            {t("noAppointments.title")}
           </h3>
           <p className="mt-1 text-sm text-gray-500">
-            No appointments found matching your filters.
+            {t("noAppointments.description")}
           </p>
           {statusFilter !== "all" || dateFilter !== "" ? (
             <div className="mt-3">
@@ -682,7 +724,7 @@ const DoctorAppointments: React.FC = () => {
                 }}
                 className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#00bfa5] hover:bg-[#139485] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#00bfa5]"
               >
-                Clear filters
+                {t("filters.clearFilters")}
               </button>
             </div>
           ) : null}
@@ -694,33 +736,33 @@ const DoctorAppointments: React.FC = () => {
               <tr>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Patient
+                  {t("table.patient")}
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Date & Time
+                  {t("table.dateTime")}
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Service
+                  {t("table.service")}
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Status
+                  {t("table.status")}
                 </th>
                 <th
                   scope="col"
-                  className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Actions
+                  {t("table.actions")}
                 </th>
               </tr>
             </thead>
@@ -749,20 +791,20 @@ const DoctorAppointments: React.FC = () => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button
                       onClick={() => openDetailModal(appointment)}
-                      className="text-blue-600 hover:text-blue-900 mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="text-blue-600 hover:text-blue-900 me-3 disabled:opacity-50 disabled:cursor-not-allowed"
                       disabled={actionInProgress}
                     >
-                      View
+                      {t("table.view")}
                     </button>
                     {appointment.status === "booked" && (
                       <button
                         onClick={() =>
                           processStatusChange(appointment.id, "confirmed")
                         }
-                        className="text-green-600 hover:text-green-900 mr-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                        className="text-green-600 hover:text-green-900 me-3 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={actionInProgress}
                       >
-                        Confirm
+                        {t("table.confirm")}
                       </button>
                     )}
                     {appointment.status !== "cancelled" && (
@@ -773,7 +815,7 @@ const DoctorAppointments: React.FC = () => {
                         className="text-red-600 hover:text-red-900 disabled:opacity-50 disabled:cursor-not-allowed"
                         disabled={actionInProgress}
                       >
-                        Cancel
+                        {t("table.cancel")}
                       </button>
                     )}
                   </td>

@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import { useTranslations } from "next-intl";
 
 interface IInterestsProps {
   category: string;
@@ -6,10 +7,12 @@ interface IInterestsProps {
 
 // Create the base component function
 function InterestsBase({ category }: IInterestsProps) {
+  const t = useTranslations("viewProfile.interests");
+
   return (
     <div className="bg-white rounded-lg p-6 shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
-        Interests
+        {t("title")}
       </h2>
       <div className="flex flex-wrap gap-2">
         <span

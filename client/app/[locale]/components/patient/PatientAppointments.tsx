@@ -17,8 +17,10 @@ import useAxios from "@hooks/useAxios";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
 import { isAxiosError } from "axios";
 import { IAppointment, ICancelAppointmentPayload } from "@myTypes/appointments";
+import { useTranslations } from "next-intl";
 
 const PatientAppointments: React.FC = () => {
+  const t = useTranslations();
   const [appointments, setAppointments] = useState<IAppointment[]>([]);
   const [filteredAppointments, setFilteredAppointments] = useState<
     IAppointment[]
@@ -57,7 +59,7 @@ const PatientAppointments: React.FC = () => {
             )
       );
     } catch (error) {
-      setError("Failed to load appointments. Please try again later.");
+      setError(t("appointments.messages.failedToLoad"));
       if (isAxiosError(error)) {
         const { status, data } = error.response || {
           status: 500,
@@ -96,6 +98,8 @@ const PatientAppointments: React.FC = () => {
   };
 
   const formatDate = (dateString: string): string => {
+    // Get the current language from i18next
+
     return new Date(dateString).toLocaleDateString("en-US", {
       weekday: "long",
       year: "numeric",
@@ -105,6 +109,8 @@ const PatientAppointments: React.FC = () => {
   };
 
   const formatTime = (dateTimeString: string): string => {
+    // Get the current language from i18next
+
     return new Date(dateTimeString).toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
@@ -133,7 +139,7 @@ const PatientAppointments: React.FC = () => {
       await fetchAppointments();
     } catch (error) {
       console.error("Failed to cancel appointment:", error);
-      setError("Failed to cancel appointment. Please try again.");
+      setError(t("appointments.messages.failedToCancel"));
     } finally {
       setProcessingAppointmentId(null);
       setIsProcessing(false);
@@ -176,6 +182,10 @@ const PatientAppointments: React.FC = () => {
     },
   };
 
+  const getTranslatedStatus = (status: string): string => {
+    return t(`appointments.status.${status}`);
+  };
+
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Error Message */}
@@ -186,7 +196,7 @@ const PatientAppointments: React.FC = () => {
           animate="visible"
           className="bg-red-50 p-3 rounded-lg mb-4"
         >
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 rtl:space-x-reverse">
             <FaInfoCircle className="text-red-500 text-lg flex-shrink-0" />
             <p className="text-red-700 text-sm">{error}</p>
           </div>
@@ -196,24 +206,30 @@ const PatientAppointments: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 border-b border-gray-200 pb-4">
         <h2 className="text-2xl font-semibold text-gray-800 mb-3 sm:mb-0">
-          Appointments
+          {t("appointments.title")}
         </h2>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 rtl:space-x-reverse">
           {isProcessing && (
-            <span className="text-xs text-gray-500">Processing...</span>
+            <span className="text-xs text-gray-500">
+              {t("appointments.labels.processing")}
+            </span>
           )}
           <div className="flex items-center bg-white rounded-lg shadow-sm border border-gray-200 px-3 py-2">
-            <FaFilter className="text-teal-600 mr-2" />
+            <FaFilter className="text-teal-600 me-2" />
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="border-0 focus:ring-0 text-sm font-medium text-gray-700 bg-transparent"
               disabled={isProcessing}
             >
-              <option value="all">All appointments</option>
-              <option value="booked">Booked</option>
-              <option value="confirmed">Confirmed</option>
-              <option value="cancelled">Cancelled</option>
+              <option value="all">{t("appointments.filter.all")}</option>
+              <option value="booked">{t("appointments.filter.booked")}</option>
+              <option value="confirmed">
+                {t("appointments.filter.confirmed")}
+              </option>
+              <option value="cancelled">
+                {t("appointments.filter.cancelled")}
+              </option>
             </select>
           </div>
         </div>
@@ -228,7 +244,9 @@ const PatientAppointments: React.FC = () => {
           transition={{ duration: 0.5 }}
           className="flex justify-center py-4"
         >
-          <SpinnerLoading message="Loading appointments..." />
+          <SpinnerLoading
+            message={t("appointments.messages.loadingAppointments")}
+          />
         </motion.div>
       )}
 
@@ -242,12 +260,14 @@ const PatientAppointments: React.FC = () => {
         >
           <FaCalendarAlt className="mx-auto text-gray-400 text-4xl mb-4" />
           <h3 className="text-xl font-medium text-gray-700 mb-2">
-            No appointments found
+            {t("appointments.labels.noAppointments")}
           </h3>
           <p className="text-gray-500">
             {statusFilter !== "all"
-              ? `You have no ${statusFilter} appointments.`
-              : "You haven't scheduled any appointments yet."}
+              ? t("appointments.labels.noFilteredAppointments", {
+                  status: t(`appointments.filter.${statusFilter}`),
+                })
+              : t("appointments.labels.noScheduledAppointments")}
           </p>
         </motion.div>
       )}
@@ -273,19 +293,19 @@ const PatientAppointments: React.FC = () => {
                 {/* Header with status badges */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
                   <div className="flex items-center mb-3 md:mb-0">
-                    <FaUserMd className="mr-3 text-teal-600" />
+                    <FaUserMd className="me-3 text-teal-600" />
                     <h3 className="font-medium text-gray-800">
                       {appointment.doctor_first_name &&
                       appointment.doctor_last_name
                         ? `Dr. ${appointment.doctor_first_name} ${appointment.doctor_last_name}`
-                        : "Doctor not assigned yet"}
+                        : t("appointments.labels.doctorNotAssigned")}
                     </h3>
                   </div>
-                  <div className="flex space-x-2 items-center">
+                  <div className="flex space-x-2 rtl:space-x-reverse items-center">
                     {appointment.status !== "cancelled" &&
                       appointment.is_follow_up && (
                         <span className="bg-teal-100 text-teal-800 px-3 py-1 rounded-full text-xs font-medium">
-                          Follow-up
+                          {t("appointments.labels.followUp")}
                         </span>
                       )}
                     <div
@@ -293,7 +313,7 @@ const PatientAppointments: React.FC = () => {
                         appointment.status
                       )} text-xs font-medium capitalize`}
                     >
-                      {appointment.status}
+                      {getTranslatedStatus(appointment.status)}
                     </div>
                   </div>
                 </div>
@@ -301,12 +321,12 @@ const PatientAppointments: React.FC = () => {
                 {/* Appointment details grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-4">
                   <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                    <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center me-3">
                       <FaCalendarAlt className="text-teal-600" />
                     </div>
                     <div>
                       <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                        Date
+                        {t("appointments.labels.date")}
                       </p>
                       <p className="font-medium text-gray-800">
                         {formatDate(appointment.date_time)}
@@ -314,12 +334,12 @@ const PatientAppointments: React.FC = () => {
                     </div>
                   </div>
                   <div className="flex items-center">
-                    <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                    <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center me-3">
                       <FaClock className="text-teal-600" />
                     </div>
                     <div>
                       <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                        Time
+                        {t("appointments.labels.time")}
                       </p>
                       <p className="font-medium text-gray-800">
                         {formatTime(appointment.date_time)}
@@ -328,22 +348,22 @@ const PatientAppointments: React.FC = () => {
                   </div>
                   {appointment.cost && (
                     <div className="flex items-center">
-                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center me-3">
                         <FaMoneyBillWave className="text-teal-600" />
                       </div>
                       <div>
                         <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                          Cost
+                          {t("appointments.labels.cost")}
                         </p>
                         <p className="font-medium text-gray-800">
-                          {appointment.cost} EGP
+                          {appointment.cost} {t("appointments.labels.costUnit")}
                         </p>
                       </div>
                     </div>
                   )}
                   {appointment.status !== "cancelled" && (
                     <div className="flex items-center">
-                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center me-3">
                         {appointment.is_confirmed ? (
                           <FaCheckCircle className="text-green-600" />
                         ) : (
@@ -352,24 +372,24 @@ const PatientAppointments: React.FC = () => {
                       </div>
                       <div>
                         <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                          Confirmation
+                          {t("appointments.labels.confirmation")}
                         </p>
                         <p className="font-medium text-gray-800">
                           {appointment.is_confirmed
-                            ? "Confirmed"
-                            : "Awaiting confirmation"}
+                            ? t("appointments.labels.confirmed")
+                            : t("appointments.labels.awaitingConfirmation")}
                         </p>
                       </div>
                     </div>
                   )}
                   {appointment.services.length > 0 && (
                     <div className="flex items-center">
-                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center mr-3">
+                      <div className="w-10 h-10 rounded-full bg-teal-50 flex items-center justify-center me-3">
                         <FaListUl className="text-teal-600" />
                       </div>
                       <div>
                         <p className="text-xs font-medium text-gray-500 uppercase tracking-wide">
-                          Service
+                          {t("appointments.labels.service")}
                         </p>
                         <p className="font-medium text-gray-800">
                           {appointment.services[0].name}
@@ -391,7 +411,7 @@ const PatientAppointments: React.FC = () => {
 
               {/* Action footer */}
               {appointment.status !== "cancelled" && (
-                <div className="bg-gray-50 px-6 py-3 flex justify-end space-x-3 border-t border-gray-100">
+                <div className="bg-gray-50 px-6 py-3 flex justify-end space-x-3 rtl:space-x-reverse border-t border-gray-100">
                   <button
                     className={`px-4 py-2 text-sm text-teal-700 font-medium transition-colors ${
                       processingAppointmentId
@@ -400,7 +420,7 @@ const PatientAppointments: React.FC = () => {
                     }`}
                     disabled={!!processingAppointmentId}
                   >
-                    Reschedule
+                    {t("appointments.actions.reschedule")}
                   </button>
                   <button
                     onClick={() => handleCancelAppointment(appointment)}
@@ -415,11 +435,11 @@ const PatientAppointments: React.FC = () => {
                   >
                     {processingAppointmentId === appointment.id ? (
                       <span className="flex items-center">
-                        <span className="w-3 h-3 border-2 border-red-300 border-t-transparent rounded-full animate-spin mr-2"></span>
-                        Cancelling
+                        <span className="w-3 h-3 border-2 border-red-300 border-t-transparent rounded-full animate-spin me-2"></span>
+                        {t("appointments.actions.cancelling")}
                       </span>
                     ) : (
-                      "Cancel"
+                      t("appointments.actions.cancel")
                     )}
                   </button>
                 </div>

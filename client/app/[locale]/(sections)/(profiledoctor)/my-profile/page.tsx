@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import withAuth from "@components/auth/WithAuth";
 import DoctorAppointments from "@components/doctor/profileDoctor/DoctorAppointments";
+import { useTranslations } from "next-intl";
 
 interface DoctorProfileProps {
   profileImageUrl?: string;
@@ -37,6 +38,7 @@ interface DoctorData {
 }
 
 const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
+  const t = useTranslations("doctorProfile");
   const { user } = useSelector((state: RootState) => state.auth);
   const doctorDetails = user?.doctor_details;
 
@@ -74,7 +76,6 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
     totalExperience: doctorDetails?.years_of_experience || 0,
   });
 
-
   const [editing, setEditing] = useState(false);
   const [activeTab, setActiveTab] = useState("Personal");
   const [showPassword, setShowPassword] = useState(false);
@@ -106,21 +107,21 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
   const renderPersonalInfo = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {[
-        { label: "Full Name (English)", key: "fullNameEn" },
-        { label: "Email", key: "email", locked: true },
-        { label: "Phone Number", key: "phoneNumber", locked: true },
-        { label: "Username", key: "username", locked: true },
-        { label: "Password", key: "password", type: "password" },
-        { label: "Date of Birth", key: "dateOfBirth", locked: true },
-        { label: "Gender", key: "gender" },
-        { label: "Nationality", key: "nationality" },
-        { label: "Country of Residence", key: "countryOfResidence" },
-        { label: "Fluent Languages", key: "fluentLanguages" },
+        { label: t("personal.fullName"), key: "fullNameEn" },
+        { label: t("personal.email"), key: "email", locked: true },
+        { label: t("personal.phoneNumber"), key: "phoneNumber", locked: true },
+        { label: t("personal.username"), key: "username", locked: true },
+        { label: t("personal.password"), key: "password", type: "password" },
+        { label: t("personal.dateOfBirth"), key: "dateOfBirth", locked: true },
+        { label: t("personal.gender"), key: "gender" },
+        { label: t("personal.nationality"), key: "nationality" },
+        { label: t("personal.countryOfResidence"), key: "countryOfResidence" },
+        { label: t("personal.fluentLanguages"), key: "fluentLanguages" },
       ].map((field) => (
         <div key={field.key}>
           <p className="text-md font-bold text-gray-700">
             {field.label}{" "}
-            {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
+            {field.locked && <FaLock className="inline ms-2 text-gray-500" />}
           </p>
           {editing && !field.locked ? (
             field.key === "password" ? (
@@ -130,12 +131,12 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
                   name={field.key}
                   value={doctorData[field.key as keyof DoctorData] as string}
                   onChange={handleChange}
-                  className="mt-1 p-2 border border-gray-300 rounded w-full pr-10"
+                  className="mt-1 p-2 border border-gray-300 rounded w-full pe-10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                  className="absolute inset-y-0 end-0 pe-3 flex items-center text-sm leading-5"
                 >
                   {showPassword ? <FaEyeSlash /> : <FaEye />}
                 </button>
@@ -163,31 +164,41 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
   const renderPaymentInfo = () => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {[
-        { label: "Payment Method", key: "paymentMethod", locked: true },
-        { label: "Card Type", key: "cardType", locked: true },
-        { label: "Card Number", key: "cardNumber", locked: true },
-        { label: "PayPal Connected", key: "paypalConnected", locked: true },
+        {
+          label: t("payment.paymentMethod"),
+          key: "paymentMethod",
+          locked: true,
+        },
+        { label: t("payment.cardType"), key: "cardType", locked: true },
+        { label: t("payment.cardNumber"), key: "cardNumber", locked: true },
+        {
+          label: t("payment.paypalConnected"),
+          key: "paypalConnected",
+          locked: true,
+        },
       ].map((field) => (
         <div key={field.key}>
           <p className="text-md font-bold text-gray-700">
             {field.label}{" "}
-            {field.locked && <FaLock className="inline ml-2 text-gray-500" />}
+            {field.locked && <FaLock className="inline ms-2 text-gray-500" />}
           </p>
           {editing && !field.locked ? (
             field.key === "paypalConnected" ? (
               <select
                 name={field.key}
-                value={doctorData[field.key] ? "Yes" : "No"}
+                value={
+                  doctorData[field.key] ? t("payment.yes") : t("payment.no")
+                }
                 onChange={(e) =>
                   setDoctorData((prevData) => ({
                     ...prevData,
-                    [field.key]: e.target.value === "Yes",
+                    [field.key]: e.target.value === t("payment.yes"),
                   }))
                 }
                 className="mt-1 p-2 border border-gray-300 rounded w-full"
               >
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
+                <option value={t("payment.yes")}>{t("payment.yes")}</option>
+                <option value={t("payment.no")}>{t("payment.no")}</option>
               </select>
             ) : (
               <input
@@ -201,8 +212,8 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
             <p className="text-lg">
               {field.key === "paypalConnected"
                 ? doctorData[field.key]
-                  ? "Yes"
-                  : "No"
+                  ? t("payment.yes")
+                  : t("payment.no")
                 : String(doctorData[field.key as keyof DoctorData])}
             </p>
           )}
@@ -213,32 +224,35 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
 
   const renderCareerInfo = () => (
     <div className="mt-6">
-      {" "}
-      <h2 className="text-3xl font-semibold text-gray-800 mb-6">Career</h2>
+      <h2 className="text-3xl font-semibold text-gray-800 mb-6">
+        {t("career.title")}
+      </h2>
       <ul className="timeline">
         <li className="mb-4">
-          <span className=" font-semibold  text-lg text-gray-600">
-            Highest Degree Earned
+          <span className="font-semibold text-lg text-gray-600">
+            {t("career.highestDegree")}
           </span>
-          <p className=" ">{doctorData.highestDegree}</p>
+          <p className="">{doctorData.highestDegree}</p>
         </li>
         <li className="mb-4">
-          <span className=" font-semibold text-lg text-gray-600">
-            Institution
+          <span className="font-semibold text-lg text-gray-600">
+            {t("career.institution")}
           </span>
-          <p className="text-lg ">{doctorData.institutionName}</p>
+          <p className="text-lg">{doctorData.institutionName}</p>
         </li>
         <li className="mb-4">
-          <span className=" font-semibold text-lg text-gray-600">
-            Specialized In
+          <span className="font-semibold text-lg text-gray-600">
+            {t("career.specializedIn")}
           </span>
-          <p className="text-lg ">{doctorData.specialization}</p>
+          <p className="text-lg">{doctorData.specialization}</p>
         </li>
         <li className="mb-4">
-          <span className=" font-semibold text-lg text-gray-600">
-            Total Years of Experience
+          <span className="font-semibold text-lg text-gray-600">
+            {t("career.totalExperience")}
           </span>
-          <p className="text-lg ">{doctorData.totalExperience} years</p>
+          <p className="text-lg">
+            {doctorData.totalExperience} {t("career.years")}
+          </p>
         </li>
       </ul>
     </div>
@@ -246,27 +260,40 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
 
   const renderDocuments = () => (
     <div className="mt-6">
-      <h2 className="text-3xl font-semibold text-gray-800 mb-6">Documents</h2>
-      <div className="space-x-6 ">
+      <h2 className="text-3xl font-semibold text-gray-800 mb-6">
+        {t("documents.title")}
+      </h2>
+      <div className="space-x-6 rtl:space-x-reverse">
         <a href="/path-to-cv" className="text-blue-500 hover:underline">
-          View CV
+          {t("documents.viewCV")}
         </a>
         <a
           href="/path-to-qualifications"
           className="text-blue-500 hover:underline"
         >
-          View Qualifications
+          {t("documents.viewQualifications")}
         </a>
       </div>
     </div>
   );
 
+  // Map tab names to translation keys
+  const tabNameToKey: Record<string, string> = {
+    Personal: "personal",
+    Payment: "payment",
+    Career: "career",
+    Documents: "documents",
+    Services: "services",
+    Schedule: "schedule",
+    Appointments: "appointments",
+  };
+
   return (
-    <div className=" p-8 flex justify-center items-center ">
+    <div className="p-8 flex justify-center items-center">
       <div className="w-full max-w-6xl bg-white p-8 rounded-lg shadow-2xl">
         <div className="flex flex-col md:flex-row items-center justify-between mb-8 space-y-4 md:space-y-0">
           <div className="flex flex-col md:flex-row items-center relative w-full">
-            <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 md:mb-0 md:mr-4">
+            <div className="relative w-24 h-24 rounded-full overflow-hidden mb-4 md:mb-0 md:me-4">
               <Image
                 src={"/images/doctorProfile.png"}
                 alt={`Dr. ${doctorData.fullNameEn}`}
@@ -278,7 +305,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
                   htmlFor="profile-image"
                   className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 text-white cursor-pointer"
                 >
-                  <span>Change</span>
+                  <span>{t("buttons.change")}</span>
                   <input
                     id="profile-image"
                     type="file"
@@ -289,7 +316,7 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
                 </label>
               )}
             </div>
-            <div className="text-center md:text-left">
+            <div className="text-center md:text-start">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 capitalize">
                 {doctorData.fullNameEn}
               </h1>
@@ -299,9 +326,9 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
             </div>
             <button
               onClick={() => setEditing(!editing)}
-              className="absolute top-2 right-2 md:static md:ml-auto text-white py-2 px-4 rounded bg-[#00bfa5] hover:bg-[#139485] transition"
+              className="absolute top-2 end-2 md:static md:ms-auto text-white py-2 px-4 rounded bg-[#00bfa5] hover:bg-[#139485] transition"
             >
-              {editing ? "Save" : "Edit"}
+              {editing ? t("buttons.save") : t("buttons.edit")}
             </button>
           </div>
         </div>
@@ -321,16 +348,16 @@ const DoctorProfile: React.FC<DoctorProfileProps> = ({ profileImageUrl }) => {
               onClick={() => setActiveTab(tab)}
               className={`tab ${
                 activeTab === tab
-                  ? "bg-subbutton  text-white"
+                  ? "bg-subbutton text-white"
                   : "bg-gray-200 text-gray-700"
               } py-2 px-4 rounded-t-lg transition`}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)} Info
+              {t(`tabs.${tabNameToKey[tab]}`)}
             </button>
           ))}
         </div>
 
-        <div className=" mt-8 bg-gray-100 p-6 rounded-lg">
+        <div className="mt-8 bg-gray-100 p-6 rounded-lg">
           {activeTab === "Personal" && renderPersonalInfo()}
           {activeTab === "Payment" && renderPaymentInfo()}
           {activeTab === "Career" && renderCareerInfo()}

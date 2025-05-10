@@ -674,5 +674,593 @@
     },
     "paymentSuccess": "Payment completed successfully",
     "loading": "Loading..."
+  },
+  "doctorList": {
+    "pageTitle": "Discover the Right Therapist to Guide Your Mental Health Journey",
+    "searchPlaceholder": "Search here",
+    "filters": {
+      "title": "Filters",
+      "availability": {
+        "label": "Availability",
+        "today": "Today",
+        "thisWeek": "This Week"
+      },
+      "specificDate": {
+        "label": "Specific date or range"
+      },
+      "areasOfInterest": {
+        "label": "Areas of Interest",
+        "selectPrompt": "Select Specialization"
+      },
+      "sessionDuration": {
+        "label": "Session Duration",
+        "thirtyMin": "30 Min",
+        "sixtyMin": "60 Min"
+      },
+      "therapistGender": {
+        "label": "Therapist Gender",
+        "selectPrompt": "Select Gender",
+        "male": "Male",
+        "female": "Female"
+      },
+      "ratings": {
+        "label": "Ratings",
+        "ratingText": "Rating"
+      },
+      "languageAndCountry": {
+        "label": "Language & Country",
+        "selectLanguage": "Select Language",
+        "selectCountry": "Select Country"
+      },
+      "sessionRange": {
+        "label": "Session Range",
+        "selectPrompt": "Range",
+        "range1": "0-500",
+        "range2": "500-1000",
+        "range3": "1000-1500",
+        "range4": "1500-2000"
+      },
+      "promoCode": {
+        "label": "Accept Promocodes",
+        "selectPrompt": "Select",
+        "yes": "Yes",
+        "no": "No"
+      },
+      "activeServices": {
+        "label": "Active Services Only"
+      },
+      "buttons": {
+        "apply": "Apply",
+        "reset": "Reset Filters"
+      }
+    },
+    "noServices": "No Services Found",
+    "loading": "loading services"
+  },
+  "serviceCard": {
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "unknownService": "Unknown Service",
+    "unknownDoctor": "Unknown Doctor",
+    "doctorPrefix": "Dr.",
+    "uncategorized": "Uncategorized",
+    "noDescription": "No description available.",
+    "price": {
+      "currency": "EGP",
+      "notAvailable": "N/A"
+    },
+    "duration": {
+      "unit": "mins",
+      "notAvailable": "N/A"
+    },
+    "actions": {
+      "viewProfile": "View Profile",
+      "bookNow": "Book Now"
+    }
+  },
+  "sessionBooking": {
+    "pageTitle": "Session Booking",
+    "loading": "Preparing your booking options...",
+    "errorMessages": {
+      "notFound": "Doctor or service not found. Please check your selection.",
+      "unauthorized": "Please log in to access booking services.",
+      "generic": "Unable to load booking information. Please try again later.",
+      "connection": "Connection error. Please check your internet connection.",
+      "doctorBooking": "Doctors are not allowed to book appointments for themselves.",
+      "inactiveService": "This service is currently unavailable."
+    },
+    "doctorCard": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "doctorPrefix": "Dr.",
+      "specialistPrefix": "Specialist in"
+    },
+    "serviceDetails": {
+      "title": "Service Details",
+      "serviceLabel": "Service:",
+      "priceLabel": "Price:",
+      "durationLabel": "Duration:",
+      "minutesSuffix": "minutes"
+    },
+    "bookingSummary": {
+      "slotSelected": "Slot is selected",
+      "scheduleNotes": "Schedule Notes:",
+      "bookNowButton": "Book Now",
+      "currency": "EGP",
+      "to": "to",
+      "min": "Min"
+    },
+    "calendar": {
+      "understanding": "Understanding Your Booking Options",
+      "available": {
+        "title": "Available",
+        "description": "Time slot is open for booking"
+      },
+      "selected": {
+        "title": "Selected",
+        "description": "Your currently selected time slot"
+      },
+      "unavailable": {
+        "title": "Unavailable",
+        "description": "This slot has been booked"
+      },
+      "notePrefix": "Note:",
+      "noteText": "After selecting a time slot, please review your selection in the booking summary on the left before confirming your appointment."
+    },
+    "timezone": {
+      "prefix": "All times are",
+      "name": "Africa/Cairo",
+      "change": "Change"
+    },
+    "noSlots": "No available slots"
+  },
+  "appointmentCheckout": {
+    "title": "Checkout",
+    "loading": "Just a moment! We're preparing your checkout details...",
+    "appointmentDetails": {
+      "title": "Appointment Details",
+      "doctorPrefix": "Dr.",
+      "dateLabel": "Date",
+      "timeLabel": "Time",
+      "priceLabel": "Price",
+      "couponPlaceholder": "Enter coupon code",
+      "applyButton": "Apply",
+      "sessionFees": "Session fees",
+      "totalAmount": "Total amount",
+      "currency": "EGP"
+    },
+    "paymentMethods": {
+      "title": "Payment Methods",
+      "creditCard": "Credit Card",
+      "paypal": "PayPal",
+      "cashOnDelivery": "Cash on Delivery",
+      "continueButton": "Continue",
+      "processing": "Processing..."
+    },
+    "customerSupport": {
+      "title": "Customer Support",
+      "description": "Need help with your booking? Our customer support team is available 24/7.",
+      "contactButton": "Contact Support"
+    },
+    "successModal": {
+      "message": "Your session has been successfully booked. Thank you!!"
+    },
+    "errors": {
+      "appointmentCreation": "Failed to create appointment. Please try again."
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "sections": {
+      "personalInfo": "Personal Information",
+      "paymentInfo": "Payment Information",
+      "appointmentsInfo": "Appointments Information"
+    },
+    "fields": {
+      "username": "Username",
+      "firstName": "First Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "birthDate": "Birth Date",
+      "gender": "Gender",
+      "nationality": "Nationality",
+      "fluentLanguages": "Fluent Languages",
+      "currentResidence": "Current Residence",
+      "walletBalance": "Wallet Balance"
+    },
+    "actions": {
+      "editProfile": "Edit Profile",
+      "saveChanges": "Save Changes",
+      "changePassword": "Change Password",
+      "signOut": "Sign Out"
+    },
+    "modal": {
+      "signOutTitle": "Sign Out Confirmation",
+      "signOutMessage": "Are you sure you want to sign out? You will need to log in again to access your account.",
+      "cancel": "Cancel",
+      "confirm": "Sign Out"
+    }
+  },
+  "appointments": {
+    "title": "Appointments",
+    "filter": {
+      "all": "All appointments",
+      "booked": "Booked",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled"
+    },
+    "status": {
+      "booked": "Booked",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled"
+    },
+    "labels": {
+      "followUp": "Follow-up",
+      "date": "Date",
+      "time": "Time",
+      "cost": "Cost",
+      "costUnit": "EGP",
+      "confirmation": "Confirmation",
+      "service": "Service",
+      "noAppointments": "No appointments found",
+      "noFilteredAppointments": "You have no {status} appointments.",
+      "noScheduledAppointments": "You haven't scheduled any appointments yet.",
+      "processing": "Processing...",
+      "doctorNotAssigned": "Doctor not assigned yet",
+      "confirmed": "Confirmed",
+      "awaitingConfirmation": "Awaiting confirmation"
+    },
+    "actions": {
+      "reschedule": "Reschedule",
+      "cancel": "Cancel",
+      "cancelling": "Cancelling"
+    },
+    "messages": {
+      "loadingAppointments": "Loading appointments...",
+      "failedToLoad": "Failed to load appointments. Please try again later.",
+      "failedToCancel": "Failed to cancel appointment. Please try again."
+    }
+  },
+  "doctorProfile": {
+    "title": "Profile",
+    "tabs": {
+      "personal": "Personal Info",
+      "payment": "Payment Info",
+      "career": "Career Info",
+      "documents": "Documents Info",
+      "services": "Services Info",
+      "schedule": "Schedule Info",
+      "appointments": "Appointments Info"
+    },
+    "buttons": {
+      "edit": "Edit",
+      "save": "Save",
+      "change": "Change"
+    },
+    "personal": {
+      "fullName": "Full Name (English)",
+      "email": "Email",
+      "phoneNumber": "Phone Number",
+      "username": "Username",
+      "password": "Password",
+      "dateOfBirth": "Date of Birth",
+      "gender": "Gender",
+      "nationality": "Nationality",
+      "countryOfResidence": "Country of Residence",
+      "fluentLanguages": "Fluent Languages"
+    },
+    "payment": {
+      "paymentMethod": "Payment Method",
+      "cardType": "Card Type",
+      "cardNumber": "Card Number",
+      "paypalConnected": "PayPal Connected",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "career": {
+      "title": "Career",
+      "highestDegree": "Highest Degree Earned",
+      "institution": "Institution",
+      "specializedIn": "Specialized In",
+      "totalExperience": "Total Years of Experience",
+      "years": "years"
+    },
+    "documents": {
+      "title": "Documents",
+      "viewCV": "View CV",
+      "viewQualifications": "View Qualifications"
+    }
+  },
+  "services": {
+    "title": "Services",
+    "add": "Add Service",
+    "edit": "Edit Service",
+    "form": {
+      "name": {
+        "label": "Service Name",
+        "error": "Service name is required."
+      },
+      "description": "Description",
+      "category": {
+        "label": "Category",
+        "placeholder": "Select Category",
+        "error": "Category is required."
+      },
+      "price": {
+        "label": "Price ($)",
+        "error": {
+          "required": "Price is required",
+          "positive": "Price must be a positive number."
+        }
+      },
+      "duration": {
+        "label": "Duration",
+        "60min": "60 Min",
+        "30min": "30 Min",
+        "error": "Duration is required."
+      },
+      "image": {
+        "label": "Service Image",
+        "sizeError": "Image size must not exceed 5MB",
+        "typeError": "Please upload a valid image file (JPEG, PNG, or GIF)",
+        "info": "Maximum file size: 5MB. Accepted formats: JPEG, PNG, GIF"
+      },
+      "active": "Active",
+      "save": "Save",
+      "add": "Add",
+      "cancel": "Cancel"
+    }
+  },
+  "service": {
+    "category": "Category",
+    "description": "Description",
+    "price": "Price",
+    "duration": "Duration",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "edit": "Edit",
+    "remove": "Remove",
+    "minutes": "mins"
+  },
+  "schedule": {
+    "title": "Schedules",
+    "add": "Add Schedule",
+    "edit": "Edit Schedule",
+    "day": "Day",
+    "selectDay": "Select a day",
+    "startTime": "Start Time",
+    "endTime": "End Time",
+    "maxPatients": "Max Patients per Slot",
+    "notes": "Notes",
+    "save": "Save",
+    "cancel": "Cancel",
+    "remove": "Remove",
+
+    "errors": {
+      "dayRequired": "Day is required.",
+      "invalidDate": "Invalid date. Please select a future date.",
+      "startTimeRequired": "Start time is required.",
+      "endTimeRequired": "End time is required.",
+      "invalidTimeRange": "Start time cannot be later than or equal to end time.",
+      "maxPatientsRequired": "Max patients per slot is required.",
+      "invalidMaxPatients": "Please specify an appropriate number of patients per slot to ensure optimal scheduling."
+    },
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "timePeriods": {
+      "am": "AM",
+      "pm": "PM"
+    }
+  },
+  "doctorAppointments": {
+    "title": "Appointments Management",
+    "doctorProfileNotFound": "Doctor Profile Not Found",
+    "doctorProfileNotAvailable": "Doctor profile information is not available. Please make sure your account is properly set up as a doctor.",
+    "filters": {
+      "status": "Filter by Status",
+      "allStatuses": "All Statuses",
+      "booked": "Booked",
+      "confirmed": "Confirmed",
+      "cancelled": "Cancelled",
+      "date": "Filter by Date",
+      "clearFilters": "Clear Filters"
+    },
+    "stats": {
+      "totalAppointments": "Total Appointments",
+      "confirmed": "Confirmed",
+      "pending": "Pending"
+    },
+    "actions": {
+      "refreshAppointments": "Refresh Appointments",
+      "loading": "Loading...",
+      "requireConfirmation": "Require confirmation for actions:",
+      "on": "On",
+      "off": "Off"
+    },
+    "table": {
+      "patient": "Patient",
+      "dateTime": "Date & Time",
+      "service": "Service",
+      "status": "Status",
+      "actions": "Actions",
+      "view": "View",
+      "confirm": "Confirm",
+      "cancel": "Cancel"
+    },
+    "noAppointments": {
+      "title": "No appointments found",
+      "description": "No appointments found matching your filters."
+    },
+    "loading": "Loading appointments...",
+    "detailModal": {
+      "title": "Appointment Details",
+      "patient": "Patient",
+      "service": "Service",
+      "dateTime": "Date & Time",
+      "status": "Status",
+      "cost": "Cost",
+      "location": "Location",
+      "followUp": "Follow-up",
+      "created": "Created",
+      "notes": "Notes",
+      "noNotes": "No notes",
+      "notSpecified": "Not specified",
+      "yes": "Yes",
+      "no": "No",
+      "confirmAppointment": "Confirm Appointment",
+      "cancelAppointment": "Cancel Appointment",
+      "rebookAppointment": "Rebook Appointment",
+      "processing": "Processing..."
+    },
+    "confirmationModal": {
+      "title": "Confirm Action",
+      "message": "Are you sure you want to {action} the appointment for {patient} on {date}?",
+      "cancel": "Cancel",
+      "confirm": "Yes, {action}",
+      "processing": "Processing..."
+    },
+    "actionText": {
+      "confirm": "confirm",
+      "cancel": "cancel",
+      "rebook": "rebook"
+    },
+    "errors": {
+      "failedToLoad": "Failed to load appointments: {message}",
+      "failedToLoadUnknown": "Failed to load appointments",
+      "failedToUpdate": "Failed to update appointment: {message}",
+      "failedToUpdateUnknown": "Failed to update appointment",
+      "appointmentNotFound": "Appointment not found",
+      "invalidAppointmentData": "Invalid appointment data",
+      "doctorIdNotFound": "Doctor ID not found"
+    },
+    "success": {
+      "appointmentUpdated": "Appointment {status} successfully"
+    }
+  },
+  "alertBox": {
+    "title": "Hi, I am Lina. Let's talk...",
+    "goToLina": "Go to Lina",
+    "close": "Close"
+  },
+  "viewProfile": {
+    "pageTitle": "Therapist Profile",
+    "loading": "Loading...",
+    "noData": "No doctor data found",
+    "sections": {
+      "interests": "Specialization",
+      "ratings": "Ratings",
+      "certificates": "Certificates",
+      "reviews": "Reviews"
+    },
+
+    "interests": {
+      "title": "Interests"
+    },
+    "ratings": {
+      "title": "Rating",
+      "metrics": {
+        "communication": "Communication",
+        "understanding": "Understanding of the situation",
+        "solutions": "Providing effective solutions",
+        "commitment": "Commitment to start and end times"
+      }
+    },
+    "certificates": {
+      "title": "Certificates",
+      "addButton": "Add Certificate",
+      "cancelButton": "Cancel",
+      "noData": {
+        "withPermission": "No certificates found. Add your first certificate.",
+        "withoutPermission": "No certificates found."
+      },
+      "loading": "Loading certificates...",
+      "error": {
+        "add": "Failed to add certificate",
+        "update": "Failed to update certificate"
+      },
+      "deleteConfirm": "Are you sure you want to delete this certificate?",
+      "form": {
+        "title": {
+          "add": "Add New Certificate",
+          "edit": "Edit Certificate"
+        },
+        "certificateName": {
+          "label": "Certificate Name*"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "startDate": {
+          "label": "Start Date*"
+        },
+        "endDate": {
+          "label": "End Date*"
+        },
+        "saveButton": "Save",
+        "updateButton": "Update",
+        "cancelButton": "Cancel"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "reviews": {
+      "title": "Patient Reviews",
+      "rating": {
+        "average": "Based on {count} {count, plural, one {review} other {reviews}}",
+        "outOf": "{rating}/5"
+      },
+      "noReviews": {
+        "title": "No reviews yet",
+        "subtitle": "Be the first to leave feedback"
+      },
+      "reviewItem": {
+        "recommends": "Recommends this provider",
+        "doesNotRecommend": "Does not recommend"
+      },
+      "showMore": "Show More...",
+      "remainingCount": "{count}"
+    },
+    "profileCard": {
+      "reviews": "{average} ({count} reviews)",
+      "language": "Language: {languages}",
+      "country": "Country: {nationality}",
+      "experience": "Experience: {years} years",
+      "clinic": "Clinic: {name}",
+      "writeReview": "Write a review",
+      "selectTimeSlot": "Select Time Slot",
+      "errors": {
+        "cannotReviewOwn": "You cannot write a review for your own profile"
+      }
+    },
+    "reviewForm": {
+      "title": "Write a Review",
+      "subtitle": "Your opinion matters, tell us your experience with",
+      "ratingLabel": "How to rate your experience?",
+      "feedbackLabel": "Share your thoughts about your experience with us (optional)",
+      "feedbackPlaceholder": "Write your review here...",
+      "feedbackFooter": "Your feedback is valuable!",
+      "recommendLabel": "Would you recommend this Doctor to others? (optional)",
+      "recommendYes": "Yes, of course",
+      "recommendNo": "No, I would not",
+      "submit": "Submit Review",
+      "submitting": "Submitting...",
+      "errors": {
+        "noRating": "Please provide a rating",
+        "submitFailed": "Failed to submit review. Please try again later."
+      }
+    }
   }
 }

@@ -12,8 +12,9 @@ import Link from "next/link";
 import { IDoctor } from "./profileTypes";
 import { getInitial } from "@utils/doctorUtils";
 import { RenderStars } from "./renderStars";
-import { toast } from "react-hot-toast"; // Import toast from your toast library
+import { toast } from "react-hot-toast";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface ProfileCardProps {
   doctorData: IDoctor;
@@ -26,6 +27,7 @@ const ProfileCardBase = ({
   reviewsStats,
   canReview,
 }: ProfileCardProps) => {
+  const t = useTranslations("viewProfile.profileCard");
   const searchParams = useSearchParams();
   const [isReviewOpen, setIsReviewOpen] = useState(false);
 
@@ -44,7 +46,7 @@ const ProfileCardBase = ({
 
   const handleReviewClick = () => {
     if (!canReview) {
-      toast.error("You cannot write a review for your own profile");
+      toast.error(t("errors.cannotReviewOwn"));
     } else {
       setIsReviewOpen(true);
     }
@@ -77,52 +79,57 @@ const ProfileCardBase = ({
         <div className="flex-1">
           <h1 className="text-xl font-semibold">{fullName}</h1>
           <p className="text-gray-600">{doctor_details.specialization}</p>
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 rtl:space-x-reverse">
             <RenderStars average={reviewsStats.average} />{" "}
             <span className="text-sm text-gray-500 ">
-              {reviewsStats.average} ({reviewsStats.count} reviews)
+              {t("reviews", {
+                average: reviewsStats.average,
+                count: reviewsStats.count,
+              })}
             </span>
           </div>
         </div>
       </div>
 
       <div className="mt-6 space-y-3">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 rtl:space-x-reverse">
           <GrLanguage />
           <span className="text-gray-600">
-            Language: {fluent_languages.replace(/[\[\]']/g, "")}
+            {t("language", {
+              languages: fluent_languages.replace(/[\[\]']/g, ""),
+            })}
           </span>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 rtl:space-x-reverse">
           <FaGlobe />
-          <span className="text-gray-600">Country: {nationality}</span>
+          <span className="text-gray-600">{t("country", { nationality })}</span>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 rtl:space-x-reverse">
           <FaRegCalendarAlt />
           <span className="text-gray-600">
-            Experience: {doctor_details.years_of_experience} years
+            {t("experience", { years: doctor_details.years_of_experience })}
           </span>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-3 rtl:space-x-reverse">
           <GiTimeSynchronization />
           <span className="text-gray-600">
-            Clinic: {doctor_details.clinic_name}
+            {t("clinic", { name: doctor_details.clinic_name })}
           </span>
         </div>
       </div>
 
-      <div className="mt-6 flex justify-center space-x-8">
+      <div className="mt-6 flex justify-center space-x-8 rtl:space-x-reverse">
         <button
           className="text-lg font-medium text-subheading hover:underline"
           onClick={handleReviewClick}
         >
-          Write a review
+          {t("writeReview")}
         </button>
         <Link
           href={`/doctorList/booking?serviceId=${serviceId}&doctorId=${doctorData.doctor_details.id}`}
         >
           <Button variant="secondary" size="large" roundedValue="md">
-            Select Time Slot
+            {t("selectTimeSlot")}
           </Button>
         </Link>
       </div>

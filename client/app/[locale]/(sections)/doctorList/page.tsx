@@ -23,6 +23,7 @@ import SpinnerLoading from "@components/loading/SpinnerLoading";
 import { useCategoryLookup } from "@utils/categoryLookup";
 import withAuth from "@components/auth/WithAuth";
 import { isAxiosError } from "axios";
+import { useTranslations } from "next-intl";
 
 // Define the types for the filters
 type Filters = {
@@ -53,6 +54,7 @@ type Service = {
 };
 
 function DoctorList() {
+  const t = useTranslations(); // Initialize translation
   const getCategory = useCategoryLookup();
   const searchParams = useSearchParams();
   const { categories } = useSelector((state: RootState) => state.categories);
@@ -85,28 +87,6 @@ function DoctorList() {
   const buildFilterQuery = (filters: Filters): string => {
     const queryParams = new URLSearchParams();
 
-    // // Handle availability
-    // if (filters.availability.length > 0) {
-    //   if (filters.availability.includes("Today")) {
-    //     const today = new Date().toISOString().split("T")[0];
-    //     queryParams.append("available_date", today);
-    //   }
-    //   if (filters.availability.includes("This Week")) {
-    //     const today = new Date();
-    //     const endOfWeek = new Date(today);
-    //     endOfWeek.setDate(today.getDate() + 7);
-    //     queryParams.append(
-    //       "available_until",
-    //       endOfWeek.toISOString().split("T")[0]
-    //     );
-    //   }
-    // }
-
-    // // Handle specific date
-    // if (filters.specificDate) {
-    //   queryParams.append("specific_date", filters.specificDate);
-    // }
-
     // Handle specialization
     if (filters.specialization) {
       const categoryId = getCategory(filters.specialization) as string;
@@ -117,8 +97,12 @@ function DoctorList() {
     if (
       filters.sessionDuration.length > 0 &&
       !(
-        filters.sessionDuration.includes("30 Min") &&
-        filters.sessionDuration.includes("60 Min")
+        filters.sessionDuration.includes(
+          t("doctorList.filters.sessionDuration.thirtyMin")
+        ) &&
+        filters.sessionDuration.includes(
+          t("doctorList.filters.sessionDuration.sixtyMin")
+        )
       )
     ) {
       const durations = filters.sessionDuration.map(
@@ -127,26 +111,6 @@ function DoctorList() {
       queryParams.append("duration_min", durations.join(","));
     }
 
-    // // Handle gender
-    // if (filters.gender) {
-    //   queryParams.append("gender", filters.gender);
-    // }
-
-    // // Handle rating
-    // if (filters.rating > 0) {
-    //   queryParams.append("min_rating", filters.rating.toString());
-    // }
-
-    // // Handle language
-    // if (filters.language) {
-    //   queryParams.append("language", filters.language);
-    // }
-
-    // // Handle country
-    // if (filters.country) {
-    //   queryParams.append("country", filters.country);
-    // }
-
     // Handle session price range
     if (filters.sessionRange) {
       const [min, max] = filters.sessionRange.split("-");
@@ -154,10 +118,6 @@ function DoctorList() {
       queryParams.append("price_max", max);
     }
 
-    // // Handle promocode acceptance
-    // if (filters.promocodeAccepted) {
-    //   queryParams.append("accepts_promocode", filters.promocodeAccepted);
-    // }
     if (filters.is_active) {
       queryParams.append("is_active", filters.is_active.toString());
     }
@@ -187,7 +147,7 @@ function DoctorList() {
         setLoading(false);
       }
     },
-    [axiosInstance]
+    [axiosInstance, t]
   );
 
   useEffect(() => {
@@ -250,7 +210,7 @@ function DoctorList() {
     <>
       <main className="container mx-auto px-4 py-8">
         <h2 className="text-3xl capitalize w-full md:w-1/2 mx-auto font-medium text-subheading text-center mb-8">
-          Discover the Right Therapist to Guide Your Mental Health Journey
+          {t("doctorList.pageTitle")}
         </h2>
         <div className="sticky top-2 w-5/6 mx-auto mb-6 z-40">
           <input
@@ -258,7 +218,7 @@ function DoctorList() {
             id="default-search"
             className="block w-full p-3 ps-11 text-xl outline-none text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:placeholder-gray-400"
             required
-            placeholder="Search here"
+            placeholder={t("doctorList.searchPlaceholder")}
             value={searchTerm}
             onChange={handleSearch}
           />
@@ -267,18 +227,20 @@ function DoctorList() {
         <div className="flex flex-col lg:flex-row gap-8">
           <aside className="lg:sticky lg:top-20 w-full h-fit lg:w-1/4 bg-white shadow p-4 rounded">
             <h3 className="text-xl py-2 text-center border-b-2 border-gray-400 font-semibold text-gray-700 mb-4">
-              Filters
+              {t("doctorList.filters.title")}
             </h3>
             <form>
-              {" "}
               {/* Availability */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <FaCalendarAlt className="mr-2" />
-                  Availability
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <FaCalendarAlt className="me-2" />
+                  {t("doctorList.filters.availability.label")}
                 </label>
-                <div className="flex space-x-4">
-                  {["Today", "This Week"].map((option) => (
+                <div className="flex space-x-4 rtl:space-x-reverse">
+                  {[
+                    t("doctorList.filters.availability.today"),
+                    t("doctorList.filters.availability.thisWeek"),
+                  ].map((option) => (
                     <label key={option} className="flex items-center">
                       <input
                         type="checkbox"
@@ -288,16 +250,16 @@ function DoctorList() {
                         }
                         checked={filters.availability.includes(option)}
                       />{" "}
-                      <span className="ml-2">{option}</span>
+                      <span className="ms-2">{option}</span>
                     </label>
                   ))}
                 </div>
               </div>
               {/* Specific Date */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <MdDateRange className="mr-2" />
-                  Specific date or range
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <MdDateRange className="me-2" />
+                  {t("doctorList.filters.specificDate.label")}
                 </label>
                 <input
                   type="date"
@@ -310,19 +272,21 @@ function DoctorList() {
               </div>
               {/* Specialization */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <FaUserMd className="mr-2" />
-                  Areas of Interest
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <FaUserMd className="me-2" />
+                  {t("doctorList.filters.areasOfInterest.label")}
                 </label>
                 <select
-                  className="mt-1 p-1  w-full border-gray-300 rounded-md shadow-sm"
+                  className="mt-1 p-1 w-full border-gray-300 rounded-md shadow-sm"
                   onChange={(e) =>
                     handleFilterChange("specialization", e.target.value)
                   }
                   value={filters.specialization}
                   disabled={!!specializationFromURL} // Disable if value is from URL
                 >
-                  <option value="">Select Specialization</option>
+                  <option value="">
+                    {t("doctorList.filters.areasOfInterest.selectPrompt")}
+                  </option>
                   {categories.map((cat) => (
                     <option key={cat.id} value={cat.name}>
                       {cat.name}
@@ -332,12 +296,15 @@ function DoctorList() {
               </div>
               {/* Session Duration */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <FaClock className="mr-2" />
-                  Session Duration
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <FaClock className="me-2" />
+                  {t("doctorList.filters.sessionDuration.label")}
                 </label>
-                <div className="flex space-x-4">
-                  {["30 Min", "60 Min"].map((option) => (
+                <div className="flex space-x-4 rtl:space-x-reverse">
+                  {[
+                    t("doctorList.filters.sessionDuration.thirtyMin"),
+                    t("doctorList.filters.sessionDuration.sixtyMin"),
+                  ].map((option) => (
                     <label key={option} className="flex items-center">
                       <input
                         type="checkbox"
@@ -347,34 +314,40 @@ function DoctorList() {
                         }
                         checked={filters.sessionDuration.includes(option)}
                       />{" "}
-                      <span className="ml-2">{option}</span>
+                      <span className="ms-2">{option}</span>
                     </label>
                   ))}
                 </div>
               </div>
               {/* Gender */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <FaVenusMars className="mr-2" />
-                  Therapist Gender
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <FaVenusMars className="me-2" />
+                  {t("doctorList.filters.therapistGender.label")}
                 </label>
                 <select
                   className="mt-1 p-1 block w-full border-gray-300 rounded-md shadow-sm"
                   onChange={(e) => handleFilterChange("gender", e.target.value)}
                   value={filters.gender}
                 >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                  <option value="">
+                    {t("doctorList.filters.therapistGender.selectPrompt")}
+                  </option>
+                  <option value="male">
+                    {t("doctorList.filters.therapistGender.male")}
+                  </option>
+                  <option value="female">
+                    {t("doctorList.filters.therapistGender.female")}
+                  </option>
                 </select>
               </div>
               {/* Ratings */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <FaStar className="mr-2" />
-                  Ratings
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <FaStar className="me-2" />
+                  {t("doctorList.filters.ratings.label")}
                 </label>
-                <div className="flex space-x-1 mt-1">
+                <div className="flex space-x-1 rtl:space-x-reverse mt-1">
                   {Array.from({ length: 5 }, (_, index) => (
                     <button
                       key={index + 1}
@@ -394,14 +367,14 @@ function DoctorList() {
                   ))}
                 </div>
                 <p className="mt-2 text-sm text-gray-600">
-                  Rating: {filters.rating}
+                  {t("doctorList.filters.ratings.ratingText")}: {filters.rating}
                 </p>
               </div>
               {/* Language and Country */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <FaGlobe className="mr-2" />
-                  Language & Country
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <FaGlobe className="me-2" />
+                  {t("doctorList.filters.languageAndCountry.label")}
                 </label>
                 <select
                   className="mt-1 p-1 block w-full border-gray-300 rounded-md shadow-sm"
@@ -410,7 +383,9 @@ function DoctorList() {
                   }
                   value={filters.language}
                 >
-                  <option value="">Select Language</option>
+                  <option value="">
+                    {t("doctorList.filters.languageAndCountry.selectLanguage")}
+                  </option>
                   {languageOptions.map((lang, index) => (
                     <option key={index} value={lang.value}>
                       {lang.label}
@@ -425,7 +400,9 @@ function DoctorList() {
                   value={filters.country}
                   disabled={!!countryFromURL} // Disable if value is from URL
                 >
-                  <option value="">Select Country</option>
+                  <option value="">
+                    {t("doctorList.filters.languageAndCountry.selectCountry")}
+                  </option>
                   {countries.map((country, index) => (
                     <option key={index} value={country}>
                       {country}
@@ -435,9 +412,9 @@ function DoctorList() {
               </div>
               {/* Session Range */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <BiMoney className="mr-2" />
-                  Session Range
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <BiMoney className="me-2" />
+                  {t("doctorList.filters.sessionRange.label")}
                 </label>
                 <select
                   className="mt-1 p-1 block w-full border-gray-300 rounded-md shadow-sm"
@@ -446,18 +423,28 @@ function DoctorList() {
                   }
                   value={filters.sessionRange}
                 >
-                  <option value="">Range</option>
-                  <option value="0-500">0-500</option>
-                  <option value="500-1000">500-1000</option>
-                  <option value="1000-1500">1000-1500</option>
-                  <option value="1500-2000">1500-2000</option>
+                  <option value="">
+                    {t("doctorList.filters.sessionRange.selectPrompt")}
+                  </option>
+                  <option value="0-500">
+                    {t("doctorList.filters.sessionRange.range1")}
+                  </option>
+                  <option value="500-1000">
+                    {t("doctorList.filters.sessionRange.range2")}
+                  </option>
+                  <option value="1000-1500">
+                    {t("doctorList.filters.sessionRange.range3")}
+                  </option>
+                  <option value="1500-2000">
+                    {t("doctorList.filters.sessionRange.range4")}
+                  </option>
                 </select>
               </div>
               {/* Promo Code */}
               <div className="mb-4">
-                <label className=" text-sm font-medium text-gray-700 flex items-center">
-                  <FaTag className="mr-2" />
-                  Accept Promocodes
+                <label className="text-sm font-medium text-gray-700 flex items-center">
+                  <FaTag className="me-2" />
+                  {t("doctorList.filters.promoCode.label")}
                 </label>
                 <select
                   className="mt-1 p-1 block w-full border-gray-300 rounded-md shadow-sm"
@@ -466,19 +453,25 @@ function DoctorList() {
                   }
                   value={filters.promocodeAccepted}
                 >
-                  <option value="">Select</option>
-                  <option value="true">Yes</option>
-                  <option value="false">No</option>
+                  <option value="">
+                    {t("doctorList.filters.promoCode.selectPrompt")}
+                  </option>
+                  <option value="true">
+                    {t("doctorList.filters.promoCode.yes")}
+                  </option>
+                  <option value="false">
+                    {t("doctorList.filters.promoCode.no")}
+                  </option>
                 </select>
               </div>
-              <div className="mb-4 flex items-center space-x-4">
+              <div className="mb-4 flex items-center space-x-4 rtl:space-x-reverse">
                 <label className="text-sm font-medium text-gray-700 flex items-center">
-                  <FaTag className="mr-2" />
-                  Active Services Only
+                  <FaTag className="me-2" />
+                  {t("doctorList.filters.activeServices.label")}
                 </label>
                 <input
                   type="checkbox"
-                  className="w-4 h-4  cursor-pointer"
+                  className="w-4 h-4 cursor-pointer"
                   onChange={(e) =>
                     handleFilterChange("is_active", e.target.checked)
                   }
@@ -492,14 +485,14 @@ function DoctorList() {
                   onClick={applyFilters}
                   className="px-4 py-2 text-lg rounded-md btn shadow-md hover:shadow-lg btn-secondary mt-8"
                 >
-                  Apply
+                  {t("doctorList.filters.buttons.apply")}
                 </button>
                 <button
                   type="button"
                   onClick={resetFilters}
                   className="px-4 py-2 text-lg rounded-md btn shadow-md hover:shadow-lg btn-secondary mt-8"
                 >
-                  Reset Filters
+                  {t("doctorList.filters.buttons.reset")}
                 </button>
               </div>
             </form>
@@ -507,7 +500,7 @@ function DoctorList() {
           {/* list of doctor cards */}
           {loading ? (
             <div className="flex justify-center items-center w-full min-h-[300px]">
-              <SpinnerLoading message="loading services" />
+              <SpinnerLoading message={t("doctorList.loading")} />
             </div>
           ) : filteredServices.length > 0 ? (
             <div className="z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-8">
@@ -517,11 +510,11 @@ function DoctorList() {
             </div>
           ) : (
             <div className="w-full text-center py-12">
-              <p className="text-red-400 text-3xl">No Services Found</p>
+              <p className="text-red-400 text-3xl">
+                {t("doctorList.noServices")}
+              </p>
             </div>
           )}
-
-          {/* list of doctor cards */}
         </div>
       </main>
     </>

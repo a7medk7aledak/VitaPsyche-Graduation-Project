@@ -21,6 +21,7 @@ import { motion } from "framer-motion";
 import Navbar from "@components/common/Navbar";
 import withAuth from "@components/auth/WithAuth";
 import PatientAppointments from "@components/patient/PatientAppointments";
+import { useTranslations } from "next-intl";
 
 interface ProfileData {
   username: string;
@@ -43,6 +44,7 @@ interface ProfileFieldProps {
 }
 
 const ProfilePage: React.FC = () => {
+  const t = useTranslations();
   const dispatch = useDispatch();
   const router = useRouter();
   const { user } = useSelector((state: RootState) => state.auth);
@@ -109,7 +111,7 @@ const ProfilePage: React.FC = () => {
       className="flex justify-between items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
       whileHover={{ scale: 1.01 }}
     >
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center space-x-3 rtl:space-x-reverse">
         <Icon className="text-teal-600 text-xl" />
         <span className="text-gray-700 font-medium">{label}</span>
       </div>
@@ -148,9 +150,9 @@ const ProfilePage: React.FC = () => {
                   {profileData.first_name} {profileData.last_name}
                 </h2>
                 <p className="text-gray-600 mb-4">@{profileData.username}</p>
-                <div className="flex items-center space-x-2 text-teal-600">
+                <div className="flex items-center space-x-2 rtl:space-x-reverse text-teal-600">
                   <FaWallet />
-                  <span>Wallet Balance: $0</span>
+                  <span>{t("profile.fields.walletBalance")}: $0</span>
                 </div>
               </div>
             </motion.aside>
@@ -163,7 +165,7 @@ const ProfilePage: React.FC = () => {
               transition={{ duration: 0.5 }}
             >
               {/* Tabs */}
-              <div className="flex flex-col md:flex-row md:space-x-6 border-b border-gray-200 mb-6">
+              <div className="flex flex-col md:flex-row md:space-x-6 rtl:space-x-reverse border-b border-gray-200 mb-6">
                 <button
                   className={`pb-4 px-2 text-lg font-medium transition-colors ${
                     activeTab === "personalInfo"
@@ -172,7 +174,7 @@ const ProfilePage: React.FC = () => {
                   }`}
                   onClick={() => setActiveTab("personalInfo")}
                 >
-                  Personal Information
+                  {t("profile.sections.personalInfo")}
                 </button>
                 <button
                   className={`pb-4 px-2 text-lg font-medium transition-colors ${
@@ -182,7 +184,7 @@ const ProfilePage: React.FC = () => {
                   }`}
                   onClick={() => setActiveTab("paymentInfo")}
                 >
-                  Payment Information
+                  {t("profile.sections.paymentInfo")}
                 </button>
                 <button
                   className={`pb-4 px-2 text-lg font-medium transition-colors ${
@@ -192,7 +194,7 @@ const ProfilePage: React.FC = () => {
                   }`}
                   onClick={() => setActiveTab("appointments")}
                 >
-                  Appointments Information{" "}
+                  {t("profile.sections.appointmentsInfo")}
                 </button>
               </div>
 
@@ -201,11 +203,13 @@ const ProfilePage: React.FC = () => {
                   <div className="flex justify-end mb-6">
                     <button
                       onClick={toggleEditMode}
-                      className="flex items-center space-x-2 px-4 py-2 bg-teal-50 text-teal-600 rounded-lg hover:bg-teal-100 transition-colors"
+                      className="flex items-center space-x-2 rtl:space-x-reverse px-4 py-2 bg-teal-50 text-teal-600 rounded-lg hover:bg-teal-100 transition-colors"
                     >
                       <FaEdit />
                       <span>
-                        {isEditMode ? "Save Changes" : "Edit Profile"}
+                        {isEditMode
+                          ? t("profile.actions.saveChanges")
+                          : t("profile.actions.editProfile")}
                       </span>
                     </button>
                   </div>
@@ -213,61 +217,61 @@ const ProfilePage: React.FC = () => {
                   <div className="grid gap-4">
                     <ProfileField
                       icon={FaUser}
-                      label="Username"
+                      label={t("profile.fields.username")}
                       value={profileData.username}
                       name="username"
                     />
                     <ProfileField
                       icon={FaUser}
-                      label="First Name"
+                      label={t("profile.fields.firstName")}
                       value={profileData.first_name}
                       name="first_name"
                     />
                     <ProfileField
                       icon={FaUser}
-                      label="Last Name"
+                      label={t("profile.fields.lastName")}
                       value={profileData.last_name}
                       name="last_name"
                     />
                     <ProfileField
                       icon={FaEnvelope}
-                      label="Email"
+                      label={t("profile.fields.email")}
                       value={profileData.email}
                       name="email"
                     />
                     <ProfileField
                       icon={FaPhone}
-                      label="Phone Number"
+                      label={t("profile.fields.phoneNumber")}
                       value={profileData.phone_number}
                       name="phone_number"
                     />
                     <ProfileField
                       icon={FaBirthdayCake}
-                      label="Birth Date"
+                      label={t("profile.fields.birthDate")}
                       value={profileData.birth_date}
                       name="birth_date"
                     />
                     <ProfileField
                       icon={FaVenusMars}
-                      label="Gender"
+                      label={t("profile.fields.gender")}
                       value={profileData.gender}
                       name="gender"
                     />
                     <ProfileField
                       icon={FaGlobe}
-                      label="Nationality"
+                      label={t("profile.fields.nationality")}
                       value={profileData.nationality}
                       name="nationality"
                     />
                     <ProfileField
                       icon={FaLanguage}
-                      label="Fluent Languages"
+                      label={t("profile.fields.fluentLanguages")}
                       value={profileData.fluent_languages}
                       name="fluent_languages"
                     />
                     <ProfileField
                       icon={FaHome}
-                      label="Current Residence"
+                      label={t("profile.fields.currentResidence")}
                       value={profileData.current_residence}
                       name="current_residence"
                     />
@@ -280,13 +284,13 @@ const ProfilePage: React.FC = () => {
                         /* Handle password change */
                       }}
                     >
-                      Change Password
+                      {t("profile.actions.changePassword")}
                     </button>
                     <button
                       className="w-full py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
                       onClick={() => setShowSignOutModal(true)}
                     >
-                      Sign Out
+                      {t("profile.actions.signOut")}
                     </button>
                   </div>
                 </div>
@@ -309,24 +313,23 @@ const ProfilePage: React.FC = () => {
               animate={{ scale: 1, opacity: 1 }}
             >
               <h3 className="text-xl font-bold text-gray-800 mb-4">
-                Sign Out Confirmation
+                {t("profile.modal.signOutTitle")}
               </h3>
               <p className="text-gray-600 mb-6">
-                Are you sure you want to sign out? You will need to log in again
-                to access your account.
+                {t("profile.modal.signOutMessage")}
               </p>
-              <div className="flex space-x-4">
+              <div className="flex space-x-4 rtl:space-x-reverse">
                 <button
                   className="flex-1 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
                   onClick={() => setShowSignOutModal(false)}
                 >
-                  Cancel
+                  {t("profile.modal.cancel")}
                 </button>
                 <button
                   className="flex-1 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
                   onClick={handleSignOut}
                 >
-                  Sign Out
+                  {t("profile.modal.confirm")}
                 </button>
               </div>
             </motion.div>

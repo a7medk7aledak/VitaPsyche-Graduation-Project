@@ -7,6 +7,7 @@ import useAxios from "@hooks/useAxios";
 import Image from "next/image";
 import { formatDuration } from "@utils/doctorUtils";
 import { isAxiosError } from "axios";
+import { useTranslations } from "next-intl";
 
 interface IService {
   id: number;
@@ -15,16 +16,17 @@ interface IService {
   price: string;
   duration: string;
   is_active?: boolean;
-  category: number; //when connecting make it number
+  category: number;
   doctors?: string[];
-  image?: string | File; // Add image to interface
+  image?: string | File;
 }
 
 const API_URL = "/api/services";
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB in bytes
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/png", "image/gif"];
 
-const ServicesManagment = () => {
+const ServicesManagement = () => {
+  const t = useTranslations("services");
   const { categories } = useSelector((state: RootState) => state.categories);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [services, setServices] = useState<IService[]>([]);
@@ -35,7 +37,7 @@ const ServicesManagment = () => {
     id: 0,
     name: "",
     description: "",
-    category: 0, //when connecting make it 0
+    category: 0,
     price: "",
     duration: "",
     is_active: true,
@@ -61,7 +63,6 @@ const ServicesManagment = () => {
       setServices(formattedServices);
     } catch (error) {
       if (isAxiosError(error)) {
-        // The server's processed error (from axiosErrorHandler) is now in err.response
         const { status, data } = error.response || {
           status: 500,
           data: { message: "Unknown error occurred" },
@@ -83,7 +84,7 @@ const ServicesManagment = () => {
     if (file.size > MAX_FILE_SIZE) {
       setErrors((prev) => ({
         ...prev,
-        image: "Image size must not exceed 5MB",
+        image: t("form.image.sizeError"),
       }));
       return;
     }
@@ -92,7 +93,7 @@ const ServicesManagment = () => {
     if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
       setErrors((prev) => ({
         ...prev,
-        image: "Please upload a valid image file (JPEG, PNG, or GIF)",
+        image: t("form.image.typeError"),
       }));
       return;
     }
@@ -105,14 +106,13 @@ const ServicesManagment = () => {
     });
 
     // Create preview
-    const reader = new FileReader(); //1st step and done in background
+    const reader = new FileReader();
 
-    //3rd step (when the file read completely do this function)
     reader.onloadend = () => {
       setImagePreview(reader.result as string);
     };
 
-    reader.readAsDataURL(file); // 2nd step
+    reader.readAsDataURL(file);
 
     setNewService((prev) => ({
       ...prev,
@@ -123,7 +123,7 @@ const ServicesManagment = () => {
   const handleServiceChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const target = e.target as HTMLInputElement; // Cast the target
+    const target = e.target as HTMLInputElement;
 
     const { name, value, type } = target;
     setNewService((prev: IService) => ({
@@ -176,7 +176,6 @@ const ServicesManagment = () => {
       setIsPopupVisible(false);
     } catch (error) {
       if (isAxiosError(error)) {
-        // The server's processed error (from axiosErrorHandler) is now in err.response
         const { status, data } = error.response || {
           status: 500,
           data: { message: "Unknown error occurred" },
@@ -199,7 +198,6 @@ const ServicesManagment = () => {
       fetchServices();
     } catch (error) {
       if (isAxiosError(error)) {
-        // The server's processed error (from axiosErrorHandler) is now in err.response
         const { status, data } = error.response || {
           status: 500,
           data: { message: "Unknown error occurred" },
@@ -233,14 +231,14 @@ const ServicesManagment = () => {
 
   const validateService = () => {
     const formErrors: { [key: string]: string } = {};
-    if (!newService.name) formErrors.name = "Service name is required.";
-    if (!newService.category) formErrors.category = "Category is required.";
+    if (!newService.name) formErrors.name = t("form.name.error");
+    if (!newService.category) formErrors.category = t("form.category.error");
     if (!newService.price) {
-      formErrors.price = "Price is required";
+      formErrors.price = t("form.price.error.required");
     } else if (parseInt(newService.price) <= 0) {
-      formErrors.price = "Price must be a positive number.";
+      formErrors.price = t("form.price.error.positive");
     }
-    if (!newService.duration) formErrors.duration = "Duration is required.";
+    if (!newService.duration) formErrors.duration = t("form.duration.error");
 
     // Merge with existing errors (including any image errors)
     setErrors((prev) => ({ ...prev, ...formErrors }));
@@ -249,7 +247,7 @@ const ServicesManagment = () => {
 
   return (
     <div className="space-y-6 relative">
-      <h2 className="text-3xl font-semibold text-gray-800">Services</h2>
+      <h2 className="text-3xl font-semibold text-gray-800">{t("title")}</h2>
       <div className="space-y-6">
         {services.map((service) => {
           return (
@@ -265,7 +263,7 @@ const ServicesManagment = () => {
           onClick={() => setIsPopupVisible(true)}
           className="mt-4 px-6 py-2 bg-[#00bfa5] hover:bg-[#139485] transition text-white rounded"
         >
-          Add Service
+          {t("add")}
         </button>
       </div>
       {/* Popup Modal of adding service and editing services */}
@@ -273,7 +271,7 @@ const ServicesManagment = () => {
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg p-8 max-w-lg w-full">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
-              {editingServiceId ? "Edit Service" : "Add Service"}
+              {editingServiceId ? t("edit") : t("add")}
             </h2>
 
             {/* Form Inputs */}
@@ -283,7 +281,7 @@ const ServicesManagment = () => {
                   htmlFor="serviceName"
                   className="block text-gray-700 mb-1"
                 >
-                  Service Name
+                  {t("form.name.label")}
                 </label>
                 <input
                   type="text"
@@ -302,7 +300,7 @@ const ServicesManagment = () => {
                   htmlFor="description"
                   className="block text-gray-700 mb-1"
                 >
-                  Description
+                  {t("form.description")}
                 </label>
                 <input
                   type="text"
@@ -315,7 +313,7 @@ const ServicesManagment = () => {
               </div>
               <div>
                 <label htmlFor="category" className="block text-gray-700 mb-1">
-                  Category
+                  {t("form.category.label")}
                 </label>
                 <select
                   name="category"
@@ -324,7 +322,7 @@ const ServicesManagment = () => {
                   id="category"
                   className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] focus:ring-offset-2 transition duration-200"
                 >
-                  <option value="">Select Category</option>
+                  <option value="">{t("form.category.placeholder")}</option>
                   {categories.map((category) => (
                     <option key={category.id} value={category.id}>
                       {category.name}
@@ -338,7 +336,7 @@ const ServicesManagment = () => {
 
               <div>
                 <label htmlFor="price" className="block text-gray-700 mb-1">
-                  Price ($)
+                  {t("form.price.label")}
                 </label>
                 <input
                   type="number"
@@ -355,9 +353,9 @@ const ServicesManagment = () => {
 
               <div>
                 <label htmlFor="duration" className="block text-gray-700 mb-1">
-                  Duration
+                  {t("form.duration.label")}
                 </label>
-                <div className="flex space-x-4">
+                <div className="flex space-x-4 rtl:space-x-reverse">
                   <button
                     className={`px-6 py-2 rounded-md text-lg font-medium ${
                       newService.duration === "60"
@@ -370,7 +368,7 @@ const ServicesManagment = () => {
                       } as React.ChangeEvent<HTMLSelectElement>)
                     }
                   >
-                    60 Min
+                    {t("form.duration.60min")}
                   </button>
                   <button
                     className={`px-6 py-2 rounded-md text-lg font-medium ${
@@ -384,7 +382,7 @@ const ServicesManagment = () => {
                       } as React.ChangeEvent<HTMLSelectElement>)
                     }
                   >
-                    30 Min
+                    {t("form.duration.30min")}
                   </button>
                 </div>
                 {errors.duration && (
@@ -394,7 +392,7 @@ const ServicesManagment = () => {
 
               <div className="mb-4">
                 <label htmlFor="image" className="block text-gray-700 mb-1">
-                  Service Image
+                  {t("form.image.label")}
                 </label>
                 <input
                   type="file"
@@ -418,13 +416,13 @@ const ServicesManagment = () => {
                   </div>
                 )}
                 <p className="text-sm mt-1 text-gray-500">
-                  Maximum file size: 5MB. Accepted formats: JPEG, PNG, GIF
+                  {t("form.image.info")}
                 </p>
               </div>
 
               <div className="flex items-center">
-                <label htmlFor="is_active" className="text-gray-700 mr-2">
-                  Active
+                <label htmlFor="is_active" className="text-gray-700 me-2">
+                  {t("form.active")}
                 </label>
                 <input
                   type="checkbox"
@@ -441,18 +439,18 @@ const ServicesManagment = () => {
                 />
               </div>
 
-              <div className="flex justify-end space-x-4 mt-6">
+              <div className="flex justify-end space-x-4 rtl:space-x-reverse mt-6">
                 <button
                   onClick={handleSaveService}
                   className="px-4 py-2 bg-[#00bfa5] hover:bg-[#139485] transition text-white rounded-md"
                 >
-                  {editingServiceId ? "Save" : "Add"}
+                  {editingServiceId ? t("form.save") : t("form.add")}
                 </button>
                 <button
                   onClick={handleCancel}
                   className="px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition"
                 >
-                  Cancel
+                  {t("form.cancel")}
                 </button>
               </div>
             </div>
@@ -463,4 +461,4 @@ const ServicesManagment = () => {
   );
 };
 
-export default ServicesManagment;
+export default ServicesManagement;

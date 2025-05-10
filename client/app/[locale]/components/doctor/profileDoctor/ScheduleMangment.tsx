@@ -6,8 +6,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import { isAxiosError } from "axios";
 import { IAvailability } from "@myTypes/appointments";
-
-
+import { useTranslations } from "next-intl";
 
 const daysOfWeek = [
   "monday",
@@ -25,6 +24,7 @@ export const capitalizeFirstLetter = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1);
 
 const ScheduleManagement = () => {
+  const t  = useTranslations();
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [schedules, setSchedules] = useState<IAvailability[]>([]);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -151,23 +151,22 @@ const ScheduleManagement = () => {
     const selectedDate = new Date(newSchedule.day_of_week).getTime(); // Convert selected date to timestamp
 
     if (!newSchedule.day_of_week) {
-      formErrors.day_of_week = "Day is required.";
+      formErrors.day_of_week = t("schedule.errors.dayRequired");
     } else if (selectedDate < today) {
-      formErrors.day_of_week = "Invalid date. Please select a future date.";
+      formErrors.day_of_week = t("schedule.errors.invalidDate");
     }
 
     if (!newSchedule.start_time) {
-      formErrors.start_time = "Start time is required.";
+      formErrors.start_time = t("schedule.errors.startTimeRequired");
     }
 
     if (!newSchedule.end_time) {
-      formErrors.end_time = "End time is required.";
+      formErrors.end_time = t("schedule.errors.endTimeRequired");
     } else if (newSchedule.start_time && newSchedule.end_time) {
       const startTime = newSchedule.start_time;
       const endTime = newSchedule.end_time;
       if (startTime >= endTime) {
-        formErrors.start_time =
-          "Start time cannot be later than or equal to end time.";
+        formErrors.start_time = t("schedule.errors.invalidTimeRange");
       }
     }
 
@@ -175,13 +174,16 @@ const ScheduleManagement = () => {
       newSchedule.max_patients_per_slot === undefined ||
       newSchedule.max_patients_per_slot === null
     ) {
-      formErrors.max_patients_per_slot = "Max patients per slot is required.";
+      formErrors.max_patients_per_slot = t(
+        "schedule.errors.maxPatientsRequired"
+      );
     } else if (
       newSchedule.max_patients_per_slot < 1 ||
       newSchedule.max_patients_per_slot > 1000
     ) {
-      formErrors.max_patients_per_slot =
-        "Please specify an appropriate number of patients per slot to ensure optimal scheduling.";
+      formErrors.max_patients_per_slot = t(
+        "schedule.errors.invalidMaxPatients"
+      );
     }
 
     setErrors(formErrors);
@@ -190,7 +192,9 @@ const ScheduleManagement = () => {
 
   return (
     <div className="space-y-6 relative">
-      <h2 className="text-3xl font-semibold text-gray-800">Schedules</h2>
+      <h2 className="text-3xl font-semibold text-gray-800">
+        {t("schedule.title")}
+      </h2>
       <div className="space-y-6">
         {schedules.map((schedule) => (
           <Schedule
@@ -204,31 +208,31 @@ const ScheduleManagement = () => {
           onClick={() => setIsPopupVisible(true)}
           className="mt-4 px-6 py-2 bg-[#00bfa5] hover:bg-[#139485] transition text-white rounded"
         >
-          Add Schedule
+          {t("schedule.add")}
         </button>
       </div>
       {isPopupVisible && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg p-8 max-w-lg w-full">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">
-              {editingScheduleId ? "Edit Schedule" : "Add Schedule"}
+              {editingScheduleId ? t("schedule.edit") : t("schedule.add")}
             </h2>
             <div className="space-y-4">
               <div>
                 <label htmlFor="day" className="block text-gray-700 mb-1">
-                  Day
+                  {t("schedule.day")}
                 </label>
                 <select
                   name="day_of_week"
                   value={newSchedule.day_of_week}
                   onChange={handleScheduleChange}
                   id="day"
-                  className="w-full  p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
+                  className="w-full p-2 rounded-lg focus:outline-none ring-1 ring-gray-300 focus:ring-2 focus:ring-[#8fd3d1] transition duration-200"
                 >
-                  <option value="">Select a day</option>
+                  <option value="">{t("schedule.selectDay")}</option>
                   {daysOfWeek.map((day) => (
                     <option key={day} value={day}>
-                      {capitalizeFirstLetter(day)}
+                      {t(`schedule.days.${day}`)}
                     </option>
                   ))}
                 </select>
@@ -238,7 +242,7 @@ const ScheduleManagement = () => {
               </div>
               <div>
                 <label htmlFor="startTime" className="block text-gray-700 mb-1">
-                  Start Time
+                  {t("schedule.startTime")}
                 </label>
                 <input
                   type="time"
@@ -254,7 +258,7 @@ const ScheduleManagement = () => {
               </div>
               <div>
                 <label htmlFor="endTime" className="block text-gray-700 mb-1">
-                  End Time
+                  {t("schedule.endTime")}
                 </label>
                 <input
                   type="time"
@@ -274,7 +278,7 @@ const ScheduleManagement = () => {
                   htmlFor="max_patients_per_slot"
                   className="block text-gray-700 mb-1"
                 >
-                  Max Patients per Slot
+                  {t("schedule.maxPatients")}
                 </label>
                 <input
                   type="number"
@@ -293,7 +297,7 @@ const ScheduleManagement = () => {
               </div>
               <div>
                 <label htmlFor="notes" className="block text-gray-700 mb-1">
-                  Notes
+                  {t("schedule.notes")}
                 </label>
                 <textarea
                   name="notes"
@@ -303,18 +307,18 @@ const ScheduleManagement = () => {
                   rows={3}
                 />
               </div>
-              <div className="flex justify-end space-x-4 mt-6">
+              <div className="flex justify-end space-x-4 rtl:space-x-reverse mt-6">
                 <button
                   onClick={handleSaveSchedule}
                   className="px-4 py-2 bg-[#00bfa5] hover:bg-[#139485] transition text-white rounded-md"
                 >
-                  {editingScheduleId ? "Save" : "Add"}
+                  {editingScheduleId ? t("schedule.save") : t("schedule.add")}
                 </button>
                 <button
                   onClick={handleCancel}
                   className="px-4 py-2 bg-gray-400 text-white rounded-md hover:bg-gray-500 transition"
                 >
-                  Cancel
+                  {t("schedule.cancel")}
                 </button>
               </div>
             </div>

@@ -1,4 +1,5 @@
 import { useCategoryLookup } from "@utils/categoryLookup";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 
@@ -23,6 +24,7 @@ const Service: React.FC<IServiceComponentProps> = ({
   onEdit,
   onRemove,
 }) => {
+  const t = useTranslations();
   const getCategory = useCategoryLookup();
   const categoryName = getCategory(service.category);
 
@@ -49,30 +51,32 @@ const Service: React.FC<IServiceComponentProps> = ({
             {service.name}
           </h3>
           <p className="text-gray-600">
-            <span className="font-semibold">Category:</span> {categoryName}
+            <span className="font-semibold">{t("service.category")}:</span>{" "}
+            {categoryName}
           </p>
           {service.description && (
             <p className="text-gray-600 capitalize">
-              <span className="font-semibold">Description:</span>{" "}
+              <span className="font-semibold">{t("service.description")}:</span>{" "}
               {service.description}
             </p>
           )}
           <p className="text-gray-600">
-            <span className="font-semibold">Price:</span> ${service.price}
+            <span className="font-semibold">{t("service.price")}:</span> $
+            {service.price}
           </p>
           <p className="text-gray-600">
-            <span className="font-semibold">Duration:</span> {service.duration}{" "}
-            mins
+            <span className="font-semibold">{t("service.duration")}:</span>{" "}
+            {service.duration} {t("service.minutes")}
           </p>
           <p className="text-gray-700">
-            <strong>Status:</strong>{" "}
+            <strong>{t("service.status")}:</strong>{" "}
             {service.is_active ? (
               <span className="bg-green-100 text-green-700 text-sm px-3 py-1 rounded font-medium">
-                Active
+                {t("service.active")}
               </span>
             ) : (
               <span className="bg-red-100 text-red-700 text-sm px-3 py-1 rounded font-medium">
-                Inactive
+                {t("service.inactive")}
               </span>
             )}{" "}
           </p>
@@ -84,13 +88,13 @@ const Service: React.FC<IServiceComponentProps> = ({
             onClick={() => onEdit(service.id)}
             className="text-white py-2 px-4 rounded-lg bg-[#00bfa5] hover:bg-[#139485] transition"
           >
-            Edit
+            {t("service.edit")}
           </button>
           <button
             onClick={() => onRemove(service.id)}
             className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600 transition"
           >
-            Remove
+            {t("service.remove")}
           </button>
         </div>
       </div>

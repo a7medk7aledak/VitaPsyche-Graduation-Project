@@ -12,6 +12,7 @@ import useAxios from "@hooks/useAxios";
 import { convertToISO } from "@utils/dataTimeIso";
 import { isAxiosError } from "axios";
 import toast from "react-hot-toast";
+import { useTranslations } from "next-intl";
 
 export interface IAppointmentData {
   patientId: string;
@@ -36,6 +37,9 @@ function CheckoutPage() {
   const [showModal, setShowModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Get translations
+  const t = useTranslations("appointmentCheckout");
 
   useEffect(() => {
     // Retrieve data from sessionStorage
@@ -85,7 +89,7 @@ function CheckoutPage() {
       // Show success modal
       setShowModal(true);
     } catch (error) {
-      toast.error("Failed to create appointment. Please try again.");
+      toast.error(t("errors.appointmentCreation"));
 
       if (isAxiosError(error)) {
         // The server's processed error (from axiosErrorHandler) is now in err.response
@@ -106,15 +110,13 @@ function CheckoutPage() {
   };
 
   if (isLoading) {
-    return (
-      <SpinnerLoading message="Just a moment! We're preparing your checkout details..." />
-    );
+    return <SpinnerLoading message={t("loading")} />;
   }
 
   return (
     <main className="py-16 min-h-screen">
       <div className="-mb-10">
-        <Heading variant="secondary">Checkout</Heading>
+        <Heading variant="secondary">{t("title")}</Heading>
       </div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="order-1 md:order-1">
@@ -134,7 +136,7 @@ function CheckoutPage() {
         isOpen={showModal}
         onClose={closeModalHandler}
         img="/images/payment-methods/submissionModal.png"
-        message="Your session has been successfully booked. Thank you!!"
+        message={t("successModal.message")}
       />
     </main>
   );

@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
 
 interface IAppointmentData {
   patientId: string;
@@ -24,6 +25,7 @@ export function AppointmentDetails({
   appointmentData,
 }: IAppointmentDetailsProps) {
   const [coupon, setCoupon] = useState("");
+  const t = useTranslations("appointmentCheckout.appointmentDetails");
 
   // Parse and format the date properly
   const formatDateString = (dateStr: string) => {
@@ -82,8 +84,8 @@ export function AppointmentDetails({
         />
         <div>
           <h2 className="font-bold text-[#1a1a3f]">
-            Dr.{doctorName} |{" "}
-            <span className="text-blue-600">{categoryName}</span>
+            {t("doctorPrefix")}
+            {doctorName} | <span className="text-blue-600">{categoryName}</span>
           </h2>
         </div>
       </div>
@@ -106,33 +108,39 @@ export function AppointmentDetails({
             width={24}
             height={24}
           />
-          <span className="text-[#1a1a3f] font-medium">{sessionFees} EGP</span>
+          <span className="text-[#1a1a3f] font-medium">
+            {sessionFees} {t("currency")}
+          </span>
         </div>
       </div>
       <div className="flex flex-wrap gap-2 mb-6">
         <input
           type="text"
-          placeholder="Enter coupon code"
+          placeholder={t("couponPlaceholder")}
           value={coupon}
           onChange={(e) => setCoupon(e.target.value)}
           className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:border-[#00978c]"
         />
         <button
-          className="px-6 py-3 bg-[#00978c] block ml-auto text-white rounded-xl font-medium transition-colors disabled:opacity-40"
+          className="px-6 py-3 bg-[#00978c] block ms-auto text-white rounded-xl font-medium transition-colors disabled:opacity-40"
           disabled={!coupon}
         >
-          Apply
+          {t("applyButton")}
         </button>
       </div>
       <div className="mt-6 space-y-2">
         <div className="flex justify-between text-[#1a1a3f]">
-          <span>Session fees</span>
-          <span className="font-medium">{sessionFees} EGP</span>
+          <span>{t("sessionFees")}</span>
+          <span className="font-medium">
+            {sessionFees} {t("currency")}
+          </span>
         </div>
 
         <div className="flex justify-between text-[#1a1a3f] font-bold pt-2 border-t">
-          <span>Total amount</span>
-          <span>{totalAmount} EGP</span>
+          <span>{t("totalAmount")}</span>
+          <span>
+            {totalAmount} {t("currency")}
+          </span>
         </div>
       </div>
     </div>

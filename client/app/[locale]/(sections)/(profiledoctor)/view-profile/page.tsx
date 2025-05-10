@@ -14,6 +14,7 @@ import { getReviewStats } from "@utils/doctorUtils";
 import { IDoctor } from "@components/doctor/viewProfileDoctor/profileTypes";
 import { useCheckDoctorPermissions } from "@hooks/useCheckDoctorPermissions";
 import withAuth from "@components/auth/WithAuth";
+import { useTranslations } from "next-intl";
 
 interface IReview {
   id: number;
@@ -35,6 +36,7 @@ const DoctorProfilePage = () => {
   const [doctorData, setDoctorData] = useState<IDoctor | null>(null);
   const [reviewsData, setReviewsData] = useState<IReview[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const t = useTranslations("viewProfile");
 
   // Get doctor ID from URL
   const doctorIdParam = searchParams?.get("doctorId");
@@ -79,7 +81,7 @@ const DoctorProfilePage = () => {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>Loading...</p>
+        <p>{t("loading")}</p>
       </div>
     );
   }
@@ -87,7 +89,7 @@ const DoctorProfilePage = () => {
   if (!doctorData) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <p>No doctor data found</p>
+        <p>{t("noData")}</p>
       </div>
     );
   }
@@ -96,7 +98,7 @@ const DoctorProfilePage = () => {
 
   return (
     <main className="max-w-7xl mx-auto px-4 py-8 md:px-8">
-      <Heading variant="secondary">Therapist Profile</Heading>
+      <Heading variant="secondary">{t("pageTitle")}</Heading>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 gap-x-10 -mt-6">
         <div className="space-y-6 order-2 md:order-1">
           <Interests category={doctorData.doctor_details.specialization} />
