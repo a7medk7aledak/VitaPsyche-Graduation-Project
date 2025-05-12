@@ -122,7 +122,7 @@ const isSlotReserved = (
   return appointments.some((appointment) => {
     // Create a date from the appointment time and adjust for timezone
     const appointmentTime = new Date(appointment.date_time);
-    appointmentTime.setHours(appointmentTime.getHours() - 2);
+    appointmentTime.setHours(appointmentTime.getHours() - 3);
 
     // Compare the times (ignoring seconds and milliseconds)
     return (
