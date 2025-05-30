@@ -1,13 +1,163 @@
 version: "3.1"
 
 rules:
-  - rule: Say goodbye anytime the user says goodbye
+  # Mental Health Response Rules
+  - rule: Mental Health Response Rule EN
     steps:
-      - intent: goodbye
-      - action: utter_goodbye
+      - intent: mental_health_symptoms_en
+      - action: action_mental_health_response
 
-  - rule: Say 'I am a bot' anytime the user challenges
+  - rule: Mental Health Response Rule AR
     steps:
-     - intent: bot_challenge
-     - action: utter_iamabot
+      - intent: mental_health_symptoms_ar
+      - action: action_mental_health_response
 
+  - rule: General Mental Support EN
+    steps:
+      - intent: general_mental_support_en
+      - action: action_mental_health_response
+
+  - rule: General Mental Support AR
+    steps:
+      - intent: general_mental_support_ar
+      - action: action_mental_health_response
+
+  - rule: Seek Mental Strength EN
+    steps:
+      - intent: seek_mental_strength_en
+      - action: action_mental_health_response
+
+  - rule: Seek Mental Strength AR
+    steps:
+      - intent: seek_mental_strength_ar
+      - action: action_mental_health_response
+
+  - rule: Feeling Misunderstood EN
+    steps:
+      - intent: feeling_misunderstood_en
+      - action: action_mental_health_response
+
+  - rule: Feeling Misunderstood AR
+    steps:
+      - intent: feeling_misunderstood_ar
+      - action: action_mental_health_response
+
+  - rule: Express Loneliness EN
+    steps:
+      - intent: express_loneliness_en
+      - action: action_mental_health_response
+
+  - rule: Express Loneliness AR
+    steps:
+      - intent: express_loneliness_ar
+      - action: action_mental_health_response
+
+  - rule: Mental Health Concern EN
+    steps:
+      - intent: mental_health_concern_en
+      - action: action_mental_health_response
+
+  - rule: Mental Health Concern AR
+    steps:
+      - intent: mental_health_concern_ar
+      - action: action_mental_health_response
+
+  - rule: Mood Unhappy EN
+    steps:
+      - intent: mood_unhappy_en
+      - action: action_mental_health_response
+
+  - rule: Mood Unhappy AR
+    steps:
+      - intent: mood_unhappy_ar
+      - action: action_mental_health_response
+
+  # Greeting Rules
+  - rule: Greeting EN
+    steps:
+      - intent: greet_en
+      - action: utter_greet_en
+      - action: utter_ask_feeling_en
+
+  - rule: Greeting AR
+    steps:
+      - intent: greet_ar
+      - action: utter_greet_ar
+      - action: utter_ask_feeling_ar
+
+  # Goodbye Rules
+  - rule: Goodbye EN
+    steps:
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
+
+  - rule: Goodbye AR
+    steps:
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
+
+  # Bot Challenge Rules
+  - rule: Bot Challenge EN
+    steps:
+      - intent: bot_challenge_en
+      - action: utter_bot_challenge_en
+
+  - rule: Bot Challenge AR
+    steps:
+      - intent: bot_challenge_ar
+      - action: utter_bot_challenge_ar
+
+  # Mental Health Crisis Rules
+  - rule: Mental Health Crisis EN
+    steps:
+      - intent: mental_health_crisis_en
+      - action: utter_mental_health_crisis_en
+
+  - rule: Mental Health Crisis AR
+    steps:
+      - intent: mental_health_crisis_ar
+      - action: utter_mental_health_crisis_ar
+
+  # Identity Rules
+  - rule: Identity EN
+    steps:
+      - intent: identity_en
+      - action: utter_identity_en
+
+  - rule: Identity AR
+    steps:
+      - intent: identity_ar
+      - action: utter_identity_ar
+
+  # Website Info Rules
+  - rule: Website Info EN
+    steps:
+      - intent: website_info_en
+      - action: utter_website_integration_en
+
+  - rule: Website Info AR
+    steps:
+      - intent: website_info_ar
+      - action: utter_website_integration_ar
+
+  # Offensive Language Rules
+  - rule: Offensive Language EN
+    steps:
+      - intent: offensive_language_en
+      - action: utter_offensive_language_en
+
+  - rule: Offensive Language AR
+    steps:
+      - intent: offensive_language_ar
+      - action: utter_offensive_language_ar
+
+  # Fallback Rules
+  - rule: Fallback EN
+    steps:
+      - intent: nlu_fallback_en
+      - action: utter_fallback_en
+
+  - rule: Fallback AR
+    steps:
+      - intent: nlu_fallback_ar
+      - action: utter_fallback_ar

@@ -1,91 +1,104 @@
-#### This file contains tests to evaluate that your bot behaves as expected.
-#### If you want to learn more, please see the docs: https://rasa.com/docs/rasa/testing-your-assistant
+version: "3.1"
 
 stories:
-- story: happy path 1
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
+  - story: Happy path (English)
+    steps:
+      - user: |
+          hello there!
+        intent: greet_en
+      - action: utter_greet_en
+      - action: utter_ask_feeling_en
+      - user: |
+          I’m feeling great!
+        intent: general_mental_support_en
+      - action: utter_general_mental_support_en
+      - action: action_mental_health_response
 
-- story: happy path 2
-  steps:
-  - user: |
-      hello there!
-    intent: greet
-  - action: utter_greet
-  - user: |
-      amazing
-    intent: mood_great
-  - action: utter_happy
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
+  - story: Happy path (Arabic)
+    steps:
+      - user: |
+          مرحبًا!
+        intent: greet_ar
+      - action: utter_greet_ar
+      - action: utter_ask_feeling_ar
+      - user: |
+          أشعر بتحسن!
+        intent: general_mental_support_ar
+      - action: utter_general_mental_support_ar
+      - action: action_mental_health_response
 
-- story: sad path 1
-  steps:
-  - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      yes
-    intent: affirm
-  - action: utter_happy
+  - story: Sad path (English)
+    steps:
+      - user: |
+          hi
+        intent: greet_en
+      - action: utter_greet_en
+      - action: utter_ask_feeling_en
+      - user: |
+          I feel sad
+        intent: general_mental_support_en
+      - action: utter_general_mental_support_en
+      - action: action_mental_health_response
+      - user: |
+          thanks
+        intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
 
-- story: sad path 2
-  steps:
-  - user: |
-      hello
-    intent: greet
-  - action: utter_greet
-  - user: |
-      not good
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      not really
-    intent: deny
-  - action: utter_goodbye
+  - story: Sad path (Arabic)
+    steps:
+      - user: |
+          مرحبًا
+        intent: greet_ar
+      - action: utter_greet_ar
+      - action: utter_ask_feeling_ar
+      - user: |
+          أشعر بالحزن
+        intent: general_mental_support_ar
+      - action: utter_general_mental_support_ar
+      - action: action_mental_health_response
+      - user: |
+          شكرًا
+        intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
 
-- story: sad path 3
-  steps:
-  - user: |
-      hi
-    intent: greet
-  - action: utter_greet
-  - user: |
-      very terrible
-    intent: mood_unhappy
-  - action: utter_cheer_up
-  - action: utter_did_that_help
-  - user: |
-      no
-    intent: deny
-  - action: utter_goodbye
+  - story: Identity query (English)
+    steps:
+      - user: |
+          who are you?
+        intent: identity_en
+      - action: utter_identity_en
 
-- story: say goodbye
-  steps:
-  - user: |
-      bye-bye!
-    intent: goodbye
-  - action: utter_goodbye
+  - story: Identity query (Arabic)
+    steps:
+      - user: |
+          من أنت؟
+        intent: identity_ar
+      - action: utter_identity_ar
 
-- story: bot challenge
-  steps:
-  - user: |
-      are you a bot?
-    intent: bot_challenge
-  - action: utter_iamabot
+  - story: Offensive language (English)
+    steps:
+      - user: |
+          you’re useless
+        intent: offensive_language_en
+      - action: utter_offensive_language_en
+
+  - story: Offensive language (Arabic)
+    steps:
+      - user: |
+          أنت عديم الفائدة
+        intent: offensive_language_ar
+      - action: utter_offensive_language_ar
+
+  - story: Website integration (English)
+    steps:
+      - user: |
+          can I take an anxiety test?
+        intent: website_integration_en
+      - action: utter_website_integration_en
+
+  - story: Website integration (Arabic)
+    steps:
+      - user: |
+          هل يمكنني إجراء اختبار القلق؟
+        intent: website_integration_ar
+      - action: utter_website_integration_ar

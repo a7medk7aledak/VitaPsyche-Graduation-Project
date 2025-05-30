@@ -1,420 +1,623 @@
 version: "3.1"
+
 nlu:
-- intent: seek_support
-  examples: |
-    - I need emotional support.
-    - Can I get some help?
-    - I need someone to talk to.
-    - Can you help me with my feelings?
-    - I want to talk about my emotions.
-    - I'm feeling lost.
+  - intent: greet_en
+    examples: |
+      - hi
+      - hello
+      - hey
+      - good morning
+      - good afternoon
+      - good evening
 
-- intent: ask_for_advice_anxiety
-  examples: |
-    - What should I do when I'm feeling anxious?
-    - How can I manage my anxiety in stressful situations?
-    - Can you suggest ways to calm my anxiety?
-    - How do I cope with panic attacks?
-    - What are effective techniques to reduce anxiety?
-    - How can I approach my feelings of anxiety?
+  - intent: greet_ar
+    examples: |
+      - مرحبا
+      - اهلا
+      - هلا
+      - صباح الخير
+      - مساء الخير
 
-- intent: ask_for_advice_depression
-  examples: |
-    - What should I do when I'm feeling depressed?
-    - How can I lift my mood when I feel down?
-    - What strategies can help me overcome feelings of hopelessness?
-    - How can I find joy in life again?
-    - What are some activities that can help with depression?
-    - How do I talk to someone about my depression?
+  - intent: ask_for_help_en
+    examples: |
+      - I need help with something.
+      - Can you help me with my feelings?
+      - I'm feeling lost, can we talk?
+      - I need someone to talk to.
+      - Can you give me advice?
+      - Can I talk to someone?
+      - Do you offer therapy sessions?
+      - How do you usually help people?
 
-- intent: ask_for_advice_self_confidence
-  examples: |
-    - How can I improve my self-confidence?
-    - What should I do when I doubt myself?
-    - Can you give me tips for feeling more confident?
-    - How do I stop comparing myself to others?
-    - What are some affirmations to boost my self-esteem?
-    - How can I face my fears and build confidence?
+  - intent: ask_for_help_ar
+    examples: |
+      - أحتاج إلى مساعدة في شيء ما.
+      - هل يمكنك مساعدتي بشأن مشاعري؟
+      - أشعر بالضياع، هل يمكننا التحدث؟
+      - أحتاج إلى شخص أتحدث معه.
+      - هل يمكنك إعطائي نصيحة؟
+      - ساعدني
+      - ممكن مساعدة
+      - هل تقدر تساعدني في مشكلتي النفسية؟
+      - وش الخدمات اللي تقدمها؟
+      - هل أقدر أتكلم مع مختص؟
+      - كيف أقدر أحسن نفسيتي؟
+      - ممكن نصائح للتخلص من التوتر؟
+      - هل القلق طبيعي؟
+      - محتاج جدول يومي يساعدني على الراحة النفسية.
 
-- intent: ask_for_advice_stress
-  examples: |
-    - How can I manage my stress better?
-    - What techniques can I use to relieve stress?
-    - How do I find balance in my life when I'm stressed?
-    - Can you suggest ways to unwind after a long day?
-    - What should I do to avoid burnout?
-    - How can I incorporate relaxation into my routine?
+  - intent: mental_health_symptoms_en
+    examples: |
+      - I've been feeling really sad lately.
+      - I'm so anxious all the time.
+      - I think I might be depressed.
+      - I can't stop worrying about everything.
+      - I feel overwhelmed and don't know what to do.
+      - I feel emotionally tired.
+      - I'm struggling with anxiety lately.
+      - Sometimes I feel lost and confused.
+      - I think I might be burned out.
+      - I have trouble focusing and sleeping.
 
-- intent: ask_for_advice_emotional_management
-  examples: |
-    - How can I express my emotions in a healthy way?
-    - What should I do when I feel overwhelmed with feelings?
-    - Can you recommend ways to cope with intense emotions?
-    - How do I deal with negative thoughts effectively?
-    - What are some strategies for managing frustration?
-    - How can I better understand my feelings?
+  - intent: mental_health_symptoms_ar
+    examples: |
+      - عندي مشكلة في الثقة بنفسي
+      - أشعر أني بلا قيمة
+      - مش قادر أواجه الناس
+      - عندي اكتئاب من فترة
+      - حاسس أني وحيد ومش لاقي حد يفهمني
+      - عندي قلق وتوتر مستمر
+      - مش عارف أعيش ليه
+      - كل يوم أصعب من اللي قبله
+      - مش قادر أركز في شغلي
+      - عندي خوف من المستقبل
+      - بحس إني مش كفاية
+      - عندي وسواس قهري
+      - عندي أفكار سلبية كتير
+      - مش قادر أنام كويس
+      - عندي نوبات هلع
+      - بحس إني تايه
+      - عندي مشاكل في علاقاتي
+      - مش لاقي معنى للحياة
+      - عندي اكتئاب موسمي
+      - بحس إني مضغوط طول الوقت
+      - عندي مشاكل في المزاج
+      - بحس إني مش محبوب
+      - عندي مشاكل في الثقة بالآخرين
+      - بحس إني مش قادر أتكلم مع حد
+      - عندي مشاكل في النوم
+      - بحس إني دايمًا تعبان
+      - عندي مشاكل في الأكل
+      - بحس إني مش قادر أتحكم في مشاعري
+      - عندي مشاكل في التركيز
+      - بحس إني مش قادر أواجه الحياة
+      - أشعر بالحزن ولا أعرف السبب.
+      - عندي قلق وتوتر مستمر.
+      - ما أقدر أنام من كثر التفكير.
+      - أحس إني وحيد وما أحد يفهمني.
+      - كيف أتعامل مع نوبات الهلع؟
+      - فيني اكتئاب؟ كيف أعرف؟
+      - ما في دافع أسوي أي شيء.
+      - كيف أقدر أكون أقوى نفسياً؟
+      - عندي مشكلة في الثقة بنفسي.
+      - أحس حياتي ماشية بدون معنى.
 
-- intent: ask_for_advice_sleep
-  examples: |
-    - How can I improve my sleep quality?
-    - What should I do if I can't fall asleep?
-    - Can you suggest tips for better sleep hygiene?
-    - How do I handle insomnia?
-    - What are some bedtime routines that help with sleep?
-    - How can I relax before going to bed?
+  - intent: thank_goodbye_en
+    examples: |
+      - thank you
+      - thanks
+      - bye
+      - goodbye
+      - see you later
+      - take care
+      - Thanks for your support.
+      - Good morning!
 
-- intent: ask_for_advice_social_relationships
-  examples: |
-    - How can I build better relationships with others?
-    - What should I do when I feel lonely?
-    - Can you give me tips for improving communication skills?
-    - How do I deal with conflicts in friendships?
-    - What are some ways to make new friends?
-    - How can I maintain healthy boundaries in relationships?
+  - intent: thank_goodbye_ar
+    examples: |
+      - شكرا
+      - شكرا جزيلا
+      - مع السلامة
+      - الى اللقاء
+      - سلام
+      - الله يسلمك
+      - شكراً لك على المساعدة.
+      - صباح الخير.
+      - أنا بخير، وأنت؟
 
-- intent: ask_for_advice_motivation
-  examples: |
-    - How can I stay motivated during tough times?
-    - What strategies can I use to reach my goals?
-    - How do I overcome procrastination?
-    - Can you suggest ways to boost my energy levels?
-    - How can I find inspiration in my daily life?
-    - What should I do to keep myself accountable?
+  - intent: nlu_fallback_en
+    examples: |
+      - I don't understand
+      - What?
+      - Huh?
+      - Can you explain?
+      - I'm confused
+      - That doesn't make sense
+      - I don't get it
+      - What do you mean?
+      - Can you rephrase that?
+      - I'm lost
 
-- intent: ask_for_advice_nutrition_exercise
-  examples: |
-    - How can I maintain a healthy diet?
-    - What should I eat to improve my mood?
-    - Can you suggest exercises that help reduce stress?
-    - How do I stay active when I'm feeling low?
-    - What are some healthy snacks for mental wellness?
-    - How can I incorporate physical activity into my routine?
+  - intent: nlu_fallback_ar
+    examples: |
+      - مش فاهم
+      - ايه؟
+      - ماذا؟
+      - ممكن توضح
+      - مش فاهمك
+      - مش مفهوم
+      - مش واضح
+      - ممكن تشرح
+      - مش فاهم قصدك
+      - مش فاهم انت عايز ايه
 
-- intent: ask_for_advice_life_changes
-  examples: |
-    - How do I cope with major life changes?
-    - What should I do when I face unexpected challenges?
-    - Can you suggest ways to adapt to new situations?
-    - How can I stay resilient during tough transitions?
-    - What are some strategies for managing uncertainty?
-    - How do I handle feelings of loss or grief?
+  - intent: identity_en
+    examples: |
+      - Who are you?
+      - What's your name?
+      - Are you a real person?
+      - Who created you?
+      - Tell me about yourself.
+      - Who are you
+      - What are you
+      - Are you human
+      - Are you a bot
+      - What is your purpose
+      - What do you do?
+      - What is your function?
+      - Are you an AI?
+      - What kind of bot are you?
+      - What's your identity?
+      - Can you introduce yourself?
+      - What are you designed for?
 
-- intent: ask_for_advice_goal_setting
-  examples: |
-    - How can I set achievable goals?
-    - What should I do to stay focused on my objectives?
-    - Can you give me tips for tracking my progress?
-    - How do I break down my goals into manageable steps?
-    - What strategies can help me stay committed to my goals?
-    - How can I celebrate my achievements along the way?
+  - intent: identity_ar
+    examples: |
+      - من أنت؟
+      - ما اسمك؟
+      - هل أنت شخص حقيقي؟
+      - من صنعك؟
+      - أخبرني عن نفسك.
+      - انت مين
+      - انت مين؟
+      - انت ايه
+      - انت ايه؟
+      - انت بوت؟
+      - انت انسان؟
+      - انت مين انت
+      - انت مين انت؟
+      - انت مين انت؟
+      - انت مين انت؟
+      - انت مين انت؟
+      - ما وظيفتك؟
+      - ما هي مهمتك؟
+      - هل أنت ذكاء اصطناعي؟
+      - عرفني بنفسك.
+      - ما الغرض منك؟
+      - من تكون؟
 
-- intent: ask_for_advice_fear
-  examples: |
-    - How can I overcome my fears?
-    - What should I do when I'm afraid of something?
-    - Can you suggest techniques to face my fears?
-    - How do I stop being scared of failure?
-    - What strategies can I use to manage fear of the unknown?
-    - How can I build courage to try new things?
+  - intent: social_connection_en
+    examples: |
+      - How are you?
+      - Do you have a name?
+      - Are you real?
+      - Nice to meet you!
+      - Can we chat for a bit?
 
-- intent: ask_for_advice_self_awareness
-  examples: |
-    - How can I improve my self-awareness?
-    - What should I do to understand myself better?
-    - Can you suggest ways to reflect on my emotions?
-    - How do I identify my strengths and weaknesses?
-    - What are some techniques for self-reflection?
-    - How can I become more in tune with my feelings?
+  - intent: social_connection_ar
+    examples: |
+      - كيف حالك؟
+      - هل لديك اسم؟
+      - هل أنت حقيقي؟
+      - سعدت بلقائك!
+      - هل يمكننا الدردشة قليلاً؟
+      - عامل ايه؟
 
-- intent: ask_for_advice_concentration
-  examples: |
-    - How can I improve my concentration?
-    - What should I do to stay focused on tasks?
-    - Can you suggest techniques to avoid distractions?
-    - How do I manage my time effectively?
-    - What strategies can help me maintain attention?
-    - How can I enhance my productivity?
+  - intent: general_mental_support_en
+    examples: |
+      - I feel sad.
+      - I'm really stressed out.
+      - I need help feeling better.
+      - I'm having a tough day.
+      - I don't know how to cope.
 
-- intent: ask_for_advice_anger_management
-  examples: |
-    - How can I control my anger?
-    - What should I do when I feel angry?
-    - Can you suggest techniques for managing frustration?
-    - How do I express my anger in a healthy way?
-    - What are some strategies to cool down when I'm upset?
-    - How can I prevent anger from affecting my relationships?
+  - intent: general_mental_support_ar
+    examples: |
+      - أشعر بالحزن.
+      - أنا متوتر جدًا.
+      - أحتاج إلى مساعدة لأشعر بتحسن.
+      - يومي صعب جدًا.
+      - لا أعرف كيف أتعامل.
+      - محتاج دعم
 
-- intent: ask_for_advice_positive_thinking
-  examples: |
-    - How can I cultivate a positive mindset?
-    - What should I do to combat negative thoughts?
-    - Can you suggest ways to practice gratitude?
-    - How do I stay optimistic during difficult times?
-    - What are some affirmations I can use for positive thinking?
-    - How can I shift my perspective to see the bright side?
+  - intent: website_info_en
+    examples: |
+      - tell me about your website
+      - what services do you offer online
+      - how can I access your services
+      - do you have a website
+      - where can I find more information
 
-- intent: ask_for_advice_social_skills
-  examples: |
-    - How can I improve my social skills?
-    - What should I do to feel more comfortable in social situations?
-    - Can you suggest ways to engage in small talk?
-    - How do I build rapport with others?
-    - What strategies can help me navigate social anxiety?
-    - How can I express empathy and understanding in conversations?
+  - intent: website_info_ar
+    examples: |
+      - اخبرني عن موقعك
+      - ما هي الخدمات التي تقدمونها عبر الإنترنت
+      - كيف يمكنني الوصول إلى خدماتكم
+      - هل لديكم موقع إلكتروني
+      - أين يمكنني العثور على مزيد من المعلومات
 
-- intent: ask_for_advice_time_management
-  examples: |
-    - How can I manage my time better?
-    - What should I do to prioritize my tasks?
-    - Can you suggest techniques for effective planning?
-    - How do I avoid procrastination?
-    - What strategies can help me stick to a schedule?
-    - How can I balance work and personal life?
+  - intent: mental_health_concern_en
+    examples: |
+      - I'm feeling anxious
+      - I'm depressed
+      - I'm having trouble sleeping
+      - I feel overwhelmed
+      - I'm struggling with stress
+      - I'm feeling mentally exhausted
+      - I need mental support
+      - I'm feeling mentally drained
 
-- intent: ask_for_advice_self_acceptance
-  examples: |
-    - How can I learn to accept myself?
-    - What should I do to embrace my imperfections?
-    - Can you suggest ways to practice self-love?
-    - How do I let go of negative self-talk?
-    - What are some affirmations for self-acceptance?
-    - How can I appreciate my unique qualities?
+  - intent: mental_health_concern_ar
+    examples: |
+      - أشعر بالقلق
+      - أنا مكتئب
+      - أعاني من مشاكل في النوم
+      - أشعر بالإرهاق
+      - أنا أعاني من التوتر
+      - تعبان نفسيا
+      - محتاج دعم نفسي
+      - أشعر بالإرهاق النفسي
 
-- intent: ask_for_advice_loneliness
-  examples: |
-    - How can I cope with feelings of loneliness?
-    - What should I do when I feel isolated?
-    - Can you suggest ways to connect with others?
-    - How do I find meaningful social interactions?
-    - What strategies can help me feel less alone?
-    - How can I engage in activities that reduce loneliness?
+  - intent: offensive_language_en
+    examples: |
+      - This is stupid!
+      - You're useless.
+      - Shut up!
+      - I hate this bot.
+      - Why are you so bad at this?
 
-- intent: ask_for_advice_frustration
-  examples: |
-    - How can I deal with frustration in my life?
-    - What should I do when things don't go as planned?
-    - Can you suggest techniques to overcome setbacks?
-    - How do I stay positive when I feel frustrated?
-    - What strategies can help me manage disappointment?
-    - How can I turn frustration into motivation?
+  - intent: offensive_language_ar
+    examples: |
+      - هذا غبي!
+      - أنت عديم الفائدة.
+      - اصمت!
+      - أكره هذا البوت.
+      - لماذا أنت سيء جدًا في هذا؟
+      - اخرس
+      - يا غبي
 
-- intent: ask_for_advice_social_pressure
-  examples: |
-    - How can I handle social pressure from peers?
-    - What should I do when I feel overwhelmed by others' expectations?
-    - Can you suggest ways to stay true to myself?
-    - How do I navigate difficult social situations?
-    - What strategies can help me resist negative influences?
-    - How can I build confidence in my choices?
+  - intent: seek_mental_strength_en
+    examples: |
+      - how can I be mentally stronger
+      - I want to improve my mental resilience
+      - how to build mental strength
+      - ways to become mentally stronger
+      - tips for mental toughness
 
-- intent: ask_for_advice_work_stress
-  examples: |
-    - How can I manage stress at work?
-    - What should I do when work becomes overwhelming?
-    - Can you suggest strategies for a better work-life balance?
-    - How do I handle difficult coworkers?
-    - What techniques can help me stay productive under pressure?
-    - How can I create a more positive work environment?
+  - intent: seek_mental_strength_ar
+    examples: |
+      - كيف أكون أقوى نفسياً
+      - أريد تحسين مرونتي النفسية
+      - كيفية بناء القوة العقلية
+      - طرق لتصبح أقوى نفسياً
+      - نصائح للصلابة النفسية
 
-- intent: ask_for_advice_healthy_habits
-  examples: |
-    - How can I develop healthier habits?
-    - What should I do to create a daily routine?
-    - Can you suggest ways to incorporate exercise into my day?
-    - How do I make healthier food choices?
-    - What strategies can help me stay consistent with my goals?
-    - How can I track my progress effectively?
+  - intent: feeling_misunderstood_en
+    examples: |
+      - no one understands me
+      - I feel misunderstood
+      - people don't get me
+      - I feel alone in my struggles
+      - nobody understands what I'm going through
 
-- intent: express_anxiety
-  examples: |
-    - I'm feeling anxious.
-    - I'm scared about the future.
-    - I'm experiencing increased anxiety.
-    - I feel like I'm in chaos.
-    - I can't handle life's pressures.
-    - I feel like I'm constantly anxious.
+  - intent: feeling_misunderstood_ar
+    examples: |
+      - لا أحد يفهمني
+      - أشعر بأنني غير مفهوم
+      - الناس لا يفهمونني
+      - أشعر بالوحدة في معاناتي
+      - لا أحد يفهم ما أمر به
 
-- intent: express_depression
-  examples: |
-    - I feel sad all the time.
-    - I don't want to do anything.
-    - I can't find happiness.
-    - I feel hopeless.
-    - Everything seems meaningless.
-    - I can't stop thinking about negative things.
+  - intent: express_loneliness_en
+    examples: |
+      - I feel lonely
+      - I'm alone
+      - I have no one to talk to
+      - I feel isolated
+      - I'm feeling lonely
 
-- intent: seek_motivation
-  examples: |
-    - I need some motivation.
-    - How can I be more motivated?
-    - Can you give me some encouraging words?
-    - I need a boost of energy.
-    - I want to be more positive.
-    - How do I start fresh?
+  - intent: express_loneliness_ar
+    examples: |
+      - أشعر بالوحدة
+      - أنا وحيد
+      - ليس لدي أحد لأتحدث معه
+      - أشعر بالعزلة
+      - أنا أشعر بالوحدة
 
-- intent: express_gratitude_for_support
-  examples: |
-    - Thank you for being there for me.
-    - I appreciate your support.
-    - Your help means a lot to me.
-    - I'm grateful for your guidance.
-    - Thank you for listening to me.
-    - I really appreciate your advice.
+  - intent: request_psychological_test_en
+    examples: |
+      - I want to take a psychological test
+      - can I do a mental health assessment
+      - I need a psychological evaluation
+      - how can I get tested
+      - what tests do you offer
 
-- intent: ask_about_coping_strategies
-  examples: |
-    - What are some coping strategies I can use?
-    - How can I manage my stress better?
-    - Can you suggest some techniques for relaxation?
-    - What can I do to cope with my emotions?
-    - How can I deal with overwhelming feelings?
-    - What strategies work for dealing with anxiety?
+  - intent: request_psychological_test_ar
+    examples: |
+      - أريد إجراء اختبار نفسي
+      - هل يمكنني إجراء تقييم للصحة النفسية
+      - أحتاج إلى تقييم نفسي
+      - كيف يمكنني إجراء الاختبار
+      - ما هي الاختبارات التي تقدمونها
 
-- intent: express_confusion_about_emotions
-  examples: |
-    - I'm confused about how I feel.
-    - I don't understand my emotions.
-    - Why am I feeling this way?
-    - I can't make sense of my feelings.
-    - My emotions are all over the place.
-    - I'm not sure how to process what I'm feeling.
+  - intent: specific_test_request_en
+    examples: |
+      - I want to take the depression test
+      - can I do the anxiety assessment
+      - I need the personality test
+      - how do I take the PTSD test
+      - where can I find the ADHD test
 
-- intent: seek_resources
-  examples: |
-    - Can you recommend any resources for mental health?
-    - Where can I find support groups?
-    - Do you have any suggestions for books on mental wellness?
-    - What websites can I visit for help?
-    - Are there any hotlines I can call for support?
-    - Can you point me to any articles on coping strategies?
+  - intent: specific_test_request_ar
+    examples: |
+      - أريد إجراء اختبار الاكتئاب
+      - هل يمكنني إجراء تقييم القلق
+      - أحتاج إلى اختبار الشخصية
+      - كيف يمكنني إجراء اختبار اضطراب ما بعد الصدمة
+      - أين يمكنني العثور على اختبار اضطراب فرط الحركة
 
-- intent: greet
-  examples: |
-    - Hello
-    - Hi there
-    - How are you?
-    - Good morning!
-    - Good afternoon!
-    - Good evening!
-    - What's up?
-    - How's it going?
-    - Hey!
-    - Hi
-    - Howdy!
-    - Greetings!
-    - What's new?
-    - How are you doing?
-    - How have you been?
-    - Nice to see you!
-    - How's everything?
-    - Yo!
-    - Sup?
-    - Long time no see!
-    - Hi, how's life treating you?
-    - What’s going on?
-    - Hello there!
-    - Welcome!
-    - How's your day so far?
-    - Good to see you!
-    - How's your week going?
-    - Hey, what’s happening?
-    - It’s great to see you!
-    - Hi, how are things?
-    - Nice to meet you!
-    - How's your day been?
-    - What's cooking?
+  - intent: request_articles_en
+    examples: |
+      - do you have any articles about mental health
+      - I want to read about depression
+      - can you share some mental health resources
+      - where can I find mental health information
+      - do you have educational materials
 
+  - intent: request_articles_ar
+    examples: |
+      - هل لديكم مقالات عن الصحة النفسية
+      - أريد أن أقرأ عن الاكتئاب
+      - هل يمكنك مشاركة بعض موارد الصحة النفسية
+      - أين يمكنني العثور على معلومات عن الصحة النفسية
+      - هل لديكم مواد تعليمية
 
-- intent: goodbye
-  examples: |
-    - Goodbye
-    - Bye
-    - See you later
-    - See you soon
-    - Bye bye
-    - Goodbye, mate
-    - Goodbye, boss
-    - In God's protection
-    - Take care of yourself
-    - Alright, bye
-    - Okay, bye
-    - See you later
-    - Good night
-    - See you on good terms
+  - intent: specific_article_request_en
+    examples: |
+      - I want to read about anxiety
+      - can you share the article about depression
+      - where can I find information about PTSD
+      - do you have an article about stress management
+      - I need information about bipolar disorder
 
-- intent: affirm
-  examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+  - intent: specific_article_request_ar
+    examples: |
+      - أريد أن أقرأ عن القلق
+      - هل يمكنك مشاركة المقال عن الاكتئاب
+      - أين يمكنني العثور على معلومات عن اضطراب ما بعد الصدمة
+      - هل لديكم مقال عن إدارة التوتر
+      - أحتاج إلى معلومات عن الاضطراب ثنائي القطب
 
-- intent: deny
-  examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+  - intent: request_doctor_services_en
+    examples: |
+      - I need to see a psychiatrist
+      - can I talk to a mental health professional
+      - how can I get professional help
+      - do you offer counseling services
+      - I want to speak with a therapist
 
-- intent: mood_great
-  examples: |
-    - I'm feeling fantastic!
-    - I'm on top of the world!
-    - Everything is going perfectly.
-    - I'm feeling really happy today.
-    - I'm in such a great mood!
-    - Life is wonderful right now.
-    - I'm feeling awesome!
-    - I'm so cheerful today!
-    - I feel like I can conquer anything!
-    - I'm full of energy and positivity!
-    - Today is just amazing!
-    - I'm feeling great and grateful!
-    - Everything is going my way!
-    - I feel like dancing!
-    - I'm radiating happiness!
-    - I'm having a brilliant day!
-    - I'm feeling fantastic and optimistic!
-    - I can't stop smiling!
-    - I'm so content right now.
-    - I'm really excited about life!
-    - I'm enjoying every moment!
-    - I'm feeling like a superstar!
-    - I'm filled with joy!
-    - I'm buzzing with happiness!
-    - I feel invincible!
-    - I'm in a really good place mentally!
-    - I'm so pumped up today!
-    - I'm overflowing with happiness!
-    - I'm feeling blessed!
-    - I'm at peace and happy!
-    - I'm just loving life right now!
-    - I'm feeling like everything is just right!
-    - I'm so happy to be me!
+  - intent: request_doctor_services_ar
+    examples: |
+      - أحتاج إلى رؤية طبيب نفسي
+      - هل يمكنني التحدث مع متخصص في الصحة النفسية
+      - كيف يمكنني الحصول على مساعدة مهنية
+      - هل تقدمون خدمات استشارية
+      - أريد التحدث مع معالج نفسي
+      -هل يمكنك ترشيح ليا اطباء؟
 
-- intent:
-  examples: |
-    - Are you a human?
-    - Am I talking to a robot?
-    - Am I talking to a human?
-    - Are you a machine?
-    - Are you human or a robot?
-    - You’re a robot, right?
-    - You’re not a human, right?
-    - Are you a program or a person?
-    - Are you human or a robot?
-    - Am I talking to a robot or a person?
-    - Are you a robot or what?
-    - You’re not human, are you?
-    - You’re not a human?
-    - Are you replying or is there someone else?
-    - Do you think like humans?
-    - Are you really human?
-    - Are you a program or someone talking to me?
-    - Are you a robot or a real person?
-    - Do you understand like humans do?
+  - intent: specific_doctor_service_en
+    examples: |
+      - I need help with depression
+      - can I get treatment for anxiety
+      - I want therapy for PTSD
+      - do you offer counseling for stress
+      - I need help with bipolar disorder
+
+  - intent: specific_doctor_service_ar
+    examples: |
+      - أحتاج إلى مساعدة في الاكتئاب
+      - هل يمكنني الحصول على علاج للقلق
+      - أريد علاجاً لاضطراب ما بعد الصدمة
+      - هل تقدمون استشارات للتوتر
+      - أحتاج إلى مساعدة في الاضطراب ثنائي القطب
+
+  - intent: request_lina_support_en
+    examples: |
+      - I want to talk to Lina
+      - Can I speak with Lina
+      - I need Lina's help
+      - Connect me to Lina
+      - I want Lina's support
+      - Can Lina help me
+      - I need mental support from Lina
+      - I want to chat with Lina
+      - Is Lina available
+      - Can I get help from Lina
+
+  - intent: request_lina_support_ar
+    examples: |
+      - أريد التحدث مع لينا
+      - هل يمكنني التحدث مع لينا
+      - أحتاج مساعدة لينا
+      - اربطني بلينا
+      - أريد دعم لينا
+      - هل يمكن أن تساعدني لينا
+      - أحتاج دعم نفسي من لينا
+      - أريد الدردشة مع لينا
+      - هل لينا متاحة
+      - هل يمكنني الحصول على مساعدة من لينا
+
+  - intent: lina_stress_help_en
+    examples: |
+      - I'm feeling stressed
+      - help me manage my stress
+      - I need stress relief
+      - how can I reduce stress
+      - I'm overwhelmed with stress
+
+  - intent: lina_stress_help_ar
+    examples: |
+      - أشعر بالتوتر
+      - ساعدني في إدارة توتر
+      - أحتاج إلى تخفيف التوتر
+      - كيف يمكنني تقليل التوتر
+      - أنا غارق في التوتر
+
+  - intent: lina_breathing_help_en
+    examples: |
+      - I need breathing exercises
+      - help me with breathing techniques
+      - I want to learn breathing exercises
+      - can you teach me breathing
+      - I need help with my breathing
+
+  - intent: lina_breathing_help_ar
+    examples: |
+      - أحتاج إلى تمارين التنفس
+      - ساعدني في تقنيات التنفس
+      - أريد تعلم تمارين التنفس
+      - هل يمكنك تعليمي التنفس
+      - أحتاج إلى مساعدة في تنفسي
+
+  - intent: lina_mental_health_tips_en
+    examples: |
+      - give me mental health tips
+      - how can I improve my mental health
+      - what are some mental wellness tips
+      - I need mental health advice
+      - share some mental health tips
+
+  - intent: lina_mental_health_tips_ar
+    examples: |
+      - أعطني نصائح للصحة النفسية
+      - كيف يمكنني تحسين صحتي النفسية
+      - ما هي بعض نصائح الصحة النفسية
+      - أحتاج إلى نصيحة للصحة النفسية
+      - شارك بعض نصائح الصحة النفسية
+
+  - intent: lina_relaxation_help_en
+    examples: |
+      - I need to relax
+      - help me relax
+      - teach me relaxation techniques
+      - I want to learn how to relax
+      - how can I relax
+
+  - intent: lina_relaxation_help_ar
+    examples: |
+      - أحتاج إلى الاسترخاء
+      - ساعدني على الاسترخاء
+      - علمني تقنيات الاسترخاء
+      - أريد أن أتعلم كيف أسترخي
+      - كيف يمكنني الاسترخاء
+
+  - intent: lina_anxiety_help_en
+    examples: |
+      - I'm feeling anxious
+      - help me with my anxiety
+      - I need anxiety relief
+      - how can I manage anxiety
+      - I'm struggling with anxiety
+
+  - intent: lina_anxiety_help_ar
+    examples: |
+      - ساعدني في قلق
+      - أحتاج إلى تخفيف القلق
+      - كيف يمكنني إدارة القلق
+      - أنا أعاني من القلق
+
+  - intent: website_integration_en
+    examples: |
+      - how can I use your website
+      - tell me about your online services
+      - how do I access your platform
+      - what can I do on your website
+      - how to use your online services
+
+  - intent: website_integration_ar
+    examples: |
+      - كيف يمكنني استخدام موقعك
+      - أخبرني عن خدماتك عبر الإنترنت
+      - كيف يمكنني الوصول إلى منصتك
+      - ماذا يمكنني أن أفعل على موقعك
+      - كيفية استخدام خدماتك عبر الإنترنت
+
+  - intent: mental_health_crisis_ar
+    examples: |
+      - أريد أن أنهي حياتي، تعبت من كل شيء.
+      - حاسس إني عبء على الناس اللي حولي.
+      - كل يوم بصحى وأتمنى ما أكون موجود.
+      - ما عاد في شيء يخليني أستمر.
+      - مش قادر أتحمل الحياة أكثر من كده.
+      - أتمنى أنام وما أصحى.
+      - ما في أحد يهتم لو اختفيت.
+      - كل شي حولي بيخليني أختنق.
+      - ما في حل، كل الطرق مقفولة.
+      - نفسيتي منهارة بالكامل ومش لاقي مخرج.
+
+  - intent: mental_health_crisis_en
+    examples: |
+      - I want to end my life
+      - There's no point in living
+      - I'm mentally exhausted
+      - I'm broken inside
+      - I'm thinking about suicide
+      - I can't take it anymore
+      - I'm tired of life
+      - I don't want to live
+      - I want to die
+      - I can't find a reason to live
+      - I'm tired of everything
+      - I don't know why I'm living
+      - I want to sleep and never wake up
+      - I don't want to continue
+      - I'm tired of suffering
+      - I want to end everything
+      - I don't want to exist
+      - I'm tired of the pain
+      - I want to go away
+      - I don't want to continue living
+      - I don't see a reason to live anymore.
+      - I feel like disappearing.
+      - I think people would be better off without me.
+      - I wish I didn't exist.
+      - Ending everything feels like the only option.
+
+  - intent: select_article
+    examples: |
+      - 1
+      - 2
+      - 3
+      - أريد المقال رقم 3
+      - المقال الثالث
+      - أريد الاختبار رقم 2
+      - الاختبار الثاني
+      - أريد رقم 4
+      - رقم 5
+      - أريد قراءة المقال الثالث
+      - أريد اختبار الاكتئاب
+      - أريد مقال عن القلق
+      - أريد اختبار القلق
+      - أريد المقال عن الاكتئاب
+      - أريد الاختبار عن الوسواس
+      - أريد المقال رقم واحد
+      - أريد الاختبار رقم واحد
+      - أريد رقم واحد
+      - ٤
+      - ٥
+      - ٦
+      - أريد رقم ستة
+      - أريد رقم سبعة
+      - أريد رقم ثمانية
+      - أريد رقم تسعة
+      - أريد رقم عشرة

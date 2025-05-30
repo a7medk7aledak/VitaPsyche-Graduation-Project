@@ -1,167 +1,226 @@
 version: "3.1"
 
 stories:
-
-  - story: Seek support
+  # Mental Health Support Stories
+  - story: Mental Health Support Path
     steps:
-      - intent: seek_support
-      - action: utter_support_available
+      - intent: mental_health_symptoms_en
+      - action: action_mental_health_response
+      - intent: mental_health_symptoms_ar
+      - action: action_mental_health_response
+      - intent: general_mental_support_en
+      - action: action_mental_health_response
+      - intent: general_mental_support_ar
+      - action: action_mental_health_response
+      - intent: seek_mental_strength_en
+      - action: action_mental_health_response
+      - intent: seek_mental_strength_ar
+      - action: action_mental_health_response
+      - intent: feeling_misunderstood_en
+      - action: action_mental_health_response
+      - intent: feeling_misunderstood_ar
+      - action: action_mental_health_response
+      - intent: express_loneliness_en
+      - action: action_mental_health_response
+      - intent: express_loneliness_ar
+      - action: action_mental_health_response
+      - intent: mental_health_concern_en
+      - action: action_mental_health_response
+      - intent: mental_health_concern_ar
+      - action: action_mental_health_response
+      - intent: mood_unhappy_en
+      - action: action_mental_health_response
+      - intent: mood_unhappy_ar
+      - action: action_mental_health_response
 
-  - story: Ask for advice on depression
+  # Lina Support Stories
+  - story: Lina Support Path
     steps:
-      - intent: ask_for_advice_depression
-      - action: utter_advice_depression
+      - intent: lina_anxiety_help_en
+      - action: action_mental_health_response
+      - intent: lina_anxiety_help_ar
+      - action: action_mental_health_response
+      - intent: lina_stress_help_en
+      - action: action_mental_health_response
+      - intent: lina_stress_help_ar
+      - action: action_mental_health_response
+      - intent: lina_depression_help_en
+      - action: action_mental_health_response
+      - intent: lina_depression_help_ar
+      - action: action_mental_health_response
+      - intent: lina_sleep_help_en
+      - action: action_mental_health_response
+      - intent: lina_sleep_help_ar
+      - action: action_mental_health_response
+      - intent: lina_anger_help_en
+      - action: action_mental_health_response
+      - intent: lina_anger_help_ar
+      - action: action_mental_health_response
+      - intent: lina_social_help_en
+      - action: action_mental_health_response
+      - intent: lina_social_help_ar
+      - action: action_mental_health_response
+      - intent: lina_self_esteem_help_en
+      - action: action_mental_health_response
+      - intent: lina_self_esteem_help_ar
+      - action: action_mental_health_response
+      - intent: lina_relationship_help_en
+      - action: action_mental_health_response
+      - intent: lina_relationship_help_ar
+      - action: action_mental_health_response
+      - intent: lina_work_help_en
+      - action: action_mental_health_response
+      - intent: lina_work_help_ar
+      - action: action_mental_health_response
+      - intent: lina_family_help_en
+      - action: action_mental_health_response
+      - intent: lina_family_help_ar
+      - action: action_mental_health_response
+      - intent: lina_grief_help_en
+      - action: action_mental_health_response
+      - intent: lina_grief_help_ar
+      - action: action_mental_health_response
+      - intent: lina_trauma_help_en
+      - action: action_mental_health_response
+      - intent: lina_trauma_help_ar
+      - action: action_mental_health_response
+      - intent: lina_addiction_help_en
+      - action: action_mental_health_response
+      - intent: lina_addiction_help_ar
+      - action: action_mental_health_response
+      - intent: lina_eating_help_en
+      - action: action_mental_health_response
+      - intent: lina_eating_help_ar
+      - action: action_mental_health_response
+      - intent: lina_ocd_help_en
+      - action: action_mental_health_response
+      - intent: lina_ocd_help_ar
+      - action: action_mental_health_response
+      - intent: lina_adhd_help_en
+      - action: action_mental_health_response
+      - intent: lina_adhd_help_ar
+      - action: action_mental_health_response
+      - intent: lina_bipolar_help_en
+      - action: action_mental_health_response
+      - intent: lina_bipolar_help_ar
+      - action: action_mental_health_response
+      - intent: lina_schizophrenia_help_en
+      - action: action_mental_health_response
+      - intent: lina_schizophrenia_help_ar
+      - action: action_mental_health_response
+      - intent: lina_personality_help_en
+      - action: action_mental_health_response
+      - intent: lina_personality_help_ar
+      - action: action_mental_health_response
+      - intent: lina_ptsd_help_en
+      - action: action_mental_health_response
+      - intent: lina_ptsd_help_ar
+      - action: action_mental_health_response
+      - intent: lina_sexual_help_en
+      - action: action_mental_health_response
+      - intent: lina_sexual_help_ar
+      - action: action_mental_health_response
+      - intent: lina_marriage_help_en
+      - action: action_mental_health_response
+      - intent: lina_marriage_help_ar
+      - action: action_mental_health_response
+      - intent: lina_child_help_en
+      - action: action_mental_health_response
+      - intent: lina_child_help_ar
+      - action: action_mental_health_response
+      - intent: lina_adjustment_help_en
+      - action: action_mental_health_response
+      - intent: lina_adjustment_help_ar
+      - action: action_mental_health_response
+      - intent: lina_psychosis_help_en
+      - action: action_mental_health_response
+      - intent: lina_psychosis_help_ar
+      - action: action_mental_health_response
+      - intent: lina_breathing_help_en
+      - action: action_mental_health_response
+      - intent: lina_breathing_help_ar
+      - action: action_mental_health_response
+      - intent: lina_mental_health_tips_en
+      - action: action_mental_health_response
+      - intent: lina_mental_health_tips_ar
+      - action: action_mental_health_response
+      - intent: lina_relaxation_help_en
+      - action: action_mental_health_response
+      - intent: lina_relaxation_help_ar
+      - action: action_mental_health_response
 
-  - story: Ask for advice on self-confidence
+  # Psychological Tests Stories
+  - story: Psychological Tests Path
     steps:
-      - intent: ask_for_advice_self_confidence
-      - action: utter_advice_self_confidence
+      - intent: request_psychological_test_en
+      - action: utter_available_tests_en
+      - action: action_listen
+      - intent: specific_test_request_en
+      - action: action_handle_specific_test_en
+      - intent: request_psychological_test_ar
+      - action: utter_available_tests_ar
+      - action: action_listen
+      - intent: specific_test_request_ar
+      - action: action_handle_specific_test_ar
 
-  - story: Ask for advice on stress
+  # Articles Stories
+  - story: Articles Path
     steps:
-      - intent: ask_for_advice_stress
-      - action: utter_advice_stress
+      - intent: request_articles_en
+      - action: utter_available_articles_en
+      - action: action_listen
+      - intent: specific_article_request_en
+      - action: action_handle_specific_article_en
+      - intent: request_articles_ar
+      - action: utter_available_articles_ar
+      - action: action_listen
+      - intent: specific_article_request_ar
+      - action: action_handle_specific_article_ar
 
-  - story: Ask for advice on emotional management
+  # Doctor Services Stories
+  - story: Doctor Services Path
     steps:
-      - intent: ask_for_advice_emotional_management
-      - action: utter_advice_emotional_management
+      - intent: request_doctor_services_en
+      - action: utter_available_services_en
+      - action: action_listen
+      - intent: specific_doctor_service_en
+      - action: action_handle_specific_doctor_service_en
+      - intent: request_doctor_services_ar
+      - action: utter_available_services_ar
+      - action: action_listen
+      - intent: specific_doctor_service_ar
+      - action: action_handle_specific_doctor_service_ar
 
-  - story: Ask for advice on sleep
+  # Mental Health Crisis Stories
+  - story: Mental Health Crisis Path
     steps:
-      - intent: ask_for_advice_sleep
-      - action: utter_advice_sleep
+      - intent: mental_health_crisis_en
+      - action: utter_mental_health_crisis_en
+      - intent: mental_health_crisis_ar
+      - action: utter_mental_health_crisis_ar
 
-  - story: Ask for advice on social relationships
+  # Greeting Stories
+  - story: Greeting Path
     steps:
-      - intent: ask_for_advice_social_relationships
-      - action: utter_advice_social_relationships
+      - intent: greet_en
+      - action: utter_greet_en
+      - action: utter_ask_feeling_en
+      - intent: greet_ar
+      - action: utter_greet_ar
+      - action: utter_ask_feeling_ar
 
-  - story: Ask for advice on motivation
+  # Goodbye Stories
+  - story: Goodbye Path
     steps:
-      - intent: ask_for_advice_motivation
-      - action: utter_advice_motivation
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
 
-  - story: Ask for advice on nutrition and exercise
+  # Bot Challenge Stories
+  - story: Bot Challenge Path
     steps:
-      - intent: ask_for_advice_nutrition_exercise
-      - action: utter_advice_nutrition_exercise
-
-  - story: Ask for advice on life changes
-    steps:
-      - intent: ask_for_advice_life_changes
-      - action: utter_advice_life_changes
-
-  - story: Ask for advice on goal setting
-    steps:
-      - intent: ask_for_advice_goal_setting
-      - action: utter_advice_goal_setting
-
-  - story: Ask for advice on fear
-    steps:
-      - intent: ask_for_advice_fear
-      - action: utter_advice_fear
-
-  - story: Ask for advice on self-awareness
-    steps:
-      - intent: ask_for_advice_self_awareness
-      - action: utter_advice_self_awareness
-
-  - story: Ask for advice on concentration
-    steps:
-      - intent: ask_for_advice_concentration
-      - action: utter_advice_concentration
-
-  - story: Ask for advice on anger management
-    steps:
-      - intent: ask_for_advice_anger_management
-      - action: utter_advice_anger_management
-
-  - story: Ask for advice on positive thinking
-    steps:
-      - intent: ask_for_advice_positive_thinking
-      - action: utter_advice_positive_thinking
-
-  - story: Ask for advice on social skills
-    steps:
-      - intent: ask_for_advice_social_skills
-      - action: utter_advice_social_skills
-
-  - story: Ask for advice on time management
-    steps:
-      - intent: ask_for_advice_time_management
-      - action: utter_advice_time_management
-
-  - story: Ask for advice on self-acceptance
-    steps:
-      - intent: ask_for_advice_self_acceptance
-      - action: utter_advice_self_acceptance
-
-  - story: Ask for advice on loneliness
-    steps:
-      - intent: ask_for_advice_loneliness
-      - action: utter_advice_loneliness
-
-  - story: Ask for advice on frustration
-    steps:
-      - intent: ask_for_advice_frustration
-      - action: utter_advice_frustration
-
-  - story: Ask for advice on social pressure
-    steps:
-      - intent: ask_for_advice_social_pressure
-      - action: utter_advice_social_pressure
-
-  - story: Ask for advice on work stress
-    steps:
-      - intent: ask_for_advice_work_stress
-      - action: utter_advice_work_stress
-
-  - story: Ask for advice on healthy habits
-    steps:
-      - intent: ask_for_advice_healthy_habits
-      - action: utter_advice_healthy_habits
-
-  - story: Express anxiety
-    steps:
-      - intent: express_anxiety
-      - action: utter_understanding_anxiety
-
-  - story: Express depression
-    steps:
-      - intent: express_depression
-      - action: utter_understanding_depression
-
-  - story: Seek motivation
-    steps:
-      - intent: seek_motivation
-      - action: utter_motivation_available
-
-  - story: Express gratitude for support
-    steps:
-      - intent: express_gratitude_for_support
-      - action: utter_gratitude_response
-
-  - story: Ask about coping strategies
-    steps:
-      - intent: ask_about_coping_strategies
-      - action: utter_coping_strategies
-
-  - story: Express confusion about emotions
-    steps:
-      - intent: express_confusion_about_emotions
-      - action: utter_confusion_response
-
-  - story: Seek resources
-    steps:
-      - intent: seek_resources
-      - action: utter_resources_available
-
-
-  - story: happy path
-    steps:
-     - intent: greet
-     - action: utter_greet
-     - intent: mood_great
-     - action: utter_happy
-
+      - intent: bot_challenge_en
+      - action: utter_bot_challenge_en
+      - intent: bot_challenge_ar
+      - action: utter_bot_challenge_ar
