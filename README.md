@@ -256,6 +256,8 @@ coverage report -m
 cd chatbot
 pip install rasa
 pip install --upgrade cryptography
+pip install rasa-sdk openai python-dotenv websockets
+
 or
 pip install cryptography==3.4.8
 rasa train
