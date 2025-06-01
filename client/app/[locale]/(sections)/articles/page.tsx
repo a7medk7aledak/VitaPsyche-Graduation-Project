@@ -5,7 +5,8 @@ import { motion } from "framer-motion";
 import articlesInEnglish from "@app/content/articles/en.json";
 import articlesInArabic from "@app/content/articles/ar.json";
 import Button from "@components/common/Button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { useLocale, useTranslations } from "next-intl";
 
 const Page = () => {

@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { useTranslations } from "next-intl";
 
 const Logo = () => {

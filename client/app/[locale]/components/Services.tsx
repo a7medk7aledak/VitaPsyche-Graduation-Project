@@ -5,7 +5,8 @@ import Button from "./common/Button";
 import Heading from "./common/Heading";
 import { services } from "../constants/services";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 
@@ -14,7 +15,6 @@ const Services = () => {
   const locale = useLocale();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const sectionRef = useRef<HTMLDivElement | null>(null);
-
 
   const handleScroll = () => {
     if (sectionRef.current) {
@@ -86,7 +86,11 @@ const Services = () => {
               <p className="text-paragraphtext text-lg capitalize">
                 {t(`serviceTitles.${service.title}`)}
               </p>
-              <Link href={service.buttonLink} className="mx-auto">
+              <Link
+                locale={locale}
+                href={service.buttonLink}
+                className="mx-auto"
+              >
                 <Button variant="secondary" size="medium" roundedValue="full">
                   {t(`buttonTitles.${service.buttonTitle}`)}
                 </Button>

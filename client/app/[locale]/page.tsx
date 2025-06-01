@@ -8,7 +8,8 @@ import Footer from "@components/common/Footer";
 import ScrollToTopButton from "@components/scrollButton";
 import DoctorCard from "@components/doctor/doctorCard";
 import Button from "@components/common/Button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { useTranslations } from "next-intl";
 
 export default function Home() {

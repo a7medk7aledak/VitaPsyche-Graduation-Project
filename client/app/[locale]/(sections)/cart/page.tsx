@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import Image from "next/image";
 import { useCart } from "@hooks/useCart";
 import withAuth from "@components/auth/WithAuth";

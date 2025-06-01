@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Navbar from "@components/common/Navbar";
 import { useSelector, useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { RootState } from "@app/store/store";
 import { logout } from "@app/store/authSlice";
 import { messageService } from "@app/services/messages";

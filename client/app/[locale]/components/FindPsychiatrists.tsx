@@ -8,7 +8,7 @@ import { PiMapPinArea } from "react-icons/pi";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";
 

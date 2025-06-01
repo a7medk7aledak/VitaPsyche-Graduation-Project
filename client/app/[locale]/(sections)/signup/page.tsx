@@ -15,12 +15,13 @@ import {
 } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { setUser } from "@app/store/authSlice";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import toast from "react-hot-toast";
 import { useTranslations } from "next-intl";
 import Head from "next/head";

@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { useParams } from "next/navigation";
 import Navbar from "@components/common/Navbar";
 import { FaCrown } from "react-icons/fa";
 import { usePaidTestData } from "@app/content/tests/paid";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 
 // Define interfaces for better type safety
 interface Option {

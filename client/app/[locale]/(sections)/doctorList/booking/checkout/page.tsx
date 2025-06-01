@@ -6,7 +6,7 @@ import { PaymentMethods } from "@components/checkout/payment-methods";
 import Heading from "@components/common/Heading";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import useAxios from "@hooks/useAxios";
 import { convertToISO } from "@utils/dataTimeIso";

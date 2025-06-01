@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Button from "./common/Button";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 
 interface ICategory {
   category: {

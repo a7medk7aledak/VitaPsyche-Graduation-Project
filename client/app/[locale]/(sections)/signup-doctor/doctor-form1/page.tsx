@@ -13,7 +13,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import Select, { MultiValue } from "react-select";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { customStylesForLanguageInput } from "./customStyles";
 import { TFormErrors } from "@myTypes/FormDoctor";
 import { languageOptions, OptionType } from "@constants/doctorLanguages";

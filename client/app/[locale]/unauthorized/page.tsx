@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { FaLock } from "react-icons/fa";
 import { motion } from "framer-motion";
 import Logo from "@components/common/Logo"; // Ensure the correct import path

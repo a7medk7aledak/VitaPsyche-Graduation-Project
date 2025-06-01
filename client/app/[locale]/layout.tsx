@@ -5,9 +5,9 @@ import AlertBox from "@components/AlertBox";
 import { Providers } from "./providers/providers";
 
 import { metaData } from "./metadata";
-import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",

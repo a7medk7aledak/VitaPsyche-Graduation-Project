@@ -1,6 +1,7 @@
 import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import Image from "next/image";
 import { useCart } from "@hooks/useCart";
 import { useTranslations } from "next-intl";

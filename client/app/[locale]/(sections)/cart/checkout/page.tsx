@@ -7,7 +7,7 @@ import Heading from "@components/common/Heading";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
 import { useState } from "react";
 import { useCart } from "@hooks/useCart";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useDispatch } from "react-redux";
 import withAuth from "@components/auth/WithAuth";
 import { useTranslations } from "next-intl";

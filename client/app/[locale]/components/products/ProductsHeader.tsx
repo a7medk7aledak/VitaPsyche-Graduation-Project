@@ -3,7 +3,7 @@ import React from "react";
 import { FaShoppingCart } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
 
 interface ProductsHeaderProps {

@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter, useParams } from "next/navigation";
+import {  useParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import Navbar from "@components/common/Navbar";
 import { useFreeTestData } from "@app/content/tests/free";
+import { useRouter } from "@/i18n/navigation";
 
 // Define a type for the question structure
 type Question = {

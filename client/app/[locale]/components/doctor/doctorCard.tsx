@@ -1,7 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import { FaStar, FaRegClock, FaRegCalendarAlt } from "react-icons/fa";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { useTranslations } from "next-intl";
 
 const DoctorCard = () => {

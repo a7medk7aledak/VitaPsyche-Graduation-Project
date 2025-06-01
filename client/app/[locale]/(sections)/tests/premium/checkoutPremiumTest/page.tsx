@@ -1,7 +1,7 @@
 "use client";
 
 import React, { Suspense, useState } from "react";
-import { useRouter } from "next/navigation"; // Use next/navigation for App Router
+import { useRouter } from "@/i18n/navigation";
 import { useSearchParams } from "next/navigation"; // Import useSearchParams
 import { useTranslations } from "next-intl";
 import { CustomerSupport } from "@components/checkout/customer-support";
@@ -108,8 +108,10 @@ function CheckoutPage() {
 
 // Default export with Suspense wrapping
 const CheckoutPageWithSuspense = () => {
+  const t = useTranslations("testsCheckout");
+
   return (
-    <Suspense fallback={<div>{useTranslations("checkout")("loading")}</div>}>
+    <Suspense fallback={<div>{t("loading")}</div>}>
       <CheckoutPage />
     </Suspense>
   );

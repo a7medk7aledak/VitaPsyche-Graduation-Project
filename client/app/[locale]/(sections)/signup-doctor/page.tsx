@@ -5,7 +5,8 @@ import Footer from "@components/common/Footer";
 import Heading from "@components/common/Heading";
 import Navbar from "@components/common/Navbar";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import React from "react";
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";

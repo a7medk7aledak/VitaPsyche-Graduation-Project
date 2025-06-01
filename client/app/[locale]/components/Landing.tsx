@@ -2,7 +2,8 @@
 import React from "react";
 import Image from "next/image";
 import Button from "./common/Button";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { useLocale } from "next-intl";

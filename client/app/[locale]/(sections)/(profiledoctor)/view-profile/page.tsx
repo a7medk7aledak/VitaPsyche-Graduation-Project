@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import { Interests } from "@components/doctor/viewProfileDoctor/interests";
 import { ProfileCard } from "@components/doctor/viewProfileDoctor/profileCard";
 import { Ratings } from "@components/doctor/viewProfileDoctor/ratings";
@@ -15,6 +15,7 @@ import { IDoctor } from "@components/doctor/viewProfileDoctor/profileTypes";
 import { useCheckDoctorPermissions } from "@hooks/useCheckDoctorPermissions";
 import withAuth from "@components/auth/WithAuth";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 
 interface IReview {
   id: number;

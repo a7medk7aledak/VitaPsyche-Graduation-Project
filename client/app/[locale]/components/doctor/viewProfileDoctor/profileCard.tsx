@@ -8,7 +8,8 @@ import { GiTimeSynchronization } from "react-icons/gi";
 import { GrLanguage } from "react-icons/gr";
 import { FaGlobe } from "react-icons/fa";
 import ReviewForm from "./reviewForm";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { IDoctor } from "./profileTypes";
 import { getInitial } from "@utils/doctorUtils";
 import { RenderStars } from "./renderStars";

@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import SpinnerLoading from "@components/loading/SpinnerLoading";
 

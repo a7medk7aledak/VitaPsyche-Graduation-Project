@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import { Link, useRouter, usePathname } from "@/i18n/navigation";
+import { useRouter, usePathname, Link } from "@/i18n/navigation";
 import { useLocale } from "next-intl";
 import { navLinks } from "@app/constants/nav-links";
 import { BsPersonAdd } from "react-icons/bs";

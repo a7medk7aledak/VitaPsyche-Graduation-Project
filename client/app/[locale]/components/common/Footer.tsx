@@ -10,7 +10,8 @@ import { BsLinkedin } from "react-icons/bs";
 import { FaYoutube } from "react-icons/fa";
 import { IoLogoFacebook } from "react-icons/io";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { IconType } from "react-icons";
 import { useTranslations } from "next-intl";
 

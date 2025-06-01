@@ -15,7 +15,7 @@ import {
 } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@app/store/store";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { logout } from "@app/store/authSlice";
 import { motion } from "framer-motion";
 import Navbar from "@components/common/Navbar";

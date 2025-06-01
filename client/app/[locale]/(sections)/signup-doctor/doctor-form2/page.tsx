@@ -4,7 +4,7 @@ import Button from "@components/common/Button";
 import { TFormErrors } from "@myTypes/FormDoctor";
 import { useSelector, useDispatch } from "react-redux";
 import { setFormData } from "@store/authDoctor/authDoctorSlice"; // Redux action
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { motion } from "framer-motion";
 import { RootState } from "@store/store";
 import { useTranslations } from "next-intl";

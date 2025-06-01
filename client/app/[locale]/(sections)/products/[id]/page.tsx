@@ -6,7 +6,8 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import ProductsHeader from "@components/products/ProductsHeader";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import { useCart } from "@hooks/useCart";
 import withAuth from "@components/auth/WithAuth";
 import englishProducts from "@app/content/products/en.json";

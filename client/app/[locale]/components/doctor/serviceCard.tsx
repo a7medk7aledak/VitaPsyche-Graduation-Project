@@ -2,7 +2,8 @@ import { useCategoryLookup } from "@utils/categoryLookup";
 import { formatDuration, getInitial } from "@utils/doctorUtils";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/navigation";
+
 import React, { memo } from "react";
 import { FaClock, FaMoneyBillTransfer } from "react-icons/fa6";
 
@@ -32,7 +33,7 @@ const ServiceCard = memo(
     is_active,
     image,
   }: ServiceCardProps) => {
-    const  t  = useTranslations(); // Initialize translation
+    const t = useTranslations(); // Initialize translation
     const getCategory = useCategoryLookup();
     const doctorInitial = getInitial(doctor_name);
 

@@ -11,11 +11,12 @@ import { useCategoryLookup } from "@utils/categoryLookup";
 import { formatDuration, getInitial } from "@utils/doctorUtils";
 import { isAxiosError } from "axios";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import {  useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { useTranslations } from "next-intl";
+import { useRouter } from "@/i18n/navigation";
 
 interface IService {
   id: number;

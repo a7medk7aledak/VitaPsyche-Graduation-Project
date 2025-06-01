@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { FaCrown, FaCheck } from "react-icons/fa";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { RootState } from "@store/store";
 import { useSelector } from "react-redux";
 import { useTranslations } from "next-intl";
