@@ -1,104 +1,420 @@
 version: "3.1"
 
 stories:
-  - story: Happy path (English)
+  # Basic Conversation Flows
+  - story: Basic English Conversation
     steps:
-      - user: |
-          hello there!
-        intent: greet_en
+      - intent: greet_en
+      - action: action_detect_language
       - action: utter_greet_en
       - action: utter_ask_feeling_en
-      - user: |
-          I’m feeling great!
-        intent: general_mental_support_en
-      - action: utter_general_mental_support_en
-      - action: action_mental_health_response
-
-  - story: Happy path (Arabic)
-    steps:
-      - user: |
-          مرحبًا!
-        intent: greet_ar
-      - action: utter_greet_ar
-      - action: utter_ask_feeling_ar
-      - user: |
-          أشعر بتحسن!
-        intent: general_mental_support_ar
-      - action: utter_general_mental_support_ar
-      - action: action_mental_health_response
-
-  - story: Sad path (English)
-    steps:
-      - user: |
-          hi
-        intent: greet_en
-      - action: utter_greet_en
-      - action: utter_ask_feeling_en
-      - user: |
-          I feel sad
-        intent: general_mental_support_en
-      - action: utter_general_mental_support_en
-      - action: action_mental_health_response
-      - user: |
-          thanks
-        intent: thank_goodbye_en
+      - intent: mood_great_en
+      - action: utter_mood_great_en
+      - intent: thank_goodbye_en
       - action: utter_thank_goodbye_en
 
-  - story: Sad path (Arabic)
+  - story: Basic Arabic Conversation
     steps:
-      - user: |
-          مرحبًا
-        intent: greet_ar
+      - intent: greet_ar
+      - action: action_detect_language
       - action: utter_greet_ar
       - action: utter_ask_feeling_ar
-      - user: |
-          أشعر بالحزن
-        intent: general_mental_support_ar
-      - action: utter_general_mental_support_ar
-      - action: action_mental_health_response
-      - user: |
-          شكرًا
-        intent: thank_goodbye_ar
+      - intent: mood_great_ar
+      - action: utter_mood_great_ar
+      - intent: thank_goodbye_ar
       - action: utter_thank_goodbye_ar
 
-  - story: Identity query (English)
+  # Mental Health Support Flows
+  - story: Mental Health Support English
     steps:
-      - user: |
-          who are you?
-        intent: identity_en
+      - intent: mental_health_symptoms_en
+      - action: action_detect_language
+      - action: action_mental_health_response
+      - intent: general_mental_support_en
+      - action: utter_general_mental_support_en
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
+
+  - story: Mental Health Support Arabic
+    steps:
+      - intent: mental_health_symptoms_ar
+      - action: action_detect_language
+      - action: action_mental_health_response
+      - intent: general_mental_support_ar
+      - action: utter_general_mental_support_ar
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
+
+  # Crisis Support Flows
+  - story: Crisis Support English
+    steps:
+      - intent: mental_health_crisis_en
+      - action: action_detect_language
+      - action: utter_mental_health_crisis_en
+      - action: utter_distress_response_en
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
+
+  - story: Crisis Support Arabic
+    steps:
+      - intent: mental_health_crisis_ar
+      - action: action_detect_language
+      - action: utter_mental_health_crisis_ar
+      - action: utter_distress_response_ar
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
+
+  # Service Request Flows
+  - story: Service Request English
+    steps:
+      - intent: specific_doctor_service_en
+      - action: action_detect_language
+      - action: action_handle_specific_doctor_service_en
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
+
+  - story: Service Request Arabic
+    steps:
+      - intent: specific_doctor_service_ar
+      - action: action_detect_language
+      - action: action_handle_specific_doctor_service_ar
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
+
+  # Article Request Flows
+  - story: Article Request English
+    steps:
+      - intent: specific_article_request_en
+      - action: action_detect_language
+      - action: action_handle_specific_article_en
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
+
+  - story: Article Request Arabic
+    steps:
+      - intent: specific_article_request_ar
+      - action: action_detect_language
+      - action: action_handle_specific_article_ar
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
+
+  # Test Request Flows
+  - story: Test Request English
+    steps:
+      - intent: specific_test_request_en
+      - action: action_detect_language
+      - action: action_handle_specific_test_en
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
+
+  - story: Test Request Arabic
+    steps:
+      - intent: specific_test_request_ar
+      - action: action_detect_language
+      - action: action_handle_specific_test_ar
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
+
+  # Emotional Support Flows
+  - story: Emotional Support English
+    steps:
+      - intent: feeling_misunderstood_en
+      - action: action_detect_language
+      - action: utter_empathetic_misunderstanding_en
+      - intent: express_loneliness_en
+      - action: utter_empathy_for_loneliness_en
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
+
+  - story: Emotional Support Arabic
+    steps:
+      - intent: feeling_misunderstood_ar
+      - action: action_detect_language
+      - action: utter_empathetic_misunderstanding_ar
+      - intent: express_loneliness_ar
+      - action: utter_empathy_for_loneliness_ar
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
+
+  # Bot Identity and Challenge Flows
+  - story: Bot Identity English
+    steps:
+      - intent: identity_en
+      - action: action_detect_language
       - action: utter_identity_en
+      - intent: bot_challenge_en
+      - action: utter_bot_challenge_en
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
 
-  - story: Identity query (Arabic)
+  - story: Bot Identity Arabic
     steps:
-      - user: |
-          من أنت؟
-        intent: identity_ar
+      - intent: identity_ar
+      - action: action_detect_language
       - action: utter_identity_ar
+      - intent: bot_challenge_ar
+      - action: utter_bot_challenge_ar
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
 
-  - story: Offensive language (English)
+  # Fallback Flows
+  - story: Fallback English
     steps:
-      - user: |
-          you’re useless
-        intent: offensive_language_en
-      - action: utter_offensive_language_en
+      - intent: nlu_fallback_en
+      - action: action_detect_language
+      - action: utter_fallback_en
+      - intent: thank_goodbye_en
+      - action: utter_thank_goodbye_en
 
-  - story: Offensive language (Arabic)
+  - story: Fallback Arabic
     steps:
-      - user: |
-          أنت عديم الفائدة
-        intent: offensive_language_ar
-      - action: utter_offensive_language_ar
+      - intent: nlu_fallback_ar
+      - action: action_detect_language
+      - action: utter_fallback_ar
+      - intent: thank_goodbye_ar
+      - action: utter_thank_goodbye_ar
 
-  - story: Website integration (English)
+  - story: Psychoeducation EN Path
     steps:
-      - user: |
-          can I take an anxiety test?
-        intent: website_integration_en
-      - action: utter_website_integration_en
+      - intent: psychoeducation_en
+      - action: action_detect_language
+      - action: utter_psychoeducation_en
+      - action: action_listen
 
-  - story: Website integration (Arabic)
+  - story: Sleep Tips AR Path
     steps:
-      - user: |
-          هل يمكنني إجراء اختبار القلق؟
-        intent: website_integration_ar
-      - action: utter_website_integration_ar
+      - intent: sleep_tips_ar
+      - action: action_detect_language
+      - action: utter_sleep_tips_ar
+      - action: action_listen
+
+  - story: Personal Development Tips AR Path
+    steps:
+      - intent: personal_development_tips_ar
+      - action: action_detect_language
+      - action: utter_personal_development_tips_ar
+      - action: action_listen
+
+  - story: Medical Articles AR Path
+    steps:
+      - intent: medical_articles_ar
+      - action: action_detect_language
+      - action: utter_medical_articles_ar
+      - action: action_listen
+
+  - story: Medical Articles EN Path
+    steps:
+      - intent: medical_articles_en
+      - action: action_detect_language
+      - action: utter_medical_articles_en
+      - action: action_listen
+
+  - story: Express Sadness AR Path
+    steps:
+      - intent: express_sadness_ar
+      - action: action_detect_language
+      - action: utter_express_sadness_ar
+      - action: action_listen
+
+  - story: Negative Thought Management EN Path
+    steps:
+      - intent: negative_thought_management_en
+      - action: action_detect_language
+      - action: utter_negative_thought_management_en
+      - action: action_listen
+
+  - story: Crisis Support EN Path
+    steps:
+      - intent: crisis_support_en
+      - action: action_detect_language
+      - action: utter_crisis_support_en
+      - action: action_listen
+
+  - story: Daily Routine Tips EN Path
+    steps:
+      - intent: daily_routine_tips_en
+      - action: action_detect_language
+      - action: utter_daily_routine_tips_en
+      - action: action_listen
+
+  - story: Crisis Support AR Path
+    steps:
+      - intent: crisis_support_ar
+      - action: action_detect_language
+      - action: utter_crisis_support_ar
+      - action: action_listen
+
+  - story: Express Happiness AR Path
+    steps:
+      - intent: express_happiness_ar
+      - action: action_detect_language
+      - action: utter_express_happiness_ar
+      - action: action_listen
+
+  - story: Express Sadness EN Path
+    steps:
+      - intent: express_sadness_en
+      - action: action_detect_language
+      - action: utter_express_sadness_en
+      - action: action_listen
+
+  - story: Motivation and Meditation EN Path
+    steps:
+      - intent: motivation_and_meditation_en
+      - action: action_detect_language
+      - action: utter_motivation_and_meditation_en
+      - action: action_listen
+
+  - story: Psychoeducation AR Path
+    steps:
+      - intent: psychoeducation_ar
+      - action: action_detect_language
+      - action: utter_psychoeducation_ar
+      - action: action_listen
+
+  - story: Relationship Advice EN Path
+    steps:
+      - intent: relationship_advice_en
+      - action: action_detect_language
+      - action: utter_relationship_advice_en
+      - action: action_listen
+
+  - story: Express Love EN Path
+    steps:
+      - intent: express_love_en
+      - action: action_detect_language
+      - action: utter_express_love_en
+      - action: action_listen
+
+  - story: Marriage Counseling Service EN Path
+    steps:
+      - intent: specific_doctor_service_en
+      - action: action_handle_specific_doctor_service_en
+      - action: action_listen
+
+  - story: Self Esteem Tips EN Path
+    steps:
+      - intent: self_esteem_tips_en
+      - action: action_detect_language
+      - action: utter_self_esteem_tips_en
+      - action: action_listen
+
+  - story: Breathing Relaxation Tips AR Path
+    steps:
+      - intent: breathing_relaxation_tips_ar
+      - action: action_detect_language
+      - action: utter_breathing_relaxation_tips_ar
+      - action: action_listen
+
+  - story: Express Happiness EN Path
+    steps:
+      - intent: express_happiness_en
+      - action: action_detect_language
+      - action: utter_express_happiness_en
+      - action: action_listen
+
+  - story: Sleep Tips EN Path
+    steps:
+      - intent: sleep_tips_en
+      - action: action_detect_language
+      - action: utter_sleep_tips_en
+      - action: action_listen
+
+  - story: Personality Disorders Service EN Path
+    steps:
+      - intent: specific_doctor_service_en
+      - action: action_handle_specific_doctor_service_en
+      - action: action_listen
+
+  - story: Express Confusion AR Path
+    steps:
+      - intent: express_confusion_ar
+      - action: action_detect_language
+      - action: utter_express_confusion_ar
+      - action: action_listen
+
+  - story: Express Anger AR Path
+    steps:
+      - intent: express_anger_ar
+      - action: action_detect_language
+      - action: utter_express_anger_ar
+      - action: action_listen
+
+  - story: Relationship Advice AR Path
+    steps:
+      - intent: relationship_advice_ar
+      - action: action_detect_language
+      - action: utter_relationship_advice_ar
+      - action: action_listen
+
+  - story: Negative Thought Management AR Path
+    steps:
+      - intent: negative_thought_management_ar
+      - action: action_detect_language
+      - action: utter_negative_thought_management_ar
+      - action: action_listen
+
+  - story: Express Anger EN Path
+    steps:
+      - intent: express_anger_en
+      - action: action_detect_language
+      - action: utter_express_anger_en
+      - action: action_listen
+
+  - story: Personal Development Tips EN Path
+    steps:
+      - intent: personal_development_tips_en
+      - action: action_detect_language
+      - action: utter_personal_development_tips_en
+      - action: action_listen
+
+  - story: Daily Routine Tips AR Path
+    steps:
+      - intent: daily_routine_tips_ar
+      - action: action_detect_language
+      - action: utter_daily_routine_tips_ar
+      - action: action_listen
+
+  - story: Self Esteem Tips AR Path
+    steps:
+      - intent: self_esteem_tips_ar
+      - action: action_detect_language
+      - action: utter_self_esteem_tips_ar
+      - action: action_listen
+
+  - story: Motivation and Meditation AR Path
+    steps:
+      - intent: motivation_and_meditation_ar
+      - action: action_detect_language
+      - action: utter_motivation_and_meditation_ar
+      - action: action_listen
+
+  - story: Breathing Relaxation Tips EN Path
+    steps:
+      - intent: breathing_relaxation_tips_en
+      - action: action_detect_language
+      - action: utter_breathing_relaxation_tips_en
+      - action: action_listen
+
+  - story: Express Love AR Path
+    steps:
+      - intent: express_love_ar
+      - action: action_detect_language
+      - action: utter_express_love_ar
+      - action: action_listen
+
+  - story: Article Specific Path
+    steps:
+      - intent: specific_article_request_en
+      - action: action_handle_specific_article_en
+      - action: action_listen
+      - intent: specific_article_request_ar
+      - action: action_handle_specific_article_ar
+      - action: action_listen
+
+  - story: Express Confusion EN Path
+    steps:
+      - intent: express_confusion_en
+      - action: action_detect_language
+      - action: utter_express_confusion_en
+      - action: action_listen

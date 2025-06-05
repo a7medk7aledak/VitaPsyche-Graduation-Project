@@ -1,226 +1,129 @@
 version: "3.1"
 
 stories:
-  # Mental Health Support Stories
-  - story: Mental Health Support Path
-    steps:
-      - intent: mental_health_symptoms_en
-      - action: action_mental_health_response
-      - intent: mental_health_symptoms_ar
-      - action: action_mental_health_response
-      - intent: general_mental_support_en
-      - action: action_mental_health_response
-      - intent: general_mental_support_ar
-      - action: action_mental_health_response
-      - intent: seek_mental_strength_en
-      - action: action_mental_health_response
-      - intent: seek_mental_strength_ar
-      - action: action_mental_health_response
-      - intent: feeling_misunderstood_en
-      - action: action_mental_health_response
-      - intent: feeling_misunderstood_ar
-      - action: action_mental_health_response
-      - intent: express_loneliness_en
-      - action: action_mental_health_response
-      - intent: express_loneliness_ar
-      - action: action_mental_health_response
-      - intent: mental_health_concern_en
-      - action: action_mental_health_response
-      - intent: mental_health_concern_ar
-      - action: action_mental_health_response
-      - intent: mood_unhappy_en
-      - action: action_mental_health_response
-      - intent: mood_unhappy_ar
-      - action: action_mental_health_response
-
-  # Lina Support Stories
-  - story: Lina Support Path
-    steps:
-      - intent: lina_anxiety_help_en
-      - action: action_mental_health_response
-      - intent: lina_anxiety_help_ar
-      - action: action_mental_health_response
-      - intent: lina_stress_help_en
-      - action: action_mental_health_response
-      - intent: lina_stress_help_ar
-      - action: action_mental_health_response
-      - intent: lina_depression_help_en
-      - action: action_mental_health_response
-      - intent: lina_depression_help_ar
-      - action: action_mental_health_response
-      - intent: lina_sleep_help_en
-      - action: action_mental_health_response
-      - intent: lina_sleep_help_ar
-      - action: action_mental_health_response
-      - intent: lina_anger_help_en
-      - action: action_mental_health_response
-      - intent: lina_anger_help_ar
-      - action: action_mental_health_response
-      - intent: lina_social_help_en
-      - action: action_mental_health_response
-      - intent: lina_social_help_ar
-      - action: action_mental_health_response
-      - intent: lina_self_esteem_help_en
-      - action: action_mental_health_response
-      - intent: lina_self_esteem_help_ar
-      - action: action_mental_health_response
-      - intent: lina_relationship_help_en
-      - action: action_mental_health_response
-      - intent: lina_relationship_help_ar
-      - action: action_mental_health_response
-      - intent: lina_work_help_en
-      - action: action_mental_health_response
-      - intent: lina_work_help_ar
-      - action: action_mental_health_response
-      - intent: lina_family_help_en
-      - action: action_mental_health_response
-      - intent: lina_family_help_ar
-      - action: action_mental_health_response
-      - intent: lina_grief_help_en
-      - action: action_mental_health_response
-      - intent: lina_grief_help_ar
-      - action: action_mental_health_response
-      - intent: lina_trauma_help_en
-      - action: action_mental_health_response
-      - intent: lina_trauma_help_ar
-      - action: action_mental_health_response
-      - intent: lina_addiction_help_en
-      - action: action_mental_health_response
-      - intent: lina_addiction_help_ar
-      - action: action_mental_health_response
-      - intent: lina_eating_help_en
-      - action: action_mental_health_response
-      - intent: lina_eating_help_ar
-      - action: action_mental_health_response
-      - intent: lina_ocd_help_en
-      - action: action_mental_health_response
-      - intent: lina_ocd_help_ar
-      - action: action_mental_health_response
-      - intent: lina_adhd_help_en
-      - action: action_mental_health_response
-      - intent: lina_adhd_help_ar
-      - action: action_mental_health_response
-      - intent: lina_bipolar_help_en
-      - action: action_mental_health_response
-      - intent: lina_bipolar_help_ar
-      - action: action_mental_health_response
-      - intent: lina_schizophrenia_help_en
-      - action: action_mental_health_response
-      - intent: lina_schizophrenia_help_ar
-      - action: action_mental_health_response
-      - intent: lina_personality_help_en
-      - action: action_mental_health_response
-      - intent: lina_personality_help_ar
-      - action: action_mental_health_response
-      - intent: lina_ptsd_help_en
-      - action: action_mental_health_response
-      - intent: lina_ptsd_help_ar
-      - action: action_mental_health_response
-      - intent: lina_sexual_help_en
-      - action: action_mental_health_response
-      - intent: lina_sexual_help_ar
-      - action: action_mental_health_response
-      - intent: lina_marriage_help_en
-      - action: action_mental_health_response
-      - intent: lina_marriage_help_ar
-      - action: action_mental_health_response
-      - intent: lina_child_help_en
-      - action: action_mental_health_response
-      - intent: lina_child_help_ar
-      - action: action_mental_health_response
-      - intent: lina_adjustment_help_en
-      - action: action_mental_health_response
-      - intent: lina_adjustment_help_ar
-      - action: action_mental_health_response
-      - intent: lina_psychosis_help_en
-      - action: action_mental_health_response
-      - intent: lina_psychosis_help_ar
-      - action: action_mental_health_response
-      - intent: lina_breathing_help_en
-      - action: action_mental_health_response
-      - intent: lina_breathing_help_ar
-      - action: action_mental_health_response
-      - intent: lina_mental_health_tips_en
-      - action: action_mental_health_response
-      - intent: lina_mental_health_tips_ar
-      - action: action_mental_health_response
-      - intent: lina_relaxation_help_en
-      - action: action_mental_health_response
-      - intent: lina_relaxation_help_ar
-      - action: action_mental_health_response
-
-  # Psychological Tests Stories
-  - story: Psychological Tests Path
-    steps:
-      - intent: request_psychological_test_en
-      - action: utter_available_tests_en
-      - action: action_listen
-      - intent: specific_test_request_en
-      - action: action_handle_specific_test_en
-      - intent: request_psychological_test_ar
-      - action: utter_available_tests_ar
-      - action: action_listen
-      - intent: specific_test_request_ar
-      - action: action_handle_specific_test_ar
-
-  # Articles Stories
-  - story: Articles Path
-    steps:
-      - intent: request_articles_en
-      - action: utter_available_articles_en
-      - action: action_listen
-      - intent: specific_article_request_en
-      - action: action_handle_specific_article_en
-      - intent: request_articles_ar
-      - action: utter_available_articles_ar
-      - action: action_listen
-      - intent: specific_article_request_ar
-      - action: action_handle_specific_article_ar
-
-  # Doctor Services Stories
-  - story: Doctor Services Path
+  # Complex Conversation Flows
+  - story: Doctor Services EN Path
     steps:
       - intent: request_doctor_services_en
+      - action: action_detect_language
       - action: utter_available_services_en
-      - action: action_listen
       - intent: specific_doctor_service_en
+      - action: action_detect_language
       - action: action_handle_specific_doctor_service_en
+
+  - story: Doctor Services AR Path
+    steps:
       - intent: request_doctor_services_ar
+      - action: action_detect_language
       - action: utter_available_services_ar
-      - action: action_listen
       - intent: specific_doctor_service_ar
+      - action: action_detect_language
       - action: action_handle_specific_doctor_service_ar
 
-  # Mental Health Crisis Stories
-  - story: Mental Health Crisis Path
+  - story: Articles EN Path
     steps:
-      - intent: mental_health_crisis_en
-      - action: utter_mental_health_crisis_en
-      - intent: mental_health_crisis_ar
-      - action: utter_mental_health_crisis_ar
+      - intent: request_articles_en
+      - action: action_detect_language
+      - action: utter_available_articles_en
+      - intent: specific_article_request_en
+      - action: action_detect_language
+      - action: action_handle_specific_article_en
 
-  # Greeting Stories
-  - story: Greeting Path
+  - story: Articles AR Path
     steps:
-      - intent: greet_en
-      - action: utter_greet_en
-      - action: utter_ask_feeling_en
-      - intent: greet_ar
-      - action: utter_greet_ar
-      - action: utter_ask_feeling_ar
+      - intent: request_articles_ar
+      - action: action_detect_language
+      - action: utter_available_articles_ar
+      - intent: specific_article_request_ar
+      - action: action_detect_language
+      - action: action_handle_specific_article_ar
 
-  # Goodbye Stories
-  - story: Goodbye Path
+  - story: Tests EN Path
     steps:
-      - intent: thank_goodbye_en
-      - action: utter_thank_goodbye_en
-      - intent: thank_goodbye_ar
-      - action: utter_thank_goodbye_ar
+      - intent: request_psychological_test_en
+      - action: action_detect_language
+      - action: utter_available_tests_en
+      - intent: specific_test_request_en
+      - action: action_detect_language
+      - action: action_handle_specific_test_en
 
-  # Bot Challenge Stories
-  - story: Bot Challenge Path
+  - story: Tests AR Path
     steps:
-      - intent: bot_challenge_en
-      - action: utter_bot_challenge_en
-      - intent: bot_challenge_ar
-      - action: utter_bot_challenge_ar
+      - intent: request_psychological_test_ar
+      - action: action_detect_language
+      - action: utter_available_tests_ar
+      - intent: specific_test_request_ar
+      - action: action_detect_language
+      - action: action_handle_specific_test_ar
+
+  # Lina Support Stories
+  - story: Lina Support EN Path
+    steps:
+      - intent: request_lina_support_en
+      - action: action_detect_language
+
+  - story: Lina Support AR Path
+    steps:
+      - intent: request_lina_support_ar
+      - action: action_detect_language
+
+
+  - story: Lina Anxiety Help EN Path
+    steps:
+      - intent: lina_anxiety_help_en
+      - action: action_detect_language
+      - action: utter_lina_anxiety_help_en
+
+  - story: Lina Anxiety Help AR Path
+    steps:
+      - intent: lina_anxiety_help_ar
+      - action: action_detect_language
+      - action: utter_lina_anxiety_help_ar
+
+  - story: Lina Stress Help EN Path
+    steps:
+      - intent: lina_stress_help_en
+      - action: action_detect_language
+      - action: utter_lina_stress_help_en
+
+  - story: Lina Stress Help AR Path
+    steps:
+      - intent: lina_stress_help_ar
+      - action: action_detect_language
+      - action: utter_lina_stress_help_ar
+
+  - story: Lina Breathing Help EN Path
+    steps:
+      - intent: lina_breathing_help_en
+      - action: action_detect_language
+      - action: utter_lina_breathing_help_en
+
+  - story: Lina Breathing Help AR Path
+    steps:
+      - intent: lina_breathing_help_ar
+      - action: action_detect_language
+      - action: utter_lina_breathing_help_ar
+
+  - story: Lina Mental Health Tips EN Path
+    steps:
+      - intent: lina_mental_health_tips_en
+      - action: action_detect_language
+      - action: utter_lina_mental_health_tips_en
+
+  - story: Lina Mental Health Tips AR Path
+    steps:
+      - intent: lina_mental_health_tips_ar
+      - action: action_detect_language
+      - action: utter_lina_mental_health_tips_ar
+
+  - story: Lina Relaxation Help EN Path
+    steps:
+      - intent: lina_relaxation_help_en
+      - action: action_detect_language
+      - action: utter_lina_relaxation_help_en
+
+  - story: Lina Relaxation Help AR Path
+    steps:
+      - intent: lina_relaxation_help_ar
+      - action: action_detect_language
+      - action: utter_lina_relaxation_help_ar
