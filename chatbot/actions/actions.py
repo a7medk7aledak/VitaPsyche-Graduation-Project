@@ -412,6 +412,10 @@ class ActionDetectLanguage(Action):
         # Convert set to list for storage
         detected_languages_list = list(detected_languages)
         logger.info(f"[ActionDetectLanguage] Final detected languages: {detected_languages_list}")
+        
+        # Add language information to the response
+        dispatcher.utter_message(text="", custom={"detected_language": detected_languages_list[0] if detected_languages_list else 'en'})
+        
         return [SlotSet("detected_languages", detected_languages_list)]
 
 async def detect_language_with_api(client, text):

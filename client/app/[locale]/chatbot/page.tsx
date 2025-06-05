@@ -47,6 +47,7 @@ const ChatBotPage: React.FC = () => {
     null
   );
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -139,9 +140,54 @@ const ChatBotPage: React.FC = () => {
     setLanguage(e.target.value);
   };
 
-  const handleMessageSent = (message: Message) => {
+  const handleMessageSent = async (message: Message) => {
+    if (!currentSession?.session_id || !token) {
+      console.error("No active session or token available.");
+      setMessages((prev) => [...prev, {
+          sender: "bot",
+          text: "Please select or start a chat session to send messages.",
+          timestamp: new Date().toISOString(),
+          lang: language,
+          chat_session: "error"
+      }]);
+      setTimeout(() => scrollToBottom(), 100);
+      return;
+    }
+
     setMessages((prev) => [...prev, message]);
+    setInput("");
+    setIsLoading(true);
     setTimeout(() => scrollToBottom(), 100);
+
+    try {
+      const botMessage = await messageService.sendMessage(
+        token,
+        {
+          chat_session: currentSession.id,
+          sender: message.sender,
+          text: message.text,
+        }
+      );
+
+      if (botMessage) {
+        setMessages((prev) => [...prev, botMessage]);
+      } else {
+        console.error("sendMessage returned no bot message.");
+        setMessages((prev) => [...prev, {
+          sender: "bot",
+          text: "Received an empty response from the chatbot service.",
+          timestamp: new Date().toISOString(),
+          lang: language,
+          chat_session: currentSession.id
+        }]);
+      }
+    } catch (error) {
+      console.error("Error sending message to chatbot:", error);
+      setTimeout(() => scrollToBottom(), 100);
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => scrollToBottom(), 100);
+    }
   };
 
   const handleLogout = () => {
@@ -185,7 +231,7 @@ const ChatBotPage: React.FC = () => {
             ref={messagesContainerRef}
             className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
           >
-            <ChatMessages messages={messages} language={language} />
+            <ChatMessages messages={messages} language={language} isLoading={isLoading} />
             <div ref={messagesEndRef} className="h-4" />
           </div>
 
@@ -197,6 +243,8 @@ const ChatBotPage: React.FC = () => {
             language={language}
             setIsHistoryVisible={setIsHistoryVisible}
             onMessageSent={handleMessageSent}
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
           />
         </div>
       </div>

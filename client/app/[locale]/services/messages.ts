@@ -89,6 +89,7 @@ export const messageService = {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        timeout: 30000,
       });
       console.log("Message sent response:", response.data);
       return response.data;

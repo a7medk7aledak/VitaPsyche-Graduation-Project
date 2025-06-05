@@ -7,6 +7,6 @@ urlpatterns = [
     path('chat_sessions/<str:session_id>/messages/', ChatSessionMessagesView.as_view(), name='chat_session_messages'),
     path('messages/', MessageView.as_view(), name='messages'),
     path('unanswered_questions/', UnansweredQuestionView.as_view(), name='unanswered_questions'),
-    path('chatbot/', chatbot),
+    path('', chatbot),
     path('lina/', views.route_lina, name='route_lina'),
 ]

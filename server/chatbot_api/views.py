@@ -108,31 +108,82 @@ class MessageView(APIView):
             user_message = serializer.save()
             print(f"User message saved: {user_message}")
 
-            # إرسال الرسالة إلى Rasa
-            rasa_response = requests.post(
-                "http://localhost:5005/webhooks/rest/webhook",
-                json={"sender": user_message.chat_session.session_id, "message": user_message.text}
-            )
+            # إرسال الرسالة إلى Rasa مع معالجة أخطاء الاتصال والاستجابة
+            rasa_url = "http://localhost:5005/webhooks/rest/webhook"
+            try:
+                rasa_response = requests.post(
+                    rasa_url,
+                    json={"sender": user_message.chat_session.session_id, "message": user_message.text},
+                    timeout=10 # Added a reasonable timeout
+                )
+                rasa_response.raise_for_status() # Raise an HTTPError for bad responses (4xx or 5xx)
 
-            # تحقق من رد Rasa
-            if rasa_response.status_code == 200:
                 bot_replies = rasa_response.json()
-                for reply in bot_replies:
-                    print(f"Bot reply: {reply}")
-                    # حفظ الرد في قاعدة البيانات
-                    Message.objects.create(
-                        chat_session=user_message.chat_session,
-                        sender="bot",
-                        text=reply.get("text", "")
-                    )
-            else:
-                print("Failed to fetch Rasa response")
+                # Process and save bot replies
+                if bot_replies:
+                    for reply in bot_replies:
+                        print(f"Bot reply: {reply}")
+                        Message.objects.create(
+                            chat_session=user_message.chat_session,
+                            sender="bot",
+                            text=reply.get("text", "")
+                        )
+                else:
+                    print("Rasa returned an empty response.")
+                    # Optionally save a default bot message if Rasa is empty
+                    # Message.objects.create(
+                    #     chat_session=user_message.chat_session,
+                    #     sender="bot",
+                    #     text="Got an empty response from the chatbot."
+                    # )
+
+            except requests.exceptions.Timeout:
+                print("Request to Rasa timed out")
+                # Save a timeout error message
                 Message.objects.create(
                     chat_session=user_message.chat_session,
                     sender="bot",
-                    text="Error: Could not fetch bot response."
+                    text="Error: The chatbot took too long to respond."
                 )
+                return Response({"error": "Rasa request timed out."}, status=status.HTTP_504_GATEWAY_TIMEOUT)
+            except requests.exceptions.ConnectionError:
+                print("Failed to connect to Rasa")
+                # Save a connection error message
+                Message.objects.create(
+                    chat_session=user_message.chat_session,
+                    sender="bot",
+                    text="Error: Could not connect to the chatbot service."
+                )
+                return Response({"error": "Could not connect to Rasa."}, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            except requests.exceptions.RequestException as e:
+                print(f"Error during Rasa request: {e}")
+                # Save a generic request error message
+                Message.objects.create(
+                    chat_session=user_message.chat_session,
+                    sender="bot",
+                    text=f"Error communicating with chatbot: {e}"
+                )
+                return Response({"error": f"Error during Rasa request: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            except json.JSONDecodeError:
+                 print("Rasa returned invalid JSON")
+                 # Save a JSON decode error message
+                 Message.objects.create(
+                     chat_session=user_message.chat_session,
+                     sender="bot",
+                     text="Error: Chatbot returned an invalid response."
+                 )
+                 return Response({"error": "Rasa returned invalid JSON."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            except Exception as e:
+                # Catch any other unexpected errors during Rasa interaction
+                print(f"Unexpected error during Rasa interaction: {e}")
+                Message.objects.create(
+                    chat_session=user_message.chat_session,
+                    sender="bot",
+                    text=f"An unexpected error occurred during chatbot interaction: {e}"
+                )
+                return Response({"error": f"An unexpected error occurred during Rasa interaction: {e}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+            # If Rasa interaction was successful, return the user message data
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -192,9 +243,6 @@ def chatbot(request):
             if request.content_type != "application/json":
                 return JsonResponse({"response": "Content-Type must be application/json."}, status=400)
 
-            # Log the incoming request
-            logger.info("Received request: %s", request.body)
-
             # Parse the incoming JSON request body
             data = json.loads(request.body)
             user_message = data.get("message", "").strip()
@@ -202,10 +250,19 @@ def chatbot(request):
             # Send the user's message to Rasa if it's not empty
             if user_message:
                 rasa_url = "http://localhost:5005/webhooks/rest/webhook"
-                response = requests.post(rasa_url, json={"sender": "user", "message": user_message}, timeout=1000)
-
-                # Log the response from Rasa
-                logger.info("Response from Rasa: %s", response.text)
+                try:
+                    # Reduced timeout to 5 seconds
+                    response = requests.post(
+                        rasa_url, 
+                        json={"sender": "user", "message": user_message}, 
+                        timeout=5
+                    )
+                except requests.Timeout:
+                    logger.error("Request to Rasa timed out")
+                    return JsonResponse({"response": "The chatbot is taking too long to respond. Please try again."}, status=504)
+                except requests.ConnectionError:
+                    logger.error("Failed to connect to Rasa")
+                    return JsonResponse({"response": "Unable to connect to the chatbot service. Please try again later."}, status=503)
 
                 # Check if the response from Rasa was successful
                 if response.status_code == 200:
@@ -213,11 +270,11 @@ def chatbot(request):
                     if rasa_responses and len(rasa_responses) > 0:
                         bot_message = rasa_responses[0].get("text", "I didn't understand your message.")
                     else:
-                        bot_message = "No valid response from Rasa."
+                        bot_message = "No valid response from the chatbot."
                 else:
-                    bot_message = "Problem connecting to Rasa."
+                    logger.error(f"Rasa returned an error: {response.status_code}")
+                    bot_message = "The chatbot is having trouble processing your message. Please try again."
 
-                # Return the chatbot's response as JSON
                 return JsonResponse({"response": bot_message})
             else:
                 return JsonResponse({"response": "No message sent."}, status=400)
@@ -226,7 +283,7 @@ def chatbot(request):
             return JsonResponse({"response": "Invalid data format."}, status=400)
         except Exception as e:
             logger.error("Unexpected error: %s", str(e))
-            return JsonResponse({"response": f"Error: {str(e)}"}, status=500)
+            return JsonResponse({"response": "An unexpected error occurred. Please try again."}, status=500)
     else:
         return JsonResponse({"response": "Method not allowed."}, status=405)
 
@@ -266,13 +323,20 @@ def route_lina(request):
                     return JsonResponse({"response": "Problem connecting to Lina."}, status=response.status_code)
 
                 rasa_responses = response.json()
-                if not rasa_responses or len(rasa_responses) == 0 or "text" not in rasa_responses[0]:
+                if not rasa_responses or len(rasa_responses) == 0:
                     bot_message = "Lina didn't understand your message."
+                    detected_language = 'en'  # Default to English
                 else:
+                    # Get the message and language from the response
                     bot_message = rasa_responses[0].get("text", "No valid response from Lina.")
+                    # Get language from custom data if available
+                    detected_language = rasa_responses[0].get("custom", {}).get("detected_language", 'en')
 
-                # Return Lina's response as JSON
-                return JsonResponse({"response": bot_message})
+                # Return Lina's response as JSON with language information
+                return JsonResponse({
+                    "response": bot_message,
+                    "language": detected_language
+                })
             else:
                 return JsonResponse({"response": "No message sent."}, status=400)
         except json.JSONDecodeError as e:
