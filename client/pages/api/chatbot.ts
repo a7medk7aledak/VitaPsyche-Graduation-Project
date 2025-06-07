@@ -8,8 +8,8 @@ export default async function handler(
     return res.status(405).json({ message: "Method Not Allowed" });
   }
 
-  const { message } = req.body;
-  console.log("Received message:", message); // للتتبع
+  const { message, username, chat_session } = req.body;
+  console.log("Received message:", message, "username:", username, "session:", chat_session); // للتتبع
 
   try {
     const response = await fetch("http://127.0.0.1:8000/api/chatbot/", {
@@ -17,7 +17,7 @@ export default async function handler(
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ message, username, chat_session }),
     });
 
     if (!response.ok) {

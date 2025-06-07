@@ -175,14 +175,36 @@ const ChatBotPage: React.FC = () => {
         console.error("sendMessage returned no bot message.");
         setMessages((prev) => [...prev, {
           sender: "bot",
-          text: "Received an empty response from the chatbot service.",
+          text: "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.",
           timestamp: new Date().toISOString(),
           lang: language,
           chat_session: currentSession.id
         }]);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending message to chatbot:", error);
+      let errorMessage = "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+      
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        if (error.response.status === 503) {
+          errorMessage = "عذراً، الخدمة غير متاحة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+        } else if (error.response.status === 504) {
+          errorMessage = "عذراً، استغرق الرد وقتاً طويلاً. الرجاء المحاولة مرة أخرى بعد قليل.";
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        errorMessage = "عذراً، لا يمكن الاتصال بالخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+      }
+
+      setMessages((prev) => [...prev, {
+        sender: "bot",
+        text: errorMessage,
+        timestamp: new Date().toISOString(),
+        lang: language,
+        chat_session: currentSession.id
+      }]);
       setTimeout(() => scrollToBottom(), 100);
     } finally {
       setIsLoading(false);
@@ -243,8 +265,6 @@ const ChatBotPage: React.FC = () => {
             language={language}
             setIsHistoryVisible={setIsHistoryVisible}
             onMessageSent={handleMessageSent}
-            isLoading={isLoading}
-            setIsLoading={setIsLoading}
           />
         </div>
       </div>

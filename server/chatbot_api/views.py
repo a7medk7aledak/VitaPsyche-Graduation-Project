@@ -234,58 +234,96 @@ logger = logging.getLogger(__name__)
 
 @csrf_exempt
 def chatbot(request):
-    """
-    Handles POST requests from the frontend and sends messages to the Rasa chatbot.
-    """
     if request.method == "POST":
         try:
-            # Check if the request content type is JSON
-            if request.content_type != "application/json":
-                return JsonResponse({"response": "Content-Type must be application/json."}, status=400)
-
-            # Parse the incoming JSON request body
             data = json.loads(request.body)
             user_message = data.get("message", "").strip()
+            username = data.get("username", "user")
+            chat_session_id = data.get("chat_session", "default_session")
 
-            # Send the user's message to Rasa if it's not empty
+            # Prevent bot messages from being sent back to Rasa
+            if username == "bot":
+                return JsonResponse({}, status=200)
+
+            print("BACKEND: Received message:", user_message, "Username:", username)
+            print("=== Django: Received message from frontend ===")
+            print("Message details:", {
+                "message": user_message,
+                "username": username,
+                "chat_session": chat_session_id
+            })
+
             if user_message:
                 rasa_url = "http://localhost:5005/webhooks/rest/webhook"
                 try:
-                    # Reduced timeout to 5 seconds
-                    response = requests.post(
-                        rasa_url, 
-                        json={"sender": "user", "message": user_message}, 
-                        timeout=5
-                    )
-                except requests.Timeout:
-                    logger.error("Request to Rasa timed out")
-                    return JsonResponse({"response": "The chatbot is taking too long to respond. Please try again."}, status=504)
-                except requests.ConnectionError:
-                    logger.error("Failed to connect to Rasa")
-                    return JsonResponse({"response": "Unable to connect to the chatbot service. Please try again later."}, status=503)
+                    print("=== Django: Sending message to Rasa ===")
+                    print("Rasa request payload:", {
+                        "sender": str(chat_session_id),
+                        "message": user_message,
+                        "metadata": {"username": username}
+                    })
 
-                # Check if the response from Rasa was successful
+                    response = requests.post(
+                        rasa_url,
+                        json={
+                            "sender": str(chat_session_id),
+                            "message": user_message,
+                            "metadata": {
+                                "username": username,
+                                "custom": {
+                                    "username": username
+                                }
+                            }
+                        },
+                        timeout=30
+                    )
+
+                    print("=== Django: Received response from Rasa ===")
+                    print("Rasa response status:", response.status_code)
+                    print("Rasa response content:", response.text)
+
+                except requests.Timeout:
+                    print("=== Django: Request to Rasa timed out ===")
+                    return JsonResponse({"response": "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل."}, status=504)
+                except requests.ConnectionError:
+                    print("=== Django: Failed to connect to Rasa ===")
+                    return JsonResponse({"response": "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل."}, status=503)
+
                 if response.status_code == 200:
                     rasa_responses = response.json()
                     if rasa_responses and len(rasa_responses) > 0:
-                        bot_message = rasa_responses[0].get("text", "I didn't understand your message.")
+                        # Collect all text responses from Rasa
+                        bot_messages = []
+                        for resp in rasa_responses:
+                            if "text" in resp:
+                                bot_messages.append(resp["text"])
+                        
+                        if bot_messages:
+                            # Join all messages with newlines
+                            bot_message = "\n".join(bot_messages)
+                        else:
+                            bot_message = "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل."
                     else:
-                        bot_message = "No valid response from the chatbot."
+                        bot_message = "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل."
                 else:
-                    logger.error(f"Rasa returned an error: {response.status_code}")
-                    bot_message = "The chatbot is having trouble processing your message. Please try again."
+                    print("=== Django: Rasa returned an error ===")
+                    print("Error status:", response.status_code)
+                    bot_message = "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل."
+
+                print("=== Django: Sending response to frontend ===")
+                print("Response:", {"response": bot_message})
 
                 return JsonResponse({"response": bot_message})
             else:
-                return JsonResponse({"response": "No message sent."}, status=400)
-        except json.JSONDecodeError as e:
-            logger.error("JSON decode error: %s", str(e))
-            return JsonResponse({"response": "Invalid data format."}, status=400)
+                return JsonResponse({"response": "الرجاء إدخال رسالة."}, status=400)
+        except json.JSONDecodeError:
+            print("=== Django: JSON decode error ===")
+            return JsonResponse({"response": "خطأ في تنسيق البيانات المرسلة."}, status=400)
         except Exception as e:
-            logger.error("Unexpected error: %s", str(e))
-            return JsonResponse({"response": "An unexpected error occurred. Please try again."}, status=500)
-    else:
-        return JsonResponse({"response": "Method not allowed."}, status=405)
+            print("=== Django: Unexpected error ===")
+            print("Error details:", str(e))
+            return JsonResponse({"response": "حدث خطأ غير متوقع. الرجاء المحاولة مرة أخرى."}, status=500)
+    return JsonResponse({"response": "طريقة طلب غير صحيحة."}, status=405)
 
 
 @csrf_exempt
