@@ -263,6 +263,10 @@ pip install cryptography==3.4.8
 rasa train
 rasa run -m models --enable-api --cors "*"
 ```
+deployment 
+rasa train --fixed-model-name model
+```
+```
 to Run action and api
 ```
 cd chatbot
