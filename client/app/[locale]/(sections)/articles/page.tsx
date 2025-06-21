@@ -32,12 +32,10 @@ const Page = () => {
     () =>
       articles.filter((article) =>
         locale === "en"
-          ? [
-              "Schizophrenia",
-              "Alzheimer's Disease",
-              "Lewy Body Dementia",
-            ].includes(article.title)
-          : ["الفصام", "مرض الزهايمر", "خرف أجسام ليوي"].includes(article.title)
+          ? ["Schizophrenia", "Psychosis", "Lewy Body Dementia"].includes(
+              article.title
+            )
+          : ["الفصام", "الذهان", "خرف أجسام ليوي"].includes(article.title)
       ),
     [articles, locale]
   );

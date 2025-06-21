@@ -7,6 +7,7 @@ import { FaCrown } from "react-icons/fa";
 import { usePaidTestData } from "@app/content/tests/paid";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
+import withAuth from "@components/auth/WithAuth";
 
 // Define interfaces for better type safety
 interface Option {
@@ -339,4 +340,4 @@ const TestPage: React.FC = () => {
   );
 };
 
-export default TestPage;
+export default withAuth(TestPage, { allowedRoles: ["user", "doctor"] });

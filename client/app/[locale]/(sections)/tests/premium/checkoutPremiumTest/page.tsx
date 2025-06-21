@@ -10,6 +10,7 @@ import Heading from "@components/common/Heading";
 import SuccessfullModal from "@components/modals/SuccessfullModal";
 import { addPurchasedTest } from "@store/authSlice";
 import { useDispatch } from "react-redux";
+import withAuth from "@components/auth/WithAuth";
 
 // Main CheckoutPage component
 function CheckoutPage() {
@@ -117,4 +118,4 @@ const CheckoutPageWithSuspense = () => {
   );
 };
 
-export default CheckoutPageWithSuspense;
+export default withAuth(CheckoutPageWithSuspense);
