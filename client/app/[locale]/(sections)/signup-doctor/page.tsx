@@ -75,6 +75,7 @@ const SignupDoctor = () => {
             width={500}
             height={500}
             className="md:hidden mx-auto mb-4"
+            priority
           />
           <h4 className="text-maintext text-3xl tracking-wide px-4 font-bold mb-5">
             {t("hero.title")}
