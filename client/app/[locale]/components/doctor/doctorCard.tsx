@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
 
-const DoctorCard = () => {
+const DoctorCard = ({ name, image }: { name: string; image: string }) => {
   const t = useTranslations("recommendations");
 
   return (
@@ -14,7 +14,7 @@ const DoctorCard = () => {
         {/* Doctor Image */}
         <div className="relative w-24 h-24">
           <Image
-            src="/images/about-us/me.jpg"
+            src={image}
             alt="Doctor"
             fill
             className="rounded-full object-cover"
@@ -22,7 +22,7 @@ const DoctorCard = () => {
         </div>
         <div>
           {/* Doctor Name and Specialty */}
-          <h2 className="text-xl font-bold text-gray-900">Wassim Ashraf</h2>
+          <h2 className="text-xl font-bold text-gray-900">Dr. {name}</h2>
           <p className="text-base text-gray-700 font-medium">
             {t("psychiatrist")}
           </p>

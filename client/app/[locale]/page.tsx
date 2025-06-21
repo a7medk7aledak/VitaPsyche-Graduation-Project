@@ -11,6 +11,7 @@ import Button from "@components/common/Button";
 import { Link } from "@/i18n/navigation";
 
 import { useTranslations } from "next-intl";
+import { doctors } from "@constants/doctors";
 
 export default function Home() {
   const t = useTranslations("recommendations");
@@ -34,10 +35,12 @@ export default function Home() {
         <div className="container mx-auto px-3">
           <Heading variant="secondary">{t("heading")}</Heading>
           <div className="flex flex-wrap justify-center gap-8">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <div key={index}>
-                <DoctorCard />
-              </div>
+            {doctors.map((doctor) => (
+              <DoctorCard
+                key={doctor.id}
+                name={doctor.name}
+                image={doctor.image}
+              />
             ))}
           </div>
           <Link href={"/doctorList"} className="flex justify-center mt-8">
