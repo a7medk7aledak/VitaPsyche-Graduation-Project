@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Message } from '@myTypes/chat';
-import { Mic, MicOff, Send } from 'lucide-react';
+import React from "react";
+import { Message } from "@myTypes/chat";
+import { Mic, MicOff, Send } from "lucide-react";
 
 interface ChatInputProps {
   input: string;
@@ -23,14 +23,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   setIsHistoryVisible,
   onMessageSent,
   isLoading,
-  setIsLoading
 }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
 
     const message: Message = {
-      sender: 'user',
+      sender: "user",
       text: input.trim(),
       timestamp: new Date().toISOString(),
       lang: language,
@@ -68,8 +67,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           onClick={handleSpeechToText}
           className={`p-2 rounded-full ${
             isListening
-              ? 'bg-red-100 text-red-500'
-              : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+              ? "bg-red-100 text-red-500"
+              : "bg-gray-100 text-gray-500 hover:bg-gray-200"
           }`}
           disabled={isLoading}
         >
@@ -80,7 +79,11 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder={language === 'ar' ? 'اكتب رسالتك هنا...' : 'Type your message here...'}
+          placeholder={
+            language === "ar"
+              ? "اكتب رسالتك هنا..."
+              : "Type your message here..."
+          }
           className="flex-1 p-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           disabled={isLoading}
         />
@@ -90,8 +93,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           disabled={!input.trim() || isLoading}
           className={`p-2 rounded-full ${
             !input.trim() || isLoading
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-blue-500 text-white hover:bg-blue-600'
+              ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+              : "bg-blue-500 text-white hover:bg-blue-600"
           }`}
         >
           <Send size={20} />
@@ -99,4 +102,4 @@ export const ChatInput: React.FC<ChatInputProps> = ({
       </div>
     </form>
   );
-}; 
+};

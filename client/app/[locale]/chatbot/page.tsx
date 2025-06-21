@@ -143,13 +143,16 @@ const ChatBotPage: React.FC = () => {
   const handleMessageSent = async (message: Message) => {
     if (!currentSession?.session_id || !token) {
       console.error("No active session or token available.");
-      setMessages((prev) => [...prev, {
+      setMessages((prev) => [
+        ...prev,
+        {
           sender: "bot",
           text: "Please select or start a chat session to send messages.",
           timestamp: new Date().toISOString(),
           lang: language,
-          chat_session: "error"
-      }]);
+          chat_session: "error",
+        },
+      ]);
       setTimeout(() => scrollToBottom(), 100);
       return;
     }
@@ -160,51 +163,60 @@ const ChatBotPage: React.FC = () => {
     setTimeout(() => scrollToBottom(), 100);
 
     try {
-      const botMessage = await messageService.sendMessage(
-        token,
-        {
-          chat_session: currentSession.id,
-          sender: message.sender,
-          text: message.text,
-        }
-      );
+      const botMessage = await messageService.sendMessage(token, {
+        chat_session: currentSession.id,
+        sender: message.sender,
+        text: message.text,
+      });
 
       if (botMessage) {
         setMessages((prev) => [...prev, botMessage]);
       } else {
         console.error("sendMessage returned no bot message.");
-        setMessages((prev) => [...prev, {
-          sender: "bot",
-          text: "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.",
-          timestamp: new Date().toISOString(),
-          lang: language,
-          chat_session: currentSession.id
-        }]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            sender: "bot",
+            text: "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.",
+            timestamp: new Date().toISOString(),
+            lang: language,
+            chat_session: currentSession.id,
+          },
+        ]);
       }
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error sending message to chatbot:", error);
-      let errorMessage = "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
-      
-      if (error.response) {
+      let errorMessage =
+        "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+
+      // Type guard to check if error has response property
+      if (error && typeof error === "object" && "response" in error) {
+        const axiosError = error as { response: { status: number } };
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        if (error.response.status === 503) {
-          errorMessage = "عذراً، الخدمة غير متاحة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
-        } else if (error.response.status === 504) {
-          errorMessage = "عذراً، استغرق الرد وقتاً طويلاً. الرجاء المحاولة مرة أخرى بعد قليل.";
+        if (axiosError.response.status === 503) {
+          errorMessage =
+            "عذراً، الخدمة غير متاحة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+        } else if (axiosError.response.status === 504) {
+          errorMessage =
+            "عذراً، استغرق الرد وقتاً طويلاً. الرجاء المحاولة مرة أخرى بعد قليل.";
         }
-      } else if (error.request) {
+      } else if (error && typeof error === "object" && "request" in error) {
         // The request was made but no response was received
-        errorMessage = "عذراً، لا يمكن الاتصال بالخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+        errorMessage =
+          "عذراً، لا يمكن الاتصال بالخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
       }
 
-      setMessages((prev) => [...prev, {
-        sender: "bot",
-        text: errorMessage,
-        timestamp: new Date().toISOString(),
-        lang: language,
-        chat_session: currentSession.id
-      }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: errorMessage,
+          timestamp: new Date().toISOString(),
+          lang: language,
+          chat_session: currentSession.id,
+        },
+      ]);
       setTimeout(() => scrollToBottom(), 100);
     } finally {
       setIsLoading(false);
@@ -253,7 +265,11 @@ const ChatBotPage: React.FC = () => {
             ref={messagesContainerRef}
             className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
           >
-            <ChatMessages messages={messages} language={language} isLoading={isLoading} />
+            <ChatMessages
+              messages={messages}
+              language={language}
+              isLoading={isLoading}
+            />
             <div ref={messagesEndRef} className="h-4" />
           </div>
 

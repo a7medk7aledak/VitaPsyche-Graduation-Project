@@ -41,6 +41,6 @@ export interface Message {
   text_en?: string;
   timestamp: string;
   lang?: string;
-  chat_session: string | number; // Update this to accept both string and number
+  chat_session?: string | number; // Update this to accept both string and number
   username?: string;
 }

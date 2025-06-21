@@ -32,30 +32,30 @@ export const ChatInput: React.FC<ChatInputProps> = ({
 
   const username = user?.username || 'user'; // Define username here, outside handleSendMessage
 
-  const saveBotMessageToAPI = async (message: Message) => {
-    try {
-      const response = await fetch("/api/messages", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          chat_session: message.chat_session,
-          sender: message.sender,
-          text: message.text,
-          timestamp: message.timestamp,
-          username: message.username, // Pass username
-        }),
-      });
+  // const saveBotMessageToAPI = async (message: Message) => {
+  //   try {
+  //     const response = await fetch("/api/messages", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //       body: JSON.stringify({
+  //         chat_session: message.chat_session,
+  //         sender: message.sender,
+  //         text: message.text,
+  //         timestamp: message.timestamp,
+  //         username: message.username, // Pass username
+  //       }),
+  //     });
 
-      if (!response.ok) {
-        throw new Error(`Failed to save bot message: ${response.status}`);
-      }
-    } catch (error) {
-      console.error("Error saving bot message to API:", error);
-    }
-  };
+  //     if (!response.ok) {
+  //       throw new Error(`Failed to save bot message: ${response.status}`);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error saving bot message to API:", error);
+  //   }
+  // };
 
   const handleSendMessage = async () => {
     if (!input.trim() || !currentSession?.id || !token) return;
