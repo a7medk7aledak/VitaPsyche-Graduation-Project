@@ -11,11 +11,263 @@ import os
 from dotenv import load_dotenv
 import websockets
 import json
+import fasttext
+import re
+import unicodedata # Import unicodedata
 
 # Load environment variables
 load_dotenv()
 
 logger = logging.getLogger(__name__)
+
+# Load FastText model once
+try:
+    language_model = fasttext.load_model("lid.176.bin")
+    logger.info("FastText model loaded successfully.")
+except Exception as e:
+    logger.error(f"Error loading FastText model: {e}. Make sure 'lid.176.bin' is in the correct path.")
+    language_model = None
+
+# Arabic Unicode ranges for character-based detection
+ARABIC_RANGES = [
+    (0x0600, 0x06FF),  # Arabic
+    (0x0750, 0x077F),  # Arabic Supplement
+    (0x08A0, 0x08FF),  # Arabic Extended-A
+    (0xFB50, 0xFDFF),  # Arabic Presentation Forms-A
+    (0xFE70, 0xFEFF),  # Arabic Presentation Forms-B
+]
+
+# Common Arabic words for pattern matching
+COMMON_ARABIC_WORDS = {
+    'في', 'من', 'إلى', 'على', 'عن', 'مع', 'هذا', 'هذه', 'التي', 'الذي',
+    'كان', 'كانت', 'يكون', 'تكون', 'أن', 'إن', 'كيف', 'ماذا', 'أين', 'متى',
+    'لماذا', 'أي', 'كل', 'بعض', 'جميع', 'معظم', 'أول', 'آخر', 'جديد', 'قديم',
+    'كبير', 'صغير', 'طويل', 'قصير', 'جيد', 'سيء', 'سريع', 'بطيء', 'أنا', 'أنت',
+    'هو', 'هي', 'نحن', 'أنتم', 'هم', 'لك', 'له', 'لها', 'لنا', 'لهم', 'والله',
+    'الله', 'مرحبا', 'أهلا', 'شكرا', 'عفوا', 'آسف', 'نعم', 'لا', 'ربما', 'طبعا'
+}
+
+# Common English words for pattern matching
+COMMON_ENGLISH_WORDS = {
+    'the', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with',
+    'by', 'from', 'about', 'into', 'through', 'during', 'before', 'after',
+    'above', 'below', 'between', 'among', 'this', 'that', 'these', 'those',
+    'i', 'you', 'he', 'she', 'it', 'we', 'they', 'me', 'him', 'her', 'its', 'our',
+    'their', 'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has',
+    'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might',
+    'can', 'hello', 'hi', 'bye', 'goodbye', 'thanks', 'thank', 'please', 'sorry',
+    'yes', 'no', 'maybe', 'ok', 'okay', 'sure', 'right', 'wrong', 'good',
+    'bad', 'big', 'small', 'long', 'short', 'new', 'old', 'first', 'last'
+}
+
+def is_arabic_char(char):
+    """Check if a character is Arabic"""
+    code_point = ord(char)
+    return any(start <= code_point <= end for start, end in ARABIC_RANGES)
+
+def get_script_ratio(text):
+    """Get the ratio of Arabic to Latin characters"""
+    if not text.strip():
+        return 0, 0
+    
+    arabic_count = 0
+    latin_count = 0
+    
+    for char in text:
+        if char.isalpha():
+            if is_arabic_char(char):
+                arabic_count += 1
+            elif 'LATIN' in unicodedata.name(char, ''):
+                latin_count += 1
+    
+    total_alpha = arabic_count + latin_count
+    if total_alpha == 0:
+        return 0, 0
+    
+    return arabic_count / total_alpha, latin_count / total_alpha
+
+def detect_language_by_keywords(text):
+    """Detect language based on common words"""
+    words = re.findall(r'\b\w+\b', text.lower(), re.UNICODE)
+    
+    arabic_score = 0
+    english_score = 0
+    
+    for word in words:
+        if word in COMMON_ARABIC_WORDS:
+            arabic_score += 2  # Higher weight for exact matches
+        elif word in COMMON_ENGLISH_WORDS:
+            english_score += 2
+    
+    return arabic_score, english_score
+
+def enhanced_language_detection(text, min_confidence=0.3):
+    """Enhanced language detection combining multiple methods"""
+    if not text or not text.strip():
+        return None, 0
+    
+    cleaned_text = text.strip()
+    
+    # Method 1: FastText detection
+    fasttext_lang = None
+    fasttext_confidence = 0
+    if language_model:
+        try:
+            prediction = language_model.predict(cleaned_text)
+            fasttext_lang = prediction[0][0].replace("__label__", "")
+            fasttext_confidence = float(prediction[1][0])
+        except Exception as e:
+            logger.warning(f"FastText prediction failed for '{cleaned_text[:50]}...': {e}")
+    
+    # Method 2: Character-based detection
+    arabic_ratio, latin_ratio = get_script_ratio(cleaned_text)
+    
+    # Method 3: Keyword-based detection
+    arabic_keywords, english_keywords = detect_language_by_keywords(cleaned_text)
+    
+    # Scoring system
+    scores = {'ar': 0, 'en': 0}
+    
+    # FastText score (weight: 40% if confident, 20% if not)
+    if fasttext_lang in ['ar', 'en']:
+        weight = 0.4 if fasttext_confidence > 0.5 else 0.2
+        scores[fasttext_lang] += weight * fasttext_confidence
+    
+    # Character ratio score (weight: 30%)
+    if arabic_ratio > latin_ratio and arabic_ratio > 0.3:
+        scores['ar'] += 0.3 * arabic_ratio
+    elif latin_ratio > arabic_ratio and latin_ratio > 0.3:
+        scores['en'] += 0.3 * latin_ratio
+    
+    # Keyword score (weight: 30%)
+    total_keyword_score = arabic_keywords + english_keywords
+    if total_keyword_score > 0:
+        scores['ar'] += 0.3 * (arabic_keywords / total_keyword_score)
+        scores['en'] += 0.3 * (english_keywords / total_keyword_score)
+    
+    # Additional heuristics for short text
+    if len(cleaned_text.split()) <= 3:
+        # For very short text, give more weight to character detection
+        if arabic_ratio > 0.5:
+            scores['ar'] += 0.2
+        elif latin_ratio > 0.5:
+            scores['en'] += 0.2
+        
+        # Check for Arabic numerals and punctuation patterns
+        if re.search(r'[؟،؛]', cleaned_text):  # Arabic punctuation
+            scores['ar'] += 0.1
+        elif re.search(r'[?.,;!]', cleaned_text):  # English punctuation
+            scores['en'] += 0.1
+    
+    # Determine final language
+    max_score = max(scores.values())
+    if max_score < min_confidence:
+        return None, max_score
+    
+    detected_lang = 'ar' if scores['ar'] > scores['en'] else 'en'
+    return detected_lang, max_score
+
+def detect_sentence_language(text):
+    """Detect language of a sentence with enhanced detection"""
+    if not text or not text.strip():
+        return None
+    
+    lang, confidence = enhanced_language_detection(text)
+    
+    # Log detection details for debugging
+    if logger.isEnabledFor(logging.DEBUG):
+        logger.debug(f"Text: '{text[:50]}...', Detected: {lang}, Confidence: {confidence:.3f}")
+    
+    return lang
+
+def detect_mixed_language_segments(sentence):
+    """Detect different language segments within a sentence"""
+    words = re.findall(r'\w+|\n|[^\w\s]', sentence, re.UNICODE)
+    segments = []
+    current_lang = None
+    current_segment = []
+
+    for word in words:
+        if not word.strip():
+            if word == '\n' and current_segment:
+                segments.append((current_lang, ' '.join(current_segment)))
+                current_segment = []
+                current_lang = None
+            continue
+
+        # For single words, try enhanced detection
+        lang = detect_sentence_language(word)
+        
+        # If single word detection fails, try with context
+        if not lang and current_segment:
+            context_text = ' '.join(current_segment + [word])
+            context_lang = detect_sentence_language(context_text)
+            if context_lang:
+                lang = context_lang
+
+        if not lang: # If language still not detected, try with the word alone using enhanced detection
+             lang, confidence = enhanced_language_detection(word)
+             if lang:
+                 segments.append((lang, word))
+             else:
+                if current_segment:
+                    lang_guess_for_segment = detect_sentence_language(' '.join(current_segment))
+                    if lang_guess_for_segment in ['ar', 'en']:
+                        segments.append((lang_guess_for_segment, ' '.join(current_segment)))
+                    else:
+                        segments.append(('unknown_segment_lang', ' '.join(current_segment)))
+                    current_segment = []
+                    current_lang = None
+                segments.append(('unknown_word_lang', word))
+             continue
+
+        if lang not in ['ar', 'en']:
+            if current_segment and current_lang in ['ar', 'en']:
+                segments.append((current_lang, ' '.join(current_segment)))
+                current_segment = []
+            current_lang = 'other'
+            continue
+
+        if lang == current_lang:
+            current_segment.append(word)
+        else:
+            if current_segment:
+                segments.append((current_lang, ' '.join(current_segment)))
+            current_segment = [word]
+            current_lang = lang
+
+    if current_segment:
+        segments.append((current_lang, ' '.join(current_segment)))
+    
+    # Enhanced segment merging logic
+    final_segments = []
+    i = 0
+    while i < len(segments):
+        lang, text = segments[i]
+        if lang in ['ar', 'en']:
+            current_texts = [text]
+            j = i + 1
+            
+            # Merge consecutive segments of the same supported language
+            while j < len(segments) and segments[j][0] == lang:
+                current_texts.append(segments[j][1])
+                j += 1
+            
+            # Try to merge small unknown segments if surrounded by same language
+            # This part is complex and might need refinement based on testing
+            # For now, let's keep it simple and just merge same-language segments
+            
+            final_segments.append((lang, ' '.join(current_texts).strip())) # Use strip here
+            i = j
+        else:
+            # Keep non-ar/en segments as they are
+            if text.strip(): # Only add if not empty after strip
+                final_segments.append((lang, text.strip()))
+            i += 1
+            
+    # Remove empty segments after merging
+    final_segments = [(l, t) for l, t in final_segments if t.strip()]
+    return final_segments
 
 class Config:
     KEY = os.getenv('KEY')
@@ -24,6 +276,7 @@ class Config:
     MODEL_NAME = os.getenv('MODEL_NAME')
     MODEL_BASE_URL = os.getenv('MODEL_BASE_URL')
     WS_URL = "http://localhost:5000"
+    REQUEST_TIMEOUT = 100  # Increased timeout to match backend
 
     # Add a check for required environment variables
     REQUIRED_ENV_VARS = ['KEY', 'MODEL_TEMPERATURE', 'MODEL_MAX_TOKENS', 'MODEL_NAME', 'MODEL_BASE_URL']
@@ -33,6 +286,160 @@ class Config:
 
 # 🧠 ذاكرة ديناميكية لتخزين آخر 3 رسائل نفسية فقط
 mental_history_buffer: List[Dict[str, str]] = []
+
+def get_friendly_error_message(error_type: str, lang: str) -> str:
+    """Get user-friendly error messages based on error type and language"""
+    error_messages = {
+        'timeout': {
+            'ar': "عذراً، يبدو أن الاتصال يستغرق وقتاً أطول من المعتاد. هل يمكنك المحاولة مرة أخرى؟",
+            'en': "I apologize, but the connection is taking longer than usual. Could you please try again?"
+        },
+        'api_error': {
+            'ar': "عذراً، حدث خطأ في معالجة طلبك. هل يمكنك المحاولة مرة أخرى بعد قليل؟",
+            'en': "I apologize, but there was an error processing your request. Could you please try again in a moment?"
+        },
+        'connection_error': {
+            'ar': "عذراً، يبدو أن هناك مشكلة في الاتصال. هل يمكنك التحقق من اتصالك بالإنترنت والمحاولة مرة أخرى؟",
+            'en': "I apologize, but there seems to be a connection issue. Could you please check your internet connection and try again?"
+        },
+        'general_error': {
+            'ar': "عذراً، حدث خطأ غير متوقع. هل يمكنك المحاولة مرة أخرى؟",
+            'en': "I apologize, but an unexpected error occurred. Could you please try again?"
+        }
+    }
+    return error_messages.get(error_type, error_messages['general_error']).get(lang, error_messages['general_error']['en'])
+
+class ActionDetectLanguage(Action):
+    def name(self) -> Text:
+        return "action_detect_language"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any]
+    ) -> List[Dict[Text, Any]]:
+
+        user_message = tracker.latest_message.get('text', '')
+        detected_languages = set()  # Using set to avoid duplicates
+        
+        # First try FastText detection
+        if language_model:
+            try:
+                # Try to detect language for the whole message first
+                prediction = language_model.predict(user_message)
+                detected_lang = prediction[0][0].replace("__label__", "")
+                confidence = float(prediction[1][0])
+                
+                if detected_lang in ['ar', 'en'] and confidence > 0.7:
+                    # If FastText is confident about a single language, use it
+                    detected_languages.add(detected_lang)
+                    logger.info(f"[ActionDetectLanguage] FastText detected language: {detected_lang} with confidence {confidence:.2f}")
+                else:
+                    # If not confident, try segment-based detection
+                    segments = detect_mixed_language_segments(user_message)
+                    if segments:
+                        # Add all detected languages
+                        for lang, _ in segments:
+                            detected_languages.add(lang)
+                    logger.info(f"[ActionDetectLanguage] Using segment detection: {detected_languages}")
+            except Exception as e:
+                logger.warning(f"[ActionDetectLanguage] FastText prediction failed: {e}")
+                # Fall back to segment detection
+                segments = detect_mixed_language_segments(user_message)
+                if segments:
+                    for lang, _ in segments:
+                        detected_languages.add(lang)
+        else:
+            # If FastText model is not available, use segment detection
+            segments = detect_mixed_language_segments(user_message)
+            if segments:
+                for lang, _ in segments:
+                    detected_languages.add(lang)
+
+        # If no languages detected, try API fallback
+        if not detected_languages:
+            logger.info("[ActionDetectLanguage] No languages detected, trying API fallback")
+            try:
+                if not Config.KEY:
+                    logger.error("[ActionDetectLanguage] API Key (KEY) is not set for API fallback")
+                    # Default to English
+                    detected_languages.add('en')
+                else:
+                    client = openai.OpenAI(
+                        api_key=Config.KEY,
+                        base_url=Config.MODEL_BASE_URL,
+                        timeout=Config.REQUEST_TIMEOUT
+                    )
+
+                    # Use API to detect language
+                    api_messages = [
+                        {"role": "system", "content": "Detect the language of the following text and respond with only 'ar' or 'en'. If the text contains both languages, respond with 'mixed'."},
+                        {"role": "user", "content": user_message}
+                    ]
+
+                    api_response = await asyncio.to_thread(
+                        client.chat.completions.create,
+                        model=Config.MODEL_NAME,
+                        messages=api_messages,
+                        temperature=0.1,
+                        max_tokens=5
+                    )
+
+                    if api_response and api_response.choices and api_response.choices[0].message:
+                        api_detected_lang = api_response.choices[0].message.content.strip().lower()
+                        if api_detected_lang in ['ar', 'en']:
+                            detected_languages.add(api_detected_lang)
+                        elif api_detected_lang == 'mixed':
+                            # For mixed language, check for both Arabic and English characters
+                            has_arabic = any(is_arabic_char(c) for c in user_message)
+                            has_english = any(c.isascii() and c.isalpha() for c in user_message)
+                            if has_arabic:
+                                detected_languages.add('ar')
+                            if has_english:
+                                detected_languages.add('en')
+                        logger.info(f"[ActionDetectLanguage] API detected languages: {detected_languages}")
+
+            except Exception as e:
+                logger.error(f"[ActionDetectLanguage] API fallback failed: {e}", exc_info=True)
+                # Default to English
+                detected_languages.add('en')
+
+        # If still no languages detected, default to English
+        if not detected_languages:
+            detected_languages.add('en')
+
+        # Convert set to list for storage
+        detected_languages_list = list(detected_languages)
+        logger.info(f"[ActionDetectLanguage] Final detected languages: {detected_languages_list}")
+        
+        # Add language information to the response
+        dispatcher.utter_message(text="", custom={"detected_language": detected_languages_list[0] if detected_languages_list else 'en'})
+        
+        return [SlotSet("detected_languages", detected_languages_list)]
+
+async def detect_language_with_api(client, text):
+    """Helper function to detect language using API"""
+    try:
+        api_messages = [
+            {"role": "system", "content": "Detect the language of the following text and respond with only 'ar' or 'en'."},
+            {"role": "user", "content": text}
+        ]
+
+        api_response = await asyncio.to_thread(
+            client.chat.completions.create,
+            model=Config.MODEL_NAME,
+            messages=api_messages,
+            temperature=0.1,
+            max_tokens=5
+        )
+
+        if api_response and api_response.choices and api_response.choices[0].message:
+            lang = api_response.choices[0].message.content.strip().lower()
+            return lang if lang in ['ar', 'en'] else None
+    except Exception as e:
+        logger.error(f"Error in detect_language_with_api: {e}")
+    return None
 
 class ActionMentalHealthResponse(Action):
     def name(self) -> Text:
@@ -45,160 +452,90 @@ class ActionMentalHealthResponse(Action):
         domain: Dict[Text, Any]
     ) -> List[Dict[Text, Any]]:
 
-        user_message = tracker.latest_message.get('text')
-        latest_intent_name = tracker.latest_message.get('intent', {}).get('name', '')
-        lang_slot = tracker.get_slot("language")
-
-        # تحديد اللغة
-        if lang_slot and lang_slot in ['ar', 'en']:
-            lang = lang_slot
-        else:
-            is_arabic_char_present = any(0x0600 <= ord(c) <= 0x06FF for c in user_message or "")
-            is_arabic_intent = latest_intent_name.endswith('_ar')
-            lang = "ar" if is_arabic_char_present or is_arabic_intent else "en"
-
-        logger.info(f"[MentalAction] Lang: {lang}, Intent: {latest_intent_name}, Message: {user_message}")
-
-        mental_health_intents = [
-            'mental_health_symptoms_en', 'mental_health_symptoms_ar',
-            'general_mental_support_en', 'general_mental_support_ar',
-            'seek_mental_strength_ar', 'seek_mental_strength_en',
-            'express_loneliness_ar', 'express_loneliness_en'
-        ]
-
-        global mental_history_buffer
-
-        if latest_intent_name in mental_health_intents:
-            # تحديث الذاكرة: إزالة الأقدم إن كانت ممتلئة
-            if len(mental_history_buffer) >= 3:
-                mental_history_buffer.pop(0)
-
-            # إضافة رسالة المستخدم الحالية
-            if not mental_history_buffer or mental_history_buffer[-1]["content"] != user_message:
-                mental_history_buffer.append({"role": "user", "content": user_message})
-
-            # إضافة آخر رد من الروبوت إن وُجد
-            for event in reversed(tracker.events):
-                if event.get("event") == "bot" and event.get("text"):
-                    if not mental_history_buffer or mental_history_buffer[-1].get("content") != event["text"]:
-                        mental_history_buffer.append({"role": "assistant", "content": event["text"]})
-                    break
-
-            # الاقتصار على آخر 3 رسائل فقط
-            mental_history_buffer = mental_history_buffer[-3:]
-
-            # إعداد رسالة النظام
-            system_message_content = (
-                f"You are 'VitaPsyche Assistant', a highly compassionate, empathetic, and supportive mental health assistant. "
-                f"You are not a doctor, but can provide support. Respond clearly and thoughtfully in {'Arabic (اللغة العربية)' if lang == 'ar' else 'English'}.\n"
-                f"User query: '{user_message}'"
-            )
-
-            # إعداد الرسائل للإرسال إلى النموذج
-            messages_for_api = [{"role": "system", "content": system_message_content}] + mental_history_buffer
-
-            try:
-                start_time = time.time()
-                
-                # Check if API key is set
-                if not Config.KEY:
-                     raise ValueError("OpenAI API Key (KEY) is not set in environment variables.")
-
-                api_response = await asyncio.to_thread(
-                    openai.ChatCompletion.create,
-                    model=Config.MODEL_NAME,
-                    messages=messages_for_api,
-                    api_key=Config.KEY,
-                    api_base=Config.MODEL_BASE_URL,
-                    temperature=Config.TEMPERATURE,
-                    max_tokens=Config.MAX_TOKENS
-                )
-                time_taken = time.time() - start_time
-
-                if api_response and api_response.choices and api_response.choices[0].message:
-                    bot_reply = api_response.choices[0].message.content.strip()
-                    
-                    # Clean up response format
-                    bot_reply = bot_reply.replace('*', '')  # Remove asterisks
-                    bot_reply = bot_reply.replace('_', '')  # Remove underscores
-                    bot_reply = bot_reply.replace('`', '')  # Remove backticks
-                    bot_reply = bot_reply.replace('#', '')  # Remove hash symbols
-                    bot_reply = bot_reply.replace('>', '')  # Remove blockquotes
-                    bot_reply = ' '.join(bot_reply.split())  # Normalize whitespace
-                    
-                    # Send response via WebSocket
-                    try:
-                         async with websockets.connect(Config.WS_URL) as websocket:
-                             await websocket.send(json.dumps({
-                                 'type': 'bot_response',
-                                 'data': {
-                                     'text': bot_reply,
-                                     'lang': lang
-                                 }
-                             }))
-                    except Exception as ws_e:
-                         logger.error(f"WebSocket Error: {ws_e}")
-
-                    dispatcher.utter_message(text=bot_reply)
-                    logger.info(f"API took {time_taken:.2f}s: {bot_reply[:100]}...")
-                else:
-                    fallback = "عذرًا، لم أتمكن من الرد الآن. حاول مرة أخرى." if lang == "ar" else "Sorry, I couldn't respond right now. Please try again."
-                    dispatcher.utter_message(text=fallback)
-
-            except Exception as e:
-                logger.error(f"API Error: {e}", exc_info=True)
-                error = f"حدث خطأ تقني: {e}. حاول لاحقًا." if lang == "ar" else f"A technical error occurred: {e}. Please try again later."
-                dispatcher.utter_message(text=error)
-
-        else:
-            logger.info(f"Trying fallback for intent: {latest_intent_name}")
-            system_message_content = (
-                f"You are 'VitaPsyche Assistant', a highly compassionate, empathetic, and supportive mental health assistant. "
-                f"You are not a doctor, but can provide support. Respond clearly and thoughtfully in {'Arabic (اللغة العربية)' if lang == 'ar' else 'English'}.\n"
-                f"User query: '{user_message}'"
-            )
-            messages_for_api = [
-                {"role": "system", "content": system_message_content},
-                {"role": "user", "content": user_message}
-            ]
-            try:
-                # Check if API key is set
-                if not Config.KEY:
-                    raise ValueError("OpenAI API Key (KEY) is not set in environment variables.")
-
-                start_time = time.time()
-                api_response = await asyncio.to_thread(
-                    openai.ChatCompletion.create,
-                    model=Config.MODEL_NAME,
-                    messages=messages_for_api,
-                    api_key=Config.KEY,
-                    api_base=Config.MODEL_BASE_URL,
-                    temperature=Config.TEMPERATURE,
-                    max_tokens=Config.MAX_TOKENS
-                )
-                time_taken = time.time() - start_time
-
-                if api_response and api_response.choices and api_response.choices[0].message:
-                    bot_reply = api_response.choices[0].message.content.strip()
-                    
-                    # Clean up response format
-                    bot_reply = bot_reply.replace('*', '')  # Remove asterisks
-                    bot_reply = bot_reply.replace('_', '')  # Remove underscores
-                    bot_reply = bot_reply.replace('`', '')  # Remove backticks
-                    bot_reply = bot_reply.replace('#', '')  # Remove hash symbols
-                    bot_reply = bot_reply.replace('>', '')  # Remove blockquotes
-                    bot_reply = ' '.join(bot_reply.split())  # Normalize whitespace
-                    
-                    dispatcher.utter_message(text=bot_reply)
-                    logger.info(f"API fallback took {time_taken:.2f}s: {bot_reply[:100]}...")
-                else:
-                    fallback = "عذرًا، لم أتمكن من الرد الآن. حاول مرة أخرى." if lang == "ar" else "Sorry, I couldn't respond right now. Please try again."
-                    dispatcher.utter_message(text=fallback)
-            except Exception as e:
-                logger.error(f"API Fallback Error: {e}", exc_info=True)
-                error = f"حدث خطأ تقني: {e}. حاول لاحقًا." if lang == "ar" else f"A technical error occurred: {e}. Please try again later."
-                dispatcher.utter_message(text=error)
+        # Get the detected languages from the tracker
+        detected_languages = tracker.get_slot("detected_languages")
+        if not detected_languages:
+            logger.error("[ActionMentalHealthResponse] No languages detected")
+            dispatcher.utter_message(text="I'm sorry, I couldn't understand your message. Could you please try again?")
             return []
+
+        # Get the user's message
+        user_message = tracker.latest_message.get('text', '')
+        if not user_message:
+            logger.error("[ActionMentalHealthResponse] No user message found")
+            dispatcher.utter_message(text="I'm sorry, I couldn't understand your message. Could you please try again?")
+            return []
+
+        try:
+            # Initialize OpenAI client
+            client = openai.OpenAI(
+                api_key=Config.KEY,
+                base_url=Config.MODEL_BASE_URL,
+                timeout=Config.REQUEST_TIMEOUT
+            )
+
+            responses = []
+            for lang in detected_languages:
+                # Prepare the system message based on language
+                if lang == 'ar':
+                    system_message = """أنت مساعد نفسي متعاطف ومهني. مهمتك هي:
+                    1. الاستماع بعناية وتفهم مشاعر المستخدم
+                    2. تقديم دعم نفسي مناسب ومهني
+                    3. تجنب إعطاء نصائح طبية أو تشخيصات
+                    4. التركيز على التعاطف والتفهم
+                    5. تشجيع المستخدم على طلب المساعدة المهنية إذا لزم الأمر
+                    6. استخدام لغة عربية واضحة ومهنية
+                    7. تجنب استخدام المصطلحات الطبية المعقدة
+                    8. التركيز على تقديم الدعم العاطفي والنفسي
+                    9. تجنب إعطاء وعود أو ضمانات
+                    10. الحفاظ على السرية والخصوصية"""
+                else:  # English
+                    system_message = """You are an empathetic and professional mental health assistant. Your role is to:
+                    1. Listen carefully and understand the user's feelings
+                    2. Provide appropriate and professional mental health support
+                    3. Avoid giving medical advice or diagnoses
+                    4. Focus on empathy and understanding
+                    5. Encourage seeking professional help when necessary
+                    6. Use clear and professional language
+                    7. Avoid using complex medical terminology
+                    8. Focus on providing emotional and psychological support
+                    9. Avoid making promises or guarantees
+                    10. Maintain confidentiality and privacy"""
+
+                # Prepare the messages for the API call
+                messages = [
+                    {"role": "system", "content": system_message},
+                    {"role": "user", "content": user_message}
+                ]
+
+                # Make the API call
+                response = await asyncio.to_thread(
+                    client.chat.completions.create,
+                    model=Config.MODEL_NAME,
+                    messages=messages,
+                    temperature=Config.TEMPERATURE,
+                    max_tokens=Config.MAX_TOKENS
+                )
+
+                if response and response.choices and response.choices[0].message:
+                    bot_response = response.choices[0].message.content.strip()
+                    responses.append(bot_response)
+                else:
+                    error_message = get_friendly_error_message("api_error", lang)
+                    responses.append(error_message)
+
+            # Send all responses
+            for response in responses:
+                dispatcher.utter_message(text=response)
+
+        except Exception as e:
+            logger.error(f"[ActionMentalHealthResponse] Error: {str(e)}", exc_info=True)
+            # Send error message in all detected languages
+            for lang in detected_languages:
+                error_message = get_friendly_error_message("general_error", lang)
+                dispatcher.utter_message(text=error_message)
+
+        return []
 
 
 class ActionHandleSpecificTestEn(Action):

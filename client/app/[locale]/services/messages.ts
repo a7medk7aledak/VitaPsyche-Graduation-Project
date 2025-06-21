@@ -83,17 +83,40 @@ export const messageService = {
     }
   ): Promise<Message> => {
     try {
-      console.log("Sending message:", message);
-      const response = await axios.post("/api/messages", message, {
+      console.log("=== Frontend: Sending message to chatbot ===");
+      console.log("Message details:", {
+        text: message.text,
+        sender: message.sender,
+        chat_session: message.chat_session
+      });
+
+      console.log("FRONTEND: Sending message:", message.text, "Username:", message.sender);
+
+      const response = await axios.post("/api/chatbot", {
+        message: message.text,
+        username: message.sender,
+        chat_session: message.chat_session
+      }, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
+        timeout: 30000,
       });
-      console.log("Message sent response:", response.data);
-      return response.data;
+
+      console.log("=== Frontend: Received response from chatbot ===");
+      console.log("Response data:", response.data);
+
+      return {
+        sender: "bot",
+        text: response.data.response,
+        timestamp: new Date().toISOString(),
+        chat_session: message.chat_session,
+        lang: "ar-SA"
+      };
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error("=== Frontend: Error sending message ===");
+      console.error("Error details:", error);
       if (axios.isAxiosError(error)) {
         console.error("Response data:", error.response?.data);
         console.error("Status:", error.response?.status);

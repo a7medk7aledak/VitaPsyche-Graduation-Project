@@ -38,7 +38,9 @@ export interface Message {
   id?: number;
   sender: string;
   text: string;
+  text_en?: string;
   timestamp: string;
   lang?: string;
   chat_session: string | number; // Update this to accept both string and number
+  username?: string;
 }

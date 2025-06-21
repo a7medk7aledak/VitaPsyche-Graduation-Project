@@ -10,7 +10,7 @@ export interface ChatSession {
 export const sessionService = {
   // Get all chat sessions
   getChatSessions: async (token: string): Promise<ChatSession[]> => {
-    const response = await axios.get("/api/sessions", {
+    const response = await axios.get("https://abdokh.pythonanywhere.com/chatbot_api/chat_sessions/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -21,7 +21,7 @@ export const sessionService = {
   // Create new chat session
   createChatSession: async (token: string): Promise<ChatSession> => {
     const response = await axios.post(
-      "/api/sessions",
+      "https://abdokh.pythonanywhere.com/chatbot_api/chat_sessions/",
       {},
       {
         headers: {

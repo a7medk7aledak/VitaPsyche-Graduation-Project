@@ -113,6 +113,61 @@ intents:
   - express_loneliness_ar
   - mental_health_crisis_ar
   - mental_health_crisis_en
+  - select_article
+  - daily_routine_tips_en
+  - daily_routine_tips_ar
+  - sleep_tips_en
+  - sleep_tips_ar
+  - time_management_tips_en
+  - time_management_tips_ar
+  - breathing_relaxation_tips_en
+  - breathing_relaxation_tips_ar
+  - self_esteem_tips_en
+  - self_esteem_tips_ar
+  - relationship_advice_en
+  - relationship_advice_ar
+  - crisis_support_en
+  - crisis_support_ar
+  - negative_thought_management_en
+  - negative_thought_management_ar
+  - personal_development_tips_en
+  - personal_development_tips_ar
+  - psychoeducation_en
+  - psychoeducation_ar
+  - motivation_and_meditation_en
+  - motivation_and_meditation_ar
+  - medical_articles_en
+  - medical_articles_ar
+  - express_happiness_en
+  - express_happiness_ar
+  - express_sadness_en
+  - express_sadness_ar
+  - express_anger_en
+  - express_anger_ar
+  - express_love_en
+  - express_love_ar
+  - express_confusion_en
+  - express_confusion_ar
+  - ask_for_comfort_en
+  - ask_for_comfort_ar
+  - ask_for_advice_en
+  - ask_for_advice_ar
+  - ask_for_encouragement_en
+  - ask_for_encouragement_ar
+  - ask_about_day_en
+  - ask_about_day_ar
+  - show_gratitude_en
+  - show_gratitude_ar
+  - ask_for_apology_en
+  - ask_for_apology_ar
+  - talk_about_stress_en
+  - talk_about_stress_ar
+  - talk_about_relationships_en
+  - talk_about_relationships_ar
+  - talk_about_depression_en
+  - talk_about_depression_ar
+  - handle_insults_to_girl_en
+  - handle_insults_to_girl_ar
 
 responses:
   utter_greet_en:
@@ -174,185 +229,131 @@ responses:
     - text: "Everything will be okay. Take a moment to relax a bit."
     - text: "You're not alone. I'm here if you want to talk or share your thoughts."
     - text: "Think of something you love; it might help you calm down a bit."
-  utter_acknowledge_strength_query_en:
-    - text: "It's great that you're exploring your strengths. Recognizing them is a powerful step. Keep going—you're doing amazing!"
-
   utter_empathy_for_loneliness_en:
     - text: "Feeling lonely is tough. You're not alone, and I'm here for you."
-
   utter_empathy_for_loneliness_ar:
     - text: "الشعور بالوحدة صعب. أنت لست وحدك، أنا هنا لأجلك."
-
   utter_empathetic_misunderstanding_en:
     - text: "I'm sorry you're feeling that way. Sometimes it can be hard to be understood."
-
   utter_empathetic_misunderstanding_ar:
     - text: "أنا آسف لأنك تشعر بذلك، أحيانًا يكون من الصعب أن يشعر بنا الآخرون."
-
   utter_ask_for_clarification_en:
     - text: "Can you tell me more so I can better understand how you feel?"
-
+    - text: "Could you elaborate on that?"
+    - text: "I'd like to understand better. Can you explain more?"
   utter_ask_for_clarification_ar:
     - text: "هل يمكنك أن توضح لي أكثر لكي أفهمك بشكل أفضل؟"
-
+    - text: "هل يمكنك التفصيل أكثر؟"
+    - text: "أود أن أفهم بشكل أفضل. هل يمكنك الشرح أكثر؟"
+  utter_acknowledge_strength_query_en:
+    - text: "It's great that you're exploring your strengths. Recognizing them is a powerful step. Keep going—you're doing amazing!"
+    - text: "Your interest in mental strength is admirable. Let's work on building that together."
+    - text: "That's a wonderful focus. Understanding and building mental strength is key to well-being."
   utter_acknowledge_strength_query_ar:
     - text: "سؤالك عن القوة الذهنية مهم جدًا، وسيساعدنا الحديث في ذلك."
-
+    - text: "اهتمامك بالقوة النفسية جدير بالثناء. دعنا نعمل على بنائها معًا."
+    - text: "هذا تركيز رائع. فهم وبناء القوة النفسية هو مفتاح الرفاهية."
   utter_available_tests_en:
     - text: "Here are the psychological tests available:\n\n1. Rosenberg Self-Esteem Scale (RSES) - 10 questions\n2. OCD Scale - 10 questions\n3. Depression Scale - 21 questions\n4. PTSD Scale - 17 questions\n5. Internet Addiction Scale - 20 questions\n6. Anxiety Scale - 50 questions\n7. Conners' Test - 80 questions\n8. Personality Disorders Test - 120 questions\n9. Cognitive Distortions Assessment - 120 questions\n\nWhich test would you like to take?"
-
   utter_available_tests_ar:
     - text: "الاختبارات النفسية المتاحة هي:\n\n1. اختبار روزنبرج لتقدير الذات - 10 أسئلة\n2. اختبار الوسواس القهري - 10 أسئلة\n3. اختبار الاكتئاب - 21 سؤال\n4. اختبار اضطراب ما بعد الصدمة - 17 سؤال\n5. اختبار ادمان الانترنت - 20 سؤال\n6. اختبار القلق - 50 سؤال\n7. اختبار كونرز - 80 سؤال\n8. اختبار اضطرابات الشخصية - 120 سؤال\n9. اختبار التشوهات المعرفية - 120 سؤال\n\nأي اختبار تريد أن تأخذه؟"
-
   utter_available_articles_en:
     - text: "Here are our mental health articles:\n\n1. Schizophrenia\n2. Alzheimer's Disease\n3. Depression\n4. Panic Disorder\n5. Borderline Personality Disorder\n6. Geriatric Sleep Disorder\n7. Lewy Body Dementia\n\nWhich article would you like to read?"
-
   utter_available_articles_ar:
     - text: "مقالاتنا عن الصحة النفسية:\n\n1. الفصام\n2. مرض الزهايمر\n3. الاكتئاب\n4. اضطراب الهلع\n5. اضطراب الشخصية الحدية\n6. اضطرابات النوم عند كبار السن\n7. خرف أجسام ليوي\n\nأي مقال تريد أن تقرأه؟"
-
   utter_article_schizophrenia_en:
     - text: "Schizophrenia is a severe mental disorder that affects how a person thinks, feels, and behaves. Individuals with schizophrenia often seem like they have lost touch with reality, which can be distressing for both them and their loved ones. Schizophrenia is a chronic condition that requires lifelong treatment and can be disabling. Read more at: <a href='/articles/Schizophrenia'>Schizophrenia Article</a>"
-
   utter_article_schizophrenia_ar:
     - text: "الفصام هو اضطراب نفسي شديد يؤثر على طريقة تفكير الشخص وشعوره وسلوكه. غالبًا ما يبدو المصابون بالفصام وكأنهم فقدوا الاتصال بالواقع، مما قد يكون مزعجًا لهم ولأحبائهم. الفصام حالة مزمنة تتطلب علاجًا مدى الحياة ويمكن أن تكون معيقة. اقرأ المزيد في: <a href='/articles/Schizophrenia'>مقال الفصام</a>"
-
   utter_article_alzheimers_en:
     - text: "Alzheimer's disease is a progressive neurodegenerative disorder that leads to memory loss, cognitive decline, and behavioral changes. It is the most common form of dementia, affecting millions of people worldwide. Alzheimer's begins with mild memory loss and eventually affects the ability to carry out simple tasks. Read more at: <a href='/articles/Alzheimer's%20Disease'>Alzheimer's Disease Article</a>"
-
   utter_article_alzheimers_ar:
     - text: "مرض الزهايمر هو اضطراب تنكسي عصبي تدريجي يؤدي إلى فقدان الذاكرة وتدهور الإدراك والتغيرات السلوكية. وهو أكثر أشكال الخرف شيوعًا، ويؤثر على ملايين الأشخاص في جميع أنحاء العالم. يبدأ الزهايمر بفقدان خفيف للذاكرة وينتهي بالتأثير على القدرة على أداء المهام البسيطة. اقرأ المزيد في: <a href='/articles/Alzheimer's%20Disease'>مقال مرض الزهايمر</a>"
-
   utter_article_depression_en:
     - text: "Depression is a mood disorder that causes persistent feelings of sadness, hopelessness, and a loss of interest in activities. It affects how a person feels, thinks, and handles daily activities, such as sleeping, eating, or working. Depression can be long-lasting or recurrent, and it can significantly impact a person's ability to function. Read more at: <a href='/articles/Depression'>Depression Article</a>"
-
   utter_article_depression_ar:
     - text: "الاكتئاب هو اضطراب مزاجي يسبب مشاعر مستمرة من الحزن واليأس وفقدان الاهتمام بالأنشطة. يؤثر على شعور الشخص وتفكيره والتعامل مع الأنشطة اليومية، مثل النوم والأكل أو العمل. يمكن أن يكون الاكتئاب طويل الأمد أو متكررًا، ويمكن أن يؤثر بشكل كبير على قدرة الشخص على العمل. اقرأ المزيد في: <a href='/articles/Depression'>مقال الاكتئاب</a>"
-
   utter_article_panic_disorder_en:
     - text: "Panic disorder is a type of anxiety disorder characterized by sudden and repeated episodes of intense fear that trigger severe physical reactions, even when there is no real danger. These episodes are known as panic attacks. Panic disorder can significantly interfere with daily life, as individuals often live in fear of having another panic attack. Read more at: <a href='/articles/Panic%20Disorder'>Panic Disorder Article</a>"
-
   utter_article_panic_disorder_ar:
     - text: "اضطراب الهلع هو نوع من اضطرابات القلق يتميز بنوبات مفاجئة ومتكررة من الخوف الشديد تثير ردود فعل جسدية شديدة، حتى عندما لا يوجد خطر حقيقي. تُعرف هذه النوبات بنوبات الهلع. يمكن أن يتداخل اضطراب الهلع بشكل كبير مع الحياة اليومية، حيث يعيش الأفراد غالبًا في خوف من الإصابة بنوبة هلع أخرى. اقرأ المزيد في: <a href='/articles/Panic%20Disorder'>مقال اضطراب الهلع</a>"
-
   utter_article_bpd_en:
     - text: "Borderline Personality Disorder (BPD) is a mental health disorder characterized by unstable moods, behavior, and relationships. Individuals with BPD often experience intense episodes of anger, depression, and anxiety that may last from a few hours to days. They may also engage in impulsive behaviors such as self-harm or substance abuse. Read more at: <a href='/articles/Borderline%20Personality%20Disorder'>BPD Article</a>"
-
   utter_article_bpd_ar:
     - text: "اضطراب الشخصية الحدية هو اضطراب في الصحة العقلية يتميز بتقلبات المزاج والسلوك والعلاقات غير المستقرة. غالبًا ما يعاني المصابون به من نوبات شديدة من الغضب والاكتئاب والقلق قد تستمر من بضع ساعات إلى أيام. قد ينخرطون أيضًا في سلوكيات اندفاعية مثل إيذاء النفس أو تعاطي المخدرات. اقرأ المزيد في: <a href='/articles/Borderline%20Personality%20Disorder'>مقال اضطراب الشخصية الحدية</a>"
-
   utter_article_sleep_disorder_en:
     - text: "Geriatric sleep disorders, especially insomnia, are common among older adults and often affect their overall health and well-being. Sleep difficulties in the elderly may be related to changes in the body's internal clock, medical conditions, or medication use. These disorders can lead to poor quality of life and increase the risk of falls, cognitive decline, and depression. Read more at: <a href='/articles/Geriatric%20Sleep%20Disorder'>Sleep Disorder Article</a>"
-
   utter_article_sleep_disorder_ar:
     - text: "اضطرابات النوم عند كبار السن، وخاصة الأرق، شائعة بين كبار السن وغالبًا ما تؤثر على صحتهم العامة ورفاهيتهم. قد تكون صعوبات النوم عند كبار السن مرتبطة بالتغييرات في الساعة الداخلية للجسم أو الحالات الطبية أو استخدام الأدوية. يمكن أن تؤدي هذه الاضطرابات إلى تدني نوعية الحياة وزيادة خطر السقوط والتدهور المعرفي والاكتئاب. اقرأ المزيد في: <a href='/articles/Geriatric%20Sleep%20Disorder'>مقال اضطرابات النوم</a>"
-
   utter_article_lewy_body_en:
     - text: "Lewy Body Dementia (LBD) is a progressive neurological disorder caused by abnormal protein deposits called Lewy bodies in the brain. These deposits affect chemicals in the brain, leading to problems with thinking, movement, behavior, and mood. LBD is one of the most common types of dementia, often sharing characteristics with both Alzheimer's and Parkinson's diseases. Read more at: <a href='/articles/Lewy%20Body%20Dementia'>Lewy Body Dementia Article</a>"
-
   utter_article_lewy_body_ar:
     - text: "خرف أجسام ليوي هو اضطراب عصبي تدريجي ناتج عن ترسبات بروتينية غير طبيعية تسمى أجسام ليوي في الدماغ. تؤثر هذه الترسبات على المواد الكيميائية في الدماغ، مما يؤدي إلى مشاكل في التفكير والحركة والسلوك والمزاج. خرف أجسام ليوي هو أحد أكثر أنواع الخرف شيوعًا، وغالبًا ما يتشارك خصائص مع كل من مرض الزهايمر ومرض باركنسون. اقرأ المزيد في: <a href='/articles/Lewy%20Body%20Dementia'>مقال خرف أجسام ليوي</a>"
-
   utter_available_services_en:
     - text: "Here are our available doctor services:\n\n1. Depression Treatment\n2. Addiction Treatment\n3. Psychosis Treatment\n4. Personality Disorders Treatment\n5. Adjustment Disorders Treatment\n6. Anxiety Treatment\n7. Eating Disorders Treatment\n8. Sexual Disorders Treatment\n9. PTSD Treatment\n10. Bipolar Disorder Treatment\n11. ADHD Treatment\n12. OCD Treatment\n13. Schizophrenia Treatment\n14. Marriage Counseling\n15. Child Behavioral Disorders Treatment\n\nWhich service would you like to know more about?"
-
   utter_available_services_ar:
     - text: "خدمات الأطباء المتاحة لدينا:\n\n1. علاج الاكتئاب\n2. علاج الإدمان\n3. علاج الذهان\n4. علاج اضطرابات الشخصية\n5. علاج اضطرابات التكيف\n6. علاج القلق\n7. علاج اضطرابات الأكل\n8. علاج الاضطرابات الجنسية\n9. علاج اضطراب ما بعد الصدمة\n10. علاج الاضطراب ثنائي القطب\n11. علاج اضطراب فرط الحركة ونقص الانتباه\n12. علاج الوسواس القهري\n13. علاج الفصام\n14. الاستشارات الزوجية\n15. علاج الاضطرابات السلوكية والعاطفية للأطفال\n\nأي خدمة تريد معرفة المزيد عنها؟"
-
   utter_depression_service_en:
     - text: "Our depression treatment service provides comprehensive care for individuals experiencing depression. Our experienced psychiatrists offer personalized treatment plans including therapy and medication management. You can book a consultation at: <a href='/services/depression'>Depression Treatment Service</a>"
-
   utter_depression_service_ar:
     - text: "خدمة علاج الاكتئاب لدينا توفر رعاية شاملة للأفراد الذين يعانون من الاكتئاب. يقدم أطباؤنا النفسيون ذوو الخبرة خطط علاج مخصصة تشمل العلاج النفسي وإدارة الأدوية. يمكنك حجز استشارة في: <a href='/services/depression'>خدمة علاج الاكتئاب</a>"
-
   utter_addiction_service_en:
     - text: "Our addiction treatment service offers specialized care for various types of addiction. Our team provides comprehensive treatment including detoxification, therapy, and long-term support. Book a consultation at: <a href='/services/addiction'>Addiction Treatment Service</a>"
-
   utter_addiction_service_ar:
     - text: "خدمة علاج الإدمان لدينا تقدم رعاية متخصصة لمختلف أنواع الإدمان. يوفر فريقنا علاجًا شاملاً يشمل إزالة السموم والعلاج والدعم طويل الأمد. احجز استشارة في: <a href='/services/addiction'>خدمة علاج الإدمان</a>"
-
   utter_psychosis_service_en:
     - text: "Our psychosis treatment service provides expert care for individuals experiencing psychotic symptoms. We offer comprehensive assessment, medication management, and therapeutic support. Book a consultation at: <a href='/services/psychosis'>Psychosis Treatment Service</a>"
-
   utter_psychosis_service_ar:
     - text: "خدمة علاج الذهان لدينا توفر رعاية متخصصة للأفراد الذين يعانون من أعراض ذهانية. نقدم تقييمًا شاملاً وإدارة الأدوية والدعم العلاجي. احجز استشارة في: <a href='/services/psychosis'>خدمة علاج الذهان</a>"
-
   utter_personality_disorders_service_en:
     - text: "Our personality disorders treatment service offers specialized care for various personality disorders. Our experienced team provides comprehensive assessment and long-term treatment plans. Book a consultation at: <a href='/services/personality-disorders'>Personality Disorders Treatment Service</a>"
-
   utter_personality_disorders_service_ar:
     - text: "خدمة علاج اضطرابات الشخصية لدينا تقدم رعاية متخصصة لمختلف اضطرابات الشخصية. يوفر فريقنا ذو الخبرة تقييمًا شاملاً وخطط علاج طويلة الأمد. احجز استشارة في: <a href='/services/personality-disorders'>خدمة علاج اضطرابات الشخصية</a>"
-
   utter_adjustment_disorders_service_en:
     - text: "Our adjustment disorders treatment service helps individuals cope with significant life changes and stress. We provide therapy and support to improve coping skills. Book a consultation at: <a href='/services/adjustment-disorders'>Adjustment Disorders Treatment Service</a>"
-
   utter_adjustment_disorders_service_ar:
     - text: "خدمة علاج اضطرابات التكيف لدينا تساعد الأفراد على التعامل مع التغييرات الحياتية الكبيرة والتوتر. نقدم العلاج والدعم لتحسين مهارات التأقلم. احجز استشارة في: <a href='/services/adjustment-disorders'>خدمة علاج اضطرابات التكيف</a>"
-
   utter_anxiety_service_en:
     - text: "Our anxiety treatment service provides comprehensive care for various anxiety disorders. We offer therapy, medication management, and coping strategies. Book a consultation at: <a href='/services/anxiety'>Anxiety Treatment Service</a>"
-
   utter_anxiety_service_ar:
     - text: "خدمة علاج القلق لدينا توفر رعاية شاملة لمختلف اضطرابات القلق. نقدم العلاج وإدارة الأدوية واستراتيجيات التأقلم. احجز استشارة في: <a href='/services/anxiety'>خدمة علاج القلق</a>"
-
   utter_eating_disorders_service_en:
     - text: "Our eating disorders treatment service offers specialized care for various eating disorders. We provide comprehensive treatment including nutritional counseling and therapy. Book a consultation at: <a href='/services/eating-disorders'>Eating Disorders Treatment Service</a>"
-
   utter_eating_disorders_service_ar:
     - text: "خدمة علاج اضطرابات الأكل لدينا تقدم رعاية متخصصة لمختلف اضطرابات الأكل. نقدم علاجًا شاملاً يشمل الاستشارات الغذائية والعلاج. احجز استشارة في: <a href='/services/eating-disorders'>خدمة علاج اضطرابات الأكل</a>"
-
   utter_sexual_disorders_service_en:
     - text: "Our sexual disorders treatment service provides confidential care for various sexual health concerns. Our experienced team offers comprehensive assessment and treatment. Book a consultation at: <a href='/services/sexual-disorders'>Sexual Disorders Treatment Service</a>"
-
   utter_sexual_disorders_service_ar:
     - text: "خدمة علاج الاضطرابات الجنسية لدينا توفر رعاية سرية لمختلف مشاكل الصحة الجنسية. يقدم فريقنا ذو الخبرة تقييمًا وعلاجًا شاملاً. احجز استشارة في: <a href='/services/sexual-disorders'>خدمة علاج الاضطرابات الجنسية</a>"
-
   utter_ptsd_service_en:
     - text: "Our PTSD treatment service offers specialized care for individuals affected by trauma. We provide evidence-based treatments including therapy and support. Book a consultation at: <a href='/services/ptsd'>PTSD Treatment Service</a>"
-
   utter_ptsd_service_ar:
     - text: "خدمة علاج اضطراب ما بعد الصدمة لدينا تقدم رعاية متخصصة للأفراد المتأثرين بالصدمة. نقدم علاجات قائمة على الأدلة تشمل العلاج والدعم. احجز استشارة في: <a href='/services/ptsd'>خدمة علاج اضطراب ما بعد الصدمة</a>"
-
   utter_bipolar_service_en:
     - text: "Our bipolar disorder treatment service provides comprehensive care for individuals with bipolar disorder. We offer medication management and therapy for mood stabilization. Book a consultation at: <a href='/services/bipolar'>Bipolar Disorder Treatment Service</a>"
-
   utter_bipolar_service_ar:
     - text: "خدمة علاج الاضطراب ثنائي القطب لدينا توفر رعاية شاملة للأفراد المصابين بالاضطراب ثنائي القطب. نقدم إدارة الأدوية والعلاج لاستقرار المزاج. احجز استشارة في: <a href='/services/bipolar'>خدمة علاج الاضطراب ثنائي القطب</a>"
-
   utter_adhd_service_en:
     - text: "Our ADHD treatment service offers specialized care for children and adults with ADHD. We provide comprehensive assessment and treatment plans. Book a consultation at: <a href='/services/adhd'>ADHD Treatment Service</a>"
-
   utter_adhd_service_ar:
     - text: "خدمة علاج اضطراب فرط الحركة ونقص الانتباه لدينا تقدم رعاية متخصصة للأطفال والبالغين المصابين بالاضطراب. نقدم تقييمًا وخطط علاج شاملة. احجز استشارة في: <a href='/services/adhd'>خدمة علاج اضطراب فرط الحركة ونقص الانتباه</a>"
-
   utter_ocd_service_en:
     - text: "Our OCD treatment service provides specialized care for individuals with obsessive-compulsive disorder. We offer evidence-based treatments including therapy and medication. Book a consultation at: <a href='/services/ocd'>OCD Treatment Service</a>"
-
   utter_ocd_service_ar:
     - text: "خدمة علاج الوسواس القهري لدينا توفر رعاية متخصصة للأفراد المصابين بالوسواس القهري. نقدم علاجات قائمة على الأدلة تشمل العلاج والأدوية. احجز استشارة في: <a href='/services/ocd'>خدمة علاج الوسواس القهري</a>"
-
   utter_schizophrenia_service_en:
     - text: "Our schizophrenia treatment service offers comprehensive care for individuals with schizophrenia. We provide medication management, therapy, and long-term support. Book a consultation at: <a href='/services/schizophrenia'>Schizophrenia Treatment Service</a>"
-
   utter_schizophrenia_service_ar:
     - text: "خدمة علاج الفصام لدينا تقدم رعاية شاملة للأفراد المصابين بالفصام. نقدم إدارة الأدوية والعلاج والدعم طويل الأمد. احجز استشارة في: <a href='/services/schizophrenia'>خدمة علاج الفصام</a>"
-
   utter_marriage_counseling_service_en:
     - text: "Our marriage counseling service helps couples improve their relationship through professional guidance. We offer couples therapy and relationship support. Book a consultation at: <a href='/services/marriage-counseling'>Marriage Counseling Service</a>"
-
   utter_marriage_counseling_service_ar:
     - text: "خدمة الاستشارات الزوجية لدينا تساعد الأزواج على تحسين علاقتهم من خلال التوجيه المهني. نقدم العلاج الزوجي ودعم العلاقات. احجز استشارة في: <a href='/services/marriage-counseling'>خدمة الاستشارات الزوجية</a>"
-
   utter_child_behavioral_service_en:
     - text: "Our child behavioral disorders treatment service provides specialized care for children with emotional and behavioral issues. We offer family therapy and child-focused interventions. Book a consultation at: <a href='/services/child-behavioral'>Child Behavioral Disorders Treatment Service</a>"
-
   utter_child_behavioral_service_ar:
     - text: "خدمة علاج الاضطرابات السلوكية والعاطفية للأطفال لدينا توفر رعاية متخصصة للأطفال الذين يعانون من مشاكل عاطفية وسلوكية. نقدم العلاج الأسري وتدخلات تركز على الطفل. احجز استشارة في: <a href='/services/child-behavioral'>خدمة علاج الاضطرابات السلوكية والعاطفية للأطفال</a>"
-
-  utter_lina_greet_en:
-    - text: "Hello! I'm Lina, your mental health support assistant. I'm here to help you with stress management, breathing techniques, and mental wellness tips. How can I assist you today?"
   
-  utter_lina_greet_ar:
-    - text: "مرحباً! أنا لينا، مساعدتك في الدعم النفسي. أنا هنا لمساعدتك في إدارة التوتر وتقنيات التنفس ونصائح الصحة النفسية. كيف يمكنني مساعدتك اليوم؟"
 
   utter_lina_stress_help_en:
     - text: "Here are some effective stress management techniques:\n\n1. Practice deep breathing exercises\n2. Take regular breaks and stretch\n3. Maintain a healthy sleep schedule\n4. Exercise regularly\n5. Practice mindfulness meditation\n6. Keep a stress journal\n7. Stay connected with loved ones\n\nWould you like me to explain any of these techniques in detail?"
@@ -430,6 +431,162 @@ Is there anything specific that's making you feel this way? Sometimes talking ab
     - text: "يبدو أنك تمر بوقت عصيب، وأنا أريدك أن تعلم أنه لا بأس في الشعور بهذا. أنا هنا لأجلك. هل تود أن تخبرني بما في ذهنك، أو ربما يمكننا إيجاد شيء بسيط لتفعله معاً؟"
     - text: "الشعور بالحزن صعب، وأنا هنا لأكون معك في هذا الشعور. لست مضطراً لتحمل هذا وحدك. ما هو شيء صغير واحد يمكننا التركيز عليه الآن، أو هل تود فقط أن نتحدث؟"
 
+  utter_website_info_en:
+    - text: "Welcome to VitaPsyche! We offer comprehensive mental health services including psychological tests, articles, and professional consultations. How can I help you today?"
+
+  utter_website_info_ar:
+    - text: "مرحباً بك في VitaPsyche! نحن نقدم خدمات صحية نفسية شاملة تشمل الاختبارات النفسية والمقالات والاستشارات المهنية. كيف يمكنني مساعدتك اليوم؟"
+
+  utter_ask_for_help_en:
+    - text: "I'm here to help! What specific aspect of mental health would you like to discuss?"
+
+  utter_ask_for_help_ar:
+    - text: "أنا هنا للمساعدة! ما هو الجانب المحدد من الصحة النفسية الذي تريد مناقشته؟"
+
+  utter_mood_great_en:
+    - text: "That's wonderful to hear! I'm glad you're feeling good. Is there anything specific you'd like to discuss about maintaining your positive mental health?"
+
+  utter_mood_great_ar:
+    - text: "هذا رائع! يسعدني أنك تشعر بالراحة. هل هناك شيء محدد تود مناقشته حول الحفاظ على صحتك النفسية الإيجابية؟"
+
+  utter_affirm_en:
+    - text: "Great! How else can I help you today?"
+
+  utter_affirm_ar:
+    - text: "ممتاز! كيف يمكنني مساعدتك أكثر اليوم؟"
+
+  utter_deny_en:
+    - text: "I understand. Is there something else you'd like to discuss?"
+
+  utter_deny_ar:
+    - text: "أفهم. هل هناك شيء آخر تود مناقشته؟"
+
+  utter_daily_routine_tips_en:
+    - text: "Here are some tips for improving your daily routine:\n\n1. Wake up at the same time every day\n2. Start with a healthy breakfast\n3. Plan your day the night before\n4. Take regular breaks\n5. Exercise daily\n6. Stay hydrated\n7. Get enough sleep\n8. Practice mindfulness\n9. Set realistic goals\n10. Review your day before bed"
+  utter_daily_routine_tips_ar:
+    - text: "إليك بعض النصائح لتحسين روتينك اليومي:\n\n1. استيقظ في نفس الوقت كل يوم\n2. ابدأ بفطور صحي\n3. خطط ليومك في الليلة السابقة\n4. خذ فترات راحة منتظمة\n5. مارس الرياضة يومياً\n6. حافظ على رطوبة جسمك\n7. احصل على قسط كافٍ من النوم\n8. مارس اليقظة الذهنية\n9. حدد أهدافاً واقعية\n10. راجع يومك قبل النوم"
+
+  utter_sleep_tips_en:
+    - text: "Here are some tips for better sleep:\n\n1. Maintain a regular sleep schedule\n2. Create a relaxing bedtime routine\n3. Make your bedroom comfortable\n4. Avoid screens before bed\n5. Limit caffeine and alcohol\n6. Exercise regularly\n7. Manage stress\n8. Avoid large meals before bed\n9. Get some sunlight during the day\n10. Consider relaxation techniques"
+  utter_sleep_tips_ar:
+    - text: "إليك بعض النصائح لنوم أفضل:\n\n1. حافظ على جدول نوم منتظم\n2. أنشئ روتيناً مريحاً قبل النوم\n3. اجعل غرفة نومك مريحة\n4. تجنب الشاشات قبل النوم\n5. قلل من الكافيين والكحول\n6. مارس الرياضة بانتظام\n7. تحكم في التوتر\n8. تجنب الوجبات الكبيرة قبل النوم\n9. احصل على بعض أشعة الشمس خلال النهار\n10. فكر في تقنيات الاسترخاء"
+
+  utter_time_management_tips_en:
+    - text: "Here are some time management tips:\n\n1. Set clear goals\n2. Prioritize tasks\n3. Use a planner or calendar\n4. Break tasks into smaller steps\n5. Eliminate distractions\n6. Learn to say no\n7. Take regular breaks\n8. Delegate when possible\n9. Review and adjust regularly\n10. Practice the 80/20 rule"
+  utter_time_management_tips_ar:
+    - text: "إليك بعض نصائح إدارة الوقت:\n\n1. حدد أهدافاً واضحة\n2. رتب المهام حسب الأولوية\n3. استخدم مخططاً أو تقويماً\n4. قسم المهام إلى خطوات أصغر\n5. تخلص من المشتتات\n6. تعلم قول لا\n7. خذ فترات راحة منتظمة\n8. فوض المهام عندما يكون ذلك ممكناً\n9. راجع وعدل بانتظام\n10. مارس قاعدة 80/20"
+
+  utter_breathing_relaxation_tips_en:
+    - text: "Here are some breathing and relaxation techniques:\n\n1. Deep Breathing\n2. Box Breathing\n3. Progressive muscle relaxation\n4. Mindful breathing\n5. 4-7-8 breathing\n6. Body scan meditation\n7. Guided imagery\n8. Yoga breathing\n9. Alternate nostril breathing\n10. Calming breath counting"
+  utter_breathing_relaxation_tips_ar:
+    - text: "إليك بعض تقنيات التنفس والاسترخاء:\n\n1. التنفس العميق\n2. التنفس المربع\n3. استرخاء العضلات التدريجي\n4. التنفس اليقظ\n5. التنفس 4-7-8\n6. تأمل مسح الجسم\n7. التخيل الموجه\n8. تنفس اليوغا\n9. التنفس البديل من الأنف\n10. عد التنفس الهادئ"
+
+  utter_self_esteem_tips_en:
+    - text: "Here are some tips for improving self-esteem:\n\n1. Practice self-compassion\n2. Challenge negative thoughts\n3. Set realistic goals\n4. Celebrate small wins\n5. Surround yourself with positive people\n6. Take care of your physical health\n7. Learn new skills\n8. Practice positive self-talk\n\nWould you like more specific advice on any of these points?"
+  utter_self_esteem_tips_ar:
+    - text: "إليك بعض النصائح لتحسين تقدير الذات:\n\n1. مارس التعاطف مع الذات\n2. تحدى الأفكار السلبية\n3. حدد أهدافاً واقعية\n4. احتفل بالإنجازات الصغيرة\n5. أحط نفسك بأشخاص إيجابيين\n6. اعتن بصحتك الجسدية\n7. تعلم مهارات جديدة\n8. مارس التكليف الذاتي\n\nهل تريد نصائح أكثر تحديداً في أي من هذه المجالات؟"
+
+  utter_relationship_advice_en:
+    - text: "Here are some tips for healthy relationships:\n\n1. Communicate openly and honestly\n2. Show appreciation regularly\n3. Set healthy boundaries\n4. Spend quality time together\n5. Resolve conflicts constructively\n6. Support each other's growth\n7. Maintain individual interests\n8. Practice forgiveness\n\nWould you like more specific advice on any of these aspects?"
+  utter_relationship_advice_ar:
+    - text: "إليك بعض نصائح العلاقات:\n\n1. تواصل بصراحة وصدق\n2. مارس الاستماع النشط\n3. أظهر التقدير\n4. احترم الحدود\n5. اقضِ وقتاً جيداً معاً\n6. تعامل مع النزاعات بشكل بناء\n7. دعم نمو بعضكما البعض\n8. حافظ على الثقة\n9. حافظ على الرومانسية\n10. مارس التسامح"
+
+  utter_crisis_support_en:
+    - text: "If you're in crisis, please know that help is available:\n\n1. Call emergency services (911)\n2. Contact a crisis hotline\n3. Reach out to a mental health professional\n4. Talk to a trusted friend or family member\n5. Visit the nearest emergency room\n\nRemember, you're not alone, and it's okay to ask for help."
+  utter_crisis_support_ar:
+    - text: "إذا كنت في أزمة، اعلم أن المساعدة متاحة:\n\n1. اتصل بخدمات الطوارئ (911)\n2. تواصل مع خط المساعدة في الأزمات\n3. تواصل مع متخصص في الصحة النفسية\n4. تحدث مع صديق موثوق أو أحد أفراد العائلة\n5. زر أقرب غرفة طوارئ\n\nتذكر، لست وحدك، ولا بأس في طلب المساعدة."
+
+  utter_negative_thought_management_en:
+    - text: "Here are some tips for managing negative thoughts:\n\n1. Identify negative thought patterns\n2. Challenge irrational thoughts\n3. Practice cognitive restructuring\n4. Use positive affirmations\n5. Focus on the present moment\n6. Practice mindfulness\n7. Keep a thought journal\n8. Seek professional help if needed\n\nWould you like more specific advice on any of these strategies?"
+  utter_negative_thought_management_ar:
+    - text: "إليك بعض النصائح للتعامل مع الأفكار السلبية:\n\n1. حدد أنماط التفكير السلبية\n2. تحدى الأفكار غير العقلانية\n3. مارس إعادة الهيكلة المعرفية\n4. استخدم التأكيدات الإيجابية\n5. ركز على اللحظة الحالية\n6. مارس اليقظة الذهنية\n7. احتفظ بمجلة للأفكار\n8. اطلب المساعدة المهنية\n9. أحط نفسك بالإيجابية\n10. مارس التعاطف مع الذات"
+
+  utter_personal_development_tips_en:
+    - text: "Here are some personal development tips:\n\n1. Set clear goals\n2. Learn new skills\n3. Read regularly\n4. Practice self-reflection\n5. Step out of your comfort zone\n6. Build healthy habits\n7. Network with others\n8. Seek feedback\n9. Take care of your health\n10. Practice gratitude"
+  utter_personal_development_tips_ar:
+    - text: "إليك بعض نصائح التطوير الشخصي:\n\n1. حدد أهدافاً واضحة\n2. تعلم مهارات جديدة\n3. اقرأ بانتظام\n4. مارس التأمل الذاتي\n5. اخرج من منطقة راحتك\n6. بنِ عادات صحية\n7. تواصل مع الآخرين\n8. اطلب التغذية الراجعة\n9. اعتن بصحتك\n10. مارس الامتنان"
+
+  utter_psychoeducation_en:
+    - text: "Here's some basic information about mental health:\n\n1. Mental health affects how we think, feel, and act\n2. Common conditions include anxiety and depression\n3. Early intervention is important\n4. Treatment options include therapy and medication\n5. Self-care is essential\n6. Support systems matter\n7. Recovery is possible\n8. Stigma can be harmful\n9. Prevention is possible\n10. Everyone deserves help"
+  utter_psychoeducation_ar:
+    - text: "إليك بعض المعلومات الأساسية عن الصحة النفسية:\n\n1. تؤثر الصحة النفسية على طريقة تفكيرنا وشعورنا وتصرفنا\n2. تشمل الحالات الشائعة القلق والاكتئاب\n3. التدخل المبكر مهم\n4. خيارات العلاج تشمل العلاج والأدوية\n5. العناية الذاتية ضرورية\n6. أنظمة الدعم حاسمة\n7. التعافي ممكن\n8. الوصمة يمكن أن تكون ضارة\n9. الوقاية ممكنة\n10. الجميع يستحق المساعدة"
+
+  utter_motivation_and_meditation_en:
+    - text: "Here are some tips for motivation and meditation:\n\n1. Start with small goals\n2. Create a morning routine\n3. Practice daily meditation\n4. Use positive affirmations\n5. Track your progress\n6. Celebrate achievements\n7. Stay consistent\n8. Find your why\n\nWould you like more specific guidance on any of these practices?"
+  utter_motivation_and_meditation_ar:
+    - text: "إليك بعض النصائح للتحفيز والتأمل:\n\n1. ابدأ بأهداف صغيرة\n2. أنشئ روتيناً صباحياً\n3. مارس التأمل يومياً\n4. استخدم التأكيدات الإيجابية\n5. تتبع تقدمك\n6. ابحث عن شريك مسؤول\n7. احتفل بالإنجازات الصغيرة\n8. مارس اليقظة الذهنية\n9. اعتن بصحتك الجسدية\n10. حافظ على الاتصال بهدفك"
+
+  utter_medical_articles_en:
+    - text: "Here are some mental health articles you might find helpful:\n\n1. Understanding Depression\n2. Managing Anxiety\n3. Stress Management Techniques\n4. Building Resilience\n5. Healthy Sleep Habits\n6. Emotional Intelligence\n7. Mindfulness Practices\n8. Self-Care Strategies\n9. Relationship Health\n10. Personal Growth"
+  utter_medical_articles_ar:
+    - text: "إليك بعض مقالات الصحة النفسية التي قد تجدها مفيدة:\n\n1. فهم الاكتئاب\n2. إدارة القلق\n3. تقنيات إدارة التوتر\n4. بناء المرونة\n5. عادات النوم الصحية\n6. الذكاء العاطفي\n7. ممارسات اليقظة الذهنية\n8. استراتيجيات العناية الذاتية\n9. صحة العلاقات\n10. النمو الشخصي"
+
+  utter_express_happiness_en:
+    - text: "I'm glad to hear you're feeling happy! It's wonderful that you're experiencing positive emotions. Would you like to share what's making you feel this way?"
+  utter_express_happiness_ar:
+    - text: "يسعدني أنك تشعر بالسعادة! من الرائع أنك تختبر مشاعر إيجابية. هل تريد مشاركة ما يجعلك تشعر بهذه الطريقة؟"
+
+  utter_express_sadness_en:
+    - text: "I'm sorry to hear you're feeling sad. It's okay to feel this way, and I'm here to listen. Would you like to talk about what's causing these feelings?"
+  utter_express_sadness_ar:
+    - text: "أنا آسف لسماع أنك تشعر بالحزن. لا بأس في الشعور بهذه الطريقة، وأنا هنا للاستماع. هل تريد التحدث عما يسبب حزنك؟"
+
+  utter_express_anger_en:
+    - text: "I understand you're feeling angry. It's a natural emotion, but it's important to handle it constructively. Would you like to talk about what's causing your anger?"
+  utter_express_anger_ar:
+    - text: "أفهم أنك تشعر بالغضب. إنها عاطفة طبيعية، لكن من المهم التعامل معها بشكل بناء. هل تريد التحدث عما يسبب غضبك؟"
+
+  utter_express_love_en:
+    - text: "It's wonderful that you're feeling love! Love is a beautiful emotion that can bring great joy. Would you like to share more about these feelings?"
+  utter_express_love_ar:
+    - text: "من الرائع أنك تشعر بالحب! الحب عاطفة جميلة يمكن أن تجلب فرحاً كبيراً. هل تريد مشاركة المزيد عن هذه المشاعر؟"
+
+  utter_express_confusion_en:
+    - text: "I understand you're feeling confused. It's okay to feel this way, and I'm here to help you sort through your thoughts. Would you like to talk about what's causing your confusion?"
+  utter_express_confusion_ar:
+    - text: "أفهم أنك تشعر بالارتباك. لا بأس في الشعور بهذه الطريقة، وأنا هنا لمساعدتك في ترتيب أفكارك. هل تريد التحدث عما يسبب ارتباكك؟"
+
+  utter_ask_for_comfort_en:
+    - text: "I'm here to comfort you. What's troubling you?"
+  utter_ask_for_comfort_ar:
+    - text: "أنا هنا لراحتك. ما الذي يزعجك؟"
+  utter_ask_for_advice_en:
+    - text: "I'm here to offer advice. What would you like guidance on?"
+  utter_ask_for_advice_ar:
+    - text: "أنا هنا لتقديم النصيحة. ما الذي تريد التوجيه بشأنه؟"
+  utter_ask_for_encouragement_en:
+    - text: "You're doing great! Keep going, I believe in you."
+  utter_ask_for_encouragement_ar:
+    - text: "أنت تبلي بلاءً حسناً! واصل التقدم، أنا أؤمن بك."
+  utter_ask_about_day_en:
+    - text: "How has your day been so far?"
+  utter_ask_about_day_ar:
+    - text: "كيف كان يومك حتى الآن؟"
+  utter_show_gratitude_en:
+    - text: "Thank you for sharing that with me. I appreciate your trust."
+  utter_show_gratitude_ar:
+    - text: "شكراً لمشاركة ذلك معي. أقدر ثقتك."
+  utter_ask_for_apology_en:
+    - text: "I understand you're feeling hurt. I'm here to listen and help."
+  utter_ask_for_apology_ar:
+    - text: "أفهم أنك تشعر بالأذى. أنا هنا للاستماع والمساعدة."
+  utter_talk_about_stress_en:
+    - text: "Let's talk about what's causing you stress. I'm here to listen."
+  utter_talk_about_stress_ar:
+    - text: "دعنا نتحدث عما يسبب لك التوتر. أنا هنا للاستماع."
+  utter_talk_about_relationships_en:
+    - text: "Relationships can be challenging. Would you like to discuss what's on your mind?"
+  utter_talk_about_relationships_ar:
+    - text: "العلاقات يمكن أن تكون صعبة. هل تريد مناقشة ما يدور في ذهنك؟"
+  utter_talk_about_depression_en:
+    - text: "Depression is a serious matter. I'm here to listen and support you."
+  utter_talk_about_depression_ar:
+    - text: "الاكتئاب مسألة خطيرة. أنا هنا للاستماع ودعمك."
+  utter_handle_insults_to_girl_en:
+    - text: "I understand you're upset, but let's keep our conversation respectful."
+  utter_handle_insults_to_girl_ar:
+    - text: "أفهم أنك منزعج، لكن دعنا نحافظ على محادثتنا محترمة."
+
 actions:
   - action_mental_health_response
   - action_handle_specific_test_en
@@ -442,10 +599,23 @@ actions:
   - action_handle_lina_support_ar
   - action_handle_specific_doctor_service_en
   - action_handle_specific_doctor_service_ar
+  - action_switch_language
+  - action_detect_language
+
 slots:
   mental_history:
     type: list
     influence_conversation: false
+    mappings:
+      - type: custom
+  detected_languages:
+    type: list
+    influence_conversation: false
+    mappings:
+      - type: custom
+  current_language:
+    type: text
+    influence_conversation: true
     mappings:
       - type: custom
 

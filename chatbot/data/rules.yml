@@ -1,87 +1,174 @@
 version: "3.1"
 
 rules:
+  # Service Response Rules
+  - rule: Service Response EN
+    steps:
+      - intent: specific_doctor_service_en
+      - action: action_detect_language
+      - action: action_handle_specific_doctor_service_en
+
+  - rule: Service Response AR
+    steps:
+      - intent: specific_doctor_service_ar
+      - action: action_detect_language
+      - action: action_handle_specific_doctor_service_ar
+
+  # Article Response Rules
+  - rule: Article Response EN
+    steps:
+      - intent: specific_article_request_en
+      - action: action_detect_language
+      - action: action_handle_specific_article_en
+
+  - rule: Article Response AR
+    steps:
+      - intent: specific_article_request_ar
+      - action: action_detect_language
+      - action: action_handle_specific_article_ar
+
+  # Test Response Rules
+  - rule: Test Response EN
+    steps:
+      - intent: specific_test_request_en
+      - action: action_detect_language
+      - action: action_handle_specific_test_en
+
+  - rule: Test Response AR
+    steps:
+      - intent: specific_test_request_ar
+      - action: action_detect_language
+      - action: action_handle_specific_test_ar
+
   # Mental Health Response Rules
   - rule: Mental Health Response Rule EN
     steps:
       - intent: mental_health_symptoms_en
+      - action: action_detect_language
       - action: action_mental_health_response
 
   - rule: Mental Health Response Rule AR
     steps:
       - intent: mental_health_symptoms_ar
+      - action: action_detect_language
       - action: action_mental_health_response
 
+  # Distress Response Rules
+  - rule: Distress Response EN
+    steps:
+      - intent: mental_health_crisis_en
+      - action: action_detect_language
+      - action: utter_mental_health_crisis_en
+
+  - rule: Distress Response AR
+    steps:
+      - intent: mental_health_crisis_ar
+      - action: action_detect_language
+      - action: utter_mental_health_crisis_ar
+      - action: utter_distress_response_ar
+
+  # General Mental Support Rules
   - rule: General Mental Support EN
     steps:
       - intent: general_mental_support_en
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_general_mental_support_en
 
   - rule: General Mental Support AR
     steps:
       - intent: general_mental_support_ar
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_general_mental_support_ar
 
+  # Seek Mental Strength Rules
   - rule: Seek Mental Strength EN
     steps:
       - intent: seek_mental_strength_en
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_acknowledge_strength_query_en
 
   - rule: Seek Mental Strength AR
     steps:
       - intent: seek_mental_strength_ar
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_acknowledge_strength_query_ar
 
+  # Feeling Misunderstood Rules
   - rule: Feeling Misunderstood EN
     steps:
       - intent: feeling_misunderstood_en
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_empathetic_misunderstanding_en
 
   - rule: Feeling Misunderstood AR
     steps:
       - intent: feeling_misunderstood_ar
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_empathetic_misunderstanding_ar
 
+  # Express Loneliness Rules
   - rule: Express Loneliness EN
     steps:
       - intent: express_loneliness_en
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_empathy_for_loneliness_en
 
   - rule: Express Loneliness AR
     steps:
       - intent: express_loneliness_ar
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_empathy_for_loneliness_ar
 
+  # Mental Health Concern Rules
   - rule: Mental Health Concern EN
     steps:
       - intent: mental_health_concern_en
+      - action: action_detect_language
       - action: action_mental_health_response
 
   - rule: Mental Health Concern AR
     steps:
       - intent: mental_health_concern_ar
+      - action: action_detect_language
       - action: action_mental_health_response
 
+  # Mood Rules
   - rule: Mood Unhappy EN
     steps:
       - intent: mood_unhappy_en
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_mood_unhappy_en
+
+  - rule: Mood Great EN
+    steps:
+      - intent: mood_great_en
+      - action: action_detect_language
+      - action: utter_mood_great_en
 
   - rule: Mood Unhappy AR
     steps:
       - intent: mood_unhappy_ar
-      - action: action_mental_health_response
+      - action: action_detect_language
+      - action: utter_mood_unhappy_ar
+
+  - rule: Mood Great AR
+    steps:
+      - intent: mood_great_ar
+      - action: action_detect_language
+      - action: utter_mood_great_ar
 
   # Greeting Rules
   - rule: Greeting EN
     steps:
       - intent: greet_en
+      - action: action_detect_language
       - action: utter_greet_en
       - action: utter_ask_feeling_en
 
   - rule: Greeting AR
     steps:
       - intent: greet_ar
+      - action: action_detect_language
       - action: utter_greet_ar
       - action: utter_ask_feeling_ar
 
@@ -100,64 +187,316 @@ rules:
   - rule: Bot Challenge EN
     steps:
       - intent: bot_challenge_en
+      - action: action_detect_language
       - action: utter_bot_challenge_en
 
   - rule: Bot Challenge AR
     steps:
       - intent: bot_challenge_ar
+      - action: action_detect_language
       - action: utter_bot_challenge_ar
-
-  # Mental Health Crisis Rules
-  - rule: Mental Health Crisis EN
-    steps:
-      - intent: mental_health_crisis_en
-      - action: utter_mental_health_crisis_en
-
-  - rule: Mental Health Crisis AR
-    steps:
-      - intent: mental_health_crisis_ar
-      - action: utter_mental_health_crisis_ar
 
   # Identity Rules
   - rule: Identity EN
     steps:
       - intent: identity_en
+      - action: action_detect_language
       - action: utter_identity_en
 
   - rule: Identity AR
     steps:
       - intent: identity_ar
+      - action: action_detect_language
       - action: utter_identity_ar
 
   # Website Info Rules
   - rule: Website Info EN
     steps:
       - intent: website_info_en
-      - action: utter_website_integration_en
+      - action: action_detect_language
+      - action: utter_website_info_en
 
   - rule: Website Info AR
     steps:
       - intent: website_info_ar
-      - action: utter_website_integration_ar
+      - action: action_detect_language
+      - action: utter_website_info_ar
 
   # Offensive Language Rules
   - rule: Offensive Language EN
     steps:
       - intent: offensive_language_en
+      - action: action_detect_language
       - action: utter_offensive_language_en
 
   - rule: Offensive Language AR
     steps:
       - intent: offensive_language_ar
+      - action: action_detect_language
       - action: utter_offensive_language_ar
 
   # Fallback Rules
   - rule: Fallback EN
     steps:
       - intent: nlu_fallback_en
+      - action: action_detect_language
       - action: utter_fallback_en
 
   - rule: Fallback AR
     steps:
       - intent: nlu_fallback_ar
+      - action: action_detect_language
       - action: utter_fallback_ar
+
+  # Ask for Help Rules
+  - rule: Ask for Help EN
+    steps:
+      - intent: ask_for_help_en
+      - action: action_detect_language
+      - action: utter_ask_for_help_en
+
+  - rule: Ask for Help AR
+    steps:
+      - intent: ask_for_help_ar
+      - action: action_detect_language
+      - action: utter_ask_for_help_ar
+
+  # Affirm/Deny Rules
+  - rule: Affirm EN
+    steps:
+      - intent: affirm_en
+      - action: utter_affirm_en
+
+  - rule: Affirm AR
+    steps:
+      - intent: affirm_ar
+      - action: utter_affirm_ar
+
+  - rule: Deny EN
+    steps:
+      - intent: deny_en
+      - action: utter_deny_en
+
+  - rule: Deny AR
+    steps:
+      - intent: deny_ar
+      - action: utter_deny_ar
+
+  # Social Connection Rules
+  - rule: Social Connection EN
+    steps:
+      - intent: social_connection_en
+      - action: action_detect_language
+      - action: utter_social_connection_en
+
+  - rule: Social Connection AR
+    steps:
+      - intent: social_connection_ar
+      - action: action_detect_language
+      - action: utter_social_connection_ar
+
+  # Mental Health Tips Rules
+  - rule: Daily Routine Tips EN
+    steps:
+      - intent: daily_routine_tips_en
+      - action: action_detect_language
+      - action: utter_daily_routine_tips_en
+
+  - rule: Daily Routine Tips AR
+    steps:
+      - intent: daily_routine_tips_ar
+      - action: action_detect_language
+      - action: utter_daily_routine_tips_ar
+
+  - rule: Sleep Tips EN
+    steps:
+      - intent: sleep_tips_en
+      - action: action_detect_language
+      - action: utter_sleep_tips_en
+
+  - rule: Sleep Tips AR
+    steps:
+      - intent: sleep_tips_ar
+      - action: action_detect_language
+      - action: utter_sleep_tips_ar
+
+  - rule: Time Management Tips EN
+    steps:
+      - intent: time_management_tips_en
+      - action: action_detect_language
+      - action: utter_time_management_tips_en
+
+  - rule: Time Management Tips AR
+    steps:
+      - intent: time_management_tips_ar
+      - action: action_detect_language
+      - action: utter_time_management_tips_ar
+
+  - rule: Breathing Relaxation Tips EN
+    steps:
+      - intent: breathing_relaxation_tips_en
+      - action: action_detect_language
+      - action: utter_breathing_relaxation_tips_en
+
+  - rule: Breathing Relaxation Tips AR
+    steps:
+      - intent: breathing_relaxation_tips_ar
+      - action: action_detect_language
+      - action: utter_breathing_relaxation_tips_ar
+
+  - rule: Self Esteem Tips EN
+    steps:
+      - intent: self_esteem_tips_en
+      - action: action_detect_language
+      - action: utter_self_esteem_tips_en
+
+  - rule: Self Esteem Tips AR
+    steps:
+      - intent: self_esteem_tips_ar
+      - action: action_detect_language
+      - action: utter_self_esteem_tips_ar
+
+  - rule: Relationship Advice EN
+    steps:
+      - intent: relationship_advice_en
+      - action: action_detect_language
+      - action: utter_relationship_advice_en
+
+  - rule: Relationship Advice AR
+    steps:
+      - intent: relationship_advice_ar
+      - action: action_detect_language
+      - action: utter_relationship_advice_ar
+
+  - rule: Crisis Support EN
+    steps:
+      - intent: crisis_support_en
+      - action: action_detect_language
+      - action: utter_crisis_support_en
+
+  - rule: Crisis Support AR
+    steps:
+      - intent: crisis_support_ar
+      - action: action_detect_language
+      - action: utter_crisis_support_ar
+
+  - rule: Negative Thought Management EN
+    steps:
+      - intent: negative_thought_management_en
+      - action: action_detect_language
+      - action: utter_negative_thought_management_en
+
+  - rule: Negative Thought Management AR
+    steps:
+      - intent: negative_thought_management_ar
+      - action: action_detect_language
+      - action: utter_negative_thought_management_ar
+
+  - rule: Personal Development Tips EN
+    steps:
+      - intent: personal_development_tips_en
+      - action: action_detect_language
+      - action: utter_personal_development_tips_en
+
+  - rule: Personal Development Tips AR
+    steps:
+      - intent: personal_development_tips_ar
+      - action: action_detect_language
+      - action: utter_personal_development_tips_ar
+
+  - rule: Psychoeducation EN
+    steps:
+      - intent: psychoeducation_en
+      - action: action_detect_language
+      - action: utter_psychoeducation_en
+
+  - rule: Psychoeducation AR
+    steps:
+      - intent: psychoeducation_ar
+      - action: action_detect_language
+      - action: utter_psychoeducation_ar
+
+  - rule: Motivation and Meditation EN
+    steps:
+      - intent: motivation_and_meditation_en
+      - action: action_detect_language
+      - action: utter_motivation_and_meditation_en
+
+  - rule: Motivation and Meditation AR
+    steps:
+      - intent: motivation_and_meditation_ar
+      - action: action_detect_language
+      - action: utter_motivation_and_meditation_ar
+
+  - rule: Medical Articles EN
+    steps:
+      - intent: medical_articles_en
+      - action: action_detect_language
+      - action: utter_medical_articles_en
+
+  - rule: Medical Articles AR
+    steps:
+      - intent: medical_articles_ar
+      - action: action_detect_language
+      - action: utter_medical_articles_ar
+
+  # Emotion Rules
+  - rule: Express Happiness EN
+    steps:
+      - intent: express_happiness_en
+      - action: action_detect_language
+      - action: utter_express_happiness_en
+
+  - rule: Express Happiness AR
+    steps:
+      - intent: express_happiness_ar
+      - action: action_detect_language
+      - action: utter_express_happiness_ar
+
+  - rule: Express Sadness EN
+    steps:
+      - intent: express_sadness_en
+      - action: action_detect_language
+      - action: utter_express_sadness_en
+
+  - rule: Express Sadness AR
+    steps:
+      - intent: express_sadness_ar
+      - action: action_detect_language
+      - action: utter_express_sadness_ar
+
+  - rule: Express Anger EN
+    steps:
+      - intent: express_anger_en
+      - action: action_detect_language
+      - action: utter_express_anger_en
+
+  - rule: Express Anger AR
+    steps:
+      - intent: express_anger_ar
+      - action: action_detect_language
+      - action: utter_express_anger_ar
+
+  - rule: Express Love EN
+    steps:
+      - intent: express_love_en
+      - action: action_detect_language
+      - action: utter_express_love_en
+
+  - rule: Express Love AR
+    steps:
+      - intent: express_love_ar
+      - action: action_detect_language
+      - action: utter_express_love_ar
+
+  - rule: Express Confusion EN
+    steps:
+      - intent: express_confusion_en
+      - action: action_detect_language
+      - action: utter_express_confusion_en
+
+  - rule: Express Confusion AR
+    steps:
+      - intent: express_confusion_ar
+      - action: action_detect_language
+      - action: utter_express_confusion_ar

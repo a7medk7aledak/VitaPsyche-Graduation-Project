@@ -24,10 +24,13 @@ export const ChatInput: React.FC<ChatInputProps> = ({
   language,
   setIsHistoryVisible,
   onMessageSent,
+  setIsLoading, // Destructure setIsLoading
 }) => {
   const [isSending, setIsSending] = useState(false);
-  const { token } = useSelector((state: RootState) => state.auth);
+  const { user, token } = useSelector((state: RootState) => state.auth);
   const { currentSession } = useSelector((state: RootState) => state.chat);
+
+  const username = user?.username || 'user'; // Define username here, outside handleSendMessage
 
   const saveBotMessageToAPI = async (message: Message) => {
     try {
@@ -42,6 +45,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
           sender: message.sender,
           text: message.text,
           timestamp: message.timestamp,
+          username: message.username, // Pass username
         }),
       });
 
@@ -57,6 +61,7 @@ export const ChatInput: React.FC<ChatInputProps> = ({
     if (!input.trim() || !currentSession?.id || !token) return;
 
     setIsSending(true);
+    if (setIsLoading) setIsLoading(true);
 
     try {
       // Send user message
@@ -66,48 +71,15 @@ export const ChatInput: React.FC<ChatInputProps> = ({
         timestamp: new Date().toISOString(),
         lang: language,
         chat_session: currentSession.id,
+        username: username,
       };
       onMessageSent(userMessage);
-      await saveBotMessageToAPI(userMessage);
-
-      // Get chatbot response
-      const response = await fetch("/api/chatbot", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ message: input }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      // Create bot message
-      const botMessage: Message = {
-        sender: "bot",
-        text: data.response,
-        timestamp: new Date().toISOString(),
-        lang: language,
-        chat_session: currentSession.id,
-      };
-
-      // First show the message to the user
-      onMessageSent(botMessage);
-
-      // Then save it to the API
-
-      await saveBotMessageToAPI(botMessage);
-
       setInput("");
     } catch (error) {
       console.error("Error in message handling:", error);
-      // Add error handling UI here
     } finally {
       setIsSending(false);
+      if (setIsLoading) setIsLoading(false);
     }
   };
 

@@ -47,6 +47,7 @@ const ChatBotPage: React.FC = () => {
     null
   );
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -139,9 +140,76 @@ const ChatBotPage: React.FC = () => {
     setLanguage(e.target.value);
   };
 
-  const handleMessageSent = (message: Message) => {
+  const handleMessageSent = async (message: Message) => {
+    if (!currentSession?.session_id || !token) {
+      console.error("No active session or token available.");
+      setMessages((prev) => [...prev, {
+          sender: "bot",
+          text: "Please select or start a chat session to send messages.",
+          timestamp: new Date().toISOString(),
+          lang: language,
+          chat_session: "error"
+      }]);
+      setTimeout(() => scrollToBottom(), 100);
+      return;
+    }
+
     setMessages((prev) => [...prev, message]);
+    setInput("");
+    setIsLoading(true);
     setTimeout(() => scrollToBottom(), 100);
+
+    try {
+      const botMessage = await messageService.sendMessage(
+        token,
+        {
+          chat_session: currentSession.id,
+          sender: message.sender,
+          text: message.text,
+        }
+      );
+
+      if (botMessage) {
+        setMessages((prev) => [...prev, botMessage]);
+      } else {
+        console.error("sendMessage returned no bot message.");
+        setMessages((prev) => [...prev, {
+          sender: "bot",
+          text: "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.",
+          timestamp: new Date().toISOString(),
+          lang: language,
+          chat_session: currentSession.id
+        }]);
+      }
+    } catch (error: any) {
+      console.error("Error sending message to chatbot:", error);
+      let errorMessage = "عذراً، يبدو أن هناك ضغطاً على الخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+      
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        if (error.response.status === 503) {
+          errorMessage = "عذراً، الخدمة غير متاحة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+        } else if (error.response.status === 504) {
+          errorMessage = "عذراً، استغرق الرد وقتاً طويلاً. الرجاء المحاولة مرة أخرى بعد قليل.";
+        }
+      } else if (error.request) {
+        // The request was made but no response was received
+        errorMessage = "عذراً، لا يمكن الاتصال بالخدمة حالياً. الرجاء المحاولة مرة أخرى بعد قليل.";
+      }
+
+      setMessages((prev) => [...prev, {
+        sender: "bot",
+        text: errorMessage,
+        timestamp: new Date().toISOString(),
+        lang: language,
+        chat_session: currentSession.id
+      }]);
+      setTimeout(() => scrollToBottom(), 100);
+    } finally {
+      setIsLoading(false);
+      setTimeout(() => scrollToBottom(), 100);
+    }
   };
 
   const handleLogout = () => {
@@ -185,7 +253,7 @@ const ChatBotPage: React.FC = () => {
             ref={messagesContainerRef}
             className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent"
           >
-            <ChatMessages messages={messages} language={language} />
+            <ChatMessages messages={messages} language={language} isLoading={isLoading} />
             <div ref={messagesEndRef} className="h-4" />
           </div>
 
