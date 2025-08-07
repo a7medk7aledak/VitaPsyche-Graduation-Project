@@ -1,9 +1,6 @@
 {
   "workbench.colorCustomizations": {
-    "terminal.background": "#00000000",
-    "activityBar.background": "#3C1473",
-    "titleBar.activeBackground": "#541CA1",
-    "titleBar.activeForeground": "#FDFDFF"
+    "terminal.background": "#00000000"
   },
   "dart.showTodos": false,
   "C_Cpp_Runner.msvcBatchPath": ""
